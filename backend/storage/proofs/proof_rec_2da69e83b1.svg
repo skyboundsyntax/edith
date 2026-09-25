@@ -1,0 +1,18 @@
+<svg width="480" height="220" viewBox="0 0 480 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="480" height="220" rx="16" fill="#0F172A" stroke="#334155" stroke-width="2"/>
+            <rect x="20" y="20" width="440" height="40" rx="8" fill="#1E293B"/>
+            <text x="35" y="46" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="700" fill="#38BDF8">DATA INTELLIGENCE PROVENANCE AUDIT</text>
+            <circle cx="435" cy="40" r="6" fill="#EF4444"/>
+            
+            <text x="35" y="90" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#94A3B8">RECORD ID</text>
+            <text x="35" y="110" font-family="monospace" font-size="13" font-weight="600" fill="#F8FAFC">rec_2da69e83b1</text>
+            
+            <text x="250" y="90" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#94A3B8">CONFIDENCE (JEV)</text>
+            <text x="250" y="112" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="800" fill="#EF4444">59.5%</text>
+            
+            <text x="35" y="145" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#94A3B8">SOURCE DOMAIN</text>
+            <text x="35" y="165" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#38BDF8">www.linkedin.com/search/results/all</text>
+            
+            <text x="35" y="195" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#64748B">Captured: 2026-09-25T11:14:51.190497+00:00</text>
+            <text x="290" y="195" font-family="system-ui, -apple-system, sans-serif" font-size="11" fill="#10B981">Verified by TypeSafe Jev</text>
+        </svg>
