@@ -91,19 +91,25 @@ class JobicyConnector(JobSourceConnector):
 
                     salary_min = None
                     salary_max = None
-                    salary_currency = "USD"
-                    if item.get("annualSalaryMin"):
+                    salary_currency = item.get("salaryCurrency") or "USD"
+                    s_min_raw = item.get("salaryMin") or item.get("annualSalaryMin")
+                    s_max_raw = item.get("salaryMax") or item.get("annualSalaryMax")
+                    if s_min_raw is not None:
                         try:
-                            salary_min = float(item.get("annualSalaryMin"))
+                            salary_min = float(s_min_raw)
                         except (ValueError, TypeError):
                             pass
-                    if item.get("annualSalaryMax"):
+                    if s_max_raw is not None:
                         try:
-                            salary_max = float(item.get("annualSalaryMax"))
+                            salary_max = float(s_max_raw)
                         except (ValueError, TypeError):
                             pass
-                    if item.get("salaryCurrency"):
-                        salary_currency = item.get("salaryCurrency")
+
+                    job_type_raw = item.get("jobType")
+                    if isinstance(job_type_raw, list):
+                        employment_type = str(job_type_raw[0]).lower() if job_type_raw else "full-time"
+                    else:
+                        employment_type = str(job_type_raw or "full-time").lower()
 
                     canonical_job = {
                         "id": f"jby_{job_id}",
@@ -125,7 +131,7 @@ class JobicyConnector(JobSourceConnector):
                         "state": None,
                         "country": "India" if "india" in geo_lower else "Global",
                         "remote_type": "remote",
-                        "employment_type": (item.get("jobType") or "full-time").lower(),
+                        "employment_type": employment_type,
                         "experience_min": 0,
                         "experience_max": 3,
                         "salary_min": salary_min,
