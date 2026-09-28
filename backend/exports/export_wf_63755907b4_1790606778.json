@@ -1,0 +1,138 @@
+[
+  {
+    "record_id": "rec_23fde3fc5f",
+    "workflow_id": "wf_63755907b4",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Senior Python Engineer (Full Stack)",
+      "company": "Lendable",
+      "location": "London, England, United Kingdom",
+      "experience_years": "intern",
+      "skills": [
+        "Python",
+        "Django",
+        "FastAPI",
+        "Flask",
+        "React",
+        "Vue",
+        "Angular"
+      ],
+      "salary_range": "Disclosed on Application (Competitive Market CTC)",
+      "platform_source": "LinkedIn",
+      "apply_link": "https://uk.linkedin.com/jobs/view/senior-python-engineer-full-stack-at-lendable-4461978953"
+    },
+    "confidence_score": 93.4,
+    "confidence_breakdown": {
+      "completeness": 100.0,
+      "source_grounding": 83.3,
+      "syntax_validity": 100.0,
+      "information_density": 95.0
+    },
+    "human_review_required": false,
+    "source_url": "https://uk.linkedin.com/jobs/view/senior-python-engineer-full-stack-at-lendable-4461978953",
+    "source_title": "Senior Python Engineer (Full Stack) - Lendable",
+    "extracted_timestamp": "2026-09-28T14:46:05.690574+00:00",
+    "raw_snippet": "About Lendable Lendable is on a mission to build the world's best technology to help people get credit and save money. We're building one of the world\u2019s leading fintech companies and are off to a strong start: One of the UK\u2019s most exciting unicorns with..."
+  },
+  {
+    "record_id": "rec_37403f6b83",
+    "workflow_id": "wf_63755907b4",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Senior Software Engineer, Full-Stack Applications (Python)",
+      "company": "Fitch Group, Inc.",
+      "location": "Manchester, England, United Kingdom",
+      "experience_years": "4-7 years",
+      "skills": [
+        "Python",
+        "FastAPI",
+        "Flask",
+        "React",
+        "JavaScript",
+        "TypeScript",
+        "Node.js"
+      ],
+      "salary_range": "Disclosed on Application (Competitive Market CTC)",
+      "platform_source": "LinkedIn",
+      "apply_link": "https://uk.linkedin.com/jobs/view/senior-software-engineer-full-stack-applications-python-at-fitch-group-inc-4322799756"
+    },
+    "confidence_score": 92.2,
+    "confidence_breakdown": {
+      "completeness": 100.0,
+      "source_grounding": 80.0,
+      "syntax_validity": 100.0,
+      "information_density": 95.0
+    },
+    "human_review_required": false,
+    "source_url": "https://uk.linkedin.com/jobs/view/senior-software-engineer-full-stack-applications-python-at-fitch-group-inc-4322799756",
+    "source_title": "Senior Software Engineer, Full-Stack Applications (Python) - Fitch Group, Inc.",
+    "extracted_timestamp": "2026-09-28T14:46:09.037704+00:00",
+    "raw_snippet": "Senior Software Engineer, Full-Stack Applications (Python) \u2013 Ratings Technology Location: Manchester Fitch Ratings is seeking a Senior Software Engineer to join our global Ratings Technology team in Manchester. You'll build and maintain mission-critical full-stack applications that power how a world-leading credit ratings agency delivers insights..."
+  },
+  {
+    "record_id": "rec_8f6a0fc2af",
+    "workflow_id": "wf_63755907b4",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Full Stack Engineer (\u00a3120k-\u00a3130k + Equity) at Aisy",
+      "company": "Jack & Jill",
+      "location": "London, England, United Kingdom",
+      "experience_years": "2-6 years",
+      "skills": [
+        "Python",
+        "React",
+        "Go"
+      ],
+      "salary_range": "\u00a3120k",
+      "platform_source": "LinkedIn",
+      "apply_link": "https://uk.linkedin.com/jobs/view/full-stack-engineer-%C2%A3120k-%C2%A3130k-%2B-equity-at-aisy-at-jack-jill-4457974915"
+    },
+    "confidence_score": 96.9,
+    "confidence_breakdown": {
+      "completeness": 100.0,
+      "source_grounding": 93.3,
+      "syntax_validity": 100.0,
+      "information_density": 95.0
+    },
+    "human_review_required": false,
+    "source_url": "https://uk.linkedin.com/jobs/view/full-stack-engineer-%C2%A3120k-%C2%A3130k-%2B-equity-at-aisy-at-jack-jill-4457974915",
+    "source_title": "Full Stack Engineer (\u00a3120k-\u00a3130k + Equity) at Aisy - Jack & Jill",
+    "extracted_timestamp": "2026-09-28T14:46:12.964551+00:00",
+    "raw_snippet": "This is a job that Jill, our AI Recruiter, is recruiting for on behalf of one of our customers. She will pick the best candidates from Jack's network. The next step is to speak to Jack. Job Title Full Stack Engineer Salary \u00a3120k-\u00a3130k + Equity..."
+  },
+  {
+    "record_id": "rec_595643b635",
+    "workflow_id": "wf_63755907b4",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Sr Software Engineer - Media Buying Team",
+      "company": "Channel Factory",
+      "location": "Greater London, England, United Kingdom",
+      "experience_years": "2-5 years",
+      "skills": [
+        "Python",
+        "Django",
+        "JavaScript",
+        "AWS",
+        "Redis",
+        "RabbitMQ",
+        "CI/CD"
+      ],
+      "salary_range": "Disclosed on Application (Competitive Market CTC)",
+      "platform_source": "LinkedIn",
+      "apply_link": "https://uk.linkedin.com/jobs/view/sr-software-engineer-media-buying-team-at-channel-factory-4328919260"
+    },
+    "confidence_score": 92.2,
+    "confidence_breakdown": {
+      "completeness": 100.0,
+      "source_grounding": 80.0,
+      "syntax_validity": 100.0,
+      "information_density": 95.0
+    },
+    "human_review_required": false,
+    "source_url": "https://uk.linkedin.com/jobs/view/sr-software-engineer-media-buying-team-at-channel-factory-4328919260",
+    "source_title": "Sr Software Engineer - Media Buying Team - Channel Factory",
+    "extracted_timestamp": "2026-09-28T14:46:15.747712+00:00",
+    "raw_snippet": "Senior Software Engineer - Engineering Description Channel Factory provides intelligent marketing solutions for the next generation of contextual safety, suitability, and performance for brands and agencies. Our platform helps marketers implement, automate, and scale their marketing programs across the world\u2019s largest video library, YouTube and..."
+  }
+]

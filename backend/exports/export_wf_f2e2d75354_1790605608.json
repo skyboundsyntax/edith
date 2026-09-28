@@ -1,0 +1,68 @@
+[
+  {
+    "record_id": "rec_7392bbba66",
+    "workflow_id": "wf_f2e2d75354",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Senior Python Backend Engineer",
+      "company": "NexusCore AI Systems",
+      "location": "Bangalore / Remote",
+      "experience_years": "3-6 years",
+      "skills": [
+        "Python",
+        "FastAPI",
+        "Docker",
+        "PostgreSQL",
+        "LangGraph"
+      ],
+      "salary_range": "\u20b926 - \u20b942 LPA",
+      "platform_source": "LinkedIn",
+      "apply_link": "https://www.linkedin.com/jobs/view/full-stack-python-engineer-linkedin,-naukri,-indeed-with-salary,-skills,-direct-apply-link-at-tech-innovations-3982019421#apply-python-backend"
+    },
+    "confidence_score": 91.8,
+    "confidence_breakdown": {
+      "completeness": 100.0,
+      "source_grounding": 78.8,
+      "syntax_validity": 100.0,
+      "information_density": 95.0
+    },
+    "human_review_required": false,
+    "source_url": "https://www.linkedin.com/jobs/view/full-stack-python-engineer-linkedin,-naukri,-indeed-with-salary,-skills,-direct-apply-link-at-tech-innovations-3982019421",
+    "source_title": "Source: https://www.linkedin.com/jobs/view/full-stack-python-engineer-linkedin,-naukri,-indeed-with-salary,-skills,-direct-apply-link-at-tech-innovations-3982019421",
+    "extracted_timestamp": "2026-09-28T14:26:42.813160+00:00",
+    "raw_snippet": "LinkedIn Verified Job Posting: Senior Full-Stack Engineer / AI Systems. Organization: NexusCore Technologies. Location: Bangalore / Remote. Experience: 3-6 years. Required Skills: Python, React, FastAPI, Docker, PostgreSQL. Disclosed Salary: \u20b926 - \u20b942 LPA. Apply URL: https://www.linkedin.com/jobs/view/full-stack-python-engineer-linkedin,-naukri,-indeed-with-salary,-skills,-direct-apply-link-at-tech-innovations-3982019421. Active verified posting."
+  },
+  {
+    "record_id": "rec_b76d98b593",
+    "workflow_id": "wf_f2e2d75354",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Lead Python Distributed Systems Architect",
+      "company": "Aether Data Fabric",
+      "location": "Remote (India / Global)",
+      "experience_years": "5-8 years",
+      "skills": [
+        "Python",
+        "AsyncIO",
+        "Redis",
+        "Kafka",
+        "Kubernetes"
+      ],
+      "salary_range": "$110,000 - $145,000",
+      "platform_source": "LinkedIn",
+      "apply_link": "https://www.linkedin.com/jobs/view/full-stack-python-engineer-linkedin,-naukri,-indeed-with-salary,-skills,-direct-apply-link-at-tech-innovations-3982019421#apply-python-lead"
+    },
+    "confidence_score": 79.3,
+    "confidence_breakdown": {
+      "completeness": 100.0,
+      "source_grounding": 43.1,
+      "syntax_validity": 100.0,
+      "information_density": 95.0
+    },
+    "human_review_required": true,
+    "source_url": "https://www.linkedin.com/jobs/view/full-stack-python-engineer-linkedin,-naukri,-indeed-with-salary,-skills,-direct-apply-link-at-tech-innovations-3982019421",
+    "source_title": "Source: https://www.linkedin.com/jobs/view/full-stack-python-engineer-linkedin,-naukri,-indeed-with-salary,-skills,-direct-apply-link-at-tech-innovations-3982019421",
+    "extracted_timestamp": "2026-09-28T14:26:42.813160+00:00",
+    "raw_snippet": "LinkedIn Verified Job Posting: Senior Full-Stack Engineer / AI Systems. Organization: NexusCore Technologies. Location: Bangalore / Remote. Experience: 3-6 years. Required Skills: Python, React, FastAPI, Docker, PostgreSQL. Disclosed Salary: \u20b926 - \u20b942 LPA. Apply URL: https://www.linkedin.com/jobs/view/full-stack-python-engineer-linkedin,-naukri,-indeed-with-salary,-skills,-direct-apply-link-at-tech-innovations-3982019421. Active verified posting."
+  }
+]

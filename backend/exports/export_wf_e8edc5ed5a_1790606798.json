@@ -1,0 +1,128 @@
+[
+  {
+    "record_id": "rec_be08fba260",
+    "workflow_id": "wf_e8edc5ed5a",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Associate Software Engineer Intern",
+      "company": "Kaleris",
+      "location": "Chennai, Tamil Nadu, India",
+      "experience_years": "Intern",
+      "skills": [
+        "Software Engineering",
+        "Problem Solving",
+        "System Design"
+      ],
+      "salary_range": "Disclosed on Application (Competitive Market CTC)",
+      "platform_source": "LinkedIn",
+      "apply_link": "https://in.linkedin.com/jobs/view/associate-software-engineer-intern-at-kaleris-4471308785"
+    },
+    "confidence_score": 89.9,
+    "confidence_breakdown": {
+      "completeness": 100.0,
+      "source_grounding": 73.3,
+      "syntax_validity": 100.0,
+      "information_density": 95.0
+    },
+    "human_review_required": false,
+    "source_url": "https://in.linkedin.com/jobs/view/associate-software-engineer-intern-at-kaleris-4471308785",
+    "source_title": "Associate Software Engineer Intern - Kaleris",
+    "extracted_timestamp": "2026-09-28T14:46:29.793567+00:00",
+    "raw_snippet": "Job Description Kaleris is a private equity-backed software firm focused on supply chain optimization, headquartered in Atlanta, Georgia. We are a global leader in the supply chain execution market, focused on accelerating the transformation of digital supply chain for industrial and finished goods shippers and..."
+  },
+  {
+    "record_id": "rec_2de5682aa7",
+    "workflow_id": "wf_e8edc5ed5a",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Software Development Internship in Hathras (Hybrid)",
+      "company": "Crazy for Success Foundation",
+      "location": "Hathras, Uttar Pradesh, India",
+      "experience_years": "intern",
+      "skills": [
+        "Python",
+        "React",
+        "JavaScript",
+        "MySQL"
+      ],
+      "salary_range": "Disclosed on Application (Competitive Market CTC)",
+      "platform_source": "LinkedIn",
+      "apply_link": "https://in.linkedin.com/jobs/view/software-development-internship-in-hathras-hybrid-at-crazy-for-success-foundation-4470220255"
+    },
+    "confidence_score": 91.1,
+    "confidence_breakdown": {
+      "completeness": 100.0,
+      "source_grounding": 76.7,
+      "syntax_validity": 100.0,
+      "information_density": 95.0
+    },
+    "human_review_required": false,
+    "source_url": "https://in.linkedin.com/jobs/view/software-development-internship-in-hathras-hybrid-at-crazy-for-success-foundation-4470220255",
+    "source_title": "Software Development Internship in Hathras (Hybrid) - Crazy for Success Foundation",
+    "extracted_timestamp": "2026-09-28T14:46:32.555201+00:00",
+    "raw_snippet": "Are you a passionate software developer looking to make a difference in the world? Crazy For Success Foundation is seeking a talented Software Development intern to join our team. If you have experience in Java, MySQL, HTML, CSS, JavaScript, Python, .NET, C++ Programming, and React,..."
+  },
+  {
+    "record_id": "rec_7676304aa8",
+    "workflow_id": "wf_e8edc5ed5a",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Intern - Android",
+      "company": "Uplabh",
+      "location": "Bengaluru, Karnataka, India",
+      "experience_years": "interns",
+      "skills": [
+        "Java",
+        "REST",
+        "Git"
+      ],
+      "salary_range": "Disclosed on Application (Competitive Market CTC)",
+      "platform_source": "LinkedIn",
+      "apply_link": "https://in.linkedin.com/jobs/view/intern-android-at-uplabh-4439554984"
+    },
+    "confidence_score": 93.4,
+    "confidence_breakdown": {
+      "completeness": 100.0,
+      "source_grounding": 83.3,
+      "syntax_validity": 100.0,
+      "information_density": 95.0
+    },
+    "human_review_required": false,
+    "source_url": "https://in.linkedin.com/jobs/view/intern-android-at-uplabh-4439554984",
+    "source_title": "Intern - Android - Uplabh",
+    "extracted_timestamp": "2026-09-28T14:46:35.215561+00:00",
+    "raw_snippet": "We\u2019re looking for Android Developer interns to join us full time for our customer facing android application development. Responsibilities Work with the product team to implement new features involving complex UI elements. Participate in code, writing tests, and documentation of application features. Ensure quality product..."
+  },
+  {
+    "record_id": "rec_1e7fa5d53a",
+    "workflow_id": "wf_e8edc5ed5a",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Apprentice - Enterprise Technology Services",
+      "company": "American Express",
+      "location": "Chennai, Tamil Nadu, India",
+      "experience_years": "2-5 years",
+      "skills": [
+        "Python",
+        "JavaScript",
+        "Express",
+        "Agile"
+      ],
+      "salary_range": "Disclosed on Application (Competitive Market CTC)",
+      "platform_source": "LinkedIn",
+      "apply_link": "https://in.linkedin.com/jobs/view/apprentice-enterprise-technology-services-at-american-express-4470348671"
+    },
+    "confidence_score": 89.9,
+    "confidence_breakdown": {
+      "completeness": 100.0,
+      "source_grounding": 73.3,
+      "syntax_validity": 100.0,
+      "information_density": 95.0
+    },
+    "human_review_required": false,
+    "source_url": "https://in.linkedin.com/jobs/view/apprentice-enterprise-technology-services-at-american-express-4470348671",
+    "source_title": "Apprentice - Enterprise Technology Services - American Express",
+    "extracted_timestamp": "2026-09-28T14:46:37.124939+00:00",
+    "raw_snippet": "Job Description Innovation is at the heart of everything we do. Every single day, our technologists enable our customers around the globe to achieve their goals. They design and deliver American Express infrastructure and applications across all markets and business units. To meet these demands,..."
+  }
+]

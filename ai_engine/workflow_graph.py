@@ -91,7 +91,7 @@ class DataIntelligenceWorkflow:
         # Fetch actual contents
         raw_documents = []
         for s in sources:
-            doc = await self.source_discovery.fetch_document_content(s["url"])
+            doc = await self.source_discovery.fetch_document_content(s)
             if not doc.get("text"):
                 doc["text"] = s.get("content", "")
             raw_documents.append(doc)

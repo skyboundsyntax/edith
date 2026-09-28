@@ -1,0 +1,142 @@
+[
+  {
+    "record_id": "rec_9e3556da9c",
+    "workflow_id": "wf_eb0722b375",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Python Developer",
+      "company": "Tata Consultancy Services",
+      "location": "Bengaluru, Karnataka, India",
+      "experience_years": "-0-6- -t-o- -1-2- -y-r-s-",
+      "skills": [
+        "Python",
+        "Django",
+        "FastAPI",
+        "React",
+        "JavaScript",
+        "TypeScript",
+        "AWS"
+      ],
+      "salary_range": "Disclosed on Application (Competitive Market CTC)",
+      "platform_source": "LinkedIn",
+      "apply_link": "https://in.linkedin.com/jobs/view/python-developer-at-tata-consultancy-services-4463276919"
+    },
+    "confidence_score": 88.8,
+    "confidence_breakdown": {
+      "completeness": 100.0,
+      "source_grounding": 70.0,
+      "syntax_validity": 100.0,
+      "information_density": 95.0
+    },
+    "human_review_required": false,
+    "source_url": "https://in.linkedin.com/jobs/view/python-developer-at-tata-consultancy-services-4463276919",
+    "source_title": "Python Developer - Tata Consultancy Services",
+    "extracted_timestamp": "2026-09-28T14:42:40.571093+00:00",
+    "raw_snippet": "Role: Python Fullstack Developer Experience: 06 to 12 yrs Drive Location: TCS-Bangalore Notice Period: 0to 45Days Mode of Interview: Virtual Responsibilities :- Strong experience in Python development with expertise in FastAPI, Django, and RESTful API design and development. Hands-on experience in building scalable, secure, and..."
+  },
+  {
+    "record_id": "rec_aaf1cd8670",
+    "workflow_id": "wf_eb0722b375",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Sr. Python Full stack Developer",
+      "company": "CGI",
+      "location": "Bengaluru, Karnataka, India",
+      "experience_years": "4-7 years",
+      "skills": [
+        "Python",
+        "FastAPI",
+        "Flask",
+        "JavaScript",
+        "TypeScript",
+        "Azure",
+        "REST APIs"
+      ],
+      "salary_range": "Disclosed on Application (Competitive Market CTC)",
+      "platform_source": "LinkedIn",
+      "apply_link": "https://in.linkedin.com/jobs/view/sr-python-full-stack-developer-at-cgi-4471674809"
+    },
+    "confidence_score": 94.6,
+    "confidence_breakdown": {
+      "completeness": 100.0,
+      "source_grounding": 86.7,
+      "syntax_validity": 100.0,
+      "information_density": 95.0
+    },
+    "human_review_required": false,
+    "source_url": "https://in.linkedin.com/jobs/view/sr-python-full-stack-developer-at-cgi-4471674809",
+    "source_title": "Sr. Python Full stack Developer - CGI",
+    "extracted_timestamp": "2026-09-28T14:42:42.668034+00:00",
+    "raw_snippet": "Position Description Job Title: Sr.Python Full Stack Developer Position: Lead Analyst Experience: 7+ years Category: Senior Software Engineer Shift: General Shift Work Mode: Hybrid (3 days in office, 2 days WFH) Primary location: India, Karnataka, Bangalore CGI Office: TPLS Bangalore / E-city Bangalore / DLF..."
+  },
+  {
+    "record_id": "rec_c4d29e0390",
+    "workflow_id": "wf_eb0722b375",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Senior Full Stack Developer-Python+React",
+      "company": "Mott MacDonald",
+      "location": "Bengaluru, Karnataka, India",
+      "experience_years": "4-7 years",
+      "skills": [
+        "Python",
+        "FastAPI",
+        "Flask",
+        "React",
+        "TypeScript",
+        "AWS",
+        "Azure"
+      ],
+      "salary_range": "Disclosed on Application (Competitive Market CTC)",
+      "platform_source": "LinkedIn",
+      "apply_link": "https://in.linkedin.com/jobs/view/senior-full-stack-developer-python%2Breact-at-mott-macdonald-4459688507"
+    },
+    "confidence_score": 94.6,
+    "confidence_breakdown": {
+      "completeness": 100.0,
+      "source_grounding": 86.7,
+      "syntax_validity": 100.0,
+      "information_density": 95.0
+    },
+    "human_review_required": false,
+    "source_url": "https://in.linkedin.com/jobs/view/senior-full-stack-developer-python%2Breact-at-mott-macdonald-4459688507",
+    "source_title": "Senior Full Stack Developer-Python+React - Mott MacDonald",
+    "extracted_timestamp": "2026-09-28T14:42:44.202312+00:00",
+    "raw_snippet": "Mott MacDonald is a global engineering, management, and development consultancy committed to delivering impactful work that shapes the future. We are a team of over 20,000 experts working across the world in more than 50 countries. We are proud to be part of an ever-changing..."
+  },
+  {
+    "record_id": "rec_5a04530e5e",
+    "workflow_id": "wf_eb0722b375",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Python FS",
+      "company": "Zemoso Technologies",
+      "location": "Bengaluru, Karnataka, India",
+      "experience_years": "-5- -t-o- -8- -y-e-a-r-s-",
+      "skills": [
+        "Python",
+        "Django",
+        "FastAPI",
+        "React",
+        "AWS",
+        "Azure",
+        "GCP"
+      ],
+      "salary_range": "Disclosed on Application (Competitive Market CTC)",
+      "platform_source": "LinkedIn",
+      "apply_link": "https://in.linkedin.com/jobs/view/python-fs-at-zemoso-technologies-4463420301"
+    },
+    "confidence_score": 92.2,
+    "confidence_breakdown": {
+      "completeness": 100.0,
+      "source_grounding": 80.0,
+      "syntax_validity": 100.0,
+      "information_density": 95.0
+    },
+    "human_review_required": false,
+    "source_url": "https://in.linkedin.com/jobs/view/python-fs-at-zemoso-technologies-4463420301",
+    "source_title": "Python FS - Zemoso Technologies",
+    "extracted_timestamp": "2026-09-28T14:42:45.949318+00:00",
+    "raw_snippet": "Role : Python Full Stack Developer (Django/FastAPI + React) Experience: 5 to 8 years Location: Bangalore (or willing to relocate to Bangalore) About Us: Zemoso Technologies is a Software Product Market Fit Studio that brings Silicon Valley-style rapid prototyping and rapid application builds to Entrepreneurs..."
+  }
+]
