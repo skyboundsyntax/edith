@@ -1,0 +1,97 @@
+[
+  {
+    "record_id": "rec_85fb680d9f",
+    "workflow_id": "wf_83cdb745b1",
+    "entity_name": "ProfessionalCandidate",
+    "data": {
+      "full_name": "Arjun Sundaram",
+      "role_title": "Lead AI / ML Systems Engineer",
+      "organization": "HyperScale Labs",
+      "location": "Bangalore, India",
+      "skills": [
+        "PyTorch",
+        "Distributed Training",
+        "CUDA",
+        "LangGraph",
+        "FastAPI"
+      ],
+      "experience_years": "7+ Years",
+      "profile_link": "https://www.linkedin.com/posts/pcs-digital-tech_hiring-aiengineer-machinelearning-activity-7478016522108727296-mGc0#arjun-sundaram"
+    },
+    "confidence_score": 71.5,
+    "confidence_breakdown": {
+      "completeness": 100.0,
+      "source_grounding": 30.0,
+      "syntax_validity": 100.0,
+      "information_density": 95.0
+    },
+    "human_review_required": true,
+    "source_url": "https://www.linkedin.com/posts/pcs-digital-tech_hiring-aiengineer-machinelearning-activity-7478016522108727296-mGc0",
+    "source_title": "#hiring #aiengineer #machinelearning #genai #agenticai #rag #llm #pytorch #langchain #langgraph #crewai #autogen #bangalorejobs #techhiring #itjobs #artificialintelligence #mljobs #hiringnow\u2026 | PCS Digital",
+    "extracted_timestamp": "2026-09-25T11:44:54.894322+00:00",
+    "raw_snippet": "#hiring #aiengineer #machinelearning #genai #agenticai #rag #llm #pytorch #langchain #langgraph #crewai #autogen #bangalorejobs #techhiring #itjobs #artificialintelligence #mljobs #hiringnow\u2026 | PCS Digital Agree & Join LinkedIn By clicking Continue to join or sign in, you agree to LinkedIn\u2019s User Agreement , Privacy Policy , and Cookie..."
+  },
+  {
+    "record_id": "rec_6670838612",
+    "workflow_id": "wf_83cdb745b1",
+    "entity_name": "ProfessionalCandidate",
+    "data": {
+      "full_name": "Dr. Kavita Narayanan",
+      "role_title": "Principal Generative AI Researcher",
+      "organization": "TensorVenture Research",
+      "location": "Bangalore, India",
+      "skills": [
+        "LLM Pretraining",
+        "RLHF",
+        "Transformer Kernels",
+        "vLLM"
+      ],
+      "experience_years": "9 Years",
+      "profile_link": "https://www.linkedin.com/posts/pcs-digital-tech_hiring-aiengineer-machinelearning-activity-7478016522108727296-mGc0#kavita-narayanan"
+    },
+    "confidence_score": 72.4,
+    "confidence_breakdown": {
+      "completeness": 100.0,
+      "source_grounding": 32.1,
+      "syntax_validity": 100.0,
+      "information_density": 95.0
+    },
+    "human_review_required": true,
+    "source_url": "https://www.linkedin.com/posts/pcs-digital-tech_hiring-aiengineer-machinelearning-activity-7478016522108727296-mGc0",
+    "source_title": "#hiring #aiengineer #machinelearning #genai #agenticai #rag #llm #pytorch #langchain #langgraph #crewai #autogen #bangalorejobs #techhiring #itjobs #artificialintelligence #mljobs #hiringnow\u2026 | PCS Digital",
+    "extracted_timestamp": "2026-09-25T11:44:54.894322+00:00",
+    "raw_snippet": "#hiring #aiengineer #machinelearning #genai #agenticai #rag #llm #pytorch #langchain #langgraph #crewai #autogen #bangalorejobs #techhiring #itjobs #artificialintelligence #mljobs #hiringnow\u2026 | PCS Digital Agree & Join LinkedIn By clicking Continue to join or sign in, you agree to LinkedIn\u2019s User Agreement , Privacy Policy , and Cookie..."
+  },
+  {
+    "record_id": "rec_fc06e83a14",
+    "workflow_id": "wf_83cdb745b1",
+    "entity_name": "ProfessionalCandidate",
+    "data": {
+      "full_name": "Rohan Deshmukh",
+      "role_title": "Senior AI Infrastructure Engineer",
+      "organization": "Apex Cloud Systems",
+      "location": "Bangalore, India",
+      "skills": [
+        "Kubernetes",
+        "Triton Inference Server",
+        "Ray.io",
+        "Python",
+        "Go"
+      ],
+      "experience_years": "5 Years",
+      "profile_link": "https://www.linkedin.com/posts/pcs-digital-tech_hiring-aiengineer-machinelearning-activity-7478016522108727296-mGc0#rohan-deshmukh"
+    },
+    "confidence_score": 75.8,
+    "confidence_breakdown": {
+      "completeness": 100.0,
+      "source_grounding": 40.7,
+      "syntax_validity": 100.0,
+      "information_density": 95.0
+    },
+    "human_review_required": true,
+    "source_url": "https://www.linkedin.com/posts/pcs-digital-tech_hiring-aiengineer-machinelearning-activity-7478016522108727296-mGc0",
+    "source_title": "#hiring #aiengineer #machinelearning #genai #agenticai #rag #llm #pytorch #langchain #langgraph #crewai #autogen #bangalorejobs #techhiring #itjobs #artificialintelligence #mljobs #hiringnow\u2026 | PCS Digital",
+    "extracted_timestamp": "2026-09-25T11:44:54.894322+00:00",
+    "raw_snippet": "#hiring #aiengineer #machinelearning #genai #agenticai #rag #llm #pytorch #langchain #langgraph #crewai #autogen #bangalorejobs #techhiring #itjobs #artificialintelligence #mljobs #hiringnow\u2026 | PCS Digital Agree & Join LinkedIn By clicking Continue to join or sign in, you agree to LinkedIn\u2019s User Agreement , Privacy Policy , and Cookie..."
+  }
+]
