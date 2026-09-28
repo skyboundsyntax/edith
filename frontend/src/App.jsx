@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Play, Sparkles, Sliders } from 'lucide-react';
 import Header from './components/Header';
 import MetricsCards from './components/MetricsCards';
@@ -6,19 +6,23 @@ import WorkflowGraph from './components/WorkflowGraph';
 import DataGrid from './components/DataGrid';
 import SourceDrawer from './components/SourceDrawer';
 import WorkflowHistoryModal from './components/WorkflowHistoryModal';
+import InterpretedRequirements from './components/InterpretedRequirements';
+import SourceHealthModal from './components/SourceHealthModal';
+import CandidateProfileModal from './components/CandidateProfileModal';
 import { api } from './services/api';
 
 const PRESET_PROMPTS = [
-  'Active Python Backend & FastAPI Roles (Remote / Bangalore, ₹25-45 LPA)',
-  'React 19 & Full Stack Openings across LinkedIn, Naukri & Indeed',
-  'Generative AI, PyTorch & LLM Systems Engineer Jobs ($120k+ / Remote)',
-  'Fresher & 2024-2026 Batch Software Development Jobs & Internships',
-  'DevOps, Kubernetes & Cloud Architecture Vacancies with Disclosed CTC'
+  'Entry-level Python & AI/ML engineer roles in Pune or Bangalore or Remote (₹6-18 LPA)',
+  'Second-year CSE internships for Python, React, SQL & Machine Learning at startups',
+  'Fresher Full-Stack & FastAPI Developer jobs with disclosed CTC in India',
+  'Generative AI, PyTorch & LLM Systems Engineer Jobs in India or Remote',
+  'DevOps, Kubernetes & Cloud Architecture Vacancies (0-2 years experience)'
 ];
 
 export default function App() {
-  const [prompt, setPrompt] = useState('Find active Full-Stack and Python Engineer job openings on LinkedIn, Naukri, and Indeed with salary, skills, and direct apply link');
-  const [confidenceThreshold, setConfidenceThreshold] = useState(80.0);
+  const [prompt, setPrompt] = useState('Find entry-level Python & AI/ML engineer roles in Pune or Bangalore or Remote, 0-2 years experience, minimum ₹6 LPA');
+  const [spec, setSpec] = useState(null);
+  const [confidenceThreshold, setConfidenceThreshold] = useState(75.0);
   const [isRunning, setIsRunning] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
 
@@ -33,32 +37,17 @@ export default function App() {
   // Modals & Drawers
   const [inspectRecordId, setInspectRecordId] = useState(null);
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
+  const [isSourceHealthOpen, setIsSourceHealthOpen] = useState(false);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
 
   const socketRef = useRef(null);
 
-  // Initial load
-  useEffect(() => {
-    loadWorkflows();
-  }, []);
-
-  const loadWorkflows = async () => {
-    try {
-      const data = await api.getWorkflows();
-      setWorkflows(data);
-      if (data.length > 0 && !activeWorkflow) {
-        selectWorkflow(data[0].id);
-      }
-    } catch (err) {
-      console.error('Failed to load workflows:', err);
-    }
-  };
-
-  const selectWorkflow = async (workflowId) => {
+  const selectWorkflow = useCallback(async (workflowId) => {
     try {
       const details = await api.getWorkflowDetails(workflowId);
       setActiveWorkflow(details.workflow);
       setExecutionLogs(details.workflow.execution_logs || []);
-      setCurrentNode('vector_deduplication');
+      setCurrentNode('human_review_evaluation');
       setMetrics({
         total_extracted: details.workflow.total_extracted,
         total_deduplicated: details.workflow.total_deduplicated,
@@ -72,60 +61,155 @@ export default function App() {
     } catch (err) {
       console.error('Failed to select workflow:', err);
     }
-  };
+  }, []);
+
+  const loadWorkflows = useCallback(async () => {
+    try {
+      const data = await api.getWorkflows();
+      setWorkflows(data);
+      if (data.length > 0 && !activeWorkflow) {
+        selectWorkflow(data[0].id);
+      }
+    } catch (err) {
+      console.error('Failed to load workflows:', err);
+    }
+  }, [activeWorkflow, selectWorkflow]);
+
+  // Initial load
+  useEffect(() => {
+    let ignore = false;
+    api.getWorkflows()
+      .then((data) => {
+        if (!ignore) {
+          setWorkflows(data);
+          if (data.length > 0) {
+            selectWorkflow(data[0].id);
+          }
+        }
+      })
+      .catch((err) => console.error('Failed to load workflows:', err));
+    return () => { ignore = true; };
+  }, [selectWorkflow]);
+
+  // Automatically plan requirements when prompt changes (debounced)
+  useEffect(() => {
+    if (!prompt.trim()) return;
+    let cancel = false;
+    const timer = setTimeout(async () => {
+      try {
+        const planRes = await api.planRequirements(prompt);
+        if (!cancel && planRes.spec) {
+          setSpec(planRes.spec);
+        }
+      } catch (err) {
+        console.error('Plan requirements error:', err);
+      }
+    }, 400);
+
+    return () => {
+      cancel = true;
+      clearTimeout(timer);
+    };
+  }, [prompt]);
 
   const handleLaunchWorkflow = async (e) => {
     if (e) e.preventDefault();
     if (!prompt.trim() || isRunning) return;
 
     setIsRunning(true);
-    setCurrentNode('intent_parser');
+    setCurrentNode('query_planning');
     setExecutionLogs([{
       timestamp: new Date().toISOString(),
-      node: 'intent_parser',
-      message: `Initiating autonomous LangGraph workflow pipeline for prompt: "${prompt}"`
+      node: 'query_planning',
+      message: `Analyzing natural-language request and synthesizing search requirements...`
     }]);
 
     try {
-      const newWf = await api.createWorkflow(prompt, confidenceThreshold);
+      const newWf = await api.createWorkflow(prompt, confidenceThreshold, spec);
       setActiveWorkflow(newWf);
 
-      // Connect to WebSocket for live node streaming
+      // Connect to WebSocket for live pipeline telemetry
       if (socketRef.current) {
         socketRef.current.close();
       }
 
+      let isFinished = false;
+
       socketRef.current = api.connectWebSocket(
         newWf.id,
         (event) => {
-          if (event.node) {
-            setCurrentNode(event.node);
+          const evType = event.event || event.type;
+          let nodeKey = 'query_planning';
+
+          if (evType === 'source_started' || evType === 'jobs_found' || evType === 'source_completed') {
+            nodeKey = 'source_connectors';
+          } else if (evType === 'normalization_completed') {
+            nodeKey = 'normalization';
+          } else if (evType === 'deduplication_completed') {
+            nodeKey = 'deduplication';
+          } else if (evType === 'validation_completed' || evType === 'scoring_completed') {
+            nodeKey = 'match_scoring';
           }
-          if (event.logs) {
-            setExecutionLogs((prev) => [...prev, event.logs]);
+
+          setCurrentNode(nodeKey);
+
+          let logMsg = event.message;
+          if (!logMsg) {
+            if (evType === 'source_started') logMsg = `Connecting to ${event.source} (${event.domain})...`;
+            else if (evType === 'jobs_found') logMsg = `${event.source}: Retrieved ${event.count} postings in ${event.duration_ms}ms.`;
+            else if (evType === 'deduplication_completed') logMsg = `Deduplication: Pruned ${event.removed} duplicate listings.`;
+            else if (evType === 'scoring_completed') logMsg = `Calculated explainable fit scores for ${event.count} listings.`;
+            else logMsg = JSON.stringify(event);
           }
-          if (event.type === 'WORKFLOW_COMPLETED') {
+
+          setExecutionLogs((prev) => [
+            ...prev,
+            {
+              timestamp: event.timestamp || new Date().toISOString(),
+              node: nodeKey,
+              message: logMsg
+            }
+          ]);
+
+          if (event.type === 'WORKFLOW_COMPLETED' || evType === 'pipeline_completed') {
+            isFinished = true;
             setIsRunning(false);
             selectWorkflow(newWf.id);
             loadWorkflows();
           }
         },
         () => {
-          // Fallback polling if WebSocket drops
-          setTimeout(() => {
-            selectWorkflow(newWf.id);
-            setIsRunning(false);
-          }, 4000);
+          // Socket error handler
         }
       );
 
-      // Safety timeout
+      // Resilient background poller
+      const pollInterval = setInterval(async () => {
+        if (isFinished) {
+          clearInterval(pollInterval);
+          return;
+        }
+        try {
+          const check = await api.getWorkflowDetails(newWf.id);
+          if (check?.workflow?.status === 'completed' || check?.workflow?.status === 'failed') {
+            isFinished = true;
+            clearInterval(pollInterval);
+            setIsRunning(false);
+            selectWorkflow(newWf.id);
+            loadWorkflows();
+          }
+        } catch (pollErr) {
+          console.error('Polling error:', pollErr);
+        }
+      }, 2000);
+
       setTimeout(() => {
-        if (isRunning) {
+        clearInterval(pollInterval);
+        if (!isFinished) {
           selectWorkflow(newWf.id);
           setIsRunning(false);
         }
-      }, 7000);
+      }, 45000);
 
     } catch (err) {
       alert(`Workflow execution failed: ${err.message}`);
@@ -153,6 +237,8 @@ export default function App() {
       {/* Top Navigation */}
       <Header
         onOpenHistory={() => setIsHistoryOpen(true)}
+        onOpenSourceHealth={() => setIsSourceHealthOpen(true)}
+        onOpenProfile={() => setIsProfileOpen(true)}
         onExport={handleExport}
         isExporting={isExporting}
       />
@@ -164,7 +250,7 @@ export default function App() {
           <div className="hero-header">
             <div className="hero-title-group">
               <h1>Autonomous Job Intelligence & Career Scraping Engine</h1>
-              <p>Live multi-platform web scraper targeting LinkedIn, Naukri, and Indeed with Jev's Trust Meter for anti-ghost & scam verification</p>
+              <p>Live multi-platform web scraper targeting ATS boards, remote job feeds, and structured Link-Out searches with Jev's Trust Meter for anti-ghost & scam verification</p>
             </div>
           </div>
 
@@ -230,10 +316,18 @@ export default function App() {
               </div>
             </div>
           </form>
+
+          {/* AI Interpreted Search Specification */}
+          <InterpretedRequirements
+            spec={spec}
+            onUpdateSpec={setSpec}
+            onLaunch={handleLaunchWorkflow}
+            isRunning={isRunning}
+          />
         </section>
 
         {/* Real-time Metrics Row */}
-        <MetricsCards metrics={metrics} activeWorkflow={activeWorkflow} />
+        <MetricsCards metrics={metrics} activeWorkflow={activeWorkflow} records={records} />
 
         {/* LangGraph State Machine Visualizer (SDD Section 2.1) */}
         <WorkflowGraph
@@ -266,6 +360,18 @@ export default function App() {
         workflows={workflows}
         activeWorkflowId={activeWorkflow?.id}
         onSelectWorkflow={(id) => selectWorkflow(id)}
+      />
+
+      {/* Source Health & Robots Compliance Modal */}
+      <SourceHealthModal
+        isOpen={isSourceHealthOpen}
+        onClose={() => setIsSourceHealthOpen(false)}
+      />
+
+      {/* Candidate Profile Modal */}
+      <CandidateProfileModal
+        isOpen={isProfileOpen}
+        onClose={() => setIsProfileOpen(false)}
       />
     </div>
   );

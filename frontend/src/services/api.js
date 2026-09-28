@@ -15,11 +15,26 @@ export const api = {
     return res.json();
   },
 
-  async createWorkflow(prompt, confidenceThreshold = 80.0) {
+  // --- Requirements Planning & AI Query Planning ---
+  async planRequirements(prompt) {
+    const res = await fetch(`${API_BASE}/workflows/plan`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt })
+    });
+    if (!res.ok) throw new Error('Failed to plan requirements');
+    return res.json();
+  },
+
+  async createWorkflow(prompt, confidenceThreshold = 75.0, querySpec = null) {
     const res = await fetch(`${API_BASE}/workflows`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ prompt, confidence_threshold: confidenceThreshold })
+      body: JSON.stringify({
+        prompt,
+        confidence_threshold: confidenceThreshold,
+        query_spec: querySpec
+      })
     });
     if (!res.ok) throw new Error('Failed to create workflow');
     return res.json();
@@ -28,6 +43,30 @@ export const api = {
   async getWorkflowDetails(id) {
     const res = await fetch(`${API_BASE}/workflows/${id}`);
     if (!res.ok) throw new Error('Failed to fetch workflow details');
+    return res.json();
+  },
+
+  // --- Source Policy Registry & Health Matrix ---
+  async getSourcesHealth() {
+    const res = await fetch(`${API_BASE}/sources/health`);
+    if (!res.ok) throw new Error('Failed to fetch source health');
+    return res.json();
+  },
+
+  // --- Candidate Profile ---
+  async getUserProfile() {
+    const res = await fetch(`${API_BASE}/profile`);
+    if (!res.ok) throw new Error('Failed to fetch user profile');
+    return res.json();
+  },
+
+  async saveUserProfile(profile) {
+    const res = await fetch(`${API_BASE}/profile`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(profile)
+    });
+    if (!res.ok) throw new Error('Failed to save profile');
     return res.json();
   },
 

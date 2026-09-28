@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, ExternalLink, ShieldCheck, CheckCircle2, AlertTriangle, FileText, Check } from 'lucide-react';
+import { X, ExternalLink, ShieldCheck, CheckCircle2, AlertTriangle } from 'lucide-react';
 import { api } from '../services/api';
 
 export default function SourceDrawer({ recordId, onClose, onRecordUpdated }) {
@@ -9,16 +9,19 @@ export default function SourceDrawer({ recordId, onClose, onRecordUpdated }) {
 
   useEffect(() => {
     if (!recordId) return;
-    setLoading(true);
+    let isMounted = true;
     api.getRecordProvenance(recordId)
       .then((data) => {
-        setProvenance(data);
-        setLoading(false);
+        if (isMounted) {
+          setProvenance(data);
+          setLoading(false);
+        }
       })
       .catch((err) => {
         console.error(err);
-        setLoading(false);
+        if (isMounted) setLoading(false);
       });
+    return () => { isMounted = false; };
   }, [recordId]);
 
   const handleReviewAction = async (action) => {

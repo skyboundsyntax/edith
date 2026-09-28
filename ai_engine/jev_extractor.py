@@ -110,23 +110,15 @@ class JevDeterministicExtractor:
 
         density_score = max(0.0, density_score)
 
-        # Weighted Calibration
-        if schema.entity_name == "JobOpening":
-            overall_confidence = round(
-                (completeness_score * 0.30) +
-                (grounding_score * 0.35) +
-                (syntax_score * 0.20) +
-                (density_score * 0.15),
-                1
-            )
-        else:
-            overall_confidence = round(
-                (completeness_score * 0.30) +
-                (grounding_score * 0.40) +
-                (syntax_score * 0.20) +
-                (density_score * 0.10),
-                1
-            )
+        # Mathematically calibrated Job Trust Meter:
+        # Completeness (30%), Source Grounding (35%), Syntax & Apply Link Integrity (20%), Information Density (15%)
+        overall_confidence = round(
+            (completeness_score * 0.30) +
+            (grounding_score * 0.35) +
+            (syntax_score * 0.20) +
+            (density_score * 0.15),
+            1
+        )
 
         overall_confidence = min(99.4, max(15.0, overall_confidence))
 
@@ -309,64 +301,5 @@ class JevDeterministicExtractor:
                 "apply_link": apply_link
             }
             entities.append(job_entity)
-
-        elif schema.entity_name == "ProfessionalCandidate":
-            # Extract real candidate profiles from text lines
-            full_name = text_lines[0][:40] if text_lines else "Industry Candidate"
-            org = text_lines[1][:40] if len(text_lines) > 1 else "Tech Organization"
-            skills = [s for s in KNOWN_TECH_SKILLS if re.search(r'\b' + re.escape(s) + r'\b', text, re.IGNORECASE)][:5]
-            
-            entities.append({
-                "full_name": full_name,
-                "role_title": query.title(),
-                "organization": org,
-                "location": "Verified Region",
-                "skills": skills if skills else ["Engineering", "Architecture"],
-                "experience_years": "5+ Years",
-                "current_status": "Open to Opportunities",
-                "profile_url": source_url
-            })
-
-        elif schema.entity_name == "VentureCompany":
-            company_name = doc.get("title", "").split("-")[0].strip() if doc and doc.get("title") else "Venture Entity"
-            entities.append({
-                "company_name": company_name,
-                "category": query.title(),
-                "location": "Global",
-                "total_funding": "Disclosed on SEC / Crunchbase",
-                "lead_investors": ["Tier 1 Ventures"],
-                "key_product": text_lines[0][:80] if text_lines else "Enterprise Platform",
-                "website": source_url
-            })
-
-        elif schema.entity_name == "SalesLead":
-            entities.append({
-                "contact_name": "Verified Executive",
-                "company": doc.get("title", "").split("-")[0].strip() if doc and doc.get("title") else "Target Organization",
-                "designation": query.title(),
-                "work_email": f"contact@{source_url.split('//')[-1].split('/')[0]}",
-                "linkedin_url": source_url,
-                "intent_summary": text_lines[0][:120] if text_lines else f"Verified intent matching {query}"
-            })
-
-        else:
-            # Dynamic schema mapping based on query and text
-            item = {}
-            for field in schema.fields:
-                if field.name in ["title", "name", "job_title"]:
-                    item[field.name] = doc.get("title", "").split("-")[0].strip() if doc and doc.get("title") else query.title()
-                elif field.name in ["company", "company_name", "organization"]:
-                    item[field.name] = metadata.get("company", "Verified Enterprise")
-                elif field.name in ["category", "domain"]:
-                    item[field.name] = query.split()[0].title() if query else "Intelligence"
-                elif field.name in ["description", "synopsis", "content"]:
-                    item[field.name] = text_lines[0] if text_lines else f"Verified result for query: {query}"
-                elif field.name in ["source_reference", "url", "apply_link", "website"]:
-                    item[field.name] = source_url
-                elif field.name in ["skills"]:
-                    item[field.name] = [s for s in KNOWN_TECH_SKILLS if re.search(r'\b' + re.escape(s) + r'\b', text, re.IGNORECASE)][:5]
-                else:
-                    item[field.name] = "Verified Data"
-            entities.append(item)
 
         return entities

@@ -3,9 +3,10 @@ import { Briefcase, Download, Layers, Activity } from 'lucide-react';
 
 export default function Header({
   onOpenHistory,
+  onOpenSourceHealth,
+  onOpenProfile,
   onExport,
-  isExporting,
-  systemStatus
+  isExporting
 }) {
   return (
     <header className="header">
@@ -15,21 +16,32 @@ export default function Header({
             <Briefcase size={22} color="var(--accent-cyan)" />
           </div>
           <div>
-            <div className="brand-title">EDITH CAREERS</div>
-            <div className="brand-tagline">Autonomous Job Intelligence • Web Scraper (LinkedIn • Naukri • Indeed) • Jev's Trust Meter</div>
+            <div className="brand-title">EDITH</div>
+            <div className="brand-tagline">AI Job Intelligence • Multi-Source ATS Connectors • Explainable Match Scoring</div>
           </div>
         </div>
 
         <div className="header-actions">
-          {/* Live Orchestration Engine Status */}
-          <div className="status-badge" title="FastAPI & LangGraph Job Scraper Active">
+          {/* Source Health Matrix */}
+          <button
+            type="button"
+            className="status-badge"
+            onClick={onOpenSourceHealth}
+            title="View Real-Time Status & Robots Compliance across 8 Sources"
+            style={{ cursor: 'pointer', border: '1px solid rgba(14, 165, 233, 0.3)' }}
+          >
             <span className="pulse-dot"></span>
             <Activity size={14} />
-            <span>Scraper Engine: Live</span>
-          </div>
+            <span>Sources: Live (8)</span>
+          </button>
+
+          {/* Candidate Profile */}
+          <button className="btn btn-secondary" onClick={onOpenProfile} title="Configure Job Seeker Candidate Profile">
+            <span>Candidate Profile</span>
+          </button>
 
           {/* Workflow History */}
-          <button className="btn btn-secondary" onClick={onOpenHistory} title="View Past Job Scrape Runs">
+          <button className="btn btn-secondary" onClick={onOpenHistory} title="View Past Job Intelligence Runs">
             <Layers size={16} />
             <span>Search History</span>
           </button>
@@ -42,7 +54,7 @@ export default function Header({
             title="Export Verified Jobs Dataset"
           >
             <Download size={16} />
-            <span>{isExporting ? 'Exporting...' : 'Export Jobs (CSV)'}</span>
+            <span>{isExporting ? 'Exporting...' : 'Export (CSV)'}</span>
           </button>
         </div>
       </div>

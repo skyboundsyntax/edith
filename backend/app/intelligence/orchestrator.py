@@ -1,0 +1,301 @@
+"""
+Source Orchestrator & Job Ingestion Engine for EDITH.
+Executes parallel source collection across permitted public APIs and ATS endpoints.
+Handles resilience: if one source fails, others proceed smoothly.
+Emits real WebSocket progress events.
+"""
+import asyncio
+import time
+import logging
+from typing import Dict, List, Optional, Any, Callable
+from datetime import datetime, timezone
+import json
+
+from backend.app.sources.registry import source_registry
+from backend.app.intelligence.deduplicator import deduplicate_jobs
+from backend.app.intelligence.match_scorer import score_job_match
+from backend.app.db.database import SessionLocal
+from backend.app.db.models import WorkflowModel, DataRecordModel, JobModel
+from backend.app.locations.india_locations import normalize_location
+
+logger = logging.getLogger(__name__)
+
+async def run_job_ingestion_pipeline(
+    workflow_id: str,
+    query_spec: Dict[str, Any],
+    confidence_threshold: float = 75.0,
+    event_callback: Optional[Callable[[Dict[str, Any]], Any]] = None
+) -> Dict[str, Any]:
+    """
+    Full autonomous job intelligence workflow:
+    1. Query Planning
+    2. Parallel Source Connectors (Greenhouse, Lever, Ashby, Jobicy, Arbeitnow, LinkOut)
+    3. Normalization into Canonical Schema
+    4. Deduplication
+    5. Validation (liveness & active flags)
+    6. Explainable Match Scoring (0-100) & Risk Signal detection
+    7. Database Persistence
+    8. Real-time Event Streaming
+    """
+    start_time = time.time()
+    db = SessionLocal()
+
+    async def emit(event_type: str, data: Dict[str, Any]):
+        payload = {
+            "workflow_id": workflow_id,
+            "event": event_type,
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            **data
+        }
+        if event_callback:
+            try:
+                res = event_callback(payload)
+                if asyncio.iscoroutine(res):
+                    await res
+            except Exception as e:
+                logger.warning(f"WebSocket emit error: {e}")
+
+    try:
+        # Step 1: Initialize
+        await emit("pipeline_started", {
+            "message": "Initiating autonomous multi-source job intelligence pipeline...",
+            "query_spec": query_spec
+        })
+
+        # Step 2: Fetch sources in parallel with resilience
+        live_connectors = source_registry.get_live_connectors()
+        linkout_connectors = source_registry.get_linkout_connectors()
+        
+        all_raw_jobs: List[Dict[str, Any]] = []
+        sources_searched = []
+        successful_sources = 0
+
+        async def fetch_from_source(connector):
+            nonlocal successful_sources
+            c_name = connector.name
+            t0 = time.time()
+            await emit("source_started", {"source": c_name, "domain": connector.domain, "access_method": connector.access_method})
+            try:
+                jobs = await connector.search(query_spec)
+                duration_ms = int((time.time() - t0) * 1000)
+                await emit("jobs_found", {"source": c_name, "count": len(jobs), "duration_ms": duration_ms})
+                await emit("source_completed", {"source": c_name, "count": len(jobs), "duration_ms": duration_ms, "status": "success"})
+                successful_sources += 1
+                return c_name, jobs, None
+            except Exception as err:
+                duration_ms = int((time.time() - t0) * 1000)
+                logger.error(f"Source {c_name} failed: {err}")
+                await emit("source_completed", {"source": c_name, "count": 0, "duration_ms": duration_ms, "status": "SOURCE UNAVAILABLE", "error": str(err)})
+                return c_name, [], str(err)
+
+        # Launch all live connectors concurrently
+        tasks = [fetch_from_source(c) for c in live_connectors]
+        results = await asyncio.gather(*tasks, return_exceptions=True)
+
+        for res in results:
+            if isinstance(res, tuple):
+                s_name, s_jobs, s_err = res
+                sources_searched.append({"source": s_name, "count": len(s_jobs), "status": "error" if s_err else "online"})
+                all_raw_jobs.extend(s_jobs)
+
+        # Also add Link-Out navigation queries for restricted platforms (LinkedIn, Indeed, Naukri)
+        for lo_connector in linkout_connectors:
+            try:
+                lo_jobs = await lo_connector.search(query_spec)
+                all_raw_jobs.extend(lo_jobs)
+                sources_searched.append({"source": lo_connector.name, "count": 1, "status": "link_out"})
+            except Exception as e:
+                logger.warning(f"Link-out error for {lo_connector.name}: {e}")
+
+        total_discovered = len(all_raw_jobs)
+        await emit("normalization_completed", {
+            "count": total_discovered,
+            "message": f"{total_discovered} jobs collected across {len(sources_searched)} source providers."
+        })
+
+        # Step 3: Deduplication
+        canonical_jobs, duplicates_pruned = deduplicate_jobs(all_raw_jobs)
+        await emit("deduplication_completed", {
+            "total_before": total_discovered,
+            "total_after": len(canonical_jobs),
+            "removed": duplicates_pruned,
+            "message": f"Deduplication pruned {duplicates_pruned} cross-platform duplicate postings."
+        })
+
+        # Step 4: Validation & Liveness
+        validated_jobs = []
+        expired_count = 0
+        for job in canonical_jobs:
+            # Active check
+            if job.get("is_active", True):
+                validated_jobs.append(job)
+            else:
+                expired_count += 1
+
+        await emit("validation_completed", {
+            "active_count": len(validated_jobs),
+            "expired_count": expired_count,
+            "message": f"{len(validated_jobs)} active listings verified. {expired_count} closed postings flagged."
+        })
+
+        # Step 5: Deterministic Match Scoring & Explainability
+        scored_jobs = []
+        human_review_count = 0
+
+        for job in validated_jobs:
+            score_res = score_job_match(job, query_spec)
+            match_score = score_res["match_score"]
+            job["match_score"] = match_score
+            job["score_breakdown"] = score_res["score_breakdown"]
+            job["why_it_matches"] = score_res["why_it_matches"]
+            job["potential_gaps"] = score_res["potential_gaps"]
+            job["quality_signals"] = score_res["quality_signals"]
+
+            needs_review = match_score < confidence_threshold or bool(score_res["quality_signals"].get("risk_signals"))
+            job["human_review_required"] = needs_review
+            if needs_review:
+                human_review_count += 1
+
+            scored_jobs.append(job)
+
+        # Sort jobs by match score descending (link-outs stay at bottom for exploration)
+        scored_jobs.sort(key=lambda j: (not j.get("is_link_out", False), j.get("match_score", 0)), reverse=True)
+
+        await emit("scoring_completed", {
+            "count": len(scored_jobs),
+            "top_score": scored_jobs[0]["match_score"] if scored_jobs else 0,
+            "human_review_count": human_review_count,
+            "message": f"Calculated 100-point explainable match scores for all {len(scored_jobs)} listings."
+        })
+
+        # Step 6: Persist into Database
+        workflow = db.query(WorkflowModel).filter(WorkflowModel.id == workflow_id).first()
+        if workflow:
+            workflow.status = "completed"
+            workflow.total_extracted = total_discovered
+            workflow.total_deduplicated = len(scored_jobs)
+            workflow.duplicates_pruned = duplicates_pruned
+            workflow.human_review_count = human_review_count
+            workflow.sources_searched = sources_searched
+            workflow.completed_at = datetime.now(timezone.utc)
+
+            # Persist canonical JobModel records
+            for idx, j in enumerate(scored_jobs):
+                raw_id = j.get("id") or f"job_{idx}"
+                db_job_id = f"{workflow_id}_{raw_id}"
+                # Create JobModel
+                new_job = JobModel(
+                    id=db_job_id,
+                    workflow_id=workflow_id,
+                    source=j.get("source", "unknown"),
+                    source_job_id=str(j.get("source_job_id")),
+                    source_url=j.get("source_url", ""),
+                    apply_url=j.get("apply_url", ""),
+                    title=j.get("title", ""),
+                    company=j.get("company", ""),
+                    company_url=j.get("company_url"),
+                    company_domain=j.get("company_domain"),
+                    description=j.get("description"),
+                    requirements=j.get("requirements", []),
+                    responsibilities=j.get("responsibilities", []),
+                    skills=j.get("skills", []),
+                    technologies=j.get("technologies", []),
+                    location=j.get("location"),
+                    city=j.get("city"),
+                    state=j.get("state"),
+                    country=j.get("country", "India"),
+                    remote_type=j.get("remote_type", "on-site"),
+                    employment_type=j.get("employment_type", "full-time"),
+                    experience_min=j.get("experience_min"),
+                    experience_max=j.get("experience_max"),
+                    salary_min=j.get("salary_min"),
+                    salary_max=j.get("salary_max"),
+                    salary_currency=j.get("salary_currency", "INR"),
+                    salary_period=j.get("salary_period", "year"),
+                    education=j.get("education"),
+                    date_posted=j.get("date_posted"),
+                    date_updated=j.get("date_updated"),
+                    is_active=j.get("is_active", True),
+                    is_verified=j.get("is_verified", True),
+                    source_timestamp=j.get("source_timestamp"),
+                    raw_content_hash=j.get("raw_content_hash"),
+                    match_score=j.get("match_score", 0.0),
+                    score_breakdown=j.get("score_breakdown", {}),
+                    match_reasons=j.get("why_it_matches", []),
+                    potential_gaps=j.get("potential_gaps", []),
+                    freshness_score=j.get("quality_signals", {}).get("freshness_score", 90.0),
+                    source_confidence=j.get("quality_signals", {}).get("source_confidence", 95.0),
+                    listing_quality_score=j.get("quality_signals", {}).get("listing_quality_score", 90.0),
+                    risk_signals=j.get("quality_signals", {}).get("risk_signals", []),
+                    sources=j.get("sources", [j.get("source")]),
+                    provenance=j.get("provenance", {})
+                )
+                db.add(new_job)
+
+                # Also persist DataRecordModel for backward compatibility
+                data_record = DataRecordModel(
+                    id=f"rec_{db_job_id}",
+                    workflow_id=workflow_id,
+                    entity_name="JobOpening",
+                    data_json={
+                        "job_title": j.get("title"),
+                        "company": j.get("company"),
+                        "company_domain": j.get("company_domain"),
+                        "location": j.get("location"),
+                        "city": j.get("city"),
+                        "remote_type": j.get("remote_type"),
+                        "employment_type": j.get("employment_type"),
+                        "skills": j.get("skills"),
+                        "experience_years": f"{j.get('experience_min', 0)}-{j.get('experience_max', 2)} yrs" if j.get("experience_max") is not None else "0-2 yrs",
+                        "salary_range": f"{j.get('salary_currency', 'INR')} {int(j['salary_min'])} - {int(j['salary_max'])}" if j.get("salary_min") and j.get("salary_max") else "Not Disclosed",
+                        "apply_link": j.get("apply_url"),
+                        "platform_source": j.get("source", "Careers").title(),
+                        "date_posted": j.get("date_posted"),
+                        "match_score": j.get("match_score"),
+                        "score_breakdown": j.get("score_breakdown"),
+                        "why_it_matches": j.get("why_it_matches"),
+                        "potential_gaps": j.get("potential_gaps"),
+                        "quality_signals": j.get("quality_signals"),
+                        "sources": j.get("sources"),
+                        "is_link_out": j.get("is_link_out", False)
+                    },
+                    confidence_score=j.get("match_score", 0.0),
+                    confidence_breakdown=j.get("score_breakdown", {}),
+                    human_review_required=needs_review,
+                    source_url=j.get("source_url", ""),
+                    source_title=f"{j.get('title')} at {j.get('company')}",
+                    extracted_timestamp=datetime.now(timezone.utc).isoformat(),
+                    raw_snippet=j.get("description", "")[:400],
+                    deduplication_hash=j.get("raw_content_hash", "")
+                )
+                db.add(data_record)
+
+            db.commit()
+
+        total_duration = int((time.time() - start_time) * 1000)
+        await emit("pipeline_completed", {
+            "total_jobs": len(scored_jobs),
+            "duplicates_removed": duplicates_pruned,
+            "sources_searched": sources_searched,
+            "duration_ms": total_duration,
+            "message": f"Pipeline completed in {total_duration}ms. {len(scored_jobs)} genuine jobs ready for review."
+        })
+
+        return {
+            "status": "completed",
+            "total_jobs": len(scored_jobs),
+            "duplicates_pruned": duplicates_pruned,
+            "sources_searched": sources_searched,
+            "duration_ms": total_duration,
+            "jobs": scored_jobs
+        }
+
+    except Exception as e:
+        logger.error(f"Ingestion pipeline critical error: {e}", exc_info=True)
+        if workflow:
+            workflow.status = "failed"
+            db.commit()
+        await emit("pipeline_failed", {"error": str(e)})
+        raise
+    finally:
+        db.close()

@@ -1,0 +1,5178 @@
+[
+  {
+    "record_id": "rec_abn_ai-product-engineer-biel",
+    "workflow_id": "wf_e046c5d216",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "AI Product Engineer",
+      "company": "paddy",
+      "company_domain": "arbeitnow.com",
+      "location": "Bielefeld (Remote)",
+      "city": "Bielefeld",
+      "remote_type": "remote",
+      "employment_type": "full-time",
+      "skills": [
+        "Remote",
+        "Software Development"
+      ],
+      "experience_years": "0-3 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://www.arbeitnow.com/jobs/companies/paddy/ai-product-engineer-bielefeld-8892",
+      "platform_source": "Arbeitnow",
+      "date_posted": "2026-09-28T14:00:56+00:00",
+      "match_score": 77.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 15,
+          "max": 30
+        },
+        "role": {
+          "score": 16,
+          "max": 20
+        },
+        "experience": {
+          "score": 15,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 3,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 5,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 React",
+        "\u2713 Ml",
+        "\u2713 Ai",
+        "\u2713 0\u20133 years experience accepted",
+        "\u2713 Location fit (Bielefeld (Remote))"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 Javascript not explicitly emphasized"
+      ],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 90.0,
+        "listing_quality_score": 95.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "arbeitnow"
+      ],
+      "is_link_out": false
+    },
+    "confidence_score": 77.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 15,
+        "max": 30
+      },
+      "role": {
+        "score": 16,
+        "max": 20
+      },
+      "experience": {
+        "score": 15,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 3,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 5,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://www.arbeitnow.com/jobs/companies/paddy/ai-product-engineer-bielefeld-8892",
+    "source_title": "AI Product Engineer at paddy",
+    "extracted_timestamp": "2026-09-28T15:19:15.342903+00:00",
+    "raw_snippet": "<p>Das ist kein gew\u00f6hnlicher Job. Wir arbeiten an dem, was unsere Gesellschaft zukunftsf\u00e4hig macht: Bildung. Daf\u00fcr bauen wir paddy, das Agentic Operating System f\u00fcr Teaching &#x26; Learning.</p>\n<p><strong>Unsere Mission ist es, Lehrkr\u00e4fte zu entlasten, Lernergebnisse zu verbessern und die Unterrichtsqualit\u00e4t zu steigern.</strong></p>\n<p>Tausende Lehrkr\u00e4fte und hunderttausende Lernende nutzen padd"
+  },
+  {
+    "record_id": "rec_abn_senior-software-engineer",
+    "workflow_id": "wf_e046c5d216",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Senior Software Engineer (Managed PostgreSQL)",
+      "company": "Nebius",
+      "company_domain": "arbeitnow.com",
+      "location": "Remote / Unspecified",
+      "city": null,
+      "remote_type": "remote",
+      "employment_type": "full-time",
+      "skills": [
+        "Backend"
+      ],
+      "experience_years": "0-3 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://www.arbeitnow.com/jobs/companies/nebius/senior-software-engineer-managed-postgresql-165314",
+      "platform_source": "Arbeitnow",
+      "date_posted": "2026-09-28T11:55:04+00:00",
+      "match_score": 77.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 15,
+          "max": 30
+        },
+        "role": {
+          "score": 16,
+          "max": 20
+        },
+        "experience": {
+          "score": 15,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 3,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 5,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Ml",
+        "\u2713 Ai",
+        "\u2713 Sql",
+        "\u2713 0\u20133 years experience accepted",
+        "\u2713 Location fit (Remote / Unspecified)"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 React not explicitly emphasized"
+      ],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 90.0,
+        "listing_quality_score": 95.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "arbeitnow"
+      ],
+      "is_link_out": false
+    },
+    "confidence_score": 77.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 15,
+        "max": 30
+      },
+      "role": {
+        "score": 16,
+        "max": 20
+      },
+      "experience": {
+        "score": 15,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 3,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 5,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://www.arbeitnow.com/jobs/companies/nebius/senior-software-engineer-managed-postgresql-165314",
+    "source_title": "Senior Software Engineer (Managed PostgreSQL) at Nebius",
+    "extracted_timestamp": "2026-09-28T15:19:15.343458+00:00",
+    "raw_snippet": "&lt;div class=&quot;content-intro&quot;&gt;&lt;p&gt;&lt;strong&gt;About Nebius:&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;Nebius is leading a new era in cloud infrastructure for the global AI economy. We are building a full-stack AI cloud platform that supports developers and enterprises from data and model training through to production deployment, without the cost and complexity of building large in-hou"
+  },
+  {
+    "record_id": "rec_abn_lead-solutions-architect",
+    "workflow_id": "wf_e046c5d216",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Lead Solutions Architect - Generative AI (EMEA Emerging DNB)",
+      "company": "databricks",
+      "company_domain": "arbeitnow.com",
+      "location": "Remote / Unspecified",
+      "city": null,
+      "remote_type": "remote",
+      "employment_type": "full-time",
+      "skills": [
+        "Field Engineering - Other"
+      ],
+      "experience_years": "0-3 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://www.arbeitnow.co.uk/jobs/companies/databricks/lead-solutions-architect-generative-ai-emea-emerging-dnb-210255",
+      "platform_source": "Arbeitnow",
+      "date_posted": "2026-09-27T21:55:16+00:00",
+      "match_score": 77.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 15,
+          "max": 30
+        },
+        "role": {
+          "score": 16,
+          "max": 20
+        },
+        "experience": {
+          "score": 15,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 3,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 5,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Python",
+        "\u2713 Ml",
+        "\u2713 Ai",
+        "\u2713 0\u20133 years experience accepted",
+        "\u2713 Location fit (Remote / Unspecified)"
+      ],
+      "potential_gaps": [
+        "\u26a0 React not explicitly emphasized",
+        "\u26a0 Javascript not explicitly emphasized"
+      ],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 90.0,
+        "listing_quality_score": 95.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "arbeitnow"
+      ],
+      "is_link_out": false
+    },
+    "confidence_score": 77.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 15,
+        "max": 30
+      },
+      "role": {
+        "score": 16,
+        "max": 20
+      },
+      "experience": {
+        "score": 15,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 3,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 5,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://www.arbeitnow.co.uk/jobs/companies/databricks/lead-solutions-architect-generative-ai-emea-emerging-dnb-210255",
+    "source_title": "Lead Solutions Architect - Generative AI (EMEA Emerging DNB) at databricks",
+    "extracted_timestamp": "2026-09-28T15:19:15.343765+00:00",
+    "raw_snippet": "&lt;p&gt;&lt;strong&gt;REQ ID:&lt;/strong&gt; FEQ227R147&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;Location:&lt;/strong&gt; United Kingdom (Remote/Hybrid \u2014 London or UK-based)&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;Recruiter:&lt;/strong&gt; Dina Hussain&lt;/p&gt;\n&lt;h2&gt;&lt;strong&gt;About the Role&lt;/strong&gt;&lt;/h2&gt;\n&lt;p&gt;We are looking for a Lead Solution Architect focused on Generative AI to supp"
+  },
+  {
+    "record_id": "rec_abn_genai-ml-engineer-67759",
+    "workflow_id": "wf_e046c5d216",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "GenAI/ML Engineer",
+      "company": "capco",
+      "company_domain": "arbeitnow.com",
+      "location": "Remote / Unspecified",
+      "city": null,
+      "remote_type": "remote",
+      "employment_type": "full-time",
+      "skills": [
+        "Tech & Engineering"
+      ],
+      "experience_years": "0-3 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://www.arbeitnow.ch/jobs/companies/capco/genai-ml-engineer-67759",
+      "platform_source": "Arbeitnow",
+      "date_posted": "2026-09-28T08:55:24+00:00",
+      "match_score": 77.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 15,
+          "max": 30
+        },
+        "role": {
+          "score": 16,
+          "max": 20
+        },
+        "experience": {
+          "score": 15,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 3,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 5,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Python",
+        "\u2713 Ml",
+        "\u2713 Ai",
+        "\u2713 0\u20133 years experience accepted",
+        "\u2713 Location fit (Remote / Unspecified)"
+      ],
+      "potential_gaps": [
+        "\u26a0 React not explicitly emphasized",
+        "\u26a0 Javascript not explicitly emphasized"
+      ],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 90.0,
+        "listing_quality_score": 95.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "arbeitnow"
+      ],
+      "is_link_out": false
+    },
+    "confidence_score": 77.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 15,
+        "max": 30
+      },
+      "role": {
+        "score": 16,
+        "max": 20
+      },
+      "experience": {
+        "score": 15,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 3,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 5,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://www.arbeitnow.ch/jobs/companies/capco/genai-ml-engineer-67759",
+    "source_title": "GenAI/ML Engineer at capco",
+    "extracted_timestamp": "2026-09-28T15:19:15.344054+00:00",
+    "raw_snippet": "&lt;p&gt;&lt;em&gt;Joining Capco means joining an organisation that is committed to an inclusive working environment where you\u2019re encouraged to #BeYourselfAtWork. We celebrate individuality and recognize that diversity and inclusion, in all forms, is critical to success. It\u2019s important to us that we recruit and develop as diverse a range of talent as we can and we believe that everyone brings some"
+  },
+  {
+    "record_id": "rec_abn_ai-engineer-218713",
+    "workflow_id": "wf_e046c5d216",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "AI Engineer",
+      "company": "Ddome",
+      "company_domain": "arbeitnow.com",
+      "location": "Remote / Unspecified",
+      "city": null,
+      "remote_type": "remote",
+      "employment_type": "full-time",
+      "skills": [
+        "Threat Research"
+      ],
+      "experience_years": "0-3 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://www.arbeitnow.fr/jobs/companies/ddome/ai-engineer-218713",
+      "platform_source": "Arbeitnow",
+      "date_posted": "2026-09-27T13:55:07+00:00",
+      "match_score": 76.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 15,
+          "max": 30
+        },
+        "role": {
+          "score": 16,
+          "max": 20
+        },
+        "experience": {
+          "score": 15,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 3,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 4,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Python",
+        "\u2713 Ml",
+        "\u2713 Ai",
+        "\u2713 0\u20133 years experience accepted",
+        "\u2713 Location fit (Remote / Unspecified)"
+      ],
+      "potential_gaps": [
+        "\u26a0 React not explicitly emphasized",
+        "\u26a0 Javascript not explicitly emphasized"
+      ],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 90.0,
+        "listing_quality_score": 95.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "arbeitnow"
+      ],
+      "is_link_out": false
+    },
+    "confidence_score": 76.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 15,
+        "max": 30
+      },
+      "role": {
+        "score": 16,
+        "max": 20
+      },
+      "experience": {
+        "score": 15,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 3,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 4,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://www.arbeitnow.fr/jobs/companies/ddome/ai-engineer-218713",
+    "source_title": "AI Engineer at Ddome",
+    "extracted_timestamp": "2026-09-28T15:19:15.344337+00:00",
+    "raw_snippet": "&lt;p&gt;&lt;strong&gt;DataDome delivers real-time bot and agent trust management, giving businesses complete visibility and control over all traffic\u2014human, bot, or AI. Named a Leader in The Forrester Wave\u2122 for Bot And Agent Trust Management Q2 2026, DataDome is trusted by enterprises like Etsy, PayPal, and Soundcloud. Acting as a traffic control plane, DataDome&#39;s multi-layered AI engine lever"
+  },
+  {
+    "record_id": "rec_abn_cx-ai-automation-lead-35",
+    "workflow_id": "wf_e046c5d216",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "CX AI & Automation Lead",
+      "company": "remotecom",
+      "company_domain": "arbeitnow.com",
+      "location": "Remote / Unspecified",
+      "city": null,
+      "remote_type": "remote",
+      "employment_type": "full-time",
+      "skills": [
+        "Customer Experience"
+      ],
+      "experience_years": "0-3 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://www.arbeitnow.co.uk/jobs/companies/remotecom/cx-ai-automation-lead-350049",
+      "platform_source": "Arbeitnow",
+      "date_posted": "2026-09-27T15:55:17+00:00",
+      "match_score": 72.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 10,
+          "max": 30
+        },
+        "role": {
+          "score": 16,
+          "max": 20
+        },
+        "experience": {
+          "score": 15,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 3,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 5,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Ml",
+        "\u2713 Ai",
+        "\u2713 0\u20133 years experience accepted",
+        "\u2713 Location fit (Remote / Unspecified)",
+        "\u2713 Education qualifications satisfied"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 React not explicitly emphasized"
+      ],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 90.0,
+        "listing_quality_score": 95.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "arbeitnow"
+      ],
+      "is_link_out": false
+    },
+    "confidence_score": 72.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 10,
+        "max": 30
+      },
+      "role": {
+        "score": 16,
+        "max": 20
+      },
+      "experience": {
+        "score": 15,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 3,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 5,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://www.arbeitnow.co.uk/jobs/companies/remotecom/cx-ai-automation-lead-350049",
+    "source_title": "CX AI & Automation Lead at remotecom",
+    "extracted_timestamp": "2026-09-28T15:19:15.344614+00:00",
+    "raw_snippet": "&lt;div class=&quot;content-intro&quot;&gt;&lt;h2&gt;&lt;strong&gt;About Remote&lt;/strong&gt;&lt;/h2&gt;\n&lt;div&gt;&lt;span style=&quot;font-size: 12pt; font-family: helvetica, arial, sans-serif;&quot;&gt;Remote is solving modern organizations\u2019 biggest challenge \u2013 navigating global employment compliantly with ease. We make it possible for businesses of all sizes to recruit, pay, and manage inter"
+  },
+  {
+    "record_id": "rec_gh_stripe_7517535",
+    "workflow_id": "wf_e046c5d216",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Staff Product Manager, ML Foundations and GenAI",
+      "company": "Stripe",
+      "company_domain": "stripe.com",
+      "location": "Seattle, San Francisco, New York, US - Remote",
+      "city": "Seattle",
+      "remote_type": "remote",
+      "employment_type": "full-time",
+      "skills": [
+        "Ml",
+        "Ai"
+      ],
+      "experience_years": "0-5 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://stripe.com/jobs/search?gh_jid=7517535",
+      "platform_source": "Greenhouse",
+      "date_posted": "2026-09-25T16:44:37-04:00",
+      "match_score": 71.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 10,
+          "max": 30
+        },
+        "role": {
+          "score": 16,
+          "max": 20
+        },
+        "experience": {
+          "score": 15,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 3,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 4,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Ml",
+        "\u2713 Ai",
+        "\u2713 0\u20135 years experience accepted",
+        "\u2713 Location fit (Seattle, San Francisco, New York, US - Remote)",
+        "\u2713 Education qualifications satisfied"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 React not explicitly emphasized"
+      ],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 98.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "greenhouse",
+        "company-careers"
+      ],
+      "is_link_out": false
+    },
+    "confidence_score": 71.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 10,
+        "max": 30
+      },
+      "role": {
+        "score": 16,
+        "max": 20
+      },
+      "experience": {
+        "score": 15,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 3,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 4,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://stripe.com/jobs/search?gh_jid=7517535",
+    "source_title": "Staff Product Manager, ML Foundations and GenAI at Stripe",
+    "extracted_timestamp": "2026-09-28T15:19:15.344896+00:00",
+    "raw_snippet": "Role: Staff Product Manager, ML Foundations and GenAI at Stripe. Department: Engineering. Location: Seattle, San Francisco, New York, US - Remote."
+  },
+  {
+    "record_id": "rec_lev_meesho_f2de8c5f-1636-428d-aaea-af1400142975",
+    "workflow_id": "wf_e046c5d216",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Security Architect - AI-Powered Security Engineering",
+      "company": "Meesho",
+      "company_domain": "meesho.com",
+      "location": "Bangalore, Karnataka, India",
+      "city": "Bangalore",
+      "remote_type": "on-site",
+      "employment_type": "full time employee",
+      "skills": [
+        "Ai"
+      ],
+      "experience_years": "0-5 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://jobs.lever.co/meesho/f2de8c5f-1636-428d-aaea-af1400142975",
+      "platform_source": "Lever",
+      "date_posted": "2026-06-18T05:45:40.805000+00:00",
+      "match_score": 70.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 10,
+          "max": 30
+        },
+        "role": {
+          "score": 16,
+          "max": 20
+        },
+        "experience": {
+          "score": 15,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 3,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 3,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Ml",
+        "\u2713 Ai",
+        "\u2713 0\u20135 years experience accepted",
+        "\u2713 Location fit (Bangalore, Karnataka, India)",
+        "\u2713 Education qualifications satisfied"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 React not explicitly emphasized"
+      ],
+      "quality_signals": {
+        "freshness_score": 80.0,
+        "source_confidence": 98.0,
+        "listing_quality_score": 95.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "lever",
+        "company-careers"
+      ],
+      "is_link_out": false
+    },
+    "confidence_score": 70.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 10,
+        "max": 30
+      },
+      "role": {
+        "score": 16,
+        "max": 20
+      },
+      "experience": {
+        "score": 15,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 3,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 3,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://jobs.lever.co/meesho/f2de8c5f-1636-428d-aaea-af1400142975",
+    "source_title": "Security Architect - AI-Powered Security Engineering at Meesho",
+    "extracted_timestamp": "2026-09-28T15:19:15.345180+00:00",
+    "raw_snippet": "Security Architect - AI-Powered Security Engineering\nAbout the Team\nThe security team at Meesho is like the Avengers to Meesho's S.H.I.E.L.D. When 5% of Indian households shop with us, it\u2019s important to build resilient systems to manage millions of orders every day. We\u2019ve done this, with zero downtime! We value speed over perfection, and see failures as opportunities to become better. By 2030, Mee"
+  },
+  {
+    "record_id": "rec_abn_remote-trainee-im-finanz",
+    "workflow_id": "wf_e046c5d216",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Trainee (m/w/d) im Finanzvertrieb \u2013 Karriere mit Struktur, Verantwortung und Perspektive (German Speaking)",
+      "company": "Kevin Kehr",
+      "company_domain": "arbeitnow.com",
+      "location": "Homeoffice (Remote)",
+      "city": "Homeoffice",
+      "remote_type": "remote",
+      "employment_type": "full-time",
+      "skills": [
+        "Remote"
+      ],
+      "experience_years": "0-3 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://www.arbeitnow.com/jobs/companies/kevin-kehr/remote-trainee-im-finanzvertrieb-karriere-mit-struktur-verantwortung-und-perspektive-german-speaking-hamburg-229570",
+      "platform_source": "Arbeitnow",
+      "date_posted": "2026-09-28T11:30:13+00:00",
+      "match_score": 67.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 5,
+          "max": 30
+        },
+        "role": {
+          "score": 16,
+          "max": 20
+        },
+        "experience": {
+          "score": 15,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 3,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 5,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Ai",
+        "\u2713 0\u20133 years experience accepted",
+        "\u2713 Location fit (Homeoffice (Remote))",
+        "\u2713 Education qualifications satisfied",
+        "\u2713 Fresh posting (< 24h old)"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 React not explicitly emphasized"
+      ],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 90.0,
+        "listing_quality_score": 95.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "arbeitnow"
+      ],
+      "is_link_out": false
+    },
+    "confidence_score": 67.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 5,
+        "max": 30
+      },
+      "role": {
+        "score": 16,
+        "max": 20
+      },
+      "experience": {
+        "score": 15,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 3,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 5,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://www.arbeitnow.com/jobs/companies/kevin-kehr/remote-trainee-im-finanzvertrieb-karriere-mit-struktur-verantwortung-und-perspektive-german-speaking-hamburg-229570",
+    "source_title": "Trainee (m/w/d) im Finanzvertrieb \u2013 Karriere mit Struktur, Verantwortung und Perspektive (German Speaking) at Kevin Kehr",
+    "extracted_timestamp": "2026-09-28T15:19:15.345465+00:00",
+    "raw_snippet": "<p style=\"text-align:start;\">Du suchst einen Berufseinstieg, der Vertrieb, Beratung und pers\u00f6nliche Entwicklung verbindet?<br>Dann ist dieses Traineeprogramm genau das Richtige f\u00fcr dich.</p><p style=\"text-align:start;\">Wir suchen ambitionierte Pers\u00f6nlichkeiten (m/w/d), die sich im Finanzvertrieb eine langfristige Karriere aufbauen wollen, mit klarem System, praxisnaher Ausbildung und individuellen"
+  },
+  {
+    "record_id": "rec_abn_remote-slovenian-languag",
+    "workflow_id": "wf_e046c5d216",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Slovenian language trainer",
+      "company": "TransPerfect",
+      "company_domain": "arbeitnow.com",
+      "location": "Remote job (Remote)",
+      "city": "Remote job",
+      "remote_type": "remote",
+      "employment_type": "full-time",
+      "skills": [
+        "Remote"
+      ],
+      "experience_years": "0-3 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://www.arbeitnow.co.uk/jobs/companies/transperfect/remote-slovenian-language-trainer-anywhere-in-emea-region-226625",
+      "platform_source": "Arbeitnow",
+      "date_posted": "2026-09-27T21:30:37+00:00",
+      "match_score": 67.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 5,
+          "max": 30
+        },
+        "role": {
+          "score": 16,
+          "max": 20
+        },
+        "experience": {
+          "score": 15,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 3,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 5,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Ai",
+        "\u2713 0\u20133 years experience accepted",
+        "\u2713 Location fit (Remote job (Remote))",
+        "\u2713 Education qualifications satisfied",
+        "\u2713 Fresh posting (< 24h old)"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 React not explicitly emphasized"
+      ],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 90.0,
+        "listing_quality_score": 95.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "arbeitnow"
+      ],
+      "is_link_out": false
+    },
+    "confidence_score": 67.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 5,
+        "max": 30
+      },
+      "role": {
+        "score": 16,
+        "max": 20
+      },
+      "experience": {
+        "score": 15,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 3,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 5,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://www.arbeitnow.co.uk/jobs/companies/transperfect/remote-slovenian-language-trainer-anywhere-in-emea-region-226625",
+    "source_title": "Slovenian language trainer at TransPerfect",
+    "extracted_timestamp": "2026-09-28T15:19:15.345750+00:00",
+    "raw_snippet": "<p class=\"Paragraph SCXW65288120 BCX0\">Company&nbsp;</p><p class=\"Paragraph SCXW65288120 BCX0\">TransPerfect Language &amp; Cultural Training is part of the TransPerfect solutions, the world\u2019s <span style=\"color:#000000\">largest</span> language service and technology solutions provider for global businesses with offices in more than 100 cities around the globe.&nbsp;</p><p class=\"Paragraph SCXW6528"
+  },
+  {
+    "record_id": "rec_abn_remote-croatian-language",
+    "workflow_id": "wf_e046c5d216",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Croatian language trainer",
+      "company": "TransPerfect",
+      "company_domain": "arbeitnow.com",
+      "location": "Remote job (Remote)",
+      "city": "Remote job",
+      "remote_type": "remote",
+      "employment_type": "full-time",
+      "skills": [
+        "Remote"
+      ],
+      "experience_years": "0-3 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://www.arbeitnow.co.uk/jobs/companies/transperfect/remote-croatian-language-trainer-anywhere-in-emea-region-449504",
+      "platform_source": "Arbeitnow",
+      "date_posted": "2026-09-27T21:30:37+00:00",
+      "match_score": 67.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 5,
+          "max": 30
+        },
+        "role": {
+          "score": 16,
+          "max": 20
+        },
+        "experience": {
+          "score": 15,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 3,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 5,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Ai",
+        "\u2713 0\u20133 years experience accepted",
+        "\u2713 Location fit (Remote job (Remote))",
+        "\u2713 Education qualifications satisfied",
+        "\u2713 Fresh posting (< 24h old)"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 React not explicitly emphasized"
+      ],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 90.0,
+        "listing_quality_score": 95.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "arbeitnow"
+      ],
+      "is_link_out": false
+    },
+    "confidence_score": 67.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 5,
+        "max": 30
+      },
+      "role": {
+        "score": 16,
+        "max": 20
+      },
+      "experience": {
+        "score": 15,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 3,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 5,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://www.arbeitnow.co.uk/jobs/companies/transperfect/remote-croatian-language-trainer-anywhere-in-emea-region-449504",
+    "source_title": "Croatian language trainer at TransPerfect",
+    "extracted_timestamp": "2026-09-28T15:19:15.346022+00:00",
+    "raw_snippet": "<p class=\"Paragraph SCXW65288120 BCX0\" style=\"text-align:start;\">Company&nbsp;</p><p class=\"Paragraph SCXW65288120 BCX0\" style=\"text-align:start;\">TransPerfect Language &amp; Cultural Training is part of the TransPerfect solutions, the world\u2019s largest language service and technology solutions provider for global businesses with offices in more than 100 cities around the globe.&nbsp;</p><p class=\"P"
+  },
+  {
+    "record_id": "rec_abn_senior-key-account-manag",
+    "workflow_id": "wf_e046c5d216",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Senior Key Account Manager - Data&AI",
+      "company": "Xebiadach",
+      "company_domain": "arbeitnow.com",
+      "location": "Remote / Unspecified",
+      "city": null,
+      "remote_type": "remote",
+      "employment_type": "full-time",
+      "skills": [
+        "Delivery"
+      ],
+      "experience_years": "0-3 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://www.arbeitnow.ch/jobs/companies/xebiadach/senior-key-account-manager-dataai-245786",
+      "platform_source": "Arbeitnow",
+      "date_posted": "2026-09-28T02:55:13+00:00",
+      "match_score": 67.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 5,
+          "max": 30
+        },
+        "role": {
+          "score": 16,
+          "max": 20
+        },
+        "experience": {
+          "score": 15,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 3,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 5,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Ai",
+        "\u2713 0\u20133 years experience accepted",
+        "\u2713 Location fit (Remote / Unspecified)",
+        "\u2713 Education qualifications satisfied",
+        "\u2713 Fresh posting (< 24h old)"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 React not explicitly emphasized"
+      ],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 90.0,
+        "listing_quality_score": 95.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "arbeitnow"
+      ],
+      "is_link_out": false
+    },
+    "confidence_score": 67.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 5,
+        "max": 30
+      },
+      "role": {
+        "score": 16,
+        "max": 20
+      },
+      "experience": {
+        "score": 15,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 3,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 5,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://www.arbeitnow.ch/jobs/companies/xebiadach/senior-key-account-manager-dataai-245786",
+    "source_title": "Senior Key Account Manager - Data&AI at Xebiadach",
+    "extracted_timestamp": "2026-09-28T15:19:15.346293+00:00",
+    "raw_snippet": "&lt;p&gt;&lt;span data-contrast=&quot;auto&quot;&gt;&lt;span class=&quot;TextRun SCXW85923345 BCX0&quot; lang=&quot;DE-CH&quot; data-contrast=&quot;none&quot;&gt;&lt;span class=&quot;NormalTextRun SpellingErrorV2Themed SCXW85923345 BCX0&quot;&gt;&lt;strong&gt;Ort:&amp;nbsp;&lt;/strong&gt;Z\u00fcrich (plus Reiset\u00e4tigkeit in der Deutschschweiz) &lt;strong&gt;Pensum:&lt;/strong&gt; 80-100%&lt;/span&gt;&lt"
+  },
+  {
+    "record_id": "rec_gh_stripe_7584016",
+    "workflow_id": "wf_e046c5d216",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Campaign Strategy & Operations Manager",
+      "company": "Stripe",
+      "company_domain": "stripe.com",
+      "location": "San Francisco, Seattle, New York, Chicago, Remote in the US",
+      "city": "San Francisco",
+      "remote_type": "remote",
+      "employment_type": "full-time",
+      "skills": [
+        "Ai"
+      ],
+      "experience_years": "0-5 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://stripe.com/jobs/search?gh_jid=7584016",
+      "platform_source": "Greenhouse",
+      "date_posted": "2026-09-25T16:44:38-04:00",
+      "match_score": 66.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 5,
+          "max": 30
+        },
+        "role": {
+          "score": 16,
+          "max": 20
+        },
+        "experience": {
+          "score": 15,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 3,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 4,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Ai",
+        "\u2713 0\u20135 years experience accepted",
+        "\u2713 Location fit (San Francisco, Seattle, New York, Chicago, Remote in the US)",
+        "\u2713 Education qualifications satisfied"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 React not explicitly emphasized"
+      ],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 98.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "greenhouse",
+        "company-careers"
+      ],
+      "is_link_out": false
+    },
+    "confidence_score": 66.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 5,
+        "max": 30
+      },
+      "role": {
+        "score": 16,
+        "max": 20
+      },
+      "experience": {
+        "score": 15,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 3,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 4,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://stripe.com/jobs/search?gh_jid=7584016",
+    "source_title": "Campaign Strategy & Operations Manager at Stripe",
+    "extracted_timestamp": "2026-09-28T15:19:15.346570+00:00",
+    "raw_snippet": "Role: Campaign Strategy & Operations Manager at Stripe. Department: Engineering. Location: San Francisco, Seattle, New York, Chicago, Remote in the US."
+  },
+  {
+    "record_id": "rec_gh_stripe_8055930",
+    "workflow_id": "wf_e046c5d216",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Forward Deployed AI Accelerator, Marketing",
+      "company": "Stripe",
+      "company_domain": "stripe.com",
+      "location": "Remote in the US, Remote in Canada",
+      "city": "Remote in the US",
+      "remote_type": "remote",
+      "employment_type": "full-time",
+      "skills": [
+        "Ai"
+      ],
+      "experience_years": "0-5 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://stripe.com/jobs/search?gh_jid=8055930",
+      "platform_source": "Greenhouse",
+      "date_posted": "2026-09-25T16:44:49-04:00",
+      "match_score": 66.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 5,
+          "max": 30
+        },
+        "role": {
+          "score": 16,
+          "max": 20
+        },
+        "experience": {
+          "score": 15,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 3,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 4,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Ai",
+        "\u2713 0\u20135 years experience accepted",
+        "\u2713 Location fit (Remote in the US, Remote in Canada)",
+        "\u2713 Education qualifications satisfied"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 React not explicitly emphasized"
+      ],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 98.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "greenhouse",
+        "company-careers"
+      ],
+      "is_link_out": false
+    },
+    "confidence_score": 66.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 5,
+        "max": 30
+      },
+      "role": {
+        "score": 16,
+        "max": 20
+      },
+      "experience": {
+        "score": 15,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 3,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 4,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://stripe.com/jobs/search?gh_jid=8055930",
+    "source_title": "Forward Deployed AI Accelerator, Marketing at Stripe",
+    "extracted_timestamp": "2026-09-28T15:19:15.346845+00:00",
+    "raw_snippet": "Role: Forward Deployed AI Accelerator, Marketing at Stripe. Department: Engineering. Location: Remote in the US, Remote in Canada."
+  },
+  {
+    "record_id": "rec_gh_stripe_8067276",
+    "workflow_id": "wf_e046c5d216",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Integrated Campaigns Manager - Stablecoins, Crypto, and Bridge",
+      "company": "Stripe",
+      "company_domain": "stripe.com",
+      "location": "US, Remote",
+      "city": "US",
+      "remote_type": "remote",
+      "employment_type": "full-time",
+      "skills": [
+        "Ai"
+      ],
+      "experience_years": "0-5 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://stripe.com/jobs/search?gh_jid=8067276",
+      "platform_source": "Greenhouse",
+      "date_posted": "2026-09-25T16:44:50-04:00",
+      "match_score": 66.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 5,
+          "max": 30
+        },
+        "role": {
+          "score": 16,
+          "max": 20
+        },
+        "experience": {
+          "score": 15,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 3,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 4,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Ai",
+        "\u2713 0\u20135 years experience accepted",
+        "\u2713 Location fit (US, Remote)",
+        "\u2713 Education qualifications satisfied"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 React not explicitly emphasized"
+      ],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 98.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "greenhouse",
+        "company-careers"
+      ],
+      "is_link_out": false
+    },
+    "confidence_score": 66.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 5,
+        "max": 30
+      },
+      "role": {
+        "score": 16,
+        "max": 20
+      },
+      "experience": {
+        "score": 15,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 3,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 4,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://stripe.com/jobs/search?gh_jid=8067276",
+    "source_title": "Integrated Campaigns Manager - Stablecoins, Crypto, and Bridge at Stripe",
+    "extracted_timestamp": "2026-09-28T15:19:15.347117+00:00",
+    "raw_snippet": "Role: Integrated Campaigns Manager - Stablecoins, Crypto, and Bridge at Stripe. Department: Engineering. Location: US, Remote."
+  },
+  {
+    "record_id": "rec_gh_stripe_7913698",
+    "workflow_id": "wf_e046c5d216",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Staff Product Manager, Sail Core",
+      "company": "Stripe",
+      "company_domain": "stripe.com",
+      "location": "New York, US - Remote, Toronto",
+      "city": "New York",
+      "remote_type": "remote",
+      "employment_type": "full-time",
+      "skills": [
+        "Ai"
+      ],
+      "experience_years": "0-5 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://stripe.com/jobs/search?gh_jid=7913698",
+      "platform_source": "Greenhouse",
+      "date_posted": "2026-09-25T16:44:43-04:00",
+      "match_score": 66.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 5,
+          "max": 30
+        },
+        "role": {
+          "score": 16,
+          "max": 20
+        },
+        "experience": {
+          "score": 15,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 3,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 4,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Ai",
+        "\u2713 0\u20135 years experience accepted",
+        "\u2713 Location fit (New York, US - Remote, Toronto)",
+        "\u2713 Education qualifications satisfied"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 React not explicitly emphasized"
+      ],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 98.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "greenhouse",
+        "company-careers"
+      ],
+      "is_link_out": false
+    },
+    "confidence_score": 66.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 5,
+        "max": 30
+      },
+      "role": {
+        "score": 16,
+        "max": 20
+      },
+      "experience": {
+        "score": 15,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 3,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 4,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://stripe.com/jobs/search?gh_jid=7913698",
+    "source_title": "Staff Product Manager, Sail Core at Stripe",
+    "extracted_timestamp": "2026-09-28T15:19:15.347386+00:00",
+    "raw_snippet": "Role: Staff Product Manager, Sail Core at Stripe. Department: Engineering. Location: New York, US - Remote, Toronto."
+  },
+  {
+    "record_id": "rec_gh_inmobi_8027959",
+    "workflow_id": "wf_e046c5d216",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Lead - Account Management - Paid Search",
+      "company": "InMobi",
+      "company_domain": "inmobi.com",
+      "location": "Bangalore, Karnataka, India",
+      "city": "Bangalore",
+      "remote_type": "on-site",
+      "employment_type": "full-time",
+      "skills": [
+        "Ai"
+      ],
+      "experience_years": "0-5 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://job-boards.greenhouse.io/inmobi/jobs/8027959",
+      "platform_source": "Greenhouse",
+      "date_posted": "2026-09-24T04:31:32-04:00",
+      "match_score": 65.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 5,
+          "max": 30
+        },
+        "role": {
+          "score": 16,
+          "max": 20
+        },
+        "experience": {
+          "score": 15,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 3,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 3,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Ai",
+        "\u2713 0\u20135 years experience accepted",
+        "\u2713 Location fit (Bangalore, Karnataka, India)",
+        "\u2713 Education qualifications satisfied"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 React not explicitly emphasized"
+      ],
+      "quality_signals": {
+        "freshness_score": 80.0,
+        "source_confidence": 98.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "greenhouse",
+        "company-careers"
+      ],
+      "is_link_out": false
+    },
+    "confidence_score": 65.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 5,
+        "max": 30
+      },
+      "role": {
+        "score": 16,
+        "max": 20
+      },
+      "experience": {
+        "score": 15,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 3,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 3,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://job-boards.greenhouse.io/inmobi/jobs/8027959",
+    "source_title": "Lead - Account Management - Paid Search at InMobi",
+    "extracted_timestamp": "2026-09-28T15:19:15.347664+00:00",
+    "raw_snippet": "Role: Lead - Account Management - Paid Search at InMobi. Department: Engineering. Location: Bangalore."
+  },
+  {
+    "record_id": "rec_gh_inmobi_8073988",
+    "workflow_id": "wf_e046c5d216",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "SDE II - AI",
+      "company": "InMobi",
+      "company_domain": "inmobi.com",
+      "location": "Bangalore, Karnataka, India",
+      "city": "Bangalore",
+      "remote_type": "on-site",
+      "employment_type": "full-time",
+      "skills": [
+        "Ai"
+      ],
+      "experience_years": "0-5 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://job-boards.greenhouse.io/inmobi/jobs/8073988",
+      "platform_source": "Greenhouse",
+      "date_posted": "2026-09-24T04:31:32-04:00",
+      "match_score": 65.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 5,
+          "max": 30
+        },
+        "role": {
+          "score": 16,
+          "max": 20
+        },
+        "experience": {
+          "score": 15,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 3,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 3,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Ai",
+        "\u2713 0\u20135 years experience accepted",
+        "\u2713 Location fit (Bangalore, Karnataka, India)",
+        "\u2713 Education qualifications satisfied"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 React not explicitly emphasized"
+      ],
+      "quality_signals": {
+        "freshness_score": 80.0,
+        "source_confidence": 98.0,
+        "listing_quality_score": 70.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "greenhouse",
+        "company-careers"
+      ],
+      "is_link_out": false
+    },
+    "confidence_score": 65.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 5,
+        "max": 30
+      },
+      "role": {
+        "score": 16,
+        "max": 20
+      },
+      "experience": {
+        "score": 15,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 3,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 3,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://job-boards.greenhouse.io/inmobi/jobs/8073988",
+    "source_title": "SDE II - AI at InMobi",
+    "extracted_timestamp": "2026-09-28T15:19:15.347938+00:00",
+    "raw_snippet": "Role: SDE II - AI at InMobi. Department: Engineering. Location: Bangalore."
+  },
+  {
+    "record_id": "rec_gh_inmobi_8019835",
+    "workflow_id": "wf_e046c5d216",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Staff Engineer 1 \u2013 Salesforce AI",
+      "company": "InMobi",
+      "company_domain": "inmobi.com",
+      "location": "Bangalore, Karnataka, India",
+      "city": "Bangalore",
+      "remote_type": "on-site",
+      "employment_type": "full-time",
+      "skills": [
+        "Ai"
+      ],
+      "experience_years": "0-5 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://job-boards.greenhouse.io/inmobi/jobs/8019835",
+      "platform_source": "Greenhouse",
+      "date_posted": "2026-09-24T04:31:32-04:00",
+      "match_score": 65.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 5,
+          "max": 30
+        },
+        "role": {
+          "score": 16,
+          "max": 20
+        },
+        "experience": {
+          "score": 15,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 3,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 3,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Ai",
+        "\u2713 0\u20135 years experience accepted",
+        "\u2713 Location fit (Bangalore, Karnataka, India)",
+        "\u2713 Education qualifications satisfied"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 React not explicitly emphasized"
+      ],
+      "quality_signals": {
+        "freshness_score": 80.0,
+        "source_confidence": 98.0,
+        "listing_quality_score": 70.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "greenhouse",
+        "company-careers"
+      ],
+      "is_link_out": false
+    },
+    "confidence_score": 65.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 5,
+        "max": 30
+      },
+      "role": {
+        "score": 16,
+        "max": 20
+      },
+      "experience": {
+        "score": 15,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 3,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 3,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://job-boards.greenhouse.io/inmobi/jobs/8019835",
+    "source_title": "Staff Engineer 1 \u2013 Salesforce AI at InMobi",
+    "extracted_timestamp": "2026-09-28T15:19:15.348199+00:00",
+    "raw_snippet": "Role: Staff Engineer 1 \u2013 Salesforce AI at InMobi. Department: Engineering. Location: Bangalore."
+  },
+  {
+    "record_id": "rec_lev_meesho_a1cc7ad9-a233-4ba6-b53b-e56116f6ac27",
+    "workflow_id": "wf_e046c5d216",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Engineering Manager \u2013 AI Engineering",
+      "company": "Meesho",
+      "company_domain": "meesho.com",
+      "location": "Bangalore, Karnataka, India",
+      "city": "Bangalore",
+      "remote_type": "on-site",
+      "employment_type": "full time employee",
+      "skills": [
+        "Ai"
+      ],
+      "experience_years": "0-5 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://jobs.lever.co/meesho/a1cc7ad9-a233-4ba6-b53b-e56116f6ac27",
+      "platform_source": "Lever",
+      "date_posted": "2026-07-31T09:37:31.212000+00:00",
+      "match_score": 65.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 5,
+          "max": 30
+        },
+        "role": {
+          "score": 16,
+          "max": 20
+        },
+        "experience": {
+          "score": 15,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 3,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 3,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Ai",
+        "\u2713 0\u20135 years experience accepted",
+        "\u2713 Location fit (Bangalore, Karnataka, India)",
+        "\u2713 Education qualifications satisfied"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 React not explicitly emphasized"
+      ],
+      "quality_signals": {
+        "freshness_score": 80.0,
+        "source_confidence": 98.0,
+        "listing_quality_score": 95.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "lever",
+        "company-careers"
+      ],
+      "is_link_out": false
+    },
+    "confidence_score": 65.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 5,
+        "max": 30
+      },
+      "role": {
+        "score": 16,
+        "max": 20
+      },
+      "experience": {
+        "score": 15,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 3,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 3,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://jobs.lever.co/meesho/a1cc7ad9-a233-4ba6-b53b-e56116f6ac27",
+    "source_title": "Engineering Manager \u2013 AI Engineering at Meesho",
+    "extracted_timestamp": "2026-09-28T15:19:15.348902+00:00",
+    "raw_snippet": "About Meesho\nMeesho is India's fastest-growing internet commerce company, on a mission to democratize e-commerce for everyone. We serve millions of customers and over 1.75 million sellers through technology-driven innovation, building the scalable systems that power Meesho's most critical surfaces \u2014 Search, Recommendations, Personalized Ranking, Logistics, Fraud Detection, and Image Match.\nThe AI "
+  },
+  {
+    "record_id": "rec_lev_meesho_1de2fc88-e203-4f1a-8046-55df700de4be",
+    "workflow_id": "wf_e046c5d216",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Trainee - Recruitment Coordinator",
+      "company": "Meesho",
+      "company_domain": "meesho.com",
+      "location": "Bangalore, Karnataka, India",
+      "city": "Bangalore",
+      "remote_type": "on-site",
+      "employment_type": "trainee",
+      "skills": [
+        "Ai"
+      ],
+      "experience_years": "0-5 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://jobs.lever.co/meesho/1de2fc88-e203-4f1a-8046-55df700de4be",
+      "platform_source": "Lever",
+      "date_posted": "2025-07-30T12:03:27.507000+00:00",
+      "match_score": 65.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 5,
+          "max": 30
+        },
+        "role": {
+          "score": 16,
+          "max": 20
+        },
+        "experience": {
+          "score": 15,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 3,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 3,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Ai",
+        "\u2713 0\u20135 years experience accepted",
+        "\u2713 Location fit (Bangalore, Karnataka, India)",
+        "\u2713 Education qualifications satisfied"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 React not explicitly emphasized"
+      ],
+      "quality_signals": {
+        "freshness_score": 80.0,
+        "source_confidence": 98.0,
+        "listing_quality_score": 95.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "lever",
+        "company-careers"
+      ],
+      "is_link_out": false
+    },
+    "confidence_score": 65.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 5,
+        "max": 30
+      },
+      "role": {
+        "score": 16,
+        "max": 20
+      },
+      "experience": {
+        "score": 15,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 3,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 3,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://jobs.lever.co/meesho/1de2fc88-e203-4f1a-8046-55df700de4be",
+    "source_title": "Trainee - Recruitment Coordinator at Meesho",
+    "extracted_timestamp": "2026-09-28T15:19:15.349267+00:00",
+    "raw_snippet": "About the Team\n\u00a0\nOur Human Resources team operates as a strategic partner to the business, focused on cultivating a high-performance culture where exceptional talent thrives. Our work is fundamentally guided by the DICE (Democratize Internet Commerce for Everyone) mission, which underpins our approach to all people strategies. Our core mandate centers on two critical pillars: driving world-class T"
+  },
+  {
+    "record_id": "rec_ash_cursor_409d6bff-d60c-45b7-8d4c-21f6574010de",
+    "workflow_id": "wf_e046c5d216",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Strategic Account Executive, Retail",
+      "company": "Cursor",
+      "company_domain": "cursor.com",
+      "location": "Remote",
+      "city": "Remote",
+      "remote_type": "remote",
+      "employment_type": "fulltime",
+      "skills": [
+        "Ai"
+      ],
+      "experience_years": "0-5 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://jobs.ashbyhq.com/cursor/409d6bff-d60c-45b7-8d4c-21f6574010de",
+      "platform_source": "Ashby",
+      "date_posted": "2026-03-06T20:22:15.195+00:00",
+      "match_score": 65.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 5,
+          "max": 30
+        },
+        "role": {
+          "score": 16,
+          "max": 20
+        },
+        "experience": {
+          "score": 15,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 3,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 3,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Ai",
+        "\u2713 0\u20135 years experience accepted",
+        "\u2713 Location fit (Remote)",
+        "\u2713 Education qualifications satisfied"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 React not explicitly emphasized"
+      ],
+      "quality_signals": {
+        "freshness_score": 80.0,
+        "source_confidence": 98.0,
+        "listing_quality_score": 70.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "ashby",
+        "company-careers"
+      ],
+      "is_link_out": false
+    },
+    "confidence_score": 65.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 5,
+        "max": 30
+      },
+      "role": {
+        "score": 16,
+        "max": 20
+      },
+      "experience": {
+        "score": 15,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 3,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 3,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://jobs.ashbyhq.com/cursor/409d6bff-d60c-45b7-8d4c-21f6574010de",
+    "source_title": "Strategic Account Executive, Retail at Cursor",
+    "extracted_timestamp": "2026-09-28T15:19:15.349570+00:00",
+    "raw_snippet": "Role: Strategic Account Executive, Retail at Cursor. Department: Sales. Location: Remote."
+  },
+  {
+    "record_id": "rec_ash_cursor_59d55195-2a9e-4b07-a9fc-b721008bc378",
+    "workflow_id": "wf_e046c5d216",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Ai Deployment Manager - India",
+      "company": "Cursor",
+      "company_domain": "cursor.com",
+      "location": "Bangalore, Karnataka, India",
+      "city": "Bangalore",
+      "remote_type": "on-site",
+      "employment_type": "fulltime",
+      "skills": [
+        "Ai"
+      ],
+      "experience_years": "0-5 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://jobs.ashbyhq.com/cursor/59d55195-2a9e-4b07-a9fc-b721008bc378",
+      "platform_source": "Ashby",
+      "date_posted": "2026-08-07T03:24:38.773+00:00",
+      "match_score": 65.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 5,
+          "max": 30
+        },
+        "role": {
+          "score": 16,
+          "max": 20
+        },
+        "experience": {
+          "score": 15,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 3,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 3,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Ai",
+        "\u2713 0\u20135 years experience accepted",
+        "\u2713 Location fit (Bangalore, Karnataka, India)",
+        "\u2713 Education qualifications satisfied"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 React not explicitly emphasized"
+      ],
+      "quality_signals": {
+        "freshness_score": 80.0,
+        "source_confidence": 98.0,
+        "listing_quality_score": 70.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "ashby",
+        "company-careers"
+      ],
+      "is_link_out": false
+    },
+    "confidence_score": 65.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 5,
+        "max": 30
+      },
+      "role": {
+        "score": 16,
+        "max": 20
+      },
+      "experience": {
+        "score": 15,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 3,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 3,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://jobs.ashbyhq.com/cursor/59d55195-2a9e-4b07-a9fc-b721008bc378",
+    "source_title": "Ai Deployment Manager - India at Cursor",
+    "extracted_timestamp": "2026-09-28T15:19:15.349850+00:00",
+    "raw_snippet": "Role: Ai Deployment Manager - India at Cursor. Department: Customer Success. Location: Bengaluru."
+  },
+  {
+    "record_id": "rec_ash_cursor_0130118d-1cce-4eea-8325-2fc95ab6c584",
+    "workflow_id": "wf_e046c5d216",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "AI Deployment Manager, Scale",
+      "company": "Cursor",
+      "company_domain": "cursor.com",
+      "location": "Remote",
+      "city": "Remote",
+      "remote_type": "remote",
+      "employment_type": "fulltime",
+      "skills": [
+        "Ai"
+      ],
+      "experience_years": "0-5 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://jobs.ashbyhq.com/cursor/0130118d-1cce-4eea-8325-2fc95ab6c584",
+      "platform_source": "Ashby",
+      "date_posted": "2026-09-24T19:36:43.898+00:00",
+      "match_score": 65.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 5,
+          "max": 30
+        },
+        "role": {
+          "score": 16,
+          "max": 20
+        },
+        "experience": {
+          "score": 15,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 3,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 3,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Ai",
+        "\u2713 0\u20135 years experience accepted",
+        "\u2713 Location fit (Remote)",
+        "\u2713 Education qualifications satisfied"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 React not explicitly emphasized"
+      ],
+      "quality_signals": {
+        "freshness_score": 80.0,
+        "source_confidence": 98.0,
+        "listing_quality_score": 70.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "ashby",
+        "company-careers"
+      ],
+      "is_link_out": false
+    },
+    "confidence_score": 65.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 5,
+        "max": 30
+      },
+      "role": {
+        "score": 16,
+        "max": 20
+      },
+      "experience": {
+        "score": 15,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 3,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 3,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://jobs.ashbyhq.com/cursor/0130118d-1cce-4eea-8325-2fc95ab6c584",
+    "source_title": "AI Deployment Manager, Scale at Cursor",
+    "extracted_timestamp": "2026-09-28T15:19:15.350129+00:00",
+    "raw_snippet": "Role: AI Deployment Manager, Scale at Cursor. Department: Customer Success. Location: Remote."
+  },
+  {
+    "record_id": "rec_ash_supabase_3b5d54ca-741b-45ac-bd3f-31605a0d3541",
+    "workflow_id": "wf_e046c5d216",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "AI Platform Engineer",
+      "company": "Supabase",
+      "company_domain": "supabase.com",
+      "location": "Remote, Global",
+      "city": "Remote",
+      "remote_type": "remote",
+      "employment_type": "fulltime",
+      "skills": [
+        "Ai"
+      ],
+      "experience_years": "0-5 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://jobs.ashbyhq.com/supabase/3b5d54ca-741b-45ac-bd3f-31605a0d3541",
+      "platform_source": "Ashby",
+      "date_posted": "2026-07-31T18:56:39.246+00:00",
+      "match_score": 65.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 5,
+          "max": 30
+        },
+        "role": {
+          "score": 16,
+          "max": 20
+        },
+        "experience": {
+          "score": 15,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 3,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 3,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Ai",
+        "\u2713 0\u20135 years experience accepted",
+        "\u2713 Location fit (Remote, Global)",
+        "\u2713 Education qualifications satisfied"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 React not explicitly emphasized"
+      ],
+      "quality_signals": {
+        "freshness_score": 80.0,
+        "source_confidence": 98.0,
+        "listing_quality_score": 70.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "ashby",
+        "company-careers"
+      ],
+      "is_link_out": false
+    },
+    "confidence_score": 65.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 5,
+        "max": 30
+      },
+      "role": {
+        "score": 16,
+        "max": 20
+      },
+      "experience": {
+        "score": 15,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 3,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 3,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://jobs.ashbyhq.com/supabase/3b5d54ca-741b-45ac-bd3f-31605a0d3541",
+    "source_title": "AI Platform Engineer at Supabase",
+    "extracted_timestamp": "2026-09-28T15:19:15.350427+00:00",
+    "raw_snippet": "Role: AI Platform Engineer at Supabase. Department: Business Operations. Location: Remote, Global."
+  },
+  {
+    "record_id": "rec_lev_meesho_c84e4b2c-653a-4cf8-abd9-e70d0c5e4cd8",
+    "workflow_id": "wf_e046c5d216",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Cluster Head- Last mile - Chennai",
+      "company": "Meesho",
+      "company_domain": "meesho.com",
+      "location": "Chennai, Tamil Nadu, India",
+      "city": "Chennai",
+      "remote_type": "on-site",
+      "employment_type": "full time employee",
+      "skills": [
+        "Ai"
+      ],
+      "experience_years": "0-5 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://jobs.lever.co/meesho/c84e4b2c-653a-4cf8-abd9-e70d0c5e4cd8",
+      "platform_source": "Lever",
+      "date_posted": "2026-09-22T08:29:28.274000+00:00",
+      "match_score": 57.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 5,
+          "max": 30
+        },
+        "role": {
+          "score": 16,
+          "max": 20
+        },
+        "experience": {
+          "score": 15,
+          "max": 15
+        },
+        "location": {
+          "score": 2,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 3,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 3,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Ai",
+        "\u2713 0\u20135 years experience accepted",
+        "\u2713 Education qualifications satisfied"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 React not explicitly emphasized",
+        "\u26a0 Located in Chennai, Tamil Nadu, India"
+      ],
+      "quality_signals": {
+        "freshness_score": 80.0,
+        "source_confidence": 98.0,
+        "listing_quality_score": 95.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "lever",
+        "company-careers"
+      ],
+      "is_link_out": false
+    },
+    "confidence_score": 57.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 5,
+        "max": 30
+      },
+      "role": {
+        "score": 16,
+        "max": 20
+      },
+      "experience": {
+        "score": 15,
+        "max": 15
+      },
+      "location": {
+        "score": 2,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 3,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 3,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://jobs.lever.co/meesho/c84e4b2c-653a-4cf8-abd9-e70d0c5e4cd8",
+    "source_title": "Cluster Head- Last mile - Chennai at Meesho",
+    "extracted_timestamp": "2026-09-28T15:19:15.350700+00:00",
+    "raw_snippet": "About the Team\n\u00a0\nBeing part of Meesho's Fulfilment and Experience (F&E) team as Cluster Head LM,\nwill zip you to the cockpit of our ever-burgeoning rocketship, where you get to\ndirectly shape the experience of the country's next billion e-commerce users.\nWe are an eclectic mix of 100+ professionals with diverse skill sets ranging from\nrunning operations/support, supply chain know-how, analytics an"
+  },
+  {
+    "record_id": "rec_lev_meesho_122c2edd-ea44-41fd-a06f-ecc79588f6c6",
+    "workflow_id": "wf_e046c5d216",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Director \u2013 Sales, Meesho AI Services (MAS) | North India",
+      "company": "Meesho",
+      "company_domain": "meesho.com",
+      "location": "Delhi NCR, Delhi NCR, India",
+      "city": "Delhi NCR",
+      "remote_type": "on-site",
+      "employment_type": "full time employee",
+      "skills": [
+        "Ai"
+      ],
+      "experience_years": "0-5 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://jobs.lever.co/meesho/122c2edd-ea44-41fd-a06f-ecc79588f6c6",
+      "platform_source": "Lever",
+      "date_posted": "2026-07-01T06:48:50.474000+00:00",
+      "match_score": 57.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 5,
+          "max": 30
+        },
+        "role": {
+          "score": 16,
+          "max": 20
+        },
+        "experience": {
+          "score": 15,
+          "max": 15
+        },
+        "location": {
+          "score": 2,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 3,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 3,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Ai",
+        "\u2713 0\u20135 years experience accepted",
+        "\u2713 Education qualifications satisfied"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 React not explicitly emphasized",
+        "\u26a0 Located in Delhi NCR, Delhi NCR, India"
+      ],
+      "quality_signals": {
+        "freshness_score": 80.0,
+        "source_confidence": 98.0,
+        "listing_quality_score": 95.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "company-careers",
+        "lever"
+      ],
+      "is_link_out": false
+    },
+    "confidence_score": 57.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 5,
+        "max": 30
+      },
+      "role": {
+        "score": 16,
+        "max": 20
+      },
+      "experience": {
+        "score": 15,
+        "max": 15
+      },
+      "location": {
+        "score": 2,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 3,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 3,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://jobs.lever.co/meesho/122c2edd-ea44-41fd-a06f-ecc79588f6c6",
+    "source_title": "Director \u2013 Sales, Meesho AI Services (MAS) | North India at Meesho",
+    "extracted_timestamp": "2026-09-28T15:19:15.350973+00:00",
+    "raw_snippet": "About MAS\nMAS's mission is to accelerate the build and deployment of an AI workforce for every business \u2014 from kirana to conglomerate. Our vision is to deliver a billion-plus workflows through our agents in ways that drive real client outcomes, not automation for its own sake.\nWe go deep rather than wide. Today that means known, process-defined, repeatable service workflows \u2014 inbound contact-centr"
+  },
+  {
+    "record_id": "rec_ash_linear_d062065e-05bb-42ce-a430-ec205695cc2e",
+    "workflow_id": "wf_e046c5d216",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Product Support Specialist, Pacific/Mountain Time",
+      "company": "Linear",
+      "company_domain": "linear.app",
+      "location": "North America",
+      "city": "North America",
+      "remote_type": "remote",
+      "employment_type": "fulltime",
+      "skills": [
+        "Ai"
+      ],
+      "experience_years": "0-5 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://jobs.ashbyhq.com/linear/d062065e-05bb-42ce-a430-ec205695cc2e",
+      "platform_source": "Ashby",
+      "date_posted": "2026-05-28T20:46:41.811+00:00",
+      "match_score": 57.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 5,
+          "max": 30
+        },
+        "role": {
+          "score": 16,
+          "max": 20
+        },
+        "experience": {
+          "score": 15,
+          "max": 15
+        },
+        "location": {
+          "score": 2,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 3,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 3,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Ai",
+        "\u2713 0\u20135 years experience accepted",
+        "\u2713 Education qualifications satisfied"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 React not explicitly emphasized",
+        "\u26a0 Located in North America"
+      ],
+      "quality_signals": {
+        "freshness_score": 80.0,
+        "source_confidence": 98.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "ashby",
+        "company-careers"
+      ],
+      "is_link_out": false
+    },
+    "confidence_score": 57.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 5,
+        "max": 30
+      },
+      "role": {
+        "score": 16,
+        "max": 20
+      },
+      "experience": {
+        "score": 15,
+        "max": 15
+      },
+      "location": {
+        "score": 2,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 3,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 3,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://jobs.ashbyhq.com/linear/d062065e-05bb-42ce-a430-ec205695cc2e",
+    "source_title": "Product Support Specialist, Pacific/Mountain Time at Linear",
+    "extracted_timestamp": "2026-09-28T15:19:15.351254+00:00",
+    "raw_snippet": "Role: Product Support Specialist, Pacific/Mountain Time at Linear. Department: GTM. Location: North America."
+  },
+  {
+    "record_id": "rec_ash_linear_b4a7764e-c680-4bdf-9956-dc78f2ca94d5",
+    "workflow_id": "wf_e046c5d216",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Senior / Staff Product Engineer, AI",
+      "company": "Linear",
+      "company_domain": "linear.app",
+      "location": "North America",
+      "city": "North America",
+      "remote_type": "remote",
+      "employment_type": "fulltime",
+      "skills": [
+        "Ai"
+      ],
+      "experience_years": "0-5 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://jobs.ashbyhq.com/linear/b4a7764e-c680-4bdf-9956-dc78f2ca94d5",
+      "platform_source": "Ashby",
+      "date_posted": "2025-07-10T19:17:43.653+00:00",
+      "match_score": 57.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 5,
+          "max": 30
+        },
+        "role": {
+          "score": 16,
+          "max": 20
+        },
+        "experience": {
+          "score": 15,
+          "max": 15
+        },
+        "location": {
+          "score": 2,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 3,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 3,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Ai",
+        "\u2713 0\u20135 years experience accepted",
+        "\u2713 Education qualifications satisfied"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 React not explicitly emphasized",
+        "\u26a0 Located in North America"
+      ],
+      "quality_signals": {
+        "freshness_score": 80.0,
+        "source_confidence": 98.0,
+        "listing_quality_score": 70.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "ashby",
+        "company-careers"
+      ],
+      "is_link_out": false
+    },
+    "confidence_score": 57.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 5,
+        "max": 30
+      },
+      "role": {
+        "score": 16,
+        "max": 20
+      },
+      "experience": {
+        "score": 15,
+        "max": 15
+      },
+      "location": {
+        "score": 2,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 3,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 3,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://jobs.ashbyhq.com/linear/b4a7764e-c680-4bdf-9956-dc78f2ca94d5",
+    "source_title": "Senior / Staff Product Engineer, AI at Linear",
+    "extracted_timestamp": "2026-09-28T15:19:15.351525+00:00",
+    "raw_snippet": "Role: Senior / Staff Product Engineer, AI at Linear. Department: Product. Location: North America."
+  },
+  {
+    "record_id": "rec_ash_perplexity_7755eb0a-0f51-4286-b75e-591e44c741bc",
+    "workflow_id": "wf_e046c5d216",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Member of Technical Staff (Answer Quality & Evals)",
+      "company": "Perplexity",
+      "company_domain": "perplexity.ai",
+      "location": "San Francisco",
+      "city": "San Francisco",
+      "remote_type": "remote",
+      "employment_type": "fulltime",
+      "skills": [
+        "Software Development"
+      ],
+      "experience_years": "0-5 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://jobs.ashbyhq.com/perplexity/7755eb0a-0f51-4286-b75e-591e44c741bc",
+      "platform_source": "Ashby",
+      "date_posted": "2026-04-13T19:44:45.880+00:00",
+      "match_score": 57.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 5,
+          "max": 30
+        },
+        "role": {
+          "score": 16,
+          "max": 20
+        },
+        "experience": {
+          "score": 15,
+          "max": 15
+        },
+        "location": {
+          "score": 2,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 3,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 3,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Ai",
+        "\u2713 0\u20135 years experience accepted",
+        "\u2713 Education qualifications satisfied"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 React not explicitly emphasized",
+        "\u26a0 Located in San Francisco"
+      ],
+      "quality_signals": {
+        "freshness_score": 80.0,
+        "source_confidence": 98.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "ashby",
+        "company-careers"
+      ],
+      "is_link_out": false
+    },
+    "confidence_score": 57.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 5,
+        "max": 30
+      },
+      "role": {
+        "score": 16,
+        "max": 20
+      },
+      "experience": {
+        "score": 15,
+        "max": 15
+      },
+      "location": {
+        "score": 2,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 3,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 3,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://jobs.ashbyhq.com/perplexity/7755eb0a-0f51-4286-b75e-591e44c741bc",
+    "source_title": "Member of Technical Staff (Answer Quality & Evals) at Perplexity",
+    "extracted_timestamp": "2026-09-28T15:19:15.351789+00:00",
+    "raw_snippet": "Role: Member of Technical Staff (Answer Quality & Evals) at Perplexity. Department: AI Research & Systems. Location: San Francisco."
+  },
+  {
+    "record_id": "rec_ash_perplexity_60deb376-51b5-46c6-9e17-55377a5ef34e",
+    "workflow_id": "wf_e046c5d216",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Member of Technical Staff (AI Infrastructure Engineer)",
+      "company": "Perplexity",
+      "company_domain": "perplexity.ai",
+      "location": "London",
+      "city": "London",
+      "remote_type": "remote",
+      "employment_type": "fulltime",
+      "skills": [
+        "Ai"
+      ],
+      "experience_years": "0-5 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://jobs.ashbyhq.com/perplexity/60deb376-51b5-46c6-9e17-55377a5ef34e",
+      "platform_source": "Ashby",
+      "date_posted": "2026-04-13T19:40:57.103+00:00",
+      "match_score": 57.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 5,
+          "max": 30
+        },
+        "role": {
+          "score": 16,
+          "max": 20
+        },
+        "experience": {
+          "score": 15,
+          "max": 15
+        },
+        "location": {
+          "score": 2,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 3,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 3,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Ai",
+        "\u2713 0\u20135 years experience accepted",
+        "\u2713 Education qualifications satisfied"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 React not explicitly emphasized",
+        "\u26a0 Located in London"
+      ],
+      "quality_signals": {
+        "freshness_score": 80.0,
+        "source_confidence": 98.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "ashby",
+        "company-careers"
+      ],
+      "is_link_out": false
+    },
+    "confidence_score": 57.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 5,
+        "max": 30
+      },
+      "role": {
+        "score": 16,
+        "max": 20
+      },
+      "experience": {
+        "score": 15,
+        "max": 15
+      },
+      "location": {
+        "score": 2,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 3,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 3,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://jobs.ashbyhq.com/perplexity/60deb376-51b5-46c6-9e17-55377a5ef34e",
+    "source_title": "Member of Technical Staff (AI Infrastructure Engineer) at Perplexity",
+    "extracted_timestamp": "2026-09-28T15:19:15.352051+00:00",
+    "raw_snippet": "Role: Member of Technical Staff (AI Infrastructure Engineer) at Perplexity. Department: AI Research & Systems. Location: London."
+  },
+  {
+    "record_id": "rec_ash_perplexity_78675022-c4a7-41d2-9259-7c59be4de93c",
+    "workflow_id": "wf_e046c5d216",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Member of Technical Staff (Software Engineer, Design System)",
+      "company": "Perplexity",
+      "company_domain": "perplexity.ai",
+      "location": "San Francisco",
+      "city": "San Francisco",
+      "remote_type": "remote",
+      "employment_type": "fulltime",
+      "skills": [
+        "Software Development"
+      ],
+      "experience_years": "0-5 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://jobs.ashbyhq.com/perplexity/78675022-c4a7-41d2-9259-7c59be4de93c",
+      "platform_source": "Ashby",
+      "date_posted": "2026-08-11T23:23:02.484+00:00",
+      "match_score": 57.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 5,
+          "max": 30
+        },
+        "role": {
+          "score": 16,
+          "max": 20
+        },
+        "experience": {
+          "score": 15,
+          "max": 15
+        },
+        "location": {
+          "score": 2,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 3,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 3,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Ai",
+        "\u2713 0\u20135 years experience accepted",
+        "\u2713 Education qualifications satisfied"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 React not explicitly emphasized",
+        "\u26a0 Located in San Francisco"
+      ],
+      "quality_signals": {
+        "freshness_score": 80.0,
+        "source_confidence": 98.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "ashby",
+        "company-careers"
+      ],
+      "is_link_out": false
+    },
+    "confidence_score": 57.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 5,
+        "max": 30
+      },
+      "role": {
+        "score": 16,
+        "max": 20
+      },
+      "experience": {
+        "score": 15,
+        "max": 15
+      },
+      "location": {
+        "score": 2,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 3,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 3,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://jobs.ashbyhq.com/perplexity/78675022-c4a7-41d2-9259-7c59be4de93c",
+    "source_title": "Member of Technical Staff (Software Engineer, Design System) at Perplexity",
+    "extracted_timestamp": "2026-09-28T15:19:15.352336+00:00",
+    "raw_snippet": "Role: Member of Technical Staff (Software Engineer, Design System) at Perplexity. Department: AI Products. Location: San Francisco."
+  },
+  {
+    "record_id": "rec_ash_perplexity_b00cbb00-f672-4909-a7be-bbd02c7d7b5f",
+    "workflow_id": "wf_e046c5d216",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Member of Technical Staff (Software Engineer, Desktop Apps)",
+      "company": "Perplexity",
+      "company_domain": "perplexity.ai",
+      "location": "San Francisco",
+      "city": "San Francisco",
+      "remote_type": "remote",
+      "employment_type": "fulltime",
+      "skills": [
+        "Software Development"
+      ],
+      "experience_years": "0-5 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://jobs.ashbyhq.com/perplexity/b00cbb00-f672-4909-a7be-bbd02c7d7b5f",
+      "platform_source": "Ashby",
+      "date_posted": "2026-08-26T17:26:55.714+00:00",
+      "match_score": 57.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 5,
+          "max": 30
+        },
+        "role": {
+          "score": 16,
+          "max": 20
+        },
+        "experience": {
+          "score": 15,
+          "max": 15
+        },
+        "location": {
+          "score": 2,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 3,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 3,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Ai",
+        "\u2713 0\u20135 years experience accepted",
+        "\u2713 Education qualifications satisfied"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 React not explicitly emphasized",
+        "\u26a0 Located in San Francisco"
+      ],
+      "quality_signals": {
+        "freshness_score": 80.0,
+        "source_confidence": 98.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "ashby",
+        "company-careers"
+      ],
+      "is_link_out": false
+    },
+    "confidence_score": 57.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 5,
+        "max": 30
+      },
+      "role": {
+        "score": 16,
+        "max": 20
+      },
+      "experience": {
+        "score": 15,
+        "max": 15
+      },
+      "location": {
+        "score": 2,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 3,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 3,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://jobs.ashbyhq.com/perplexity/b00cbb00-f672-4909-a7be-bbd02c7d7b5f",
+    "source_title": "Member of Technical Staff (Software Engineer, Desktop Apps) at Perplexity",
+    "extracted_timestamp": "2026-09-28T15:19:15.352609+00:00",
+    "raw_snippet": "Role: Member of Technical Staff (Software Engineer, Desktop Apps) at Perplexity. Department: AI Products. Location: San Francisco."
+  },
+  {
+    "record_id": "rec_ash_perplexity_31dfcb60-a0df-4983-b3a4-d653cdc0aa8f",
+    "workflow_id": "wf_e046c5d216",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "AI Strategist, Financial Services",
+      "company": "Perplexity",
+      "company_domain": "perplexity.ai",
+      "location": "San Francisco",
+      "city": "San Francisco",
+      "remote_type": "remote",
+      "employment_type": "fulltime",
+      "skills": [
+        "Ai"
+      ],
+      "experience_years": "0-5 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://jobs.ashbyhq.com/perplexity/31dfcb60-a0df-4983-b3a4-d653cdc0aa8f",
+      "platform_source": "Ashby",
+      "date_posted": "2026-07-23T23:01:27.682+00:00",
+      "match_score": 57.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 5,
+          "max": 30
+        },
+        "role": {
+          "score": 16,
+          "max": 20
+        },
+        "experience": {
+          "score": 15,
+          "max": 15
+        },
+        "location": {
+          "score": 2,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 3,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 3,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Ai",
+        "\u2713 0\u20135 years experience accepted",
+        "\u2713 Education qualifications satisfied"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 React not explicitly emphasized",
+        "\u26a0 Located in San Francisco"
+      ],
+      "quality_signals": {
+        "freshness_score": 80.0,
+        "source_confidence": 98.0,
+        "listing_quality_score": 70.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "ashby",
+        "company-careers"
+      ],
+      "is_link_out": false
+    },
+    "confidence_score": 57.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 5,
+        "max": 30
+      },
+      "role": {
+        "score": 16,
+        "max": 20
+      },
+      "experience": {
+        "score": 15,
+        "max": 15
+      },
+      "location": {
+        "score": 2,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 3,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 3,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://jobs.ashbyhq.com/perplexity/31dfcb60-a0df-4983-b3a4-d653cdc0aa8f",
+    "source_title": "AI Strategist, Financial Services at Perplexity",
+    "extracted_timestamp": "2026-09-28T15:19:15.352878+00:00",
+    "raw_snippet": "Role: AI Strategist, Financial Services at Perplexity. Department: Sales. Location: San Francisco."
+  },
+  {
+    "record_id": "rec_ash_perplexity_2c6ae16b-d03e-4e33-9d32-362c5388e956",
+    "workflow_id": "wf_e046c5d216",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Member of Technical Staff (Model Behavior)",
+      "company": "Perplexity",
+      "company_domain": "perplexity.ai",
+      "location": "San Francisco",
+      "city": "San Francisco",
+      "remote_type": "remote",
+      "employment_type": "fulltime",
+      "skills": [
+        "Software Development"
+      ],
+      "experience_years": "0-5 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://jobs.ashbyhq.com/perplexity/2c6ae16b-d03e-4e33-9d32-362c5388e956",
+      "platform_source": "Ashby",
+      "date_posted": "2026-07-30T18:12:04.348+00:00",
+      "match_score": 57.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 5,
+          "max": 30
+        },
+        "role": {
+          "score": 16,
+          "max": 20
+        },
+        "experience": {
+          "score": 15,
+          "max": 15
+        },
+        "location": {
+          "score": 2,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 3,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 3,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Ai",
+        "\u2713 0\u20135 years experience accepted",
+        "\u2713 Education qualifications satisfied"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 React not explicitly emphasized",
+        "\u26a0 Located in San Francisco"
+      ],
+      "quality_signals": {
+        "freshness_score": 80.0,
+        "source_confidence": 98.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "ashby",
+        "company-careers"
+      ],
+      "is_link_out": false
+    },
+    "confidence_score": 57.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 5,
+        "max": 30
+      },
+      "role": {
+        "score": 16,
+        "max": 20
+      },
+      "experience": {
+        "score": 15,
+        "max": 15
+      },
+      "location": {
+        "score": 2,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 3,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 3,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://jobs.ashbyhq.com/perplexity/2c6ae16b-d03e-4e33-9d32-362c5388e956",
+    "source_title": "Member of Technical Staff (Model Behavior) at Perplexity",
+    "extracted_timestamp": "2026-09-28T15:19:15.353845+00:00",
+    "raw_snippet": "Role: Member of Technical Staff (Model Behavior) at Perplexity. Department: AI Research & Systems. Location: San Francisco."
+  },
+  {
+    "record_id": "rec_ash_perplexity_f4d81f6b-958c-4bc0-a9aa-9850c3508ca9",
+    "workflow_id": "wf_e046c5d216",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Strategic Finance Lead - AI",
+      "company": "Perplexity",
+      "company_domain": "perplexity.ai",
+      "location": "San Francisco",
+      "city": "San Francisco",
+      "remote_type": "remote",
+      "employment_type": "fulltime",
+      "skills": [
+        "Ai"
+      ],
+      "experience_years": "0-5 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://jobs.ashbyhq.com/perplexity/f4d81f6b-958c-4bc0-a9aa-9850c3508ca9",
+      "platform_source": "Ashby",
+      "date_posted": "2026-09-01T19:09:29.116+00:00",
+      "match_score": 57.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 5,
+          "max": 30
+        },
+        "role": {
+          "score": 16,
+          "max": 20
+        },
+        "experience": {
+          "score": 15,
+          "max": 15
+        },
+        "location": {
+          "score": 2,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 3,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 3,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Ai",
+        "\u2713 0\u20135 years experience accepted",
+        "\u2713 Education qualifications satisfied"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 React not explicitly emphasized",
+        "\u26a0 Located in San Francisco"
+      ],
+      "quality_signals": {
+        "freshness_score": 80.0,
+        "source_confidence": 98.0,
+        "listing_quality_score": 70.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "ashby",
+        "company-careers"
+      ],
+      "is_link_out": false
+    },
+    "confidence_score": 57.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 5,
+        "max": 30
+      },
+      "role": {
+        "score": 16,
+        "max": 20
+      },
+      "experience": {
+        "score": 15,
+        "max": 15
+      },
+      "location": {
+        "score": 2,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 3,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 3,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://jobs.ashbyhq.com/perplexity/f4d81f6b-958c-4bc0-a9aa-9850c3508ca9",
+    "source_title": "Strategic Finance Lead - AI at Perplexity",
+    "extracted_timestamp": "2026-09-28T15:19:15.354421+00:00",
+    "raw_snippet": "Role: Strategic Finance Lead - AI at Perplexity. Department: Finance. Location: San Francisco."
+  },
+  {
+    "record_id": "rec_ash_cursor_232223c1-913a-4318-982b-1970e2842710",
+    "workflow_id": "wf_e046c5d216",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Strategic Account Executive, Enterprise - Thailand",
+      "company": "Cursor",
+      "company_domain": "cursor.com",
+      "location": "APJ",
+      "city": "APJ",
+      "remote_type": "remote",
+      "employment_type": "fulltime",
+      "skills": [
+        "Ai"
+      ],
+      "experience_years": "0-5 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://jobs.ashbyhq.com/cursor/232223c1-913a-4318-982b-1970e2842710",
+      "platform_source": "Ashby",
+      "date_posted": "2026-09-02T19:17:50.938+00:00",
+      "match_score": 57.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 5,
+          "max": 30
+        },
+        "role": {
+          "score": 16,
+          "max": 20
+        },
+        "experience": {
+          "score": 15,
+          "max": 15
+        },
+        "location": {
+          "score": 2,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 3,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 3,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Ai",
+        "\u2713 0\u20135 years experience accepted",
+        "\u2713 Education qualifications satisfied"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 React not explicitly emphasized",
+        "\u26a0 Located in APJ"
+      ],
+      "quality_signals": {
+        "freshness_score": 80.0,
+        "source_confidence": 98.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "ashby",
+        "company-careers"
+      ],
+      "is_link_out": false
+    },
+    "confidence_score": 57.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 5,
+        "max": 30
+      },
+      "role": {
+        "score": 16,
+        "max": 20
+      },
+      "experience": {
+        "score": 15,
+        "max": 15
+      },
+      "location": {
+        "score": 2,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 3,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 3,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://jobs.ashbyhq.com/cursor/232223c1-913a-4318-982b-1970e2842710",
+    "source_title": "Strategic Account Executive, Enterprise - Thailand at Cursor",
+    "extracted_timestamp": "2026-09-28T15:19:15.354954+00:00",
+    "raw_snippet": "Role: Strategic Account Executive, Enterprise - Thailand at Cursor. Department: Sales. Location: APJ."
+  },
+  {
+    "record_id": "rec_ash_cursor_e3ccb495-a8a3-4ff0-a27b-262188abb9df",
+    "workflow_id": "wf_e046c5d216",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "AI Deployment Manager - Singapore",
+      "company": "Cursor",
+      "company_domain": "cursor.com",
+      "location": "Singapore",
+      "city": "Singapore",
+      "remote_type": "remote",
+      "employment_type": "fulltime",
+      "skills": [
+        "Ai"
+      ],
+      "experience_years": "0-5 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://jobs.ashbyhq.com/cursor/e3ccb495-a8a3-4ff0-a27b-262188abb9df",
+      "platform_source": "Ashby",
+      "date_posted": "2026-09-18T07:26:10.318+00:00",
+      "match_score": 57.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 5,
+          "max": 30
+        },
+        "role": {
+          "score": 16,
+          "max": 20
+        },
+        "experience": {
+          "score": 15,
+          "max": 15
+        },
+        "location": {
+          "score": 2,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 3,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 3,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Ai",
+        "\u2713 0\u20135 years experience accepted",
+        "\u2713 Education qualifications satisfied"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 React not explicitly emphasized",
+        "\u26a0 Located in Singapore"
+      ],
+      "quality_signals": {
+        "freshness_score": 80.0,
+        "source_confidence": 98.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "ashby",
+        "company-careers"
+      ],
+      "is_link_out": false
+    },
+    "confidence_score": 57.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 5,
+        "max": 30
+      },
+      "role": {
+        "score": 16,
+        "max": 20
+      },
+      "experience": {
+        "score": 15,
+        "max": 15
+      },
+      "location": {
+        "score": 2,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 3,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 3,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://jobs.ashbyhq.com/cursor/e3ccb495-a8a3-4ff0-a27b-262188abb9df",
+    "source_title": "AI Deployment Manager - Singapore at Cursor",
+    "extracted_timestamp": "2026-09-28T15:19:15.355464+00:00",
+    "raw_snippet": "Role: AI Deployment Manager - Singapore at Cursor. Department: Customer Success. Location: Singapore."
+  },
+  {
+    "record_id": "rec_linkout_linkedin",
+    "workflow_id": "wf_e046c5d216",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Explore 'Python React python react' Roles on LinkedIn",
+      "company": "LinkedIn Live Job Search",
+      "company_domain": "linkedin.com",
+      "location": "Bangalore",
+      "city": "Bangalore",
+      "remote_type": "remote",
+      "employment_type": "full-time",
+      "skills": [
+        "Python",
+        "React",
+        "Javascript",
+        "Ml",
+        "Ai",
+        "Sql"
+      ],
+      "experience_years": "0.0-1.0 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://www.linkedin.com/jobs/search/?keywords=Python+React+python+react&location=Bangalore&sortBy=DD",
+      "platform_source": "Linkedin",
+      "date_posted": "2026-09-28T15:19:15.188523+00:00",
+      "match_score": 92.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 30,
+          "max": 30
+        },
+        "role": {
+          "score": 16,
+          "max": 20
+        },
+        "experience": {
+          "score": 15,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 3,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 5,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Python",
+        "\u2713 React",
+        "\u2713 Javascript",
+        "\u2713 Ml",
+        "\u2713 Ai"
+      ],
+      "potential_gaps": [],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 80.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "linkedin"
+      ],
+      "is_link_out": true
+    },
+    "confidence_score": 92.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 30,
+        "max": 30
+      },
+      "role": {
+        "score": 16,
+        "max": 20
+      },
+      "experience": {
+        "score": 15,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 3,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 5,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://www.linkedin.com/jobs/search/?keywords=Python+React+python+react&location=Bangalore&sortBy=DD",
+    "source_title": "Explore 'Python React python react' Roles on LinkedIn at LinkedIn Live Job Search",
+    "extracted_timestamp": "2026-09-28T15:19:15.355833+00:00",
+    "raw_snippet": "Direct link-out search for Python React python react in Bangalore on LinkedIn. Restricted from unauthorized scraping by platform policy."
+  },
+  {
+    "record_id": "rec_linkout_indeed",
+    "workflow_id": "wf_e046c5d216",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Explore 'Python React python react' Roles on Indeed",
+      "company": "Indeed Live Job Search",
+      "company_domain": "in.indeed.com",
+      "location": "Bangalore",
+      "city": "Bangalore",
+      "remote_type": "remote",
+      "employment_type": "full-time",
+      "skills": [
+        "Python",
+        "React",
+        "Javascript",
+        "Ml",
+        "Ai",
+        "Sql"
+      ],
+      "experience_years": "0.0-1.0 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://in.indeed.com/jobs?q=Python+React+python+react&l=Bangalore&sort=date",
+      "platform_source": "Indeed",
+      "date_posted": "2026-09-28T15:19:15.188625+00:00",
+      "match_score": 92.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 30,
+          "max": 30
+        },
+        "role": {
+          "score": 16,
+          "max": 20
+        },
+        "experience": {
+          "score": 15,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 3,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 5,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Python",
+        "\u2713 React",
+        "\u2713 Javascript",
+        "\u2713 Ml",
+        "\u2713 Ai"
+      ],
+      "potential_gaps": [],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 80.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "indeed"
+      ],
+      "is_link_out": true
+    },
+    "confidence_score": 92.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 30,
+        "max": 30
+      },
+      "role": {
+        "score": 16,
+        "max": 20
+      },
+      "experience": {
+        "score": 15,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 3,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 5,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://in.indeed.com/jobs?q=Python+React+python+react&l=Bangalore&sort=date",
+    "source_title": "Explore 'Python React python react' Roles on Indeed at Indeed Live Job Search",
+    "extracted_timestamp": "2026-09-28T15:19:15.356113+00:00",
+    "raw_snippet": "Direct link-out search for Python React python react in Bangalore on Indeed. Restricted from unauthorized scraping by platform policy."
+  },
+  {
+    "record_id": "rec_linkout_naukri",
+    "workflow_id": "wf_e046c5d216",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Explore 'Python React python react' Roles on Naukri",
+      "company": "Naukri Live Job Search",
+      "company_domain": "naukri.com",
+      "location": "Bangalore",
+      "city": "Bangalore",
+      "remote_type": "remote",
+      "employment_type": "full-time",
+      "skills": [
+        "Python",
+        "React",
+        "Javascript",
+        "Ml",
+        "Ai",
+        "Sql"
+      ],
+      "experience_years": "0.0-1.0 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://www.naukri.com/python-react-python-react-jobs-in-bangalore",
+      "platform_source": "Naukri",
+      "date_posted": "2026-09-28T15:19:15.188692+00:00",
+      "match_score": 92.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 30,
+          "max": 30
+        },
+        "role": {
+          "score": 16,
+          "max": 20
+        },
+        "experience": {
+          "score": 15,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 3,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 5,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Python",
+        "\u2713 React",
+        "\u2713 Javascript",
+        "\u2713 Ml",
+        "\u2713 Ai"
+      ],
+      "potential_gaps": [],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 80.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "naukri"
+      ],
+      "is_link_out": true
+    },
+    "confidence_score": 92.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 30,
+        "max": 30
+      },
+      "role": {
+        "score": 16,
+        "max": 20
+      },
+      "experience": {
+        "score": 15,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 3,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 5,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://www.naukri.com/python-react-python-react-jobs-in-bangalore",
+    "source_title": "Explore 'Python React python react' Roles on Naukri at Naukri Live Job Search",
+    "extracted_timestamp": "2026-09-28T15:19:15.356442+00:00",
+    "raw_snippet": "Direct link-out search for Python React python react in Bangalore on Naukri. Restricted from unauthorized scraping by platform policy."
+  }
+]

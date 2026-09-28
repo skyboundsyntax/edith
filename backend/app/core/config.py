@@ -20,12 +20,6 @@ class Settings(BaseSettings):
     TAVILY_API_KEY: str = os.getenv("TAVILY_API_KEY", "")
     OPENAI_API_KEY: str = os.getenv("OPENAI_API_KEY", "")
     GEMINI_API_KEY: str = os.getenv("GEMINI_API_KEY", "")
-    TYPESAFE_JEV_API_KEY: str = os.getenv("TYPESAFE_JEV_API_KEY", "")
-    
-    # Vector DB / Qdrant settings as per SDD
-    QDRANT_HOST: str = os.getenv("QDRANT_HOST", "localhost")
-    QDRANT_PORT: int = int(os.getenv("QDRANT_PORT", "6333"))
-    
     # CORS
     CORS_ORIGINS: list = ["*"]
     

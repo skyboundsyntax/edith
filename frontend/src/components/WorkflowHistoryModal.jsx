@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, Layers, CheckCircle2, AlertCircle, Clock, ArrowRight } from 'lucide-react';
+import { X, Layers, CheckCircle2, Clock, ArrowRight } from 'lucide-react';
 
 export default function WorkflowHistoryModal({
   isOpen,

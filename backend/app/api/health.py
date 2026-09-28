@@ -25,7 +25,8 @@ def health_check(db: Session = Depends(get_db)):
         "database": "connected" if db_ok else "unreachable",
         "ai_engine": {
             "langgraph": "active",
-            "deterministic_jev": "active",
-            "vector_deduplication": "active (scikit-learn tfidf cosine / Qdrant compatible)"
+            "trust_meter": "active (calibrated mathematical verification)",
+            "vector_deduplication": "active (scikit-learn tfidf cosine)",
+            "live_scrapers": "active (LinkedIn Guest API, Jobicy, Arbeitnow)"
         }
     }

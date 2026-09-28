@@ -1,30 +1,36 @@
 import React from 'react';
-import { BrainCircuit, Search, Cpu, GitMerge, Terminal, CheckCircle2 } from 'lucide-react';
+import { BrainCircuit, Search, Cpu, GitMerge, Terminal } from 'lucide-react';
 
-const SDD_NODES = [
+const EDITH_NODES = [
   {
-    id: 'intent_parser',
-    title: 'Node 1: Intent Parser',
-    desc: 'Role & Stack Intent (Pydantic)',
+    id: 'query_planning',
+    title: 'Stage 1: AI Query Planner',
+    desc: 'Structured Search Specification',
     icon: BrainCircuit
   },
   {
-    id: 'source_discovery',
-    title: 'Node 2: Multi-Portal Scraper',
-    desc: 'LinkedIn • Naukri • Indeed Crawl',
+    id: 'source_connectors',
+    title: 'Stage 2: Parallel Connectors',
+    desc: 'Greenhouse • Lever • Ashby • Remote Feeds',
     icon: Search
   },
   {
-    id: 'data_extraction',
-    title: 'Node 3: Jev Trust Meter',
-    desc: 'Anti-Ghost & CTC Calibrator',
+    id: 'normalization',
+    title: 'Stage 3: Normalization',
+    desc: 'Canonical Schema Mapping',
     icon: Cpu
   },
   {
-    id: 'vector_deduplication',
-    title: 'Node 4: Cross-Platform Dedup',
-    desc: 'Vector Similarity Pruning',
+    id: 'deduplication',
+    title: 'Stage 4: Deduplication',
+    desc: 'Domain & Cosine Similarity',
     icon: GitMerge
+  },
+  {
+    id: 'match_scoring',
+    title: 'Stage 5: Match Scorer',
+    desc: 'Explainable 100-pt Fit & Gaps',
+    icon: Cpu
   }
 ];
 
@@ -37,7 +43,7 @@ export default function WorkflowGraph({
     if (status === 'completed') return 'completed';
     if (currentNode === nodeId) return 'active';
     
-    const currentIndex = SDD_NODES.findIndex((n) => n.id === currentNode);
+    const currentIndex = EDITH_NODES.findIndex((n) => n.id === currentNode);
     if (currentIndex > index) return 'completed';
     return 'idle';
   };
@@ -47,18 +53,18 @@ export default function WorkflowGraph({
       <div className="graph-header">
         <h2>
           <BrainCircuit size={20} color="var(--accent-cyan)" />
-          <span>Autonomous Job Scraping & Verification Pipeline</span>
+          <span>Autonomous Job Intelligence & Ingestion Pipeline</span>
         </h2>
         <div className="status-badge" style={{ textTransform: 'capitalize' }}>
           <span className="pulse-dot"></span>
-          <span>Scraper Pipeline: {status}</span>
+          <span>Pipeline: {status}</span>
         </div>
       </div>
 
       {/* Visual Node Flow Track */}
       <div className="node-flow-track">
         <div className="flow-connector-line"></div>
-        {SDD_NODES.map((node, idx) => {
+        {EDITH_NODES.map((node, idx) => {
           const state = getNodeState(node.id, idx);
           const Icon = node.icon;
 
