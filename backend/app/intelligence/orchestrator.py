@@ -76,7 +76,7 @@ async def run_job_ingestion_pipeline(
             t0 = time.time()
             await emit("source_started", {"source": c_name, "domain": connector.domain, "access_method": connector.access_method})
             try:
-                jobs = await connector.search(query_spec)
+                jobs = await asyncio.wait_for(connector.search(query_spec), timeout=9.0)
                 duration_ms = int((time.time() - t0) * 1000)
                 await emit("jobs_found", {"source": c_name, "count": len(jobs), "duration_ms": duration_ms})
                 await emit("source_completed", {"source": c_name, "count": len(jobs), "duration_ms": duration_ms, "status": "success"})
@@ -98,14 +98,7 @@ async def run_job_ingestion_pipeline(
                 sources_searched.append({"source": s_name, "count": len(s_jobs), "status": "error" if s_err else "online"})
                 all_raw_jobs.extend(s_jobs)
 
-        # Also add Link-Out navigation queries for restricted platforms (LinkedIn, Indeed, Naukri)
-        for lo_connector in linkout_connectors:
-            try:
-                lo_jobs = await lo_connector.search(query_spec)
-                all_raw_jobs.extend(lo_jobs)
-                sources_searched.append({"source": lo_connector.name, "count": 1, "status": "link_out"})
-            except Exception as e:
-                logger.warning(f"Link-out error for {lo_connector.name}: {e}")
+        # Ingest only 100% verified real job postings from live connectors
 
         total_discovered = len(all_raw_jobs)
         await emit("normalization_completed", {
@@ -158,8 +151,8 @@ async def run_job_ingestion_pipeline(
 
             scored_jobs.append(job)
 
-        # Sort jobs by match score descending (link-outs stay at bottom for exploration)
-        scored_jobs.sort(key=lambda j: (not j.get("is_link_out", False), j.get("match_score", 0)), reverse=True)
+        # Sort jobs by match score descending
+        scored_jobs.sort(key=lambda j: j.get("match_score", 0), reverse=True)
 
         await emit("scoring_completed", {
             "count": len(scored_jobs),
@@ -257,7 +250,9 @@ async def run_job_ingestion_pipeline(
                         "potential_gaps": j.get("potential_gaps"),
                         "quality_signals": j.get("quality_signals"),
                         "sources": j.get("sources"),
-                        "is_link_out": j.get("is_link_out", False)
+                        "description": j.get("description"),
+                        "description_snippet": (j.get("description") or "")[:400],
+                        "is_link_out": False
                     },
                     confidence_score=j.get("match_score", 0.0),
                     confidence_breakdown=j.get("score_breakdown", {}),

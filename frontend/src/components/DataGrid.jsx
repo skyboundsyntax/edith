@@ -54,9 +54,6 @@ export default function DataGrid({
       if (showOnlyReview && !r.human_review_required) return false;
       if (score < minScoreFilter) return false;
 
-      // Source type filter
-      if (sourceTypeFilter === 'LIVE' && data.is_linkout_only) return false;
-      if (sourceTypeFilter === 'LINKOUT' && !data.is_linkout_only) return false;
 
       // Location filter
       if (locationFilter !== 'ALL') {
@@ -133,18 +130,6 @@ export default function DataGrid({
             </select>
           )}
 
-          {/* Source Type Filter */}
-          {isJobDataset && (
-            <select
-              className="grid-filter-select"
-              value={sourceTypeFilter}
-              onChange={(e) => setSourceTypeFilter(e.target.value)}
-            >
-              <option value="ALL">All Ingestion Sources</option>
-              <option value="LIVE">Live ATS Connectors Only</option>
-              <option value="LINKOUT">Link-Out Queries Only</option>
-            </select>
-          )}
 
           {/* Min Score Slider */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.785rem', color: 'var(--text-secondary)' }}>
@@ -310,15 +295,9 @@ export default function DataGrid({
                             <span className={`platform-badge ${getPlatformClass(platform)}`}>
                               {platform}
                             </span>
-                            {isLinkOut ? (
-                              <span className="source-type-pill linkout" title="Link-Out Only Query: External platform redirects safely to source search">
-                                Link-Out
-                              </span>
-                            ) : (
-                              <span className="source-type-pill live" title="Live Public ATS Connector: Directly ingested from company career board">
-                                Live ATS
-                              </span>
-                            )}
+                            <span className="source-type-pill live" title="Direct real-time posting from verified career board">
+                              Live Verified
+                            </span>
                           </div>
                         </td>
 
@@ -366,10 +345,10 @@ export default function DataGrid({
                             target="_blank"
                             rel="noopener noreferrer"
                             className="btn-apply-direct"
-                            title={isLinkOut ? `Search on ${platform}` : "Direct application on official ATS board"}
+                            title="Direct application on official job posting"
                           >
                             <ExternalLink size={12} />
-                            <span>{isLinkOut ? `Search` : 'Apply'}</span>
+                            <span>Apply Now</span>
                           </a>
                         </td>
 

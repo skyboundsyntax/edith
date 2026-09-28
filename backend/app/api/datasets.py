@@ -45,7 +45,7 @@ def list_datasets(
         )
 
     total_count = query.count()
-    records = query.order_by(DataRecordModel.created_at.desc()).offset(skip).limit(limit).all()
+    records = query.order_by(DataRecordModel.confidence_score.desc(), DataRecordModel.created_at.desc()).offset(skip).limit(limit).all()
 
     return {
         "total": total_count,

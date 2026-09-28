@@ -1,12 +1,13 @@
 """
 Source Policy Registry for EDITH.
 Tracks and orchestrates all permitted job source connectors:
-- Greenhouse
-- Lever
-- Ashby
-- Jobicy
-- Arbeitnow
-- LinkOut (LinkedIn, Indeed, Naukri)
+- LinkedIn (Live Guest Search API & detail extraction)
+- Greenhouse (Public Board API)
+- Lever (Public Postings API)
+- Ashby (Public Board API)
+- Jobicy (Public Remote Jobs Feed)
+- Arbeitnow (Public Jobs API)
+- Remotive (Public Remote Jobs API)
 """
 import asyncio
 import logging
@@ -19,6 +20,8 @@ from backend.app.sources.lever_connector import LeverConnector
 from backend.app.sources.ashby_connector import AshbyConnector
 from backend.app.sources.jobicy_connector import JobicyConnector
 from backend.app.sources.arbeitnow_connector import ArbeitnowConnector
+from backend.app.sources.linkedin_connector import LinkedInConnector
+from backend.app.sources.remotive_connector import RemotiveConnector
 from backend.app.sources.linkout_connector import LinkOutPlatformConnector
 
 logger = logging.getLogger(__name__)
@@ -26,12 +29,13 @@ logger = logging.getLogger(__name__)
 class SourcePolicyRegistry:
     def __init__(self):
         self.connectors: Dict[str, JobSourceConnector] = {
+            "linkedin": LinkedInConnector(),
             "greenhouse": GreenhouseConnector(),
             "lever": LeverConnector(),
             "ashby": AshbyConnector(),
             "jobicy": JobicyConnector(),
             "arbeitnow": ArbeitnowConnector(),
-            "linkedin": LinkOutPlatformConnector("LinkedIn", "linkedin.com", "https://www.linkedin.com/jobs/search/?keywords={keywords}&location={location}"),
+            "remotive": RemotiveConnector(),
             "indeed": LinkOutPlatformConnector("Indeed", "in.indeed.com", "https://in.indeed.com/jobs?q={keywords}&l={location}"),
             "naukri": LinkOutPlatformConnector("Naukri", "naukri.com", "https://www.naukri.com/{keywords}-jobs-in-{location}")
         }
@@ -42,11 +46,11 @@ class SourcePolicyRegistry:
         return self.connectors.get(name.lower())
 
     def get_live_connectors(self) -> List[JobSourceConnector]:
-        """Returns connectors with automated fetching capabilities."""
+        """Returns connectors with automated real-time fetching capabilities."""
         return [c for c in self.connectors.values() if c.access_method in ["PUBLIC_API", "PUBLIC_FEED", "PUBLIC_CAREER_PAGE"] and c.enabled]
 
     def get_linkout_connectors(self) -> List[JobSourceConnector]:
-        """Returns restricted platforms treated as link-out only."""
+        """Returns platforms treated as link-out only (never produce fake jobs)."""
         return [c for c in self.connectors.values() if c.access_method == "LINK_OUT_ONLY" and c.enabled]
 
     async def check_all_health(self) -> Dict[str, SourceHealth]:
@@ -93,7 +97,7 @@ class SourcePolicyRegistry:
                 "permission_status": conn.permission_status,
                 "robots_policy": conn.robots_policy,
                 "rate_limit": conn.rate_limit,
-                "status": health.status if health else ("LINK_OUT_ONLY" if conn.access_method == "LINK_OUT_ONLY" else "ONLINE"),
+                "status": health.status if health else "ONLINE",
                 "latency_ms": health.latency_ms if health else 0,
                 "jobs_discovered": health.jobs_discovered if health else 0,
                 "enabled": conn.enabled
