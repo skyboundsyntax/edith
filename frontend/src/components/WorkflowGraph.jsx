@@ -5,25 +5,25 @@ const SDD_NODES = [
   {
     id: 'intent_parser',
     title: 'Node 1: Intent Parser',
-    desc: 'Schema Generation (Pydantic)',
+    desc: 'Role & Stack Intent (Pydantic)',
     icon: BrainCircuit
   },
   {
     id: 'source_discovery',
-    title: 'Node 2: Source Discovery',
-    desc: 'Tavily / Search API Crawl',
+    title: 'Node 2: Multi-Portal Scraper',
+    desc: 'LinkedIn • Naukri • Indeed Crawl',
     icon: Search
   },
   {
     id: 'data_extraction',
-    title: 'Node 3: Data Extraction',
-    desc: 'TypeSafe Jev Deterministic Model',
+    title: 'Node 3: Jev Trust Meter',
+    desc: 'Anti-Ghost & CTC Calibrator',
     icon: Cpu
   },
   {
     id: 'vector_deduplication',
-    title: 'Node 4: RAG Deduplication',
-    desc: 'Vector DB Semantic Pruning',
+    title: 'Node 4: Cross-Platform Dedup',
+    desc: 'Vector Similarity Pruning',
     icon: GitMerge
   }
 ];
@@ -47,11 +47,11 @@ export default function WorkflowGraph({
       <div className="graph-header">
         <h2>
           <BrainCircuit size={20} color="var(--accent-cyan)" />
-          <span>LangGraph Agent Workflow (SDD Section 2.1)</span>
+          <span>Autonomous Job Scraping & Verification Pipeline</span>
         </h2>
         <div className="status-badge" style={{ textTransform: 'capitalize' }}>
           <span className="pulse-dot"></span>
-          <span>Pipeline: {status}</span>
+          <span>Scraper Pipeline: {status}</span>
         </div>
       </div>
 

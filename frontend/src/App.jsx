@@ -9,14 +9,15 @@ import WorkflowHistoryModal from './components/WorkflowHistoryModal';
 import { api } from './services/api';
 
 const PRESET_PROMPTS = [
-  'Find me AI engineers in Bangalore with PyTorch & LangGraph',
-  'Top venture funded generative AI startups in SF ($10M+)',
-  'B2B Sales Leads & VP of RevOps in Cloud Tech',
-  'Senior AI Infrastructure Job Openings at Competitors'
+  'Active Python Backend & FastAPI Roles (Remote / Bangalore, ₹25-45 LPA)',
+  'React 19 & Full Stack Openings across LinkedIn, Naukri & Indeed',
+  'Generative AI, PyTorch & LLM Systems Engineer Jobs ($120k+ / Remote)',
+  'Fresher & 2024-2026 Batch Software Development Jobs & Internships',
+  'DevOps, Kubernetes & Cloud Architecture Vacancies with Disclosed CTC'
 ];
 
 export default function App() {
-  const [prompt, setPrompt] = useState('Find me AI and distributed systems engineers in Bangalore with LangGraph and PyTorch expertise');
+  const [prompt, setPrompt] = useState('Find active Full-Stack and Python Engineer job openings on LinkedIn, Naukri, and Indeed with salary, skills, and direct apply link');
   const [confidenceThreshold, setConfidenceThreshold] = useState(80.0);
   const [isRunning, setIsRunning] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
@@ -162,8 +163,8 @@ export default function App() {
         <section className="glass-panel hero-prompt-section">
           <div className="hero-header">
             <div className="hero-title-group">
-              <h1>Autonomous Data Intelligence Engine</h1>
-              <p>Deterministic extraction powered by TypeSafe Jev model with verifiable source traceability (SDD 1.0)</p>
+              <h1>Autonomous Job Intelligence & Career Scraping Engine</h1>
+              <p>Live multi-platform web scraper targeting LinkedIn, Naukri, and Indeed with Jev's Trust Meter for anti-ghost & scam verification</p>
             </div>
           </div>
 
@@ -174,7 +175,7 @@ export default function App() {
               <input
                 type="text"
                 className="prompt-input"
-                placeholder="Describe your data requirement in plain English (e.g., 'Find AI engineers in Bangalore')..."
+                placeholder="Enter target role, tech stack, or location (e.g. 'Senior Python & FastAPI developer jobs remote with salary')..."
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
                 disabled={isRunning}
@@ -185,13 +186,13 @@ export default function App() {
                 disabled={isRunning || !prompt.trim()}
               >
                 <Play size={16} fill="white" />
-                <span>{isRunning ? 'Agent Executing...' : 'Execute Agent'}</span>
+                <span>{isRunning ? 'Scraping Portals...' : 'Scrape Jobs'}</span>
               </button>
             </div>
 
             {/* Prompt Presets */}
             <div className="prompt-presets">
-              <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-muted)' }}>QUICK TEMPLATES:</span>
+              <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-muted)' }}>QUICK CAREER TEMPLATES:</span>
               {PRESET_PROMPTS.map((p, i) => (
                 <button
                   key={i}
@@ -209,7 +210,7 @@ export default function App() {
             <div className="prompt-controls-row">
               <div className="threshold-slider-group">
                 <Sliders size={14} />
-                <span>Jev Confidence Threshold:</span>
+                <span>Jev Anti-Ghost Trust Threshold:</span>
                 <input
                   type="range"
                   min="50"
@@ -224,7 +225,7 @@ export default function App() {
                   {confidenceThreshold}%
                 </span>
                 <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-                  (Flag records below threshold for human sign-off as per SDD Section 2.1)
+                  (Flag job listings below {confidenceThreshold}% for unverified CTC, stale posting, or suspect recruiter)
                 </span>
               </div>
             </div>

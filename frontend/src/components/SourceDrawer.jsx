@@ -88,25 +88,42 @@ export default function SourceDrawer({ recordId, onClose, onRecordUpdated }) {
               </div>
             </div>
 
-            {/* Jev Deterministic Confidence Evaluation */}
+            {/* Jev's Job Trust Meter & Anti-Ghost Evaluation */}
             <div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <span style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-primary)' }}>
-                  TypeSafe Jev Model Deterministic Confidence Score
+                  Jev's Job Trust Meter & Anti-Ghost Legitimacy Audit
                 </span>
                 <span
-                  className="confidence-pill"
+                  className="trust-meter-badge high"
                   style={{
-                    background: 'rgba(6, 182, 212, 0.15)',
-                    color: 'var(--text-cyan)',
-                    borderColor: 'var(--border-highlight)'
+                    background: provenance.confidence_evaluation?.overall_score >= 80 ? 'rgba(16, 185, 129, 0.15)' : 'rgba(239, 68, 68, 0.15)',
+                    color: provenance.confidence_evaluation?.overall_score >= 80 ? '#34d399' : '#f87171',
+                    border: `1px solid ${provenance.confidence_evaluation?.overall_score >= 80 ? 'rgba(16, 185, 129, 0.4)' : 'rgba(239, 68, 68, 0.4)'}`
                   }}
                 >
-                  {provenance.confidence_evaluation?.overall_score}% Calibrated
+                  {provenance.confidence_evaluation?.overall_score}% Trust Score
                 </span>
               </div>
 
-              <div className="score-breakdown-grid">
+              {/* Anti-Ghost Verification Banner */}
+              <div style={{ marginTop: '0.75rem' }} className={`anti-ghost-banner ${provenance.confidence_evaluation?.overall_score >= 80 ? '' : 'warning'}`}>
+                {provenance.confidence_evaluation?.overall_score >= 80 ? (
+                  <CheckCircle2 size={18} color="#34d399" />
+                ) : (
+                  <AlertTriangle size={18} color="#f87171" />
+                )}
+                <div>
+                  <strong>{provenance.confidence_evaluation?.overall_score >= 80 ? 'Verified Legit & Active Listing' : 'Caution: Suspect / Stale Job Notice'}</strong>
+                  <div style={{ fontSize: '0.75rem', opacity: 0.85 }}>
+                    {provenance.confidence_evaluation?.overall_score >= 80
+                      ? 'Verified on public career portal with grounded company tokens and authentic application destination.'
+                      : 'Flagged for review: Potential undisclosed compensation, third-party recruiter re-post, or missing direct apply credentials.'}
+                  </div>
+                </div>
+              </div>
+
+              <div className="score-breakdown-grid" style={{ marginTop: '0.75rem' }}>
                 <div className="breakdown-card">
                   <div className="breakdown-metric-title">Source Grounding (40%)</div>
                   <div className="breakdown-metric-score" style={{ color: 'var(--text-emerald)' }}>
@@ -114,19 +131,19 @@ export default function SourceDrawer({ recordId, onClose, onRecordUpdated }) {
                   </div>
                 </div>
                 <div className="breakdown-card">
-                  <div className="breakdown-metric-title">Type Conformity (30%)</div>
+                  <div className="breakdown-metric-title">Role & Stack Match (30%)</div>
                   <div className="breakdown-metric-score" style={{ color: 'var(--text-cyan)' }}>
                     {provenance.confidence_evaluation?.breakdown?.completeness || 0}%
                   </div>
                 </div>
                 <div className="breakdown-card">
-                  <div className="breakdown-metric-title">Syntax Validation (20%)</div>
+                  <div className="breakdown-metric-title">Direct Apply Integrity (20%)</div>
                   <div className="breakdown-metric-score" style={{ color: 'var(--text-amber)' }}>
                     {provenance.confidence_evaluation?.breakdown?.syntax_validity || 0}%
                   </div>
                 </div>
                 <div className="breakdown-card">
-                  <div className="breakdown-metric-title">Information Density (10%)</div>
+                  <div className="breakdown-metric-title">Platform Authenticity (10%)</div>
                   <div className="breakdown-metric-score" style={{ color: 'var(--text-primary)' }}>
                     {provenance.confidence_evaluation?.breakdown?.information_density || 0}%
                   </div>

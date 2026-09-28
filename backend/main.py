@@ -84,109 +84,113 @@ def root():
 
 def seed_initial_dynamic_data():
     """
-    Seeds initial dynamic workflows if the database is fresh.
-    Ensures the user can immediately experience the interactive dashboard,
-    source traceability links, and deterministic Jev confidence scores.
+    Seeds initial career intelligence and job scraping workflows if the database is fresh.
+    Ensures the user can immediately experience the interactive multi-portal job board,
+    direct application links, and Jev's Anti-Ghost Trust Meter.
     """
     db = SessionLocal()
     try:
-        if db.query(WorkflowModel).count() == 0:
-            from datetime import datetime, timezone
-            
-            wf_id = "wf_ai_engineers_blr"
+        from datetime import datetime, timezone
+
+        wf_id = "wf_scraped_jobs_multiplatform"
+        if db.query(WorkflowModel).filter(WorkflowModel.id == wf_id).count() == 0:
             wf = WorkflowModel(
                 id=wf_id,
-                prompt="Find me AI and distributed systems engineers in Bangalore with LangGraph and PyTorch expertise",
+                prompt="Find active Full-Stack and Python Engineer job openings on LinkedIn, Naukri, and Indeed with salary, skills, and direct apply link",
                 status="completed",
                 target_schema={
-                    "entity_name": "ProfessionalCandidate",
-                    "description": "Structured candidate profile extracted from verified public sources",
+                    "entity_name": "JobOpening",
+                    "description": "Structured job posting from LinkedIn, Naukri, Indeed, or verified career portals",
                     "fields": [
-                        {"name": "full_name", "type": "string", "description": "Candidate Name", "required": True},
-                        {"name": "role_title", "type": "string", "description": "Specialization Title", "required": True},
-                        {"name": "organization", "type": "string", "description": "Current Company", "required": True},
-                        {"name": "location", "type": "string", "description": "City / Hub", "required": True},
-                        {"name": "skills", "type": "list", "description": "Technical Skills", "required": True},
-                        {"name": "experience_years", "type": "string", "description": "Experience", "required": False},
-                        {"name": "profile_link", "type": "string", "description": "Verified Profile URL", "required": True}
+                        {"name": "job_title", "type": "string", "description": "Official title of the open position", "required": True},
+                        {"name": "company", "type": "string", "description": "Hiring company or organization", "required": True},
+                        {"name": "location", "type": "string", "description": "City, Country, Remote, or Hybrid status", "required": True},
+                        {"name": "experience_years", "type": "string", "description": "Required years of experience", "required": False},
+                        {"name": "skills", "type": "list", "description": "Core technical competencies and tools required", "required": False},
+                        {"name": "salary_range", "type": "string", "description": "Disclosed compensation package or CTC", "required": False},
+                        {"name": "platform_source", "type": "string", "description": "Origin platform (LinkedIn, Naukri, Indeed, Career Site)", "required": True},
+                        {"name": "apply_link", "type": "string", "description": "Direct application page or posting URL", "required": True}
                     ]
                 },
                 confidence_threshold=80.0,
                 total_extracted=3,
                 total_deduplicated=3,
-                duplicates_pruned=0,
+                duplicates_pruned=1,
                 human_review_count=0,
                 execution_logs=[
-                    {"timestamp": datetime.now(timezone.utc).isoformat(), "node": "intent_parser", "message": "Derived schema for ProfessionalCandidate"},
-                    {"timestamp": datetime.now(timezone.utc).isoformat(), "node": "source_discovery", "message": "Gathered verified Bangalore tech talent indices"},
-                    {"timestamp": datetime.now(timezone.utc).isoformat(), "node": "data_extraction", "message": "Extracted strictly typed entities with Jev deterministic scoring"},
-                    {"timestamp": datetime.now(timezone.utc).isoformat(), "node": "vector_deduplication", "message": "Evaluated cosine similarity matrix: 0 duplicates pruned"},
-                    {"timestamp": datetime.now(timezone.utc).isoformat(), "node": "human_review_evaluation", "message": "All records scored >= 85.0%. No human review required."}
+                    {"timestamp": datetime.now(timezone.utc).isoformat(), "node": "intent_parser", "message": "Derived JobOpening schema for Full-Stack & Python roles with salary disclosure"},
+                    {"timestamp": datetime.now(timezone.utc).isoformat(), "node": "source_discovery", "message": "Multi-portal crawl executed across LinkedIn Jobs, Naukri.com, and Indeed"},
+                    {"timestamp": datetime.now(timezone.utc).isoformat(), "node": "data_extraction", "message": "Jev Trust Meter evaluated employer authenticity, direct apply integrity, and compensation transparency"},
+                    {"timestamp": datetime.now(timezone.utc).isoformat(), "node": "vector_deduplication", "message": "Vector similarity deduplicated 1 cross-board duplicate listing"},
+                    {"timestamp": datetime.now(timezone.utc).isoformat(), "node": "human_review_evaluation", "message": "All postings verified >= 88.0% Jev Trust Score. Zero anti-ghost flags."}
                 ],
                 created_at=datetime.now(timezone.utc),
                 completed_at=datetime.now(timezone.utc)
             )
             db.add(wf)
 
-            sample_data = [
+            sample_jobs = [
                 {
-                    "id": "rec_arjun_01",
+                    "id": "rec_job_linkedin_01",
                     "data": {
-                        "full_name": "Arjun Sundaram",
-                        "role_title": "Lead AI / ML Systems Engineer",
-                        "organization": "HyperScale Labs",
-                        "location": "Bangalore, India",
-                        "skills": ["PyTorch", "Distributed Training", "CUDA", "LangGraph", "FastAPI"],
-                        "experience_years": "7+ Years",
-                        "profile_link": "https://linkedin.com/in/arjun-sundaram-ai"
+                        "job_title": "Senior Full-Stack Engineer (Python / React)",
+                        "company": "NexusCore AI Systems",
+                        "location": "Bangalore / Remote",
+                        "experience_years": "3-6 years",
+                        "skills": ["Python", "FastAPI", "React 19", "PostgreSQL", "Docker"],
+                        "salary_range": "₹28 - ₹42 LPA",
+                        "platform_source": "LinkedIn",
+                        "apply_link": "https://www.linkedin.com/jobs/view/senior-fullstack-engineer-3982019421"
                     },
-                    "confidence": 94.2,
-                    "breakdown": {"completeness": 100.0, "source_grounding": 92.5, "syntax_validity": 100.0, "information_density": 95.0},
-                    "source_url": "https://linkedin.com/in/arjun-sundaram-ai",
-                    "source_title": "Arjun Sundaram - Lead AI Engineer | Public Directory",
-                    "snippet": "Lead AI/ML Systems Engineer at HyperScale Labs Bangalore. Specialized in distributed training clusters, CUDA kernels, LangGraph workflow orchestration, and high-throughput inference APIs."
+                    "confidence": 94.6,
+                    "breakdown": {"completeness": 100.0, "source_grounding": 95.0, "syntax_validity": 100.0, "information_density": 96.0},
+                    "source_url": "https://www.linkedin.com/jobs/view/senior-fullstack-engineer-3982019421",
+                    "source_title": "Senior Full-Stack Engineer at NexusCore AI Systems | LinkedIn",
+                    "snippet": "NexusCore AI Systems is hiring a Senior Full-Stack Engineer in Bangalore / Remote. Requirements: 3-6 years with Python, FastAPI, React 19, Docker, and PostgreSQL. Disclosed CTC: ₹28 - ₹42 LPA. Direct application active."
                 },
                 {
-                    "id": "rec_kavita_02",
+                    "id": "rec_job_naukri_02",
                     "data": {
-                        "full_name": "Dr. Kavita Narayanan",
-                        "role_title": "Principal Generative AI Researcher",
-                        "organization": "TensorVenture Research",
-                        "location": "Bangalore, India",
-                        "skills": ["LLM Pretraining", "RLHF", "Transformer Kernels", "vLLM"],
-                        "experience_years": "9 Years",
-                        "profile_link": "https://scholar.google.com/citations?user=kavita-narayanan"
+                        "job_title": "Lead Cloud & Backend Specialist",
+                        "company": "CloudSystems Technologies",
+                        "location": "Hyderabad / Hybrid",
+                        "experience_years": "4-7 years",
+                        "skills": ["Python", "AWS", "FastAPI", "Kubernetes", "Redis"],
+                        "salary_range": "₹32 - ₹48 LPA",
+                        "platform_source": "Naukri",
+                        "apply_link": "https://www.naukri.com/job-listings-cloud-systems-bangalore-280924001928"
                     },
-                    "confidence": 96.8,
-                    "breakdown": {"completeness": 100.0, "source_grounding": 96.0, "syntax_validity": 100.0, "information_density": 98.0},
-                    "source_url": "https://scholar.google.com/citations?user=kavita-narayanan",
-                    "source_title": "Dr. Kavita Narayanan - Citations & Research Profile",
-                    "snippet": "Principal Researcher focusing on post-training alignment, deterministic guardrails, and efficient attention mechanisms in Bangalore AI research clusters."
+                    "confidence": 92.4,
+                    "breakdown": {"completeness": 100.0, "source_grounding": 91.0, "syntax_validity": 100.0, "information_density": 94.0},
+                    "source_url": "https://www.naukri.com/job-listings-cloud-systems-bangalore-280924001928",
+                    "source_title": "Lead Cloud & Backend Specialist at CloudSystems | Naukri.com",
+                    "snippet": "CloudSystems Technologies recruitment board on Naukri.com. Looking for Lead Backend Specialist (Python, AWS, Kubernetes). 4-7 years experience. Compensation package: ₹32 - ₹48 LPA. Verified recruiter posting."
                 },
                 {
-                    "id": "rec_rohan_03",
+                    "id": "rec_job_indeed_03",
                     "data": {
-                        "full_name": "Rohan Deshmukh",
-                        "role_title": "Senior AI Infrastructure Engineer",
-                        "organization": "Apex Cloud Systems",
+                        "job_title": "Software Development Engineer (Cloud Systems)",
+                        "company": "Apex Cloud Systems",
                         "location": "Bangalore, India",
-                        "skills": ["Kubernetes", "Triton Inference Server", "Ray.io", "Python", "Go"],
-                        "experience_years": "5 Years",
-                        "profile_link": "https://github.com/rohan-deshmukh"
+                        "experience_years": "2-5 years",
+                        "skills": ["Python", "Go", "Vector DBs", "Docker", "REST APIs"],
+                        "salary_range": "₹22 - ₹36 LPA",
+                        "platform_source": "Indeed",
+                        "apply_link": "https://www.indeed.com/viewjob?jk=8a92bc01829e120f"
                     },
-                    "confidence": 88.5,
-                    "breakdown": {"completeness": 90.0, "source_grounding": 85.0, "syntax_validity": 100.0, "information_density": 92.0},
-                    "source_url": "https://github.com/rohan-deshmukh",
-                    "source_title": "Rohan Deshmukh (rohan-deshmukh) / Tech Repositories",
-                    "snippet": "Senior Infrastructure engineer managing high-availability GPU orchestration clusters on Kubernetes with Ray and Triton in Bangalore."
+                    "confidence": 89.8,
+                    "breakdown": {"completeness": 100.0, "source_grounding": 88.0, "syntax_validity": 95.0, "information_density": 92.0},
+                    "source_url": "https://www.indeed.com/viewjob?jk=8a92bc01829e120f",
+                    "source_title": "Software Development Engineer at Apex Cloud Systems | Indeed",
+                    "snippet": "Apex Cloud Systems on Indeed. Software Development Engineer (SDE II) specializing in Python, Go, and Vector DB retrieval architectures in Bangalore. CTC: ₹22 - ₹36 LPA. Verified employer badge."
                 }
             ]
 
-            for s in sample_data:
+            for s in sample_jobs:
                 rec = DataRecordModel(
                     id=s["id"],
                     workflow_id=wf_id,
-                    entity_name="ProfessionalCandidate",
+                    entity_name="JobOpening",
                     data_json=s["data"],
                     confidence_score=s["confidence"],
                     confidence_breakdown=s["breakdown"],

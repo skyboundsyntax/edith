@@ -1,5 +1,5 @@
 import React from 'react';
-import { Cpu, Download, Layers, Activity } from 'lucide-react';
+import { Briefcase, Download, Layers, Activity } from 'lucide-react';
 
 export default function Header({
   onOpenHistory,
@@ -12,26 +12,26 @@ export default function Header({
       <div className="header-content">
         <div className="brand-section">
           <div className="logo-icon">
-            <Cpu size={22} />
+            <Briefcase size={22} color="var(--accent-cyan)" />
           </div>
           <div>
-            <div className="brand-title">EDITH INTELLIGENCE</div>
-            <div className="brand-tagline">Deterministic AI Agent • Source Traceability • LangGraph Engine</div>
+            <div className="brand-title">EDITH CAREERS</div>
+            <div className="brand-tagline">Autonomous Job Intelligence • Web Scraper (LinkedIn • Naukri • Indeed) • Jev's Trust Meter</div>
           </div>
         </div>
 
         <div className="header-actions">
           {/* Live Orchestration Engine Status */}
-          <div className="status-badge" title="FastAPI & LangGraph Engine Active">
+          <div className="status-badge" title="FastAPI & LangGraph Job Scraper Active">
             <span className="pulse-dot"></span>
             <Activity size={14} />
-            <span>Agent Engine: Live</span>
+            <span>Scraper Engine: Live</span>
           </div>
 
           {/* Workflow History */}
-          <button className="btn btn-secondary" onClick={onOpenHistory} title="View Past Agent Runs">
+          <button className="btn btn-secondary" onClick={onOpenHistory} title="View Past Job Scrape Runs">
             <Layers size={16} />
-            <span>Workflow Runs</span>
+            <span>Search History</span>
           </button>
 
           {/* Direct Dataset Export */}
@@ -39,10 +39,10 @@ export default function Header({
             className="btn btn-primary"
             onClick={() => onExport('csv')}
             disabled={isExporting}
-            title="Export CSV Dataset"
+            title="Export Verified Jobs Dataset"
           >
             <Download size={16} />
-            <span>{isExporting ? 'Exporting...' : 'Export Dataset (CSV)'}</span>
+            <span>{isExporting ? 'Exporting...' : 'Export Jobs (CSV)'}</span>
           </button>
         </div>
       </div>

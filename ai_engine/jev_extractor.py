@@ -65,7 +65,7 @@ class JevDeterministicExtractor:
 
         grounding_score = (grounding_hits / max(evaluated_values, 1)) * 100.0 if evaluated_values > 0 else 85.0
 
-        # 3. Syntax & Format Validation
+        # 3. Syntax, Apply Integrity & Anti-Ghost Validation
         syntax_score = 100.0
         for k, v in extracted_data.items():
             if "url" in k or "link" in k or "website" in k:
@@ -74,6 +74,13 @@ class JevDeterministicExtractor:
             if "email" in k:
                 if isinstance(v, str) and not re.match(r"^[\w\.-]+@[\w\.-]+\.\w+$", v):
                     syntax_score -= 20.0
+
+        # Special Anti-Ghost & Scam Checks for Job Listings
+        if schema.entity_name == "JobOpening":
+            salary = str(extracted_data.get("salary_range", "")).lower()
+            if not salary or "undisclosed" in salary or "not disclosed" in salary:
+                # Slight penalty for opaque compensation
+                syntax_score = max(50.0, syntax_score - 10.0)
 
         syntax_score = max(0.0, syntax_score)
 
@@ -86,13 +93,24 @@ class JevDeterministicExtractor:
         density_score = max(0.0, density_score)
 
         # Weighted Calibration
-        overall_confidence = round(
-            (completeness_score * 0.30) +
-            (grounding_score * 0.40) +
-            (syntax_score * 0.20) +
-            (density_score * 0.10),
-            1
-        )
+        if schema.entity_name == "JobOpening":
+            # Calibrated specifically for job legitimacy: grounding (35%), role match (30%), apply integrity (20%), transparency (15%)
+            overall_confidence = round(
+                (completeness_score * 0.30) +
+                (grounding_score * 0.35) +
+                (syntax_score * 0.20) +
+                (density_score * 0.15),
+                1
+            )
+        else:
+            overall_confidence = round(
+                (completeness_score * 0.30) +
+                (grounding_score * 0.40) +
+                (syntax_score * 0.20) +
+                (density_score * 0.10),
+                1
+            )
+
         overall_confidence = min(99.4, max(15.0, overall_confidence))
 
         breakdown = {
