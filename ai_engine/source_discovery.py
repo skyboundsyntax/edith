@@ -8,7 +8,7 @@ import json
 import logging
 from datetime import datetime, timezone
 from typing import List, Dict, Any
-import httpx
+import http
 from bs4 import BeautifulSoup
 
 logger = logging.getLogger("SourceDiscovery")
