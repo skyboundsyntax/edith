@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, User, Briefcase, MapPin, DollarSign, Code, Save, CheckCircle2, GraduationCap, Github, Linkedin, Globe } from 'lucide-react';
+import { X, User, Briefcase, MapPin, DollarSign, Code, Save, CheckCircle2, GraduationCap, Globe } from 'lucide-react';
 import { api } from '../services/api';
 
 export default function CandidateProfileModal({ isOpen, onClose, onProfileUpdated }) {

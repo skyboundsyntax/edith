@@ -1,0 +1,371 @@
+[
+  {
+    "record_id": "rec_wf_96804abb75_linkout_linkedin",
+    "workflow_id": "wf_96804abb75",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Explore 'Fresher Fastapi fastapi fresher' Roles on LinkedIn",
+      "company": "LinkedIn Live Job Search",
+      "company_domain": "linkedin.com",
+      "location": "India",
+      "city": "India",
+      "remote_type": "on-site",
+      "employment_type": "full-time",
+      "skills": [
+        "Fastapi"
+      ],
+      "experience_years": "0-1 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://www.linkedin.com/jobs/search/?keywords=Fresher+Fastapi+fastapi+fresher&location=India&sortBy=DD",
+      "platform_source": "Linkedin",
+      "date_posted": "2026-09-28T15:55:52.784983+00:00",
+      "match_score": 98.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 30,
+          "max": 30
+        },
+        "role": {
+          "score": 20,
+          "max": 20
+        },
+        "experience": {
+          "score": 15,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 5,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Fastapi",
+        "\u2713 Target role match (Fresher)",
+        "\u2713 0\u20131 years experience accepted",
+        "\u2713 Location fit (India)",
+        "\u2713 Education qualifications satisfied"
+      ],
+      "potential_gaps": [],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 80.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "linkedin"
+      ],
+      "is_link_out": true
+    },
+    "confidence_score": 98.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 30,
+        "max": 30
+      },
+      "role": {
+        "score": 20,
+        "max": 20
+      },
+      "experience": {
+        "score": 15,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 5,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://www.linkedin.com/jobs/search/?keywords=Fresher+Fastapi+fastapi+fresher&location=India&sortBy=DD",
+    "source_title": "Explore 'Fresher Fastapi fastapi fresher' Roles on LinkedIn at LinkedIn Live Job Search",
+    "extracted_timestamp": "2026-09-28T15:55:52.792601+00:00",
+    "raw_snippet": "Direct link-out search for Fresher Fastapi fastapi fresher in India on LinkedIn. Restricted from unauthorized scraping by platform policy."
+  },
+  {
+    "record_id": "rec_wf_96804abb75_linkout_indeed",
+    "workflow_id": "wf_96804abb75",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Explore 'Fresher Fastapi fastapi fresher' Roles on Indeed",
+      "company": "Indeed Live Job Search",
+      "company_domain": "in.indeed.com",
+      "location": "India",
+      "city": "India",
+      "remote_type": "on-site",
+      "employment_type": "full-time",
+      "skills": [
+        "Fastapi"
+      ],
+      "experience_years": "0-1 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://in.indeed.com/jobs?q=Fresher+Fastapi+fastapi+fresher&l=India&sort=date",
+      "platform_source": "Indeed",
+      "date_posted": "2026-09-28T15:55:52.785014+00:00",
+      "match_score": 98.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 30,
+          "max": 30
+        },
+        "role": {
+          "score": 20,
+          "max": 20
+        },
+        "experience": {
+          "score": 15,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 5,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Fastapi",
+        "\u2713 Target role match (Fresher)",
+        "\u2713 0\u20131 years experience accepted",
+        "\u2713 Location fit (India)",
+        "\u2713 Education qualifications satisfied"
+      ],
+      "potential_gaps": [],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 80.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "indeed"
+      ],
+      "is_link_out": true
+    },
+    "confidence_score": 98.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 30,
+        "max": 30
+      },
+      "role": {
+        "score": 20,
+        "max": 20
+      },
+      "experience": {
+        "score": 15,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 5,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://in.indeed.com/jobs?q=Fresher+Fastapi+fastapi+fresher&l=India&sort=date",
+    "source_title": "Explore 'Fresher Fastapi fastapi fresher' Roles on Indeed at Indeed Live Job Search",
+    "extracted_timestamp": "2026-09-28T15:55:52.792862+00:00",
+    "raw_snippet": "Direct link-out search for Fresher Fastapi fastapi fresher in India on Indeed. Restricted from unauthorized scraping by platform policy."
+  },
+  {
+    "record_id": "rec_wf_96804abb75_linkout_naukri",
+    "workflow_id": "wf_96804abb75",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Explore 'Fresher Fastapi fastapi fresher' Roles on Naukri",
+      "company": "Naukri Live Job Search",
+      "company_domain": "naukri.com",
+      "location": "India",
+      "city": "India",
+      "remote_type": "on-site",
+      "employment_type": "full-time",
+      "skills": [
+        "Fastapi"
+      ],
+      "experience_years": "0-1 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://www.naukri.com/fresher-fastapi-fastapi-fresher-jobs-in-india",
+      "platform_source": "Naukri",
+      "date_posted": "2026-09-28T15:55:52.785029+00:00",
+      "match_score": 98.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 30,
+          "max": 30
+        },
+        "role": {
+          "score": 20,
+          "max": 20
+        },
+        "experience": {
+          "score": 15,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 5,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Fastapi",
+        "\u2713 Target role match (Fresher)",
+        "\u2713 0\u20131 years experience accepted",
+        "\u2713 Location fit (India)",
+        "\u2713 Education qualifications satisfied"
+      ],
+      "potential_gaps": [],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 80.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "naukri"
+      ],
+      "is_link_out": true
+    },
+    "confidence_score": 98.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 30,
+        "max": 30
+      },
+      "role": {
+        "score": 20,
+        "max": 20
+      },
+      "experience": {
+        "score": 15,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 5,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://www.naukri.com/fresher-fastapi-fastapi-fresher-jobs-in-india",
+    "source_title": "Explore 'Fresher Fastapi fastapi fresher' Roles on Naukri at Naukri Live Job Search",
+    "extracted_timestamp": "2026-09-28T15:55:52.793075+00:00",
+    "raw_snippet": "Direct link-out search for Fresher Fastapi fastapi fresher in India on Naukri. Restricted from unauthorized scraping by platform policy."
+  }
+]
