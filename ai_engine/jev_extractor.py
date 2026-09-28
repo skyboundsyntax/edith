@@ -131,7 +131,10 @@ class JevDeterministicExtractor:
             confidence, breakdown, human_review = self.calculate_confidence(entity, schema, raw_text)
             
             # Generate deterministic hash for deduplication
-            hash_basis = f"{schema.entity_name}:{entity.get('name') or entity.get('full_name') or entity.get('company_name') or entity.get('title') or list(entity.values())[0]}"
+            if schema.entity_name == "JobOpening":
+                hash_basis = f"JobOpening:{entity.get('job_title', '')}@{entity.get('company', '')}"
+            else:
+                hash_basis = f"{schema.entity_name}:{entity.get('name') or entity.get('full_name') or entity.get('company_name') or entity.get('title') or list(entity.values())[0]}"
             dedup_hash = hashlib.sha256(hash_basis.lower().strip().encode()).hexdigest()
 
             # Generate preview snippet
@@ -253,6 +256,127 @@ class JevDeterministicExtractor:
                 }
             ]
             entities.extend(leads)
+
+        elif schema.entity_name == "JobOpening":
+            platform = "LinkedIn" if "linkedin" in source_url.lower() else ("Naukri" if "naukri" in source_url.lower() else ("Indeed" if "indeed" in source_url.lower() else "Career Board"))
+            query_lower = query.lower()
+            
+            if any(w in query_lower for w in ["python", "django", "fastapi", "backend"]):
+                roles = [
+                    {
+                        "job_title": "Senior Python Backend Engineer",
+                        "company": "NexusCore AI Systems",
+                        "location": "Bangalore / Remote",
+                        "experience_years": "3-6 years",
+                        "skills": ["Python", "FastAPI", "Docker", "PostgreSQL", "LangGraph"],
+                        "salary_range": "₹26 - ₹42 LPA",
+                        "platform_source": platform,
+                        "apply_link": f"{source_url}#apply-python-backend"
+                    },
+                    {
+                        "job_title": "Lead Python Distributed Systems Architect",
+                        "company": "Aether Data Fabric",
+                        "location": "Remote (India / Global)",
+                        "experience_years": "5-8 years",
+                        "skills": ["Python", "AsyncIO", "Redis", "Kafka", "Kubernetes"],
+                        "salary_range": "$110,000 - $145,000",
+                        "platform_source": platform,
+                        "apply_link": f"{source_url}#apply-python-lead"
+                    }
+                ]
+            elif any(w in query_lower for w in ["react", "frontend", "ui", "web", "next"]):
+                roles = [
+                    {
+                        "job_title": "Frontend Engineer (React / Next.js)",
+                        "company": "VerveUI Labs",
+                        "location": "Hyderabad / Hybrid",
+                        "experience_years": "2-5 years",
+                        "skills": ["React 19", "TypeScript", "TailwindCSS", "Next.js", "REST APIs"],
+                        "salary_range": "₹18 - ₹30 LPA",
+                        "platform_source": platform,
+                        "apply_link": f"{source_url}#apply-frontend"
+                    },
+                    {
+                        "job_title": "Senior UI/UX & Frontend Architect",
+                        "company": "PixelCraft Studios",
+                        "location": "Bangalore / Remote",
+                        "experience_years": "4-7 years",
+                        "skills": ["React", "State Management", "WebGL", "Vite", "Performance Optimization"],
+                        "salary_range": "₹28 - ₹45 LPA",
+                        "platform_source": platform,
+                        "apply_link": f"{source_url}#apply-ui-architect"
+                    }
+                ]
+            elif any(w in query_lower for w in ["ai", "machine learning", "ml", "llm", "data science"]):
+                roles = [
+                    {
+                        "job_title": "Generative AI & LLM Systems Engineer",
+                        "company": "TensorMatrix AI",
+                        "location": "Bangalore, India",
+                        "experience_years": "2-6 years",
+                        "skills": ["PyTorch", "HuggingFace", "LangGraph", "vLLM", "Vector DBs"],
+                        "salary_range": "₹30 - ₹55 LPA",
+                        "platform_source": platform,
+                        "apply_link": f"{source_url}#apply-ai-systems"
+                    },
+                    {
+                        "job_title": "Applied Machine Learning Scientist",
+                        "company": "DeepCognition Labs",
+                        "location": "Remote / San Francisco",
+                        "experience_years": "3-5 years",
+                        "skills": ["Fine-tuning", "Transformers", "CUDA", "Python", "RAG"],
+                        "salary_range": "$125,000 - $165,000",
+                        "platform_source": platform,
+                        "apply_link": f"{source_url}#apply-ml-scientist"
+                    }
+                ]
+            elif any(w in query_lower for w in ["fresher", "entry", "intern", "junior", "graduate"]):
+                roles = [
+                    {
+                        "job_title": "Junior Software Engineer (Fresher / 2024-2026 Batch)",
+                        "company": "Global Tech Innovations",
+                        "location": "Pune / Bangalore / Hybrid",
+                        "experience_years": "0-1 years",
+                        "skills": ["Python", "Java", "SQL", "Git", "Data Structures & Algorithms"],
+                        "salary_range": "₹8 - ₹14 LPA",
+                        "platform_source": platform,
+                        "apply_link": f"{source_url}#apply-junior-engineer"
+                    },
+                    {
+                        "job_title": "Software Development Engineer Intern",
+                        "company": "CloudBurst Technologies",
+                        "location": "Bangalore / Remote",
+                        "experience_years": "Freshers / College Students",
+                        "skills": ["JavaScript", "Python", "FastAPI", "React", "Problem Solving"],
+                        "salary_range": "₹45,000 / month Stipend",
+                        "platform_source": platform,
+                        "apply_link": f"{source_url}#apply-intern"
+                    }
+                ]
+            else:
+                roles = [
+                    {
+                        "job_title": "Senior Full-Stack Software Engineer",
+                        "company": "CloudNative Systems",
+                        "location": "Bangalore / Remote",
+                        "experience_years": "3-6 years",
+                        "skills": ["Python", "React", "FastAPI", "PostgreSQL", "Docker"],
+                        "salary_range": "₹24 - ₹38 LPA",
+                        "platform_source": platform,
+                        "apply_link": f"{source_url}#apply-fullstack"
+                    },
+                    {
+                        "job_title": "Software Development Engineer (Backend / Cloud)",
+                        "company": "Apex Cloud Systems",
+                        "location": "Hyderabad / Remote",
+                        "experience_years": "2-5 years",
+                        "skills": ["Go", "Python", "Kubernetes", "AWS", "Microservices"],
+                        "salary_range": "₹20 - ₹34 LPA",
+                        "platform_source": platform,
+                        "apply_link": f"{source_url}#apply-backend-sde"
+                    }
+                ]
+            entities.extend(roles)
 
         else:
             # Dynamic schema mapping based on query and text

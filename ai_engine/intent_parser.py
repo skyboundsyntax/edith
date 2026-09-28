@@ -20,8 +20,25 @@ class IntentParser:
         """
         prompt_lower = prompt.lower()
 
-        # 1. Talent / Engineers / People sourcing
-        if any(w in prompt_lower for w in ["engineer", "developer", "candidate", "talent", "hire", "recruiter", "person", "alumni", "researcher"]):
+        # 1. Jobs / Openings / Job Seekers (LinkedIn, Naukri, Indeed, Career Portals)
+        if any(w in prompt_lower for w in ["job", "jobs", "opening", "openings", "vacancy", "vacancies", "career", "careers", "hiring", "naukri", "indeed", "internship", "internships", "recruitment", "job seeker", "job search"]):
+            return TargetSchemaDefinition(
+                entity_name="JobOpening",
+                description="Structured job posting from LinkedIn, Naukri, Indeed, or verified career portals",
+                fields=[
+                    SchemaField(name="job_title", type="string", description="Official title of the open position", required=True),
+                    SchemaField(name="company", type="string", description="Hiring company or organization", required=True),
+                    SchemaField(name="location", type="string", description="City, Country, Remote, or Hybrid status", required=True),
+                    SchemaField(name="experience_years", type="string", description="Required years of experience", required=False),
+                    SchemaField(name="skills", type="list", description="Core technical competencies and tools required", required=False),
+                    SchemaField(name="salary_range", type="string", description="Disclosed compensation package or CTC", required=False),
+                    SchemaField(name="platform_source", type="string", description="Origin platform (LinkedIn, Naukri, Indeed, Career Site)", required=True),
+                    SchemaField(name="apply_link", type="string", description="Direct application page or posting URL", required=True)
+                ]
+            )
+
+        # 2. Talent / Engineers / People sourcing
+        elif any(w in prompt_lower for w in ["engineer", "developer", "candidate", "talent", "hire", "recruiter", "person", "alumni", "researcher"]):
             return TargetSchemaDefinition(
                 entity_name="ProfessionalCandidate",
                 description="Structured candidate profile extracted from verified public sources",
@@ -36,7 +53,7 @@ class IntentParser:
                 ]
             )
 
-        # 2. Startups / Companies / Venture / Funding
+        # 3. Startups / Companies / Venture / Funding
         elif any(w in prompt_lower for w in ["startup", "company", "venture", "funded", "funding", "seed", "series a", "investor", "valuation"]):
             return TargetSchemaDefinition(
                 entity_name="VentureCompany",
@@ -52,7 +69,7 @@ class IntentParser:
                 ]
             )
 
-        # 3. B2B Sales Leads / Decision Makers
+        # 4. B2B Sales Leads / Decision Makers
         elif any(w in prompt_lower for w in ["lead", "sales", "b2b", "decision maker", "executive", "sponsor", "buyer", "prospect"]):
             return TargetSchemaDefinition(
                 entity_name="SalesLead",
@@ -64,21 +81,6 @@ class IntentParser:
                     SchemaField(name="work_email", type="string", description="Derived or verified corporate email handle", required=False),
                     SchemaField(name="linkedin_url", type="string", description="Verified executive LinkedIn URL", required=True),
                     SchemaField(name="intent_summary", type="string", description="Identified buying need or sponsorship alignment", required=False)
-                ]
-            )
-
-        # 4. Jobs / Openings / Positions
-        elif any(w in prompt_lower for w in ["job", "opening", "vacancy", "career", "hiring", "role"]):
-            return TargetSchemaDefinition(
-                entity_name="JobOpening",
-                description="Structured job posting from competitor or company careers pages",
-                fields=[
-                    SchemaField(name="job_title", type="string", description="Title of the open position", required=True),
-                    SchemaField(name="company", type="string", description="Hiring organization", required=True),
-                    SchemaField(name="location", type="string", description="City / Remote designation", required=True),
-                    SchemaField(name="employment_type", type="string", description="Full-time, Contract, or Internship", required=False),
-                    SchemaField(name="salary_range", type="string", description="Disclosed compensation package", required=False),
-                    SchemaField(name="apply_link", type="string", description="Direct application page URL", required=True)
                 ]
             )
 
