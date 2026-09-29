@@ -4,8 +4,12 @@
  * Adheres to SDD specifications.
  */
 
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
-const WS_BASE = import.meta.env.VITE_WS_URL || 'ws://localhost:8000/ws';
+const isHttps = typeof window !== 'undefined' && window.location.protocol === 'https:';
+const defaultWsProto = isHttps ? 'wss:' : 'ws:';
+const defaultHost = typeof window !== 'undefined' ? window.location.host : 'localhost:5173';
+
+const API_BASE = import.meta.env.VITE_API_URL || '/api';
+const WS_BASE = import.meta.env.VITE_WS_URL || `${defaultWsProto}//${defaultHost}/ws`;
 
 export const api = {
   // --- Workflows (SDD 2.2) ---

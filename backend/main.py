@@ -11,7 +11,8 @@ ROOT_DIR = Path(__file__).resolve().parent.parent
 if str(ROOT_DIR) not in sys.path:
     sys.path.insert(0, str(ROOT_DIR))
 
-from fastapi import FastAPI, WebSocket, WebSocketDisconnect
+from fastapi import FastAPI, WebSocket, WebSocketDisconnect, Request
+from fastapi.responses import HTMLResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
@@ -78,7 +79,40 @@ async def global_websocket_endpoint(websocket: WebSocket):
         ws_manager.disconnect(websocket, "global")
 
 @app.get("/")
-def root():
+def root(request: Request):
+    accept = request.headers.get("accept", "")
+    if "text/html" in accept:
+        return HTMLResponse(content="""<!doctype html>
+<html lang="en" style="background:#070b14;color:#f8fafc;font-family:'Inter',system-ui,sans-serif;">
+<head>
+  <meta charset="utf-8">
+  <title>EDITH | Launching Dashboard...</title>
+  <meta http-equiv="refresh" content="1; url=http://localhost:5173">
+  <style>
+    body { background: #070b14; color: #f8fafc; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; }
+    .card { background: #0d1527; border: 1px solid rgba(14,165,233,0.3); border-radius: 16px; padding: 2.5rem; text-align: center; max-width: 520px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+    .btn { display: inline-block; background: #0ea5e9; color: #fff; text-decoration: none; padding: 0.85rem 1.75rem; border-radius: 8px; font-weight: 600; margin-top: 1.25rem; font-size: 0.95rem; }
+    .btn:hover { background: #0284c7; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div style="font-size:2.5rem;margin-bottom:0.5rem;">⚡</div>
+    <h1 style="font-size:1.5rem;margin-bottom:0.5rem;color:#f8fafc;">EDITH Intelligence Active</h1>
+    <p style="color:#94a3b8;font-size:0.95rem;margin-bottom:1rem;line-height:1.5;">Navigating to the Interactive Job Dashboard at <strong style="color:#38bdf8;">http://localhost:5173</strong>...</p>
+    <a href="http://localhost:5173" class="btn">Open Interactive Dashboard</a>
+    <div style="margin-top:1.5rem;font-size:0.8rem;color:#64748b;">
+      Backend: <a href="/docs" style="color:#38bdf8;text-decoration:none;">API Swagger Docs (/docs)</a> • <a href="/api/workflows" style="color:#38bdf8;text-decoration:none;">Workflows API</a>
+    </div>
+  </div>
+  <script>
+    setTimeout(function() {
+      window.location.href = "http://localhost:5173";
+    }, 400);
+  </script>
+</body>
+</html>""")
+
     return {
         "platform": settings.PROJECT_NAME,
         "version": settings.VERSION,
