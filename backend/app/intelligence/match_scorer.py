@@ -8,7 +8,7 @@ from datetime import datetime, timezone
 from typing import Dict, List, Optional, Any, Tuple
 import re
 
-from backend.app.locations.india_locations import matches_location_preference
+from backend.app.locations.india_locations import matches_location_preference, is_online_gig
 
 # Configurable score weights strictly summing to 100
 DEFAULT_WEIGHTS = {
@@ -49,9 +49,16 @@ def score_job_match(job: Dict[str, Any], query_spec: Dict[str, Any], weights: Op
     # 1. Skills Match (30 pts)
     target_skills = [s.lower() for s in (query_spec.get("skills") or [])]
     if target_skills:
-        matched_skills = [s for s in target_skills if s in combined_job_text]
-        missing_skills = [s for s in target_skills if s not in combined_job_text]
-        skill_ratio = len(matched_skills) / len(target_skills)
+        matched_skills = []
+        missing_skills = []
+        for s in target_skills:
+            # Word boundary matching is critical for short tokens like 'ai', 'ml', 'go', 'r', 'c'
+            pattern = r'\b' + re.escape(s) + r'\b'
+            if re.search(pattern, combined_job_text):
+                matched_skills.append(s)
+            else:
+                missing_skills.append(s)
+        skill_ratio = len(matched_skills) / len(target_skills) if target_skills else 1.0
         skills_score = round(skill_ratio * w["skills"])
         for s in matched_skills:
             why_it_matches.append(f"✓ {s.title()}")
@@ -67,16 +74,36 @@ def score_job_match(job: Dict[str, Any], query_spec: Dict[str, Any], weights: Op
     role_matched = False
     if target_roles:
         for r in target_roles:
-            if r in title or any(w in title for w in r.split()):
+            r_pattern = r'\b' + re.escape(r) + r'\b'
+            if re.search(r_pattern, title):
                 role_matched = True
                 why_it_matches.append(f"✓ Target role match ({r.title()})")
                 break
-        role_score = w["role"] if role_matched else round(0.5 * w["role"])
+            # Match significant words with word boundaries
+            stopwords = {"and", "for", "the", "role", "level", "engineer", "developer"} if len(r.split()) > 1 else {"and", "for"}
+            role_words = [w_tok for w_tok in re.findall(r'\b\w+\b', r) if len(w_tok) >= 2 and w_tok not in stopwords]
+            if role_words and any(re.search(r'\b' + re.escape(w_tok) + r'\b', title) for w_tok in role_words):
+                role_matched = True
+                why_it_matches.append(f"✓ Target role match ({r.title()})")
+                break
+        role_score = w["role"] if role_matched else round(0.3 * w["role"])
         if not role_matched:
             potential_gaps.append("⚠ Role title differs from target keywords")
     else:
         role_score = round(0.8 * w["role"])
     breakdown["role"] = {"score": role_score, "max": w["role"]}
+
+    # Online Gig / Non-tech check
+    all_query_terms = " ".join(
+        [r.lower() for r in (query_spec.get("roles") or [])] +
+        [s.lower() for s in (query_spec.get("skills") or [])] +
+        [k.lower() for k in (query_spec.get("keywords") or [])]
+    )
+    is_tech_search = any(re.search(r'\b' + kw + r'\b', all_query_terms) for kw in ["software", "engineer", "developer", "ai", "ml", "python", "data", "frontend", "backend", "fullstack"])
+    if is_tech_search and is_online_gig(title, description):
+        potential_gaps.append("⚠ Flagged as non-engineering / online rating gig")
+        breakdown["role"] = {"score": 0, "max": w["role"]}
+        breakdown["skills"] = {"score": min(breakdown["skills"]["score"], 5), "max": w["skills"]}
 
     # 3. Experience Compatibility (15 pts)
     exp_max = query_spec.get("experience_max")
@@ -106,7 +133,10 @@ def score_job_match(job: Dict[str, Any], query_spec: Dict[str, Any], weights: Op
     if loc_match:
         why_it_matches.append(f"✓ Location fit ({job_location})")
     else:
-        potential_gaps.append(f"⚠ Located in {job_location}")
+        if target_locs:
+            potential_gaps.append(f"⚠ Located in {job_location} (incompatible with target: {', '.join(target_locs)})")
+        else:
+            potential_gaps.append(f"⚠ Location mismatch ({job_location})")
 
     # 5. Education Fit (5 pts)
     edu_score = w["education"]
