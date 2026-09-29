@@ -1,27 +1,24 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { Play, Sparkles, Sliders } from 'lucide-react';
-import Header from './components/Header';
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
+import FirefliesBackground from './components/FirefliesBackground';
+import Sidebar from './components/Sidebar';
+import TopNavbar from './components/TopNavbar';
+import JobCardList from './components/JobCardList';
+import SalaryIntelligenceWidget from './components/SalaryIntelligenceWidget';
+import FloatingCommandBar from './components/FloatingCommandBar';
 import MetricsCards from './components/MetricsCards';
 import WorkflowGraph from './components/WorkflowGraph';
 import DataGrid from './components/DataGrid';
 import SourceDrawer from './components/SourceDrawer';
 import WorkflowHistoryModal from './components/WorkflowHistoryModal';
-import InterpretedRequirements from './components/InterpretedRequirements';
 import SourceHealthModal from './components/SourceHealthModal';
 import CandidateProfileModal from './components/CandidateProfileModal';
 import { api } from './services/api';
-
-const PRESET_PROMPTS = [
-  'Entry-level Python & AI/ML engineer roles in Pune or Bangalore or Remote (₹6-18 LPA)',
-  'Second-year CSE internships for Python, React, SQL & Machine Learning at startups',
-  'Fresher Full-Stack & FastAPI Developer jobs with disclosed CTC in India',
-  'Generative AI, PyTorch & LLM Systems Engineer Jobs in India or Remote',
-  'DevOps, Kubernetes & Cloud Architecture Vacancies (0-2 years experience)'
-];
+import { Award, ShieldCheck, Sparkles, Activity } from 'lucide-react';
 
 export default function App() {
+  const [activeTab, setActiveTab] = useState('dashboard');
   const [prompt, setPrompt] = useState('Find entry-level Python & AI/ML engineer roles in Pune or Bangalore or Remote, 0-2 years experience, minimum ₹6 LPA');
-  const [spec, setSpec] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
   const [confidenceThreshold, setConfidenceThreshold] = useState(75.0);
   const [isRunning, setIsRunning] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
@@ -39,8 +36,18 @@ export default function App() {
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
   const [isSourceHealthOpen, setIsSourceHealthOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [userProfile, setUserProfile] = useState(null);
 
   const socketRef = useRef(null);
+
+  // Load User Profile on mount
+  useEffect(() => {
+    api.getUserProfile()
+      .then((data) => {
+        if (data?.profile) setUserProfile(data.profile);
+      })
+      .catch((err) => console.error('Error fetching user profile:', err));
+  }, []);
 
   const selectWorkflow = useCallback(async (workflowId) => {
     try {
@@ -91,41 +98,21 @@ export default function App() {
     return () => { ignore = true; };
   }, [selectWorkflow]);
 
-  // Automatically plan requirements when prompt changes (debounced)
-  useEffect(() => {
-    if (!prompt.trim()) return;
-    let cancel = false;
-    const timer = setTimeout(async () => {
-      try {
-        const planRes = await api.planRequirements(prompt);
-        if (!cancel && planRes.spec) {
-          setSpec(planRes.spec);
-        }
-      } catch (err) {
-        console.error('Plan requirements error:', err);
-      }
-    }, 400);
+  const handleLaunchWorkflow = async (promptText) => {
+    const query = promptText || prompt;
+    if (!query.trim() || isRunning) return;
 
-    return () => {
-      cancel = true;
-      clearTimeout(timer);
-    };
-  }, [prompt]);
-
-  const handleLaunchWorkflow = async (e) => {
-    if (e) e.preventDefault();
-    if (!prompt.trim() || isRunning) return;
-
+    setPrompt(query);
     setIsRunning(true);
     setCurrentNode('query_planning');
     setExecutionLogs([{
       timestamp: new Date().toISOString(),
       node: 'query_planning',
-      message: `Analyzing natural-language request and synthesizing search requirements...`
+      message: `Analyzing query and dispatching multi-source ATS connectors...`
     }]);
 
     try {
-      const newWf = await api.createWorkflow(prompt, confidenceThreshold, spec);
+      const newWf = await api.createWorkflow(query, confidenceThreshold, null);
       setActiveWorkflow(newWf);
 
       // Connect to WebSocket for live pipeline telemetry
@@ -179,7 +166,7 @@ export default function App() {
           }
         },
         () => {
-          // Socket error handler
+          // Socket error fallback
         }
       );
 
@@ -232,128 +219,157 @@ export default function App() {
     }
   };
 
+  // Filter records by search term across title, company, location, skills
+  const filteredRecords = useMemo(() => {
+    if (!searchTerm.trim()) return records;
+    const term = searchTerm.toLowerCase();
+    return records.filter((r) => {
+      const d = r.data || {};
+      const title = String(d.job_title || '').toLowerCase();
+      const comp = String(d.company || '').toLowerCase();
+      const loc = String(d.location || '').toLowerCase();
+      const skills = Array.isArray(d.skills) ? d.skills.join(' ').toLowerCase() : String(d.skills || '').toLowerCase();
+      const modality = String(d.work_modality || '').toLowerCase();
+
+      return title.includes(term) ||
+        comp.includes(term) ||
+        loc.includes(term) ||
+        skills.includes(term) ||
+        modality.includes(term);
+    });
+  }, [records, searchTerm]);
+
   return (
-    <div className="app-container">
-      {/* Top Navigation */}
-      <Header
-        onOpenHistory={() => setIsHistoryOpen(true)}
+    <div className="edith-dashboard-layout">
+      {/* 1. Animated Fireflies Particle Layer (Backdrop) */}
+      <FirefliesBackground />
+
+      {/* 2. Left Glassmorphic Sidebar */}
+      <Sidebar
+        activeTab={activeTab}
+        onSelectTab={setActiveTab}
         onOpenSourceHealth={() => setIsSourceHealthOpen(true)}
         onOpenProfile={() => setIsProfileOpen(true)}
-        onExport={handleExport}
-        isExporting={isExporting}
+        onOpenHistory={() => setIsHistoryOpen(true)}
+        sourceCount={8}
       />
 
-      {/* Main Content Area */}
-      <main className="main-content">
-        {/* Hero Prompt Section */}
-        <section className="glass-panel hero-prompt-section">
-          <div className="hero-header">
-            <div className="hero-title-group">
-              <h1>Autonomous Job Intelligence & Career Scraping Engine</h1>
-              <p>Live multi-platform web scraper targeting ATS boards, remote job feeds, and structured Link-Out searches with Jev's Trust Meter for anti-ghost & scam verification</p>
-            </div>
-          </div>
-
-          {/* Prompt Form */}
-          <form onSubmit={handleLaunchWorkflow} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-            <div className="prompt-input-container">
-              <Sparkles size={20} color="var(--accent-cyan)" style={{ marginRight: '0.75rem' }} />
-              <input
-                type="text"
-                className="prompt-input"
-                placeholder="Enter target role, tech stack, or location (e.g. 'Senior Python & FastAPI developer jobs remote with salary')..."
-                value={prompt}
-                onChange={(e) => setPrompt(e.target.value)}
-                disabled={isRunning}
-              />
-              <button
-                type="submit"
-                className="btn btn-primary"
-                disabled={isRunning || !prompt.trim()}
-              >
-                <Play size={16} fill="white" />
-                <span>{isRunning ? 'Scraping Portals...' : 'Scrape Jobs'}</span>
-              </button>
-            </div>
-
-            {/* Prompt Presets */}
-            <div className="prompt-presets">
-              <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-muted)' }}>QUICK CAREER TEMPLATES:</span>
-              {PRESET_PROMPTS.map((p, i) => (
-                <button
-                  key={i}
-                  type="button"
-                  className="preset-pill"
-                  onClick={() => setPrompt(p)}
-                  disabled={isRunning}
-                >
-                  {p}
-                </button>
-              ))}
-            </div>
-
-            {/* Threshold Slider Controls */}
-            <div className="prompt-controls-row">
-              <div className="threshold-slider-group">
-                <Sliders size={14} />
-                <span>Jev Anti-Ghost Trust Threshold:</span>
-                <input
-                  type="range"
-                  min="50"
-                  max="95"
-                  step="5"
-                  className="threshold-slider"
-                  value={confidenceThreshold}
-                  onChange={(e) => setConfidenceThreshold(Number(e.target.value))}
-                  disabled={isRunning}
-                />
-                <span style={{ fontWeight: 700, color: 'var(--text-cyan)', fontFamily: 'var(--font-mono)' }}>
-                  {confidenceThreshold}%
-                </span>
-                <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-                  (Flag job listings below {confidenceThreshold}% for unverified CTC, stale posting, or suspect recruiter)
-                </span>
-              </div>
-            </div>
-          </form>
-
-          {/* AI Interpreted Search Specification */}
-          <InterpretedRequirements
-            spec={spec}
-            onUpdateSpec={setSpec}
-            onLaunch={handleLaunchWorkflow}
-            isRunning={isRunning}
-          />
-        </section>
-
-        {/* Real-time Metrics Row */}
-        <MetricsCards metrics={metrics} activeWorkflow={activeWorkflow} records={records} />
-
-        {/* LangGraph State Machine Visualizer (SDD Section 2.1) */}
-        <WorkflowGraph
-          currentNode={currentNode}
-          status={isRunning ? 'running' : activeWorkflow?.status || 'idle'}
-          logs={executionLogs}
-        />
-
-        {/* Dynamic Data Grid */}
-        <DataGrid
-          records={records}
-          schema={activeWorkflow?.target_schema}
-          onInspectProvenance={(id) => setInspectRecordId(id)}
+      {/* 3. Main Viewport */}
+      <div className="edith-main-viewport">
+        {/* Top Navbar */}
+        <TopNavbar
+          title={activeTab === 'jobs' ? 'Scraped Openings' : activeTab === 'analytics' ? 'Pipeline Analytics' : 'Dashboard'}
+          searchTerm={searchTerm}
+          onSearchChange={setSearchTerm}
+          onOpenProfile={() => setIsProfileOpen(true)}
+          onOpenSourceHealth={() => setIsSourceHealthOpen(true)}
           onExport={handleExport}
           isExporting={isExporting}
+          unreadCount={records.length > 0 ? 1 : 0}
+          userName={userProfile?.name ? userProfile.name.toUpperCase() : 'ALEX R.'}
+          filteredCount={filteredRecords.length}
+          totalCount={records.length}
         />
-      </main>
 
-      {/* Source Provenance Audit Drawer (SDD Section 3) */}
+        {/* Dashboard Main Grid View */}
+        {activeTab === 'dashboard' && (
+          <div className="edith-dashboard-grid">
+            {/* Center Jobs Feed */}
+            <section className="edith-center-feed">
+              {/* If pipeline is currently running, show live state tracker */}
+              {isRunning && (
+                <div style={{ marginBottom: '0.5rem' }}>
+                  <WorkflowGraph
+                    currentNode={currentNode}
+                    status="running"
+                    logs={executionLogs}
+                  />
+                </div>
+              )}
+
+              {/* Frosted Floating Job Cards with SVG Wave Sparklines */}
+              <JobCardList
+                records={filteredRecords}
+                onInspectProvenance={(id) => setInspectRecordId(id)}
+              />
+
+              {/* Bottom Floating Command Bar: "Ask EDITH: ..." */}
+              <FloatingCommandBar
+                onLaunchPrompt={handleLaunchWorkflow}
+                isRunning={isRunning}
+                initialPrompt={prompt}
+              />
+            </section>
+
+            {/* Right Column: Salary Intelligence Widget & Trust Metrics */}
+            <aside className="edith-right-column">
+              <SalaryIntelligenceWidget records={records} />
+
+              {/* Jev's Anti-Ghost Trust Badge Card */}
+              <div className="glass-panel" style={{ padding: '1.25rem', background: 'rgba(13, 23, 42, 0.58)', backdropFilter: 'blur(20px)', borderRadius: '16px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.5rem' }}>
+                  <ShieldCheck size={18} color="var(--accent-cyan)" />
+                  <span style={{ fontSize: '0.85rem', fontWeight: 600, color: '#f8fafc' }}>
+                    Jev's Trust & Anti-Ghost Verifier
+                  </span>
+                </div>
+                <p style={{ fontSize: '0.785rem', color: '#94a3b8', lineHeight: 1.45, margin: 0 }}>
+                  Every extracted role is verified through canonical robots compliance and cryptographic domain lineage before appearing on your feed.
+                </p>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '1rem', paddingTop: '0.75rem', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+                  <span style={{ fontSize: '0.75rem', color: '#34d399', fontWeight: 600 }}>
+                    ✓ 100% Genuine Direct Postings
+                  </span>
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    style={{ fontSize: '0.72rem', padding: '0.25rem 0.6rem' }}
+                    onClick={() => setIsSourceHealthOpen(true)}
+                  >
+                    View Matrix
+                  </button>
+                </div>
+              </div>
+            </aside>
+          </div>
+        )}
+
+        {/* Detailed Full-Table Jobs View */}
+        {activeTab === 'jobs' && (
+          <div style={{ padding: '1rem 2.25rem 4rem 2.25rem' }}>
+            <DataGrid
+              records={filteredRecords}
+              schema={activeWorkflow?.target_schema}
+              onInspectProvenance={(id) => setInspectRecordId(id)}
+              onExport={handleExport}
+              isExporting={isExporting}
+            />
+          </div>
+        )}
+
+        {/* Analytics & Pipeline View */}
+        {activeTab === 'analytics' && (
+          <div style={{ padding: '1rem 2.25rem 4rem 2.25rem', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+            <MetricsCards metrics={metrics} activeWorkflow={activeWorkflow} records={records} />
+            <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) 360px', gap: '1.5rem' }}>
+              <WorkflowGraph
+                currentNode={currentNode}
+                status={isRunning ? 'running' : activeWorkflow?.status || 'idle'}
+                logs={executionLogs}
+              />
+              <SalaryIntelligenceWidget records={records} />
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Modals & Drawers */}
       <SourceDrawer
         recordId={inspectRecordId}
         onClose={() => setInspectRecordId(null)}
         onRecordUpdated={() => selectWorkflow(activeWorkflow?.id)}
       />
 
-      {/* Workflow History Drawer */}
       <WorkflowHistoryModal
         isOpen={isHistoryOpen}
         onClose={() => setIsHistoryOpen(false)}
@@ -362,16 +378,15 @@ export default function App() {
         onSelectWorkflow={(id) => selectWorkflow(id)}
       />
 
-      {/* Source Health & Robots Compliance Modal */}
       <SourceHealthModal
         isOpen={isSourceHealthOpen}
         onClose={() => setIsSourceHealthOpen(false)}
       />
 
-      {/* Candidate Profile Modal */}
       <CandidateProfileModal
         isOpen={isProfileOpen}
         onClose={() => setIsProfileOpen(false)}
+        onProfileUpdated={(updated) => setUserProfile(updated)}
       />
     </div>
   );
