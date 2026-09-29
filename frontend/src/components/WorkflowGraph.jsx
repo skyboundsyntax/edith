@@ -52,7 +52,7 @@ export default function WorkflowGraph({
     <div className="glass-panel workflow-graph-section">
       <div className="graph-header">
         <h2>
-          <BrainCircuit size={20} color="var(--accent-cyan)" />
+          <BrainCircuit size={20} color="var(--accent-amber)" />
           <span>Autonomous Job Intelligence & Ingestion Pipeline</span>
         </h2>
         <div className="status-badge" style={{ textTransform: 'capitalize' }}>
@@ -86,21 +86,31 @@ export default function WorkflowGraph({
           <Terminal size={14} />
           <span style={{ fontSize: '0.725rem', letterSpacing: '0.05em' }}>LIVE AGENT TELEMETRY & STATE LOG</span>
         </div>
-        {logs.length === 0 ? (
+        {!logs || logs.length === 0 ? (
           <div className="log-line">
             <span className="log-time">--:--:--</span>
             <span className="log-msg" style={{ color: 'var(--text-muted)' }}>Awaiting prompt execution to launch LangGraph cycle...</span>
           </div>
         ) : (
-          logs.slice(-6).map((log, i) => (
-            <div key={i} className="log-line">
-              <span className="log-time">
-                {log.timestamp ? new Date(log.timestamp).toLocaleTimeString() : new Date().toLocaleTimeString()}
-              </span>
-              <span className="log-node">[{log.node || 'agent'}]</span>
-              <span className="log-msg">{log.message || JSON.stringify(log)}</span>
-            </div>
-          ))
+          (Array.isArray(logs) ? logs : []).slice(-6).map((log, i) => {
+            if (!log) return null;
+            let timeStr = '--:--:--';
+            try {
+              timeStr = log?.timestamp ? new Date(log.timestamp).toLocaleTimeString() : new Date().toLocaleTimeString();
+            } catch {
+              timeStr = new Date().toLocaleTimeString();
+            }
+            const nodeStr = typeof log === 'object' && log?.node ? log.node : 'agent';
+            const msgStr = typeof log === 'object' && log?.message ? log.message : (typeof log === 'string' ? log : JSON.stringify(log));
+
+            return (
+              <div key={i} className="log-line">
+                <span className="log-time">{timeStr}</span>
+                <span className="log-node">[{nodeStr}]</span>
+                <span className="log-msg">{msgStr}</span>
+              </div>
+            );
+          })
         )}
       </div>
     </div>

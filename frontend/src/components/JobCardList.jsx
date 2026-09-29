@@ -11,6 +11,23 @@ import {
   MapPin,
   CheckCircle2
 } from 'lucide-react';
+import { ModalityBadge, ResilientEmptyState } from './ui';
+import { sanitizeJobDescription } from '../utils/textSanitizer';
+
+function extractSubscore(val, fallback = 0) {
+  if (val === null || val === undefined) return fallback;
+  if (typeof val === 'number') return isNaN(val) ? fallback : val;
+  if (typeof val === 'string') {
+    const parsed = parseFloat(val);
+    return isNaN(parsed) ? fallback : parsed;
+  }
+  if (typeof val === 'object') {
+    if (typeof val.score === 'number') return val.score;
+    if (typeof val.val === 'number') return val.val;
+    if (typeof val.points === 'number') return val.points;
+  }
+  return fallback;
+}
 
 /**
  * Data-Driven Fit & Salary Spectrum Curve
@@ -18,12 +35,11 @@ import {
  * analytical progression curve, replacing procedural fake chart-junk.
  */
 function JobDataSpectrum({ subscores = {}, score = 85, id = 1 }) {
-  // Normalize real subscores to curve height:
-  // Skills (max 30) -> 0..1, Role (max 20) -> 0..1, Exp (max 15) -> 0..1, Loc (max 10) -> 0..1
-  const sSkills = ((subscores.skills ?? 26) / 30);
-  const sRole = ((subscores.role_title ?? 18) / 20);
-  const sExp = ((subscores.experience ?? 13) / 15);
-  const sLoc = ((subscores.location ?? 9) / 10);
+  const safeSub = subscores || {};
+  const sSkills = extractSubscore(safeSub.skills, 26) / 30;
+  const sRole = extractSubscore(safeSub.role_title || safeSub.role, 18) / 20;
+  const sExp = extractSubscore(safeSub.experience, 13) / 15;
+  const sLoc = extractSubscore(safeSub.location, 9) / 10;
 
   const y1 = Math.round(30 - sRole * 16);
   const y2 = Math.round(30 - sSkills * 20);
@@ -43,13 +59,13 @@ function JobDataSpectrum({ subscores = {}, score = 85, id = 1 }) {
       >
         <defs>
           <linearGradient id={`fitGrad-${id}`} x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#38bdf8" stopOpacity="0.5" />
-            <stop offset="50%" stopColor="#38bdf8" stopOpacity="1" />
+            <stop offset="0%" stopColor="#f59e0b" stopOpacity="0.6" />
+            <stop offset="50%" stopColor="#f97316" stopOpacity="1" />
             <stop offset="100%" stopColor="#818cf8" stopOpacity="0.85" />
           </linearGradient>
           <linearGradient id={`fitFill-${id}`} x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#38bdf8" stopOpacity="0.22" />
-            <stop offset="100%" stopColor="#38bdf8" stopOpacity="0.0" />
+            <stop offset="0%" stopColor="#f59e0b" stopOpacity="0.25" />
+            <stop offset="100%" stopColor="#f59e0b" stopOpacity="0.0" />
           </linearGradient>
         </defs>
         <path d={fillD} fill={`url(#fitFill-${id})`} />
@@ -98,11 +114,7 @@ export default function JobCardList({
 
   if (records.length === 0) {
     return (
-      <div className="job-list-empty-state glass-card">
-        <Sparkles size={32} color="var(--accent-cyan)" />
-        <h3>No Matching Openings Found</h3>
-        <p>Try refining your keyword filter above or run a new search with the AI Agent below.</p>
-      </div>
+      <ResilientEmptyState />
     );
   }
 
@@ -126,14 +138,20 @@ export default function JobCardList({
           const remoteType = String(data.remote_type || '').toLowerCase();
           const locLower = String(data.location || '').toLowerCase();
           const rawModality = String(data.work_modality || '').toLowerCase();
-          const isOnline = rawModality === 'online' || remoteType === 'remote' || locLower.includes('remote') || locLower.includes('virtual') || locLower.includes('wfh') || locLower.includes('online');
-          const isHybrid = remoteType === 'hybrid' || locLower.includes('hybrid');
-          const modalityDetail = data.modality_detail || (isOnline ? 'Online • Remote' : isHybrid ? 'Offline • Hybrid' : 'Offline • On-site');
-          const locationDisplay = data.location || (isOnline ? 'Remote' : 'India');
-          const companyDisplay = data.company || 'Company';
           const titleDisplay = data.job_title || 'Software Engineer';
+          const companyDisplay = data.company || 'Company';
           const platform = data.platform_source || (r.source_url?.includes('linkedin') ? 'LinkedIn' : r.source_url?.includes('naukri') ? 'Naukri' : 'ATS Live');
-          const applyUrl = data.apply_link || r.source_url || '#';
+          const rawApply = data.apply_link || r.source_url || '';
+          const applyUrl = rawApply && rawApply !== '#'
+            ? rawApply
+            : `https://www.google.com/search?q=${encodeURIComponent(`${companyDisplay} ${titleDisplay} apply online`)}`;
+          const companySiteUrl = data.company_url || `https://www.google.com/search?q=${encodeURIComponent(`${companyDisplay} careers`)}`;
+          
+          const fullContext = (titleDisplay + ' ' + locLower + ' ' + (data.description_snippet || '')).toLowerCase();
+          const isOnline = rawModality === 'online' || remoteType === 'remote' || /remote|online|virtual|wfh|telecommute/i.test(fullContext);
+          const isHybrid = rawModality === 'hybrid' || remoteType === 'hybrid' || /hybrid/i.test(fullContext);
+          const modalityDetail = isOnline ? 'Online • Remote' : isHybrid ? 'Offline • Hybrid' : 'Offline • On-site';
+          const locationDisplay = data.location || (isOnline ? 'Remote' : 'India');
           const subscores = data.match_subscores || {};
           const skillsList = Array.isArray(data.skills) ? data.skills : (data.skills ? String(data.skills).split(',') : []);
           const salaryDisplay = data.salary_range && data.salary_range !== 'Not Disclosed' ? data.salary_range : 'Market Competitive';
@@ -191,13 +209,16 @@ export default function JobCardList({
                 </div>
 
                 {/* 3. Mode & Location */}
-                <div className="job-cell cell-location">
+                <div className="job-cell cell-location flex-item-safe">
                   <span className="cell-mobile-label">Mode & Location</span>
-                  <div className="location-stack">
-                    <span className={`location-modality-badge ${isOnline ? 'online' : isHybrid ? 'hybrid' : 'offline'}`}>
-                      {isOnline ? '🌐 Online (Remote)' : isHybrid ? '🏢 Offline (Hybrid)' : '🏢 Offline (On-site)'}
-                    </span>
-                    <span className="location-name-text">{locationDisplay}</span>
+                  <div className="location-stack" style={{ minWidth: 0 }}>
+                    <ModalityBadge
+                      modality={rawModality}
+                      remoteType={remoteType}
+                      rawLocation={locationDisplay}
+                      size="sm"
+                    />
+                    <span className="location-name-text truncate" title={locationDisplay}>{locationDisplay}</span>
                   </div>
                 </div>
 
@@ -210,13 +231,25 @@ export default function JobCardList({
                   </div>
                 </div>
 
-                {/* 5. Fit Score & Expand Toggle */}
+                {/* 5. Fit Score & Direct Apply CTA */}
                 <div className="job-cell cell-fit">
                   <div className="fit-toggle-group">
                     <div className={`fit-pill-badge ${score >= 80 ? 'high' : score >= 65 ? 'mid' : 'fair'}`}>
                       <Sparkles size={12} />
                       <span>{score}% Fit</span>
                     </div>
+
+                    <a
+                      href={applyUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="row-direct-apply-btn"
+                      onClick={(e) => e.stopPropagation()}
+                      title={`Open official application for ${titleDisplay} on ${platform}`}
+                    >
+                      <span>Apply</span>
+                      <ExternalLink size={12} />
+                    </a>
 
                     <button
                       type="button"
@@ -239,18 +272,20 @@ export default function JobCardList({
                 <div className="job-card-expanded-drawer">
                   {/* Top Match Bar */}
                   <div className="drawer-top-banner">
-                    <div className="drawer-modality-pill-wrap">
-                      <span className={`modality-pill ${isOnline ? 'online' : isHybrid ? 'hybrid' : 'offline'}`}>
-                        {isOnline ? <Globe size={12} /> : <Building2 size={12} />}
-                        <span>{modalityDetail}</span>
-                      </span>
+                    <div className="drawer-modality-pill-wrap" style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', flexWrap: 'wrap' }}>
+                      <ModalityBadge
+                        modality={rawModality}
+                        remoteType={remoteType}
+                        rawLocation={locationDisplay}
+                        size="md"
+                      />
                       <span className="drawer-platform-tag">
                         Platform: {platform} • Scraped: {formatDate(r.created_at)}
                       </span>
                     </div>
 
                     <div className="drawer-score-badge">
-                      <CheckCircle2 size={14} color="#38bdf8" />
+                      <CheckCircle2 size={14} color="var(--accent-emerald)" />
                       <span>EDITH Match: <strong>{score}/100 Points</strong></span>
                     </div>
                   </div>
@@ -259,31 +294,31 @@ export default function JobCardList({
                   <div className="drawer-scores-grid">
                     <div className="drawer-score-box">
                       <span className="score-box-label">Skills Stack</span>
-                      <span className="score-box-val">{subscores.skills ?? 26}/30</span>
+                      <span className="score-box-val">{extractSubscore(subscores.skills, 26)}/30</span>
                     </div>
                     <div className="drawer-score-box">
                       <span className="score-box-label">Role Title</span>
-                      <span className="score-box-val">{subscores.role_title ?? 18}/20</span>
+                      <span className="score-box-val">{extractSubscore(subscores.role_title || subscores.role, 18)}/20</span>
                     </div>
                     <div className="drawer-score-box">
                       <span className="score-box-label">Experience</span>
-                      <span className="score-box-val">{subscores.experience ?? 13}/15</span>
+                      <span className="score-box-val">{extractSubscore(subscores.experience, 13)}/15</span>
                     </div>
                     <div className="drawer-score-box">
                       <span className="score-box-label">Location Fit</span>
-                      <span className="score-box-val">{subscores.location ?? 9}/10</span>
+                      <span className="score-box-val">{extractSubscore(subscores.location, 9)}/10</span>
                     </div>
                     <div className="drawer-score-box">
                       <span className="score-box-label">Salary Match</span>
-                      <span className="score-box-val">{subscores.salary ?? 5}/5</span>
+                      <span className="score-box-val">{extractSubscore(subscores.salary, 5)}/5</span>
                     </div>
                   </div>
 
-                  {/* Description Snippet if present */}
-                  {data.description_snippet && (
+                  {/* Clean Description Snippet if present */}
+                  {(data.description_snippet || data.description) && (
                     <div className="drawer-desc-snippet">
                       <span style={{ fontWeight: 600, color: '#e2e8f0' }}>Job Overview: </span>
-                      {data.description_snippet}...
+                      {sanitizeJobDescription(data.description_snippet || data.description).slice(0, 350)}...
                     </div>
                   )}
 
@@ -295,19 +330,33 @@ export default function JobCardList({
                       onClick={() => onInspectProvenance(r.id)}
                       title="Inspect full source-backed audit trail and anti-ghost proof"
                     >
-                      <ShieldCheck size={14} color="var(--accent-cyan)" />
+                      <ShieldCheck size={14} color="var(--accent-emerald)" />
                       <span>Jev Anti-Ghost Audit</span>
                     </button>
 
-                    <a
-                      href={applyUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn-direct-apply"
-                    >
-                      <span>Direct Apply</span>
-                      <ExternalLink size={13} />
-                    </a>
+                    <div className="drawer-apply-actions">
+                      <a
+                        href={companySiteUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn-company-site"
+                        title={`Visit ${companyDisplay} official site`}
+                      >
+                        <Globe size={13} />
+                        <span>Company Site</span>
+                      </a>
+
+                      <a
+                        href={applyUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn-direct-apply-main"
+                        title={`Apply directly on ${platform}`}
+                      >
+                        <span>Apply on {platform}</span>
+                        <ExternalLink size={14} />
+                      </a>
+                    </div>
                   </div>
                 </div>
               )}

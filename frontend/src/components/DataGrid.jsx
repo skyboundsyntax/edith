@@ -4,6 +4,23 @@ import {
   MapPin, DollarSign, CheckCircle2, AlertTriangle, ChevronDown, ChevronUp,
   Briefcase, Zap, Info, Globe, Building2, Calendar
 } from 'lucide-react';
+import { sanitizeJobDescription } from '../utils/textSanitizer';
+
+function extractSubscore(val, fallback = 0) {
+  if (val === null || val === undefined) return fallback;
+  if (typeof val === 'number') return isNaN(val) ? fallback : val;
+  if (typeof val === 'string') {
+    const parsed = parseFloat(val);
+    return isNaN(parsed) ? fallback : parsed;
+  }
+  if (typeof val === 'object') {
+    if (typeof val.score === 'number') return val.score;
+    if (typeof val.val === 'number') return val.val;
+    if (typeof val.points === 'number') return val.points;
+  }
+  return fallback;
+}
+
 
 export default function DataGrid({
   records = [],
@@ -86,8 +103,8 @@ export default function DataGrid({
 
   const getScoreColor = (score) => {
     if (score >= 80) return { class: 'excellent', hex: '#10b981' };
-    if (score >= 65) return { class: 'good', hex: '#0ea5e9' };
-    if (score >= 50) return { class: 'fair', hex: '#f59e0b' };
+    if (score >= 65) return { class: 'good', hex: '#f59e0b' };
+    if (score >= 50) return { class: 'fair', hex: '#d97706' };
     return { class: 'low', hex: '#ef4444' };
   };
 
@@ -149,7 +166,7 @@ export default function DataGrid({
               step="5"
               value={minScoreFilter}
               onChange={(e) => setMinScoreFilter(Number(e.target.value))}
-              style={{ width: '70px', accentColor: 'var(--accent-cyan)' }}
+              style={{ width: '70px', accentColor: 'var(--accent-amber)' }}
             />
           </div>
 
@@ -227,21 +244,26 @@ export default function DataGrid({
                   const score = data.match_score ?? r.confidence_score ?? 0;
                   const scoreTheme = getScoreColor(score);
                   const platform = data.platform_source || (r.source_url?.includes('linkedin') ? 'LinkedIn' : r.source_url?.includes('naukri') ? 'Naukri' : r.source_url?.includes('indeed') ? 'Indeed' : 'Careers');
-                  const applyUrl = data.apply_link || r.source_url;
                   const skillsList = Array.isArray(data.skills) ? data.skills : (data.skills ? String(data.skills).split(',') : []);
                   const subscores = data.match_subscores || {};
                   const whyMatches = Array.isArray(data.why_it_matches) ? data.why_it_matches : [];
                   const gaps = Array.isArray(data.potential_gaps) ? data.potential_gaps : [];
-                  const isLinkOut = Boolean(data.is_linkout_only);
                   const remoteType = String(data.remote_type || '').toLowerCase();
                   const locLower = String(data.location || '').toLowerCase();
                   const rawModality = String(data.work_modality || '').toLowerCase();
-                  const isOnline = rawModality === 'online' || remoteType === 'remote' || locLower.includes('remote') || locLower.includes('virtual') || locLower.includes('wfh') || locLower.includes('online') || locLower.includes('anywhere');
-                  const isHybrid = remoteType === 'hybrid' || locLower.includes('hybrid');
+                  const titleLower = String(data.job_title || '').toLowerCase();
+                  const descLower = String(data.description_snippet || '').toLowerCase();
+                  const fullContext = (titleLower + ' ' + locLower + ' ' + descLower);
+                  const isOnline = rawModality === 'online' || remoteType === 'remote' || /remote|online|virtual|wfh|telecommute|anywhere/i.test(fullContext);
+                  const isHybrid = rawModality === 'hybrid' || remoteType === 'hybrid' || /hybrid/i.test(fullContext);
+                  const rawApply = data.apply_link || r.source_url || '';
+                  const applyUrl = rawApply && rawApply !== '#'
+                    ? rawApply
+                    : `https://www.google.com/search?q=${encodeURIComponent(`${data.company || ''} ${data.job_title || ''} apply online`)}`;
 
                   return (
                     <React.Fragment key={r.id}>
-                      <tr style={{ background: isExpanded ? 'rgba(14, 165, 233, 0.05)' : undefined }}>
+                      <tr style={{ background: isExpanded ? 'rgba(245, 158, 11, 0.05)' : undefined }}>
                         {/* EDITH Match Fit Gauge */}
                         <td>
                           <div
@@ -259,7 +281,7 @@ export default function DataGrid({
                               ) : r.human_review_required ? (
                                 <AlertTriangle size={13} color="#ef4444" />
                               ) : (
-                                <Zap size={12} color="#0ea5e9" />
+                                <Zap size={12} color="#f59e0b" />
                               )}
                             </div>
                             <div className="match-meter-bar">
@@ -281,7 +303,7 @@ export default function DataGrid({
                           </div>
                           <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginTop: '0.2rem', flexWrap: 'wrap' }}>
                             {data.experience_years && (
-                              <span style={{ fontSize: '0.72rem', color: 'var(--text-cyan)', background: 'rgba(14, 165, 233, 0.1)', padding: '0.1rem 0.4rem', borderRadius: '4px' }}>
+                              <span style={{ fontSize: '0.72rem', color: 'var(--text-amber)', background: 'rgba(245, 158, 11, 0.1)', padding: '0.1rem 0.4rem', borderRadius: '4px' }}>
                                 Exp: {data.experience_years}
                               </span>
                             )}
@@ -391,7 +413,7 @@ export default function DataGrid({
                               onClick={() => onInspectProvenance(r.id)}
                               title="Inspect Jev Anti-Ghost Proof"
                             >
-                              <ShieldCheck size={14} color="var(--accent-cyan)" />
+                              <ShieldCheck size={14} color="var(--accent-emerald)" />
                             </button>
                           </div>
                         </td>
@@ -400,7 +422,7 @@ export default function DataGrid({
                       {/* Expandable Deep-Dive Row */}
                       {isExpanded && (
                         <tr>
-                          <td colSpan={9} style={{ padding: '0 1rem 1rem 1rem', background: 'rgba(14, 165, 233, 0.04)' }}>
+                          <td colSpan={9} style={{ padding: '0 1rem 1rem 1rem', background: 'rgba(245, 158, 11, 0.03)' }}>
                             <div className="expanded-job-card">
                               {/* Modality, Company, Location Banner */}
                               <div style={{
@@ -429,65 +451,65 @@ export default function DataGrid({
 
                               {/* 9-Factor Explainable Scoring Matrix */}
                               <div>
-                                <div style={{ fontSize: '0.785rem', fontWeight: 700, color: 'var(--text-cyan)', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                                <div style={{ fontSize: '0.785rem', fontWeight: 700, color: 'var(--text-amber)', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                                   <Info size={14} />
                                   <span>EDITH 100-POINT EXPLAINABLE FIT BREAKDOWN</span>
                                 </div>
                                 <div className="subscore-grid">
                                   <div className="subscore-item">
                                     <div className="subscore-label">Skills Stack</div>
-                                    <div className="subscore-value">{subscores.skills ?? 0}/30</div>
+                                    <div className="subscore-value">{extractSubscore(subscores.skills, 0)}/30</div>
                                     <div className="subscore-progress">
-                                      <div className="subscore-progress-fill" style={{ width: `${((subscores.skills ?? 0) / 30) * 100}%` }} />
+                                      <div className="subscore-progress-fill" style={{ width: `${(extractSubscore(subscores.skills, 0) / 30) * 100}%` }} />
                                     </div>
                                   </div>
                                   <div className="subscore-item">
                                     <div className="subscore-label">Role Title</div>
-                                    <div className="subscore-value">{subscores.role_title ?? 0}/20</div>
+                                    <div className="subscore-value">{extractSubscore(subscores.role_title, 0)}/20</div>
                                     <div className="subscore-progress">
-                                      <div className="subscore-progress-fill" style={{ width: `${((subscores.role_title ?? 0) / 20) * 100}%` }} />
+                                      <div className="subscore-progress-fill" style={{ width: `${(extractSubscore(subscores.role_title, 0) / 20) * 100}%` }} />
                                     </div>
                                   </div>
                                   <div className="subscore-item">
                                     <div className="subscore-label">Experience</div>
-                                    <div className="subscore-value">{subscores.experience ?? 0}/15</div>
+                                    <div className="subscore-value">{extractSubscore(subscores.experience, 0)}/15</div>
                                     <div className="subscore-progress">
-                                      <div className="subscore-progress-fill" style={{ width: `${((subscores.experience ?? 0) / 15) * 100}%` }} />
+                                      <div className="subscore-progress-fill" style={{ width: `${(extractSubscore(subscores.experience, 0) / 15) * 100}%` }} />
                                     </div>
                                   </div>
                                   <div className="subscore-item">
                                     <div className="subscore-label">Location</div>
-                                    <div className="subscore-value">{subscores.location ?? 0}/10</div>
+                                    <div className="subscore-value">{extractSubscore(subscores.location, 0)}/10</div>
                                     <div className="subscore-progress">
-                                      <div className="subscore-progress-fill" style={{ width: `${((subscores.location ?? 0) / 10) * 100}%` }} />
+                                      <div className="subscore-progress-fill" style={{ width: `${(extractSubscore(subscores.location, 0) / 10) * 100}%` }} />
                                     </div>
                                   </div>
                                   <div className="subscore-item">
                                     <div className="subscore-label">Freshness</div>
-                                    <div className="subscore-value">{subscores.freshness ?? 0}/5</div>
+                                    <div className="subscore-value">{extractSubscore(subscores.freshness, 0)}/5</div>
                                     <div className="subscore-progress">
-                                      <div className="subscore-progress-fill" style={{ width: `${((subscores.freshness ?? 0) / 5) * 100}%` }} />
+                                      <div className="subscore-progress-fill" style={{ width: `${(extractSubscore(subscores.freshness, 0) / 5) * 100}%` }} />
                                     </div>
                                   </div>
                                   <div className="subscore-item">
                                     <div className="subscore-label">Salary Match</div>
-                                    <div className="subscore-value">{subscores.salary ?? 0}/5</div>
+                                    <div className="subscore-value">{extractSubscore(subscores.salary, 0)}/5</div>
                                     <div className="subscore-progress">
-                                      <div className="subscore-progress-fill" style={{ width: `${((subscores.salary ?? 0) / 5) * 100}%` }} />
+                                      <div className="subscore-progress-fill" style={{ width: `${(extractSubscore(subscores.salary, 0) / 5) * 100}%` }} />
                                     </div>
                                   </div>
                                   <div className="subscore-item">
                                     <div className="subscore-label">Requirements</div>
-                                    <div className="subscore-value">{subscores.requirements ?? 0}/5</div>
+                                    <div className="subscore-value">{extractSubscore(subscores.requirements, 0)}/5</div>
                                     <div className="subscore-progress">
-                                      <div className="subscore-progress-fill" style={{ width: `${((subscores.requirements ?? 0) / 5) * 100}%` }} />
+                                      <div className="subscore-progress-fill" style={{ width: `${(extractSubscore(subscores.requirements, 0) / 5) * 100}%` }} />
                                     </div>
                                   </div>
                                   <div className="subscore-item">
                                     <div className="subscore-label">Employment</div>
-                                    <div className="subscore-value">{subscores.employment_type ?? 0}/5</div>
+                                    <div className="subscore-value">{extractSubscore(subscores.employment_type, 0)}/5</div>
                                     <div className="subscore-progress">
-                                      <div className="subscore-progress-fill" style={{ width: `${((subscores.employment_type ?? 0) / 5) * 100}%` }} />
+                                      <div className="subscore-progress-fill" style={{ width: `${(extractSubscore(subscores.employment_type, 0) / 5) * 100}%` }} />
                                     </div>
                                   </div>
                                 </div>
@@ -527,10 +549,10 @@ export default function DataGrid({
                               </div>
 
                               {/* Description Snippet */}
-                              {data.description_snippet && (
+                              {(data.description_snippet || data.description) && (
                                 <div style={{ fontSize: '0.785rem', color: 'var(--text-secondary)', background: 'rgba(0,0,0,0.2)', padding: '0.75rem', borderRadius: '6px' }}>
                                   <span style={{ fontWeight: 600, color: '#cbd5e1' }}>Posting Snippet: </span>
-                                  {data.description_snippet}...
+                                  {sanitizeJobDescription(data.description_snippet || data.description).slice(0, 350)}...
                                 </div>
                               )}
 
@@ -545,7 +567,7 @@ export default function DataGrid({
                                     style={{ fontSize: '0.75rem', padding: '0.35rem 0.75rem' }}
                                     onClick={() => onInspectProvenance(r.id)}
                                   >
-                                    <ShieldCheck size={14} color="var(--accent-cyan)" />
+                                    <ShieldCheck size={14} color="var(--accent-emerald)" />
                                     <span>Full Anti-Ghost Provenance</span>
                                   </button>
                                   <a
@@ -617,7 +639,7 @@ export default function DataGrid({
                         style={{ padding: '0.35rem 0.75rem', fontSize: '0.785rem' }}
                         onClick={() => onInspectProvenance(r.id)}
                       >
-                        <ShieldCheck size={14} color="var(--accent-cyan)" />
+                        <ShieldCheck size={14} color="var(--accent-emerald)" />
                         <span>Inspect</span>
                       </button>
                     </td>

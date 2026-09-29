@@ -14,7 +14,18 @@ import re
 from backend.app.sources.base import JobSourceConnector, SourceHealth, SourceCapabilities
 from backend.app.locations.india_locations import normalize_location, matches_location_preference, is_online_gig
 
-logger = logging.getLogger(__name__)
+import html
+from bs4 import BeautifulSoup
+
+def clean_html_snippet(raw_text: str) -> str:
+    if not raw_text:
+        return ""
+    unescaped = html.unescape(raw_text)
+    soup = BeautifulSoup(unescaped, "html.parser")
+    clean = soup.get_text(separator=" ", strip=True)
+    clean = re.sub(r'Find\s+Jobs\s+in\s+[^.]*\s+on\s+Arbeitnow', '', clean, flags=re.IGNORECASE)
+    clean = re.sub(r'Apply\s+(now\s+)?on\s+Arbeitnow', '', clean, flags=re.IGNORECASE)
+    return re.sub(r'\s+', ' ', clean).strip()
 
 class ArbeitnowConnector(JobSourceConnector):
     name = "Arbeitnow"
@@ -26,10 +37,10 @@ class ArbeitnowConnector(JobSourceConnector):
     enabled = True
 
     def can_handle(self, query_spec: Dict[str, Any]) -> bool:
-        locations = query_spec.get("locations") or []
-        remote = query_spec.get("remote", False)
-        # If user explicitly wants on-site local jobs in India, skip EU board
-        if locations and not remote:
+        locations = [l.lower().strip() for l in (query_spec.get("locations") or [])]
+        # If user explicitly wants Indian local hubs, skip European board
+        indian_hubs = ["pune", "bangalore", "bengaluru", "mumbai", "delhi", "hyderabad", "chennai", "noida", "gurgaon", "india"]
+        if any(any(h in loc for h in indian_hubs) for loc in locations):
             return False
         return True
 
@@ -114,7 +125,7 @@ class ArbeitnowConnector(JobSourceConnector):
                         "company": company,
                         "company_url": f"https://www.arbeitnow.com/company/{company.lower().replace(' ', '-')}",
                         "company_domain": "arbeitnow.com",
-                        "description": item.get("description") or f"Role: {title} at {company}. Tags: {', '.join(tags)}.",
+                        "description": clean_html_snippet(item.get("description")) or f"Role: {title} at {company}. Tags: {', '.join(tags)}.",
                         "requirements": [],
                         "responsibilities": [],
                         "skills": [t.title() for t in tags[:5]] or ["Software Development"],

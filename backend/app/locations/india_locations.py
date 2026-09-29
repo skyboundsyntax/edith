@@ -16,7 +16,7 @@ INDIAN_TECH_HUBS = {
         "canonical": "Pune",
         "state": "Maharashtra",
         "country": "India",
-        "aliases": ["pune", "hinjewadi", "magarpatta", "viman nagar", "baner", "wakad", "kharadi", "hadapsar", "kothrud", "aundh", "senapati bapat"]
+        "aliases": ["pune", "hinjewadi", "hinjawadi", "magarpatta", "viman nagar", "baner", "wakad", "kharadi", "hadapsar", "kothrud", "aundh", "senapati bapat", "yerwada", "kalyani nagar", "bhosari", "chakan", "balewadi", "shivajinagar"]
     },
     "mumbai": {
         "canonical": "Mumbai",
@@ -224,7 +224,9 @@ def normalize_location(raw_location: str) -> Dict[str, Any]:
         state = matched_hub["state"]
         country = matched_hub["country"]
         if remote_type == "remote":
-            canonical = f"{city} (Remote / Hybrid)"
+            canonical = f"{city} (Remote)"
+        elif remote_type == "hybrid":
+            canonical = f"{city} (Hybrid)"
         else:
             canonical = f"{city}, {state}, {country}"
         return {
@@ -233,7 +235,7 @@ def normalize_location(raw_location: str) -> Dict[str, Any]:
             "state": state,
             "country": country,
             "remote_type": remote_type,
-            "work_modality": "Online" if remote_type == "remote" else "Offline",
+            "work_modality": "Online" if remote_type == "remote" else ("Hybrid" if remote_type == "hybrid" else "Offline"),
             "is_india": True,
             "is_worldwide": False,
             "is_foreign": False
@@ -242,12 +244,12 @@ def normalize_location(raw_location: str) -> Dict[str, Any]:
     # Check for general India match
     if re.search(r'\b(india|pan india)\b', raw_lower) or raw_lower in ["in", "/in", "india"]:
         return {
-            "canonical_location": "India (Remote)" if remote_type == "remote" else "India",
+            "canonical_location": "India (Remote)" if remote_type == "remote" else ("India (Hybrid)" if remote_type == "hybrid" else "India"),
             "city": None,
             "state": None,
             "country": "India",
             "remote_type": remote_type,
-            "work_modality": "Online" if remote_type == "remote" else "Offline",
+            "work_modality": "Online" if remote_type == "remote" else ("Hybrid" if remote_type == "hybrid" else "Offline"),
             "is_india": True,
             "is_worldwide": False,
             "is_foreign": False
@@ -255,7 +257,6 @@ def normalize_location(raw_location: str) -> Dict[str, Any]:
 
     # Check for Worldwide / Global / Anywhere
     if any(re.search(r'\b' + re.escape(w) + r'\b', raw_lower) for w in WORLDWIDE_KEYWORDS):
-        # But verify it doesn't also restrict to a foreign region like 'Remote (Europe, USA)'
         has_foreign = False
         for reg_name, reg_aliases in FOREIGN_REGIONS.items():
             if any(re.search(r'\b' + re.escape(a) + r'\b', raw_lower) for a in reg_aliases):
@@ -278,14 +279,14 @@ def normalize_location(raw_location: str) -> Dict[str, Any]:
     for reg_name, reg_aliases in FOREIGN_REGIONS.items():
         for alias in reg_aliases:
             if re.search(r'\b' + re.escape(alias) + r'\b', raw_lower):
-                canonical = f"{reg_name} (Remote)" if remote_type == "remote" else f"{raw_str} ({reg_name})"
+                canonical = f"{reg_name} (Remote)" if remote_type == "remote" else (f"{raw_str} (Hybrid)" if remote_type == "hybrid" else f"{raw_str} ({reg_name})")
                 return {
                     "canonical_location": canonical,
                     "city": raw_str.split(',')[0].strip() if ',' in raw_str else raw_str,
                     "state": None,
                     "country": reg_name,
                     "remote_type": remote_type,
-                    "work_modality": "Online" if remote_type == "remote" else "Offline",
+                    "work_modality": "Online" if remote_type == "remote" else ("Hybrid" if remote_type == "hybrid" else "Offline"),
                     "is_india": False,
                     "is_worldwide": False,
                     "is_foreign": True
@@ -298,7 +299,7 @@ def normalize_location(raw_location: str) -> Dict[str, Any]:
         "state": None,
         "country": "Unspecified",
         "remote_type": remote_type,
-        "work_modality": "Online" if remote_type == "remote" else "Offline",
+        "work_modality": "Online" if remote_type == "remote" else ("Hybrid" if remote_type == "hybrid" else "Offline"),
         "is_india": False,
         "is_worldwide": False,
         "is_foreign": False
@@ -319,99 +320,78 @@ def is_foreign_preference(location_str: str) -> bool:
 
 def matches_location_preference(job_location: str, preferred_locations: List[str], remote_preferred: bool) -> Tuple[bool, int]:
     """
-    Evaluates whether a job satisfies user location/remote preferences with strict geographic localization.
-    Returns (matches: bool, score: 0 to 10 points).
-    
-    Rules:
-    1. If user asks for Pune, Bengaluru, or India (or leaves blank for EDITH India context):
-       - Jobs in USA, UK, Canada, Europe, or other foreign countries MUST NOT match (False, 0).
-       - Remote jobs restricted to USA/foreign regions (e.g. 'Remote (USA)', 'Remote (Europe)') MUST NOT match (False, 0).
-    2. If user specifies preferred Indian cities (e.g. Pune, Bengaluru):
-       - Exact city match -> (True, 10).
-       - Remote within India (e.g. 'India (Remote)') -> (True, 9) if remote_preferred else (False, 2).
-       - Truly open Worldwide / Anywhere remote -> (True, 8) if remote_preferred else (False, 2).
-       - On-site in other Indian city -> (False, 1).
-    3. If user specifies 'India' or no specific city:
-       - Indian jobs -> (True, 10).
-       - Worldwide remote jobs -> (True, 9) if remote_preferred else (False, 2).
+    Evaluates whether a job satisfies user location/remote preferences with real-time web scraping compatibility.
+    Accurately pairs Online/Remote, Offline/On-site, and Hybrid openings.
+    Strict rule: If the user specified specific target locations (e.g. Pune), jobs in other locations return (False, 0).
     """
     loc_info = normalize_location(job_location)
     is_remote = loc_info["remote_type"] == "remote" or "remote" in str(job_location).lower()
 
-    # Determine if user explicitly requested a foreign location
-    user_wants_foreign = any(is_foreign_preference(p) for p in (preferred_locations or []))
+    # Rule 1: If user did NOT specify any location constraints, ALL real jobs match!
+    if not preferred_locations:
+        if is_remote and remote_preferred:
+            return True, 10
+        return True, 9
 
-    # If the job is in a foreign country or restricted foreign remote
+    clean_prefs = [p.lower().strip() for p in preferred_locations if p and p.strip()]
+    if not clean_prefs:
+        return True, 9
+
+    user_wants_remote = any(p in ["remote", "online", "anywhere", "worldwide", "wfh", "work from home"] for p in clean_prefs)
+
+    # Rule 2: If the job is remote/online
+    if is_remote:
+        if user_wants_remote or remote_preferred:
+            return True, 10
+        # Check if job location explicitly includes target city (e.g., "Pune (Remote)")
+        job_loc_str = str(job_location).lower()
+        for p in clean_prefs:
+            if p in job_loc_str:
+                return True, 10
+        return False, 0
+
+    # Rule 3: Check if preferred locations specify foreign vs India
+    user_wants_foreign = any(is_foreign_preference(p) for p in clean_prefs)
+
     if loc_info["is_foreign"]:
-        if not user_wants_foreign:
-            # Indian / local user did not ask for foreign jobs. This is an explicit mismatch!
-            return False, 0
-        else:
-            # User specifically asked for this foreign location
-            for pref in (preferred_locations or []):
-                p_lower = pref.lower().strip()
-                if p_lower in loc_info["canonical_location"].lower() or p_lower in (loc_info["city"] or "").lower():
+        if user_wants_foreign:
+            for pref in clean_prefs:
+                if pref in loc_info["canonical_location"].lower() or pref in (loc_info.get("city") or "").lower():
                     return True, 10
-            return is_remote and remote_preferred, 7 if is_remote else 2
+            return (True, 7) if is_remote else (False, 0)
+        else:
+            # User wants India or specific Indian city, but job is foreign!
+            return False, 0
 
-    # If user wants a foreign location, but job is in India
     if user_wants_foreign and loc_info["is_india"]:
         return False, 0
 
-    # Job is in India
-    if loc_info["is_india"]:
-        if not preferred_locations or all(p.lower().strip() in ["india", "pan india", "anywhere", "remote"] for p in preferred_locations):
+    # Rule 4: Match against specific Indian locations
+    job_city = (loc_info.get("city") or "").lower()
+    canonical_lower = (loc_info.get("canonical_location") or "").lower()
+    job_loc_lower = str(job_location).lower()
+
+    for pref in clean_prefs:
+        if pref in ["india", "pan india"]:
+            if loc_info["is_india"]:
+                return True, 10
+        if pref in ["remote", "online", "anywhere", "wfh"] and is_remote:
             return True, 10
 
-        # User has specified specific cities (e.g. Pune, Bangalore)
-        job_city = (loc_info["city"] or "").lower()
-        canonical_lower = loc_info["canonical_location"].lower()
-
-        city_matched = False
-        for pref in preferred_locations:
-            pref_lower = pref.lower().strip()
-            if pref_lower in ["remote", "work from home", "anywhere"] and is_remote:
-                city_matched = True
-                break
-            if pref_lower in ["india", "pan india"]:
-                city_matched = True
-                break
-            if job_city and (pref_lower in job_city or job_city in pref_lower):
-                city_matched = True
-                break
-            if pref_lower in canonical_lower:
-                city_matched = True
-                break
-            # Also check aliases in INDIAN_TECH_HUBS
-            for hub_key, hub_data in INDIAN_TECH_HUBS.items():
-                if pref_lower in hub_data["aliases"]:
-                    if job_city == hub_data["canonical"].lower() or any(a in canonical_lower for a in hub_data["aliases"]):
-                        city_matched = True
-                        break
-            if city_matched:
-                break
-
-        if city_matched:
+        # Direct string matching
+        if pref in job_city or (job_city and job_city in pref):
+            return True, 10
+        if pref in canonical_lower or pref in job_loc_lower:
             return True, 10
 
-        # If city didn't match, check if it's remote within India and user accepts remote
-        if is_remote and remote_preferred:
-            return True, 9
+        # Hub alias matching
+        for hub_key, hub_data in INDIAN_TECH_HUBS.items():
+            hub_aliases = [a.lower() for a in hub_data["aliases"]]
+            hub_canonical = hub_data["canonical"].lower()
+            if pref in hub_aliases or pref == hub_canonical:
+                if job_city == hub_canonical or any(a in canonical_lower or a in job_loc_lower for a in hub_aliases):
+                    return True, 10
 
-        # On-site in a different Indian city
-        return False, 1
+    # When specific preferred locations were requested and none matched:
+    return False, 0
 
-    # Job is Worldwide / Global remote (open to candidates in India)
-    if loc_info["is_worldwide"]:
-        if remote_preferred:
-            # Good match if remote is accepted
-            return True, 8 if preferred_locations else 10
-        else:
-            # User specifically wanted on-site in a local city
-            return False, 2
-
-    # Unspecified location
-    if is_remote and remote_preferred:
-        return True, 7
-
-    return False, 1

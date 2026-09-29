@@ -1,0 +1,186 @@
+apply_link,city,company,company_domain,date_posted,description,description_snippet,employment_type,experience_years,is_link_out,job_title,location,match_score,modality_detail,platform_source,potential_gaps,quality_signals,remote_type,salary_range,score_breakdown,skills,sources,why_it_matches,work_modality,record_id,confidence_score,human_review,source_url,timestamp
+https://in.linkedin.com/jobs/view/python-backend-engineer-at-hitachi-solutions-india-pvt-ltd-4471319619,Pune,Hitachi Solutions India Pvt Ltd,linkedin.com,2026-09-29T13:39:08.714155+00:00,"About Hitachi Solutions India Pvt Ltd:
+Hitachi Solutions, Ltd., headquartered in Tokyo, Japan, is a core member of Information & Telecommunication Systems Company of Hitachi Group and a recognized leader in delivering proven business and IT strategies and solutions to companies across many industries. The company provides value-driven services throughout the IT life cycle from systems planning to systems integration, operation and maintenance. Hitachi Solutions delivers products and services of superior value to customers worldwide through key subsidiaries in the United States, Europe, China and India. The flagship company in the Hitachi Group's information and communication system solutions business, Hitachi Solutions also offers solutions for social innovation such as smart cities.
+Our Competitive Edge
+We work together in a dynamic and rewarding work environment. We have an experienced leadership team, excellent technology and product expertise, and strong relationships with a broad base of customers and partners.
+We offer competitive compensation and benefits package, regular performance review, performance bonuses, and regular trainings.
+What is it like working here?
+We pride ourselves on being industry leaders and providing an enjoyable work environment where our people can grow personally and professionally. Hitachi is the place people can develop skills they’re excited about. The following are our commitments to employees.
+We recognize our profitability and project success comes from our team—great people doing great things. As such, we pursue profitable growth and expanded opportunities for our team.
+We offer challenging and diverse work across multiple industries and reward creativity and entrepreneurial innovation.
+We respect, encourage, and support each individual needs to continually learn and grow personally and professionally. We are committed to fostering our people.
+We listen. Every employee has something important to say that can contribute to enriching our environment.
+We compensate fairly. And while employees might come for the paycheck, they stay for the people. Our people are the reason we are exceptional. This is something we never forget.
+Job Description
+Job Description:
+We are looking for a Python Backend Engineer to join our Product Development team. This is a role focused on innovation, engineering excellence, and making the cloud easier for our customers.
+Our Python Engineering role is a full-time position dedicated to designing ","About Hitachi Solutions India Pvt Ltd:
+Hitachi Solutions, Ltd., headquartered in Tokyo, Japan, is a core member of Information & Telecommunication Systems Company of Hitachi Group and a recognized leader in delivering proven business and IT strategies and solutions to companies across many industries. The company provides value-driven services throughout the IT life cycle from systems planning to ",full-time,0-2 yrs,False,Python Backend Engineer,"Pune Division, Maharashtra, India",93.0,Offline (On-site),Linkedin,,"{'freshness_score': 95.0, 'source_confidence': 80.0, 'listing_quality_score': 95.0, 'risk_signals': []}",on-site,Not Disclosed,"{'skills': {'score': 30, 'max': 30}, 'role': {'score': 16, 'max': 20}, 'experience': {'score': 14, 'max': 15}, 'location': {'score': 10, 'max': 10}, 'education': {'score': 5, 'max': 5}, 'employment': {'score': 5, 'max': 5}, 'salary': {'score': 4, 'max': 5}, 'freshness': {'score': 5, 'max': 5}, 'requirements': {'score': 4, 'max': 5}}",Python,linkedin,"✓ Python, ✓ Offline fit: Pune Division, Maharashtra, India at Hitachi Solutions India Pvt Ltd, ✓ Education qualifications satisfied, ✓ Full-Time employment type, ✓ Fresh posting (< 24h old)",Offline,rec_wf_517f80f4a1_li_4471319619_0,93.0%,NO,https://in.linkedin.com/jobs/view/python-backend-engineer-at-hitachi-solutions-india-pvt-ltd-4471319619,2026-09-29T13:39:12.925904+00:00
+https://in.linkedin.com/jobs/view/lead-python-backend-developer-at-aifa-labs-4463253082,Hyderabad,AiFA Labs,linkedin.com,2026-09-29T13:39:08.714755+00:00,"Job Title: Lead Python Backend Developer
+Location: Hyderabad ( On-Site )
+Job Type: Full-Time
+Experience : 6+ Years
+Notice period : Immediate to 15 Days
+Job Summary
+We are seeking a skilled and motivated
+Python Developer
+with hands-on experience in building APIs using
+Fast API
+and
+Flask
+. The ideal candidate should be proficient in
+Python
+programming and have a strong grasp of data manipulation and analysis using
+NumPy
+and
+Pandas
+. You will be responsible for developing scalable backend services, integrating APIs, and working closely with data engineering and frontend teams to deliver robust software solutions.
+Key Responsibilities
+Design, develop, and maintain using Fast API and Flask.
+Write clean, reusable, and efficient code in Python.
+Work with large datasets using NumPy and Pandas for data transformation and analysis.
+Collaborate with cross-functional teams to gather requirements and implement backend services.
+Optimize applications for performance, scalability, and reliability.
+Implement security and data protection protocols in API services.
+Write unit and integration tests to ensure code quality.
+Maintain documentation for code, APIs, and system architecture.
+Required Skills & Qualifications
+Strong programming skills in Python.
+Proficiency in developing APIs using Fast API and/or Flask.
+Experience with data manipulation libraries like NumPy and Pandas.
+Experience as Lead.
+Familiarity with REST principles and asynchronous programming.
+Experience with version control tools like Git.
+Understanding CI/CD pipelines and containerization (e.g., Docker) is a plus.
+Bachelor's degree in computer science, Engineering, or related field, or equivalent practical experience.
+Skills: python,numpy,pandas,fastapi","Job Title: Lead Python Backend Developer
+Location: Hyderabad ( On-Site )
+Job Type: Full-Time
+Experience : 6+ Years
+Notice period : Immediate to 15 Days
+Job Summary
+We are seeking a skilled and motivated
+Python Developer
+with hands-on experience in building APIs using
+Fast API
+and
+Flask
+. The ideal candidate should be proficient in
+Python
+programming and have a strong grasp of data manipulation and",full-time,0-2 yrs,False,Lead Python Backend Developer,"Hyderabad, Telangana, India",93.0,Offline (On-site),Linkedin,,"{'freshness_score': 95.0, 'source_confidence': 80.0, 'listing_quality_score': 95.0, 'risk_signals': []}",on-site,Not Disclosed,"{'skills': {'score': 30, 'max': 30}, 'role': {'score': 16, 'max': 20}, 'experience': {'score': 14, 'max': 15}, 'location': {'score': 10, 'max': 10}, 'education': {'score': 5, 'max': 5}, 'employment': {'score': 5, 'max': 5}, 'salary': {'score': 4, 'max': 5}, 'freshness': {'score': 5, 'max': 5}, 'requirements': {'score': 4, 'max': 5}}",Python,linkedin,"✓ Python, ✓ Offline fit: Hyderabad, Telangana, India at AiFA Labs, ✓ Education qualifications satisfied, ✓ Full-Time employment type, ✓ Fresh posting (< 24h old)",Offline,rec_wf_517f80f4a1_li_4463253082_1,93.0%,NO,https://in.linkedin.com/jobs/view/lead-python-backend-developer-at-aifa-labs-4463253082,2026-09-29T13:39:12.928148+00:00
+https://in.linkedin.com/jobs/view/python-developer-at-astika-software-technologies-private-limited-4458865973,Hyderabad,ASTIKA SOFTWARE TECHNOLOGIES PRIVATE LIMITED,linkedin.com,2026-09-29T13:39:08.715414+00:00,"Job Title: Python Developer
+Experience: 5–6 Years
+Location: Hyderabad
+Job Summary
+We are looking for an experienced Python Developer with 5–6 years of hands-on experience in backend application development. The ideal candidate will have strong expertise in Python, RESTful API development, microservices, databases, AWS, and CI/CD practices.
+Key Responsibilities
+Design, develop, test, and maintain backend applications using Python.
+Build and maintain RESTful APIs using FastAPI, Django, or Django REST Framework.
+Develop scalable microservices and integrate with internal and external systems.
+Collaborate with Business Analysts and Design teams to understand requirements and propose effective technical solutions.
+Write clean, reusable, maintainable, and well-documented code.
+Participate in code reviews and follow coding standards and best practices.
+Troubleshoot application, API, database, and production issues.
+Work closely with Support and Professional Services teams to resolve customer-reported issues.
+Contribute to CI/CD pipelines, deployment automation, and application monitoring.
+Collaborate with cross-functional teams in an Agile/Scrum environment.
+Education
+BE/B.Tech, ME/M.Tech, MCA, MS, or equivalent qualification.
+Strong academic record preferred.
+Required Skills
+Strong knowledge of Core Python and OOP.
+Good understanding of data structures, collections, exception handling, and multithreading/concurrency.
+Hands-on experience with FastAPI, Django, or Django REST Framework.
+Strong experience in RESTful API development and integrations.
+Experience with JSON, XML, web services, and API integrations.
+Strong SQL skills.
+Experience with PostgreSQL, MySQL, SQL Server, or Oracle.
+Experience with SQLAlchemy or Django ORM.
+Understanding of Microservices Architecture.
+Knowledge of API security, authentication, and authorization.
+Familiarity with JWT and OAuth.
+Experience with Git and Docker.
+Exposure to Jenkins, GitHub Actions, or GitLab CI/CD.
+Familiarity with PyTest or unittest.
+Preferred Skills
+Strong analytical and problem-solving abilities.
+Excellent communication and teamwork skills.
+Experience working in Agile/Scrum environments.
+Ability to work independently and deliver high-quality solutions.","Job Title: Python Developer
+Experience: 5–6 Years
+Location: Hyderabad
+Job Summary
+We are looking for an experienced Python Developer with 5–6 years of hands-on experience in backend application development. The ideal candidate will have strong expertise in Python, RESTful API development, microservices, databases, AWS, and CI/CD practices.
+Key Responsibilities
+Design, develop, test, and maintain b",full-time,0-2 yrs,False,Python Developer,"Hyderabad, Telangana, India",93.0,Offline (On-site),Linkedin,,"{'freshness_score': 95.0, 'source_confidence': 80.0, 'listing_quality_score': 95.0, 'risk_signals': []}",on-site,Not Disclosed,"{'skills': {'score': 30, 'max': 30}, 'role': {'score': 16, 'max': 20}, 'experience': {'score': 14, 'max': 15}, 'location': {'score': 10, 'max': 10}, 'education': {'score': 5, 'max': 5}, 'employment': {'score': 5, 'max': 5}, 'salary': {'score': 4, 'max': 5}, 'freshness': {'score': 5, 'max': 5}, 'requirements': {'score': 4, 'max': 5}}",Python,linkedin,"✓ Python, ✓ Offline fit: Hyderabad, Telangana, India at ASTIKA SOFTWARE TECHNOLOGIES PRIVATE LIMITED, ✓ Education qualifications satisfied, ✓ Full-Time employment type, ✓ Fresh posting (< 24h old)",Offline,rec_wf_517f80f4a1_li_4458865973_2,93.0%,NO,https://in.linkedin.com/jobs/view/python-developer-at-astika-software-technologies-private-limited-4458865973,2026-09-29T13:39:12.928924+00:00
+https://in.linkedin.com/jobs/view/python-developer-mumbai-at-prep-study-4345178535,Mumbai,Prep Study,linkedin.com,2026-09-29T13:39:08.715894+00:00,"We’re looking for a
+Backend Developer (Python)
+with a strong foundation in backend technologies and
+a deep interest in scalable, low-latency systems.
+Key Responsibilities
+Develop, maintain, and optimize backend applications using Python.
+Build and integrate RESTful APIs and microservices.
+Work with relational and NoSQL databases for data storage, retrieval, and optimization.
+Write clean, efficient, and reusable code while following best practices.
+Collaborate with cross-functional teams (frontend, QA, DevOps) to deliver high quality features.
+Participate in code reviews to maintain high coding standards.
+Troubleshoot, debug, and upgrade existing applications.
+Ensure application security, performance, and scalability.
+Required Skills & Qualifications
+2–4 years of hands-on experience in Python development.
+Strong command over Python frameworks such as Django, Flask, or FastAPI.
+Solid understanding of Object-Oriented Programming (OOP) principles.
+Experience working with databases such as PostgreSQL, MySQL, or MongoDB.
+Proficiency in writing and consuming REST APIs.
+Familiarity with Git and version control workflows.
+Experience with unit testing and frameworks like PyTest or Unittest.
+Knowledge of containerization (Docker) is a plus.
+Skills:- Python, Microservices, Elastic Search, RabbitMQ, Kubernetes, Docker and FastAPI","We’re looking for a
+Backend Developer (Python)
+with a strong foundation in backend technologies and
+a deep interest in scalable, low-latency systems.
+Key Responsibilities
+Develop, maintain, and optimize backend applications using Python.
+Build and integrate RESTful APIs and microservices.
+Work with relational and NoSQL databases for data storage, retrieval, and optimization.
+Write clean, efficient",full-time,0-2 yrs,False,Python Developer | Mumbai,"Navi Mumbai, Maharashtra, India",93.0,Offline (On-site),Linkedin,,"{'freshness_score': 95.0, 'source_confidence': 80.0, 'listing_quality_score': 95.0, 'risk_signals': []}",on-site,Not Disclosed,"{'skills': {'score': 30, 'max': 30}, 'role': {'score': 16, 'max': 20}, 'experience': {'score': 14, 'max': 15}, 'location': {'score': 10, 'max': 10}, 'education': {'score': 5, 'max': 5}, 'employment': {'score': 5, 'max': 5}, 'salary': {'score': 4, 'max': 5}, 'freshness': {'score': 5, 'max': 5}, 'requirements': {'score': 4, 'max': 5}}",Python,linkedin,"✓ Python, ✓ Offline fit: Navi Mumbai, Maharashtra, India at Prep Study, ✓ Education qualifications satisfied, ✓ Full-Time employment type, ✓ Fresh posting (< 24h old)",Offline,rec_wf_517f80f4a1_li_4345178535_3,93.0%,NO,https://in.linkedin.com/jobs/view/python-developer-mumbai-at-prep-study-4345178535,2026-09-29T13:39:12.929622+00:00
+https://in.linkedin.com/jobs/view/python-developer-at-infosys-4468058393,Bangalore,Infosys,linkedin.com,2026-09-29T13:39:08.716172+00:00,"Live opening for Python Developer at Infosys in Bengaluru East, Karnataka, India. Posted: 1 week ago. Apply directly on LinkedIn.","Live opening for Python Developer at Infosys in Bengaluru East, Karnataka, India. Posted: 1 week ago. Apply directly on LinkedIn.",full-time,0-2 yrs,False,Python Developer,"Bengaluru East, Karnataka, India",93.0,Offline (On-site),Linkedin,,"{'freshness_score': 95.0, 'source_confidence': 80.0, 'listing_quality_score': 85.0, 'risk_signals': []}",on-site,Not Disclosed,"{'skills': {'score': 30, 'max': 30}, 'role': {'score': 16, 'max': 20}, 'experience': {'score': 14, 'max': 15}, 'location': {'score': 10, 'max': 10}, 'education': {'score': 5, 'max': 5}, 'employment': {'score': 5, 'max': 5}, 'salary': {'score': 4, 'max': 5}, 'freshness': {'score': 5, 'max': 5}, 'requirements': {'score': 4, 'max': 5}}",Python,linkedin,"✓ Python, ✓ Offline fit: Bengaluru East, Karnataka, India at Infosys, ✓ Education qualifications satisfied, ✓ Full-Time employment type, ✓ Fresh posting (< 24h old)",Offline,rec_wf_517f80f4a1_li_4468058393_4,93.0%,NO,https://in.linkedin.com/jobs/view/python-developer-at-infosys-4468058393,2026-09-29T13:39:12.930296+00:00
+https://in.linkedin.com/jobs/view/python-developer-remote-work-ref%23296933-at-bairesdev-4438271121,Bhopal,BairesDev,linkedin.com,2026-09-29T13:39:08.716847+00:00,"Live opening for Python Developer - Remote Work | REF#296933 at BairesDev in Bhopal, Madhya Pradesh, India. Posted: 1 month ago. Apply directly on LinkedIn.","Live opening for Python Developer - Remote Work | REF#296933 at BairesDev in Bhopal, Madhya Pradesh, India. Posted: 1 month ago. Apply directly on LinkedIn.",full-time,0-2 yrs,False,Python Developer - Remote Work | REF#296933,"Bhopal, Madhya Pradesh, India",93.0,Offline (On-site),Linkedin,,"{'freshness_score': 95.0, 'source_confidence': 80.0, 'listing_quality_score': 85.0, 'risk_signals': []}",on-site,Not Disclosed,"{'skills': {'score': 30, 'max': 30}, 'role': {'score': 16, 'max': 20}, 'experience': {'score': 14, 'max': 15}, 'location': {'score': 10, 'max': 10}, 'education': {'score': 5, 'max': 5}, 'employment': {'score': 5, 'max': 5}, 'salary': {'score': 4, 'max': 5}, 'freshness': {'score': 5, 'max': 5}, 'requirements': {'score': 4, 'max': 5}}",Python,linkedin,"✓ Python, ✓ Offline fit: Bhopal, Madhya Pradesh, India at BairesDev, ✓ Education qualifications satisfied, ✓ Full-Time employment type, ✓ Fresh posting (< 24h old)",Offline,rec_wf_517f80f4a1_li_4438271121_5,93.0%,NO,https://in.linkedin.com/jobs/view/python-developer-remote-work-ref%23296933-at-bairesdev-4438271121,2026-09-29T13:39:12.930985+00:00
+https://in.linkedin.com/jobs/view/python-django-api-developer-at-keywordio-4452958571,Pune,Keywordio,linkedin.com,2026-09-29T13:39:08.717525+00:00,Live opening for Python-Django API Developer at Keywordio in Pune/Pimpri-Chinchwad Area. Posted: 1 month ago. Apply directly on LinkedIn.,Live opening for Python-Django API Developer at Keywordio in Pune/Pimpri-Chinchwad Area. Posted: 1 month ago. Apply directly on LinkedIn.,full-time,0-2 yrs,False,Python-Django API Developer,Pune/Pimpri-Chinchwad Area,93.0,Offline (On-site),Linkedin,,"{'freshness_score': 95.0, 'source_confidence': 80.0, 'listing_quality_score': 85.0, 'risk_signals': []}",on-site,Not Disclosed,"{'skills': {'score': 30, 'max': 30}, 'role': {'score': 16, 'max': 20}, 'experience': {'score': 14, 'max': 15}, 'location': {'score': 10, 'max': 10}, 'education': {'score': 5, 'max': 5}, 'employment': {'score': 5, 'max': 5}, 'salary': {'score': 4, 'max': 5}, 'freshness': {'score': 5, 'max': 5}, 'requirements': {'score': 4, 'max': 5}}",Python,linkedin,"✓ Python, ✓ Offline fit: Pune/Pimpri-Chinchwad Area at Keywordio, ✓ Education qualifications satisfied, ✓ Full-Time employment type, ✓ Fresh posting (< 24h old)",Offline,rec_wf_517f80f4a1_li_4452958571_6,93.0%,NO,https://in.linkedin.com/jobs/view/python-django-api-developer-at-keywordio-4452958571,2026-09-29T13:39:12.931665+00:00
+https://in.linkedin.com/jobs/view/backend-developer-python-at-cipherstudio-4377170657,Sahibzada Ajit Singh Nagar,CipherStudio,linkedin.com,2026-09-29T13:39:08.718215+00:00,"Live opening for Backend Developer - Python at CipherStudio in Sahibzada Ajit Singh Nagar, Punjab, India. Posted: 7 months ago. Apply directly on LinkedIn.","Live opening for Backend Developer - Python at CipherStudio in Sahibzada Ajit Singh Nagar, Punjab, India. Posted: 7 months ago. Apply directly on LinkedIn.",full-time,0-2 yrs,False,Backend Developer - Python,"Sahibzada Ajit Singh Nagar, Punjab, India",93.0,Offline (On-site),Linkedin,,"{'freshness_score': 95.0, 'source_confidence': 80.0, 'listing_quality_score': 85.0, 'risk_signals': []}",on-site,Not Disclosed,"{'skills': {'score': 30, 'max': 30}, 'role': {'score': 16, 'max': 20}, 'experience': {'score': 14, 'max': 15}, 'location': {'score': 10, 'max': 10}, 'education': {'score': 5, 'max': 5}, 'employment': {'score': 5, 'max': 5}, 'salary': {'score': 4, 'max': 5}, 'freshness': {'score': 5, 'max': 5}, 'requirements': {'score': 4, 'max': 5}}",Python,linkedin,"✓ Python, ✓ Offline fit: Sahibzada Ajit Singh Nagar, Punjab, India at CipherStudio, ✓ Education qualifications satisfied, ✓ Full-Time employment type, ✓ Fresh posting (< 24h old)",Offline,rec_wf_517f80f4a1_li_4377170657_7,93.0%,NO,https://in.linkedin.com/jobs/view/backend-developer-python-at-cipherstudio-4377170657,2026-09-29T13:39:12.932343+00:00
+https://in.linkedin.com/jobs/view/backend-python-engineer-at-anaplan-4448155520,Gurgaon,Anaplan,linkedin.com,2026-09-29T13:39:08.718829+00:00,"Live opening for Backend Python Engineer at Anaplan in Gurgaon, Haryana, India. Posted: 2 weeks ago. Apply directly on LinkedIn.","Live opening for Backend Python Engineer at Anaplan in Gurgaon, Haryana, India. Posted: 2 weeks ago. Apply directly on LinkedIn.",full-time,0-2 yrs,False,Backend Python Engineer,"Gurgaon, Haryana, India",93.0,Offline (On-site),Linkedin,,"{'freshness_score': 95.0, 'source_confidence': 80.0, 'listing_quality_score': 85.0, 'risk_signals': []}",on-site,Not Disclosed,"{'skills': {'score': 30, 'max': 30}, 'role': {'score': 16, 'max': 20}, 'experience': {'score': 14, 'max': 15}, 'location': {'score': 10, 'max': 10}, 'education': {'score': 5, 'max': 5}, 'employment': {'score': 5, 'max': 5}, 'salary': {'score': 4, 'max': 5}, 'freshness': {'score': 5, 'max': 5}, 'requirements': {'score': 4, 'max': 5}}",Python,linkedin,"✓ Python, ✓ Offline fit: Gurgaon, Haryana, India at Anaplan, ✓ Education qualifications satisfied, ✓ Full-Time employment type, ✓ Fresh posting (< 24h old)",Offline,rec_wf_517f80f4a1_li_4448155520_8,93.0%,NO,https://in.linkedin.com/jobs/view/backend-python-engineer-at-anaplan-4448155520,2026-09-29T13:39:12.933050+00:00
+https://www.arbeitnow.ch/jobs/companies/imc/python-software-engineer-digital-assets-zug-495607,Zug,Imc,arbeitnow.com,2026-09-28T14:55:07+00:00,"&lt;p&gt;IMC has a strong presence in traditional Finance and has been expanding into Crypto over the last years. Through its overseas affiliates, IMC provides liquidity and trades on many cryptocurrency exchanges and DeFi protocols. You can expect a dynamic, fast-paced environment that delivers a steady stream of challenges and opportunities, with one of the most exciting aspects of the job being our quick feedback loop in the research, development and deployment of strategies.&lt;/p&gt;
+&lt;p&gt;As a Python Software Engineer, you will work closely with our trading and engineering teams on a variety of applications, tools and automation projects. You’ll be placed in an environment consisting primarily of a large Python analysis ecosystem drawing data from various sources including our own trading systems. You’ll build analysis &amp;amp; visualisation tools at the heart of the business logic, in close collaboration with the traders who use them. Your work involves both interpreting ideas, coming up with your own, and efficiently implementing these into tools that are reliable, scalable and performant.&lt;/p&gt;
+&lt;p&gt;Together with traders, researchers and engineers, you deliver challenging projects, while taking ownership for end-to-end product development – from requirements gathering to production. You’ll write reliable and scalable software while balancing time to production with quality and testability. Advanced automated testing and daily deployments will allow you to achieve agile and incremental benefits. Within a complex landscape of varying systems and technologies, you’ll be constantly challenged to consider trade-offs between throughput, simplicity, scalability and maintainability.&lt;/p&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Your Core Responsibilities:&amp;nbsp;&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Collaborate closely with researchers, and engineers to deliver challenging projects.&lt;/li&gt;
+&lt;li&gt;Build, maintain, and enhance research frameworks and data pipelines that enable trading and quantitative research.&lt;/li&gt;
+&lt;li&gt;Curate, transform, and present data in clear, accessible formats for traders and researchers.&lt;/li&gt;
+&lt;li&gt;Take ownership of end-to-end product development, from requirements gathering to production deployment&lt;/li&gt;
+&lt;li&gt;Navigate a complex landscape of diverse systems and technologies, making informed trade-offs between throughput, simplicity, scalability, and maintainability&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Your Skills and Experience: &lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Master’s or Ph.D. in Mathematics, Physics, Statistics, Computer Science, Econometrics, or a related discipline.&lt;/li&gt;
+&lt;li&gt;2–3 years of professional Python development experience&lt;/li&gt;
+&lt;li&gt;solid computer science knowledge, has experience or capability to quickly adapt to additional languages such as Java, Scala, C++, Go, etc.&lt;/li&gt;
+&lt;li&gt;Hands-on experience with statistical analysis, numerical programming, data engineering, or machine learning in Python (Polars, Pandas, NumPy, SciPy, TensorFlow).&lt;/li&gt;
+&lt;li&gt;Proven ability to handle large datasets, architect and optimize data pipelines, and present data effectively.&lt;/li&gt;
+&lt;li&gt;Experience with orchestration and containerization tools like Kubernetes and Docker is a plus.&lt;/li&gt;
+&lt;li&gt;Solid grounding in calculus, probability, statistics, and optimization; familiarity with machine-learning techniques is beneficial.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Location and Office Culture:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;IMC office in Zug, Switzerland&lt;/li&gt;
+&lt;li&gt;Note that this is an onsite role, with some but limited flexibility for working from home&lt;/li&gt;
+&lt;li&gt;You can expect a dynamic, fast-paced environment that delivers a steady stream of challenges and opportunities&lt;/li&gt;
+&lt;li&gt;One of the most exciting aspects of the job is our quick feedback loop in the research, development and deployment of strategies&lt;/li&gt;
+&lt;li&gt;We give people lots of responsibility and the support they need to make an impact from day one&lt;/li&gt;
+&lt;li&gt;We promise you a flat structure and an open, collaborative culture that stimulates the sharing of ideas, knowledge and technology between our teams and offices&lt;/li&gt;
+&lt;/ul&gt;&lt;div class=&quot;content-conclusion&quot;&gt;&lt;p&gt;&lt;strong&gt;About Us&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;IMC is a research-driven trading firm where quantitative modeling, machine learning, and engineering shape how modern markets are traded. A stabilizing force in markets since 1989, we provide liquidity across trading venues, delivering the best outcome in value and risk management to investors. Using our own technology and capital, we build proprietary systems and algorithms that operate across global markets. Our researchers, traders, and engineers work as a collective, combining rapid experimentation, advanced infrastructure, and real-time feedback to turn insight into execution and execution into advantage.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;/div&gt;<p>Find <a href=""https://www.arbeitnow.ch"">Jobs in Switzerland</a> on Arbeitnow</a>","&lt;p&gt;IMC has a strong presence in traditional Finance and has been expanding into Crypto over the last years. Through its overseas affiliates, IMC provides liquidity and trades on many cryptocurrency exchanges and DeFi protocols. You can expect a dynamic, fast-paced environment that delivers a steady stream of challenges and opportunities, with one of the most exciting aspects of the job being",full-time,0-3 yrs,False,Python Software Engineer - Digital Assets,Zug,90.0,Offline (On-site),Arbeitnow,,"{'freshness_score': 95.0, 'source_confidence': 90.0, 'listing_quality_score': 95.0, 'risk_signals': []}",on-site,Not Disclosed,"{'skills': {'score': 30, 'max': 30}, 'role': {'score': 16, 'max': 20}, 'experience': {'score': 14, 'max': 15}, 'location': {'score': 7, 'max': 10}, 'education': {'score': 5, 'max': 5}, 'employment': {'score': 5, 'max': 5}, 'salary': {'score': 4, 'max': 5}, 'freshness': {'score': 5, 'max': 5}, 'requirements': {'score': 4, 'max': 5}}",Development (Group),arbeitnow,"✓ Python, ✓ Offline fit: Zug at Imc, ✓ Education qualifications satisfied, ✓ Full-Time employment type, ✓ Fresh posting (< 24h old)",Offline,rec_wf_517f80f4a1_abn_python-software-engineer_9,90.0%,NO,https://www.arbeitnow.ch/jobs/companies/imc/python-software-engineer-digital-assets-zug-495607,2026-09-29T13:39:12.933730+00:00

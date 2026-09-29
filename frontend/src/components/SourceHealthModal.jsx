@@ -37,7 +37,7 @@ export default function SourceHealthModal({ isOpen, onClose }) {
       <div className="modal-container" style={{ maxWidth: '850px' }}>
         <div className="modal-header">
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-            <Activity size={20} color="var(--accent-cyan)" />
+            <Activity size={20} color="var(--accent-amber)" />
             <div>
               <h2 style={{ fontSize: '1.15rem', margin: 0, fontWeight: 600 }}>Source Policy Registry & Health Matrix</h2>
               <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
@@ -63,8 +63,8 @@ export default function SourceHealthModal({ isOpen, onClose }) {
               <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>Public ATS & REST Endpoints</div>
             </div>
 
-            <div style={{ background: 'rgba(14, 165, 233, 0.1)', border: '1px solid rgba(14, 165, 233, 0.25)', padding: '0.85rem', borderRadius: '8px' }}>
-              <div style={{ fontSize: '0.75rem', color: '#38bdf8', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+            <div style={{ background: 'oklch(62% 0.16 272 / 0.12)', border: '1px solid oklch(62% 0.16 272 / 0.3)', padding: '0.85rem', borderRadius: '8px' }}>
+              <div style={{ fontSize: '0.75rem', color: 'var(--text-indigo)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
                 <Radio size={13} /> LINK-OUT CHANNELS
               </div>
               <div style={{ fontSize: '1.4rem', fontWeight: 700, color: '#ffffff', marginTop: '0.2rem' }}>
@@ -111,8 +111,8 @@ export default function SourceHealthModal({ isOpen, onClose }) {
                           fontSize: '0.72rem',
                           padding: '0.2rem 0.5rem',
                           borderRadius: '4px',
-                          background: isLinkOut ? 'rgba(14, 165, 233, 0.15)' : 'rgba(16, 185, 129, 0.15)',
-                          color: isLinkOut ? '#38bdf8' : '#34d399',
+                          background: isLinkOut ? 'oklch(62% 0.16 272 / 0.15)' : 'rgba(16, 185, 129, 0.15)',
+                          color: isLinkOut ? 'var(--text-indigo)' : '#34d399',
                           fontWeight: 500
                         }}>
                           {s.access_method}
@@ -124,14 +124,14 @@ export default function SourceHealthModal({ isOpen, onClose }) {
                             width: '8px',
                             height: '8px',
                             borderRadius: '50%',
-                            background: isOnline ? '#10b981' : isLinkOut ? '#0ea5e9' : '#f59e0b'
+                            background: isOnline ? '#10b981' : isLinkOut ? '#6366f1' : '#f59e0b'
                           }} />
-                          <span style={{ fontSize: '0.78rem', fontWeight: 600, color: isOnline ? '#34d399' : isLinkOut ? '#38bdf8' : '#fbbf24' }}>
+                          <span style={{ fontSize: '0.78rem', fontWeight: 600, color: isOnline ? '#34d399' : isLinkOut ? '#a5b4fc' : '#fbbf24' }}>
                             {s.status}
                           </span>
                         </div>
                       </td>
-                      <td style={{ fontSize: '0.8rem', fontFamily: 'var(--font-mono)', color: 'var(--text-cyan)' }}>
+                      <td style={{ fontSize: '0.8rem', fontFamily: 'var(--font-mono)', color: 'var(--text-amber)' }}>
                         {s.latency_ms > 0 ? `${s.latency_ms}ms` : '—'}
                       </td>
                       <td style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', maxWidth: '320px', lineHeight: 1.35 }}>

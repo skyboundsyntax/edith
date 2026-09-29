@@ -44,7 +44,7 @@ export default function SourceDrawer({ recordId, onClose, onRecordUpdated }) {
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="drawer-header">
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
-            <ShieldCheck size={22} color="var(--accent-cyan)" />
+            <ShieldCheck size={22} color="var(--accent-emerald)" />
             <h2 className="drawer-title">Data Lineage & Traceability Audit (SDD Section 3)</h2>
           </div>
           <button className="close-btn" onClick={onClose}>
@@ -73,7 +73,7 @@ export default function SourceDrawer({ recordId, onClose, onRecordUpdated }) {
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{
-                    color: 'var(--text-cyan)',
+                    color: 'var(--text-amber)',
                     fontWeight: 600,
                     textDecoration: 'none',
                     display: 'flex',
@@ -135,7 +135,7 @@ export default function SourceDrawer({ recordId, onClose, onRecordUpdated }) {
                 </div>
                 <div className="breakdown-card">
                   <div className="breakdown-metric-title">Role & Stack Match (30%)</div>
-                  <div className="breakdown-metric-score" style={{ color: 'var(--text-cyan)' }}>
+                  <div className="breakdown-metric-score" style={{ color: 'var(--accent-indigo)' }}>
                     {provenance.confidence_evaluation?.breakdown?.completeness || 0}%
                   </div>
                 </div>

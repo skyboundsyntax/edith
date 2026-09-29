@@ -73,7 +73,7 @@ export default function CandidateProfileModal({ isOpen, onClose, onProfileUpdate
       <div className="modal-container" style={{ maxWidth: '680px' }}>
         <div className="modal-header">
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-            <User size={20} color="var(--accent-cyan)" />
+            <User size={20} color="var(--accent-amber)" />
             <div>
               <h2 style={{ fontSize: '1.15rem', margin: 0, fontWeight: 600 }}>Job Seeker Candidate Profile</h2>
               <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
@@ -191,7 +191,7 @@ export default function CandidateProfileModal({ isOpen, onClose, onProfileUpdate
                 id="profRemote"
                 checked={profile.remote_preference}
                 onChange={(e) => setProfile({ ...profile, remote_preference: e.target.checked })}
-                style={{ width: '16px', height: '16px', accentColor: 'var(--accent-cyan)' }}
+                style={{ width: '16px', height: '16px', accentColor: 'var(--accent-amber)' }}
               />
               <label htmlFor="profRemote" style={{ fontSize: '0.82rem', color: '#e2e8f0', cursor: 'pointer' }}>
                 Open to Remote / Work-From-Home Opportunities

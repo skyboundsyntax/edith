@@ -2,8 +2,10 @@ import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 import FirefliesBackground from './components/FirefliesBackground';
 import Sidebar from './components/Sidebar';
 import TopNavbar from './components/TopNavbar';
+import HeroJobCard from './components/HeroJobCard';
 import JobCardList from './components/JobCardList';
 import SalaryIntelligenceWidget from './components/SalaryIntelligenceWidget';
+import SkillDemandWidget from './components/SkillDemandWidget';
 import FloatingCommandBar from './components/FloatingCommandBar';
 import MetricsCards from './components/MetricsCards';
 import WorkflowGraph from './components/WorkflowGraph';
@@ -13,15 +15,82 @@ import WorkflowHistoryModal from './components/WorkflowHistoryModal';
 import SourceHealthModal from './components/SourceHealthModal';
 import CandidateProfileModal from './components/CandidateProfileModal';
 import { api } from './services/api';
-import { Award, ShieldCheck, Sparkles, Activity } from 'lucide-react';
+import { Award, ShieldCheck, Sparkles, Activity, Play, Sliders, LayoutGrid, List } from 'lucide-react';
+import {
+  LocationFilterBar,
+  isJobInPune,
+  isJobInBengaluru,
+  isJobInMumbai,
+  isJobInDelhiNCR,
+  isJobInHyderabad,
+  isJobOnlineRemote,
+  isJobOfflineOnSite,
+  ResilientEmptyState,
+  OfflineAlert
+} from './components/ui';
+
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+  static getDerivedStateFromError(error) {
+    return { hasError: true, error };
+  }
+  componentDidCatch(error, errorInfo) {
+    console.error('EDITH Dashboard Error Caught:', error, errorInfo);
+  }
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div style={{
+          padding: '2.5rem',
+          margin: '2rem',
+          background: 'rgba(239, 68, 68, 0.12)',
+          border: '1px solid rgba(239, 68, 68, 0.35)',
+          borderRadius: '16px',
+          backdropFilter: 'blur(20px)',
+          color: '#fca5a5'
+        }}>
+          <h3 style={{ margin: '0 0 0.75rem 0', color: '#f87171' }}>⚠️ Dashboard Component Render Error</h3>
+          <p style={{ margin: '0 0 1.25rem 0', color: '#cbd5e1', fontSize: '0.9rem' }}>
+            {this.state.error?.message || 'An unexpected rendering error occurred.'}
+          </p>
+          <button
+            type="button"
+            className="btn btn-primary"
+            onClick={() => this.setState({ hasError: false, error: null })}
+          >
+            Retry & Reload View
+          </button>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
+const PRESET_PROMPTS = [
+  'Python Backend & AI Engineer Jobs in Pune (Hinjewadi / Kharadi, ₹8-18 LPA)',
+  'Active Python Backend & FastAPI Roles (Remote / Bangalore, ₹12-25 LPA)',
+  'React 19 & Full Stack Openings across LinkedIn & ATS boards',
+  'Generative AI, PyTorch & LLM Systems Engineer Jobs ($120k+ / Remote)',
+  'Fresher & SDE-1 Engineering Jobs (Pune / India)',
+  'DevOps, Kubernetes & Cloud Architecture Vacancies'
+];
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('dashboard');
-  const [prompt, setPrompt] = useState('Find entry-level Python & AI/ML engineer roles in Pune or Bangalore or Remote, 0-2 years experience, minimum ₹6 LPA');
+  const [dashboardViewMode, setDashboardViewMode] = useState('cards');
+  const [prompt, setPrompt] = useState('Find entry-level Python & AI/ML engineer roles in Pune (Hinjewadi / Magarpatta), 0-2 years experience, minimum ₹6 LPA');
   const [searchTerm, setSearchTerm] = useState('');
+  const [activeLocationFilter, setActiveLocationFilter] = useState('PUNE');
+  const [networkError, setNetworkError] = useState(null);
+  const [isRetryingConnection, setIsRetryingConnection] = useState(false);
   const [confidenceThreshold, setConfidenceThreshold] = useState(75.0);
   const [isRunning, setIsRunning] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
+  const [selectedJobId, setSelectedJobId] = useState(null);
 
   // Workflow & State Data
   const [activeWorkflow, setActiveWorkflow] = useState(null);
@@ -52,19 +121,21 @@ export default function App() {
   const selectWorkflow = useCallback(async (workflowId) => {
     try {
       const details = await api.getWorkflowDetails(workflowId);
-      setActiveWorkflow(details.workflow);
-      setExecutionLogs(details.workflow.execution_logs || []);
-      setCurrentNode('human_review_evaluation');
-      setMetrics({
-        total_extracted: details.workflow.total_extracted,
-        total_deduplicated: details.workflow.total_deduplicated,
-        duplicates_pruned: details.workflow.duplicates_pruned,
-        human_review_count: details.workflow.human_review_count
-      });
+      if (details?.workflow) {
+        setActiveWorkflow(details.workflow);
+        setExecutionLogs(details.workflow.execution_logs || []);
+        setCurrentNode('human_review_evaluation');
+        setMetrics({
+          total_extracted: details.workflow.total_extracted,
+          total_deduplicated: details.workflow.total_deduplicated,
+          duplicates_pruned: details.workflow.duplicates_pruned,
+          human_review_count: details.workflow.human_review_count
+        });
+      }
 
       // Load records
       const datasetRes = await api.getDatasets({ workflow_id: workflowId });
-      setRecords(datasetRes.records || []);
+      setRecords(datasetRes?.records || []);
     } catch (err) {
       console.error('Failed to select workflow:', err);
     }
@@ -75,7 +146,8 @@ export default function App() {
       const data = await api.getWorkflows();
       setWorkflows(data);
       if (data.length > 0 && !activeWorkflow) {
-        selectWorkflow(data[0].id);
+        const best = data.find((w) => (w.total_deduplicated || 0) > 0) || data[0];
+        selectWorkflow(best.id);
       }
     } catch (err) {
       console.error('Failed to load workflows:', err);
@@ -90,17 +162,53 @@ export default function App() {
         if (!ignore) {
           setWorkflows(data);
           if (data.length > 0) {
-            selectWorkflow(data[0].id);
+            const best = data.find((w) => (w.total_deduplicated || 0) > 0) || data[0];
+            selectWorkflow(best.id);
           }
         }
       })
       .catch((err) => console.error('Failed to load workflows:', err));
     return () => { ignore = true; };
-  }, [selectWorkflow]);
+  }, [selectWorkflow, loadWorkflows]);
+
+  const handleRetryConnection = useCallback(async () => {
+    setIsRetryingConnection(true);
+    try {
+      await loadWorkflows();
+      const prof = await api.getUserProfile();
+      if (prof?.profile) setUserProfile(prof.profile);
+      setNetworkError(null);
+    } catch (err) {
+      setNetworkError(err?.message || 'Unable to establish connection to EDITH backend daemon.');
+    } finally {
+      setIsRetryingConnection(false);
+    }
+  }, [loadWorkflows]);
+
+  const handleScrapePune = () => {
+    const punePrompt = 'Active Python & AI Engineer jobs in Pune, Maharashtra (Hinjewadi / Kharadi / Baner), 0-2 years, minimum ₹6 LPA';
+    setPrompt(punePrompt);
+    setActiveLocationFilter('PUNE');
+    handleLaunchWorkflow(punePrompt);
+  };
 
   const handleLaunchWorkflow = async (promptText) => {
     const query = promptText || prompt;
     if (!query.trim() || isRunning) return;
+
+    // Auto-sync location filter based on prompt content
+    const qLower = query.toLowerCase();
+    if (qLower.includes('pune') || qLower.includes('hinjewadi') || qLower.includes('kharadi') || qLower.includes('baner')) {
+      setActiveLocationFilter('PUNE');
+    } else if (qLower.includes('bangalore') || qLower.includes('bengaluru')) {
+      setActiveLocationFilter('BLR');
+    } else if (qLower.includes('mumbai')) {
+      setActiveLocationFilter('MUM');
+    } else if (qLower.includes('delhi') || qLower.includes('noida') || qLower.includes('gurgaon')) {
+      setActiveLocationFilter('DEL');
+    } else if (qLower.includes('hyderabad')) {
+      setActiveLocationFilter('HYD');
+    }
 
     setPrompt(query);
     setIsRunning(true);
@@ -219,11 +327,31 @@ export default function App() {
     }
   };
 
-  // Filter records by search term across title, company, location, skills
+  // Filter records by strict location selection AND search terms
   const filteredRecords = useMemo(() => {
-    if (!searchTerm.trim()) return records;
+    let result = records || [];
+
+    // 1. Strict Geographic / Modality filter
+    if (activeLocationFilter === 'PUNE') {
+      result = result.filter(isJobInPune);
+    } else if (activeLocationFilter === 'BLR') {
+      result = result.filter(isJobInBengaluru);
+    } else if (activeLocationFilter === 'MUM') {
+      result = result.filter(isJobInMumbai);
+    } else if (activeLocationFilter === 'DEL') {
+      result = result.filter(isJobInDelhiNCR);
+    } else if (activeLocationFilter === 'HYD') {
+      result = result.filter(isJobInHyderabad);
+    } else if (activeLocationFilter === 'REMOTE') {
+      result = result.filter(isJobOnlineRemote);
+    } else if (activeLocationFilter === 'OFFLINE') {
+      result = result.filter(isJobOfflineOnSite);
+    }
+
+    // 2. Search term filter across title, company, location, skills, modality
+    if (!searchTerm.trim()) return result;
     const term = searchTerm.toLowerCase();
-    return records.filter((r) => {
+    return result.filter((r) => {
       const d = r.data || {};
       const title = String(d.job_title || '').toLowerCase();
       const comp = String(d.company || '').toLowerCase();
@@ -237,11 +365,34 @@ export default function App() {
         skills.includes(term) ||
         modality.includes(term);
     });
-  }, [records, searchTerm]);
+  }, [records, activeLocationFilter, searchTerm]);
+
+  // Hero Job Selection & Paging
+  const [showSecondaryStream, setShowSecondaryStream] = useState(false);
+
+  const currentHeroIndex = useMemo(() => {
+    if (!filteredRecords.length) return 0;
+    const idx = filteredRecords.findIndex((r) => r.id === selectedJobId);
+    return idx >= 0 ? idx : 0;
+  }, [filteredRecords, selectedJobId]);
+
+  const activeHeroJob = filteredRecords[currentHeroIndex] || null;
+
+  const handlePrevJob = () => {
+    if (!filteredRecords.length) return;
+    const nextIdx = (currentHeroIndex - 1 + filteredRecords.length) % filteredRecords.length;
+    setSelectedJobId(filteredRecords[nextIdx].id);
+  };
+
+  const handleNextJob = () => {
+    if (!filteredRecords.length) return;
+    const nextIdx = (currentHeroIndex + 1) % filteredRecords.length;
+    setSelectedJobId(filteredRecords[nextIdx].id);
+  };
 
   return (
     <div className="edith-dashboard-layout">
-      {/* 1. Animated Fireflies Particle Layer (Backdrop) */}
+      {/* 1. Animated Bokeh Background Layer with Ambient Blur */}
       <FirefliesBackground />
 
       {/* 2. Left Glassmorphic Sidebar */}
@@ -271,29 +422,217 @@ export default function App() {
           totalCount={records.length}
         />
 
+        {/* Main Content with ErrorBoundary */}
+        <ErrorBoundary>
         {/* Dashboard Main Grid View */}
-        {activeTab === 'dashboard' && (
+        {(activeTab === 'dashboard' || (!['jobs', 'analytics'].includes(activeTab))) && (
           <div className="edith-dashboard-grid">
             {/* Center Jobs Feed */}
             <section className="edith-center-feed">
-              {/* If pipeline is currently running, show live state tracker */}
-              {isRunning && (
-                <div style={{ marginBottom: '0.5rem' }}>
-                  <WorkflowGraph
-                    currentNode={currentNode}
-                    status="running"
-                    logs={executionLogs}
-                  />
-                </div>
-              )}
-
-              {/* Frosted Floating Job Cards with SVG Wave Sparklines */}
-              <JobCardList
-                records={filteredRecords}
-                onInspectProvenance={(id) => setInspectRecordId(id)}
+              {/* Network Error / Offline Recovery Alert */}
+              <OfflineAlert
+                error={networkError}
+                onRetry={handleRetryConnection}
+                onDismiss={() => setNetworkError(null)}
+                isRetrying={isRetryingConnection}
               />
 
-              {/* Bottom Floating Command Bar: "Ask EDITH: ..." */}
+              {/* 1. Real-time Pipeline Metrics Row */}
+              <MetricsCards metrics={metrics} activeWorkflow={activeWorkflow} records={records} />
+
+              {/* 2. Live Scraper Controls & Template Presets */}
+              <section className="glass-panel hero-prompt-section" style={{ marginTop: '1rem', padding: '1.25rem 1.5rem', borderRadius: '16px' }}>
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    handleLaunchWorkflow(prompt);
+                  }}
+                >
+                  <div className="prompt-input-container">
+                    <input
+                      type="text"
+                      className="prompt-input"
+                      placeholder="Enter target role, tech stack, or location (e.g. 'Senior Python & FastAPI developer jobs remote with salary')..."
+                      value={prompt}
+                      onChange={(e) => setPrompt(e.target.value)}
+                      disabled={isRunning}
+                    />
+                    <button
+                      type="submit"
+                      className="btn btn-primary"
+                      disabled={isRunning || !prompt.trim()}
+                      style={{ padding: '0.65rem 1.35rem', borderRadius: '10px', display: 'flex', alignItems: 'center', gap: '0.45rem', fontWeight: 700 }}
+                    >
+                      <Play size={15} fill="white" />
+                      <span>{isRunning ? 'Scraping Portals...' : 'Scrape Real Jobs'}</span>
+                    </button>
+                  </div>
+
+                  {/* Prompt Presets */}
+                  <div className="prompt-presets" style={{ marginTop: '0.85rem' }}>
+                    <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-muted)' }}>QUICK CAREER TEMPLATES:</span>
+                    {PRESET_PROMPTS.map((p, i) => (
+                      <button
+                        key={i}
+                        type="button"
+                        className="preset-pill"
+                        onClick={() => {
+                          setPrompt(p);
+                          handleLaunchWorkflow(p);
+                        }}
+                        disabled={isRunning}
+                      >
+                        {p}
+                      </button>
+                    ))}
+                  </div>
+
+                  {/* Threshold Slider Controls */}
+                  <div className="prompt-controls-row" style={{ marginTop: '0.75rem' }}>
+                    <div className="threshold-slider-group">
+                      <Sliders size={14} />
+                      <span>Jev Anti-Ghost Trust Threshold:</span>
+                      <input
+                        type="range"
+                        min="50"
+                        max="95"
+                        step="5"
+                        className="threshold-slider"
+                        value={confidenceThreshold}
+                        onChange={(e) => setConfidenceThreshold(Number(e.target.value))}
+                        disabled={isRunning}
+                      />
+                      <span style={{ fontWeight: 700, color: 'var(--text-cyan)', fontFamily: 'var(--font-mono)' }}>
+                        {confidenceThreshold}%
+                      </span>
+                      <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+                        (Flag job listings below {confidenceThreshold}% for unverified CTC, stale posting, or suspect recruiter)
+                      </span>
+                    </div>
+                  </div>
+                </form>
+              </section>
+
+              {/* 3. LangGraph Pipeline State Machine Visualizer */}
+              <div style={{ marginTop: '1rem' }}>
+                <WorkflowGraph
+                  currentNode={currentNode}
+                  status={isRunning ? 'running' : activeWorkflow?.status || 'completed'}
+                  logs={executionLogs}
+                />
+              </div>
+
+              {/* 4. Tactile Geographic & Modality Location Filter Bar */}
+              <LocationFilterBar
+                activeFilter={activeLocationFilter}
+                onSelectFilter={setActiveLocationFilter}
+                records={records}
+                onScrapePune={handleScrapePune}
+                isRunning={isRunning}
+              />
+
+              {/* 5. Verified Openings Header with View Mode Switcher */}
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                marginTop: '1rem',
+                marginBottom: '1rem',
+                padding: '0.25rem 0.25rem'
+              }}>
+                <div>
+                  <h3 style={{ margin: 0, fontSize: '1.25rem', fontWeight: 700, color: '#ffffff', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <Sparkles size={18} color="var(--accent-amber)" />
+                    <span>Real-Time Scraped Openings</span>
+                    <span style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-muted)' }}>
+                      ({filteredRecords.length} Active Positions {activeLocationFilter !== 'ALL' ? `in ${activeLocationFilter}` : ''})
+                    </span>
+                  </h3>
+                </div>
+
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <button
+                    type="button"
+                    className={`btn ${dashboardViewMode === 'cards' ? 'btn-primary' : 'btn-secondary'}`}
+                    style={{ fontSize: '0.785rem', padding: '0.4rem 0.85rem', display: 'flex', alignItems: 'center', gap: '0.35rem' }}
+                    onClick={() => setDashboardViewMode('cards')}
+                    title="Interactive Cards & Hero View"
+                  >
+                    <LayoutGrid size={14} />
+                    <span>Cards View</span>
+                  </button>
+                  <button
+                    type="button"
+                    className={`btn ${dashboardViewMode === 'table' ? 'btn-primary' : 'btn-secondary'}`}
+                    style={{ fontSize: '0.785rem', padding: '0.4rem 0.85rem', display: 'flex', alignItems: 'center', gap: '0.35rem' }}
+                    onClick={() => setDashboardViewMode('table')}
+                    title="Full Table Data Grid View"
+                  >
+                    <List size={14} />
+                    <span>Table View</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* 6. Main Jobs Presentation */}
+              {dashboardViewMode === 'cards' ? (
+                filteredRecords.length === 0 ? (
+                  <ResilientEmptyState
+                    filterType={activeLocationFilter}
+                    searchTerm={searchTerm}
+                    onResetFilters={() => {
+                      setActiveLocationFilter('ALL');
+                      setSearchTerm('');
+                    }}
+                    onTriggerScrape={activeLocationFilter === 'PUNE' ? handleScrapePune : () => handleLaunchWorkflow()}
+                    isRunning={isRunning}
+                  />
+                ) : (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+                    {/* Hero Featured Job Card */}
+                    <HeroJobCard
+                      job={activeHeroJob}
+                      currentIndex={currentHeroIndex}
+                      totalCount={filteredRecords.length}
+                      onPrevJob={handlePrevJob}
+                      onNextJob={handleNextJob}
+                      onInspectProvenance={(id) => setInspectRecordId(id)}
+                      onTriggerScrape={() => handleLaunchWorkflow()}
+                    />
+
+                    {/* Complete Stream of All Other Verified Openings (DIRECTLY VISIBLE!) */}
+                    {filteredRecords.length > 1 && (
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', marginTop: '0.5rem' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 0.5rem' }}>
+                          <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#94a3b8', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                            All Verified Opportunities ({filteredRecords.length})
+                          </span>
+                          <span style={{ fontSize: '0.75rem', color: '#64748b' }}>
+                            Direct Apply • Anti-Ghost Audited
+                          </span>
+                        </div>
+                        <JobCardList
+                          records={filteredRecords}
+                          onInspectProvenance={(id) => setInspectRecordId(id)}
+                          onToggleExpand={(id) => setSelectedJobId(id)}
+                          expandedId={selectedJobId}
+                        />
+                      </div>
+                    )}
+                  </div>
+                )
+              ) : (
+                /* Table Grid View */
+                <DataGrid
+                  records={filteredRecords}
+                  schema={activeWorkflow?.target_schema}
+                  onInspectProvenance={(id) => setInspectRecordId(id)}
+                  onExport={handleExport}
+                  isExporting={isExporting}
+                />
+              )}
+
+              {/* 6. Bottom Floating Command Bar */}
               <FloatingCommandBar
                 onLaunchPrompt={handleLaunchWorkflow}
                 isRunning={isRunning}
@@ -301,9 +640,10 @@ export default function App() {
               />
             </section>
 
-            {/* Right Column: Salary Intelligence Widget & Trust Metrics */}
+            {/* Right Column: Salary Intelligence Widget & Skill Demand Trend & Trust Badge */}
             <aside className="edith-right-column">
               <SalaryIntelligenceWidget records={records} />
+              <SkillDemandWidget records={records} />
 
               {/* Jev's Anti-Ghost Trust Badge Card */}
               <div className="glass-panel" style={{ padding: '1.25rem', background: 'rgba(13, 23, 42, 0.58)', backdropFilter: 'blur(20px)', borderRadius: '16px' }}>
@@ -361,6 +701,7 @@ export default function App() {
             </div>
           </div>
         )}
+        </ErrorBoundary>
       </div>
 
       {/* Modals & Drawers */}

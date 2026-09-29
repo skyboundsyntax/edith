@@ -1,104 +1,78 @@
 import React from 'react';
-import { Search, X, Bell, ChevronDown, Download, Filter } from 'lucide-react';
+import { Search, X, Bell } from 'lucide-react';
 
+/**
+ * Top Navbar
+ * Exactly reproduces the top floating pill/capsule from the reference screenshot:
+ * Features a single continuous frosted glass container with glowing cyan borders,
+ * left-aligned quick filter/search, and right-aligned notification bell with red dot,
+ * circular user badge (A.R.), and search icon.
+ */
 export default function TopNavbar({
-  title = 'Dashboard',
   searchTerm = '',
   onSearchChange,
   onOpenProfile,
   onOpenSourceHealth,
-  onExport,
-  isExporting,
   unreadCount = 1,
-  userName = 'ALEX R.',
-  filteredCount = 0,
-  totalCount = 0
+  userName = 'A.R.'
 }) {
   return (
-    <header className="edith-top-navbar">
-      {/* Title */}
-      <div className="navbar-left">
-        <h1 className="page-title">{title}</h1>
-      </div>
-
-      {/* Centered Instant Filter Bar */}
-      <div className="navbar-center">
-        <div className="pill-search-container">
-          <Filter size={16} className="pill-search-icon" />
-          <input
-            type="text"
-            className="pill-search-input"
-            placeholder="Quick filter loaded jobs by role, company, or skills..."
-            value={searchTerm}
-            onChange={(e) => onSearchChange && onSearchChange(e.target.value)}
-            aria-label="Filter loaded jobs by keyword"
-          />
-
-          {/* Result Count / Clear Button */}
-          {searchTerm ? (
-            <button
-              type="button"
-              className="pill-clear-btn"
-              onClick={() => onSearchChange && onSearchChange('')}
-              title="Clear filter"
-              aria-label="Clear filter"
-            >
-              <X size={15} />
-            </button>
-          ) : (
-            totalCount > 0 && (
-              <span className="pill-count-tag" title="Total jobs loaded in current view">
-                {totalCount} Openings
-              </span>
-            )
-          )}
-        </div>
-      </div>
-
-      {/* Right User Actions */}
-      <div className="navbar-right">
-        {/* Quick CSV Export */}
-        {onExport && (
+    <header className="edith-top-navbar glass-panel-glow">
+      {/* Search Input Area */}
+      <div className="topbar-search-area">
+        <input
+          type="text"
+          className="topbar-search-input"
+          placeholder="Filter live scraped jobs by keyword, company, or tech stack..."
+          value={searchTerm}
+          onChange={(e) => onSearchChange && onSearchChange(e.target.value)}
+          aria-label="Search jobs"
+        />
+        {searchTerm && (
           <button
             type="button"
-            className="navbar-action-btn export-pill"
-            onClick={() => onExport('csv')}
-            disabled={isExporting}
-            title="Download CSV of current verified job records"
-            aria-label="Export verified job dataset to CSV"
+            className="topbar-clear-btn"
+            onClick={() => onSearchChange && onSearchChange('')}
+            title="Clear search"
           >
-            <Download size={15} />
-            <span>{isExporting ? 'Exporting...' : 'Export'}</span>
+            <X size={14} />
           </button>
         )}
+      </div>
 
-        {/* Notifications */}
+      {/* Right Controls matching screenshot */}
+      <div className="topbar-right-controls">
+        {/* Notification Bell with red badge */}
         <button
           type="button"
-          className="navbar-icon-btn notifications-btn"
+          className="topbar-icon-btn"
           onClick={onOpenSourceHealth}
-          title="Active telemetry notifications & source health"
-          aria-label="Source health notifications"
+          title="Notifications & Source telemetry"
+          aria-label="Notifications"
         >
           <Bell size={18} />
-          {unreadCount > 0 && <span className="notification-badge">{unreadCount}</span>}
+          {unreadCount > 0 && <span className="topbar-notif-dot" />}
         </button>
 
-        {/* User Profile Pill */}
+        {/* User Badge: A.R. circle */}
         <button
           type="button"
-          className="navbar-user-pill"
+          className="topbar-user-badge"
           onClick={onOpenProfile}
-          title="Click to configure candidate target profile & preferences"
-          aria-label="Candidate profile settings"
+          title="Candidate Profile"
+          aria-label="User profile"
         >
-          <div className="user-avatar-circle">
-            <span className="user-initials">
-              {userName && userName.length >= 2 ? userName.slice(0, 2).toUpperCase() : 'AR'}
-            </span>
-          </div>
-          <span className="user-name">{userName}</span>
-          <ChevronDown size={14} className="user-dropdown-arrow" />
+          <span>{userName || 'A.R.'}</span>
+        </button>
+
+        {/* Search Icon */}
+        <button
+          type="button"
+          className="topbar-icon-btn search-trigger"
+          title="Execute search"
+          aria-label="Search"
+        >
+          <Search size={18} />
         </button>
       </div>
     </header>

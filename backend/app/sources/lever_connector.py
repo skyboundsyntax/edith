@@ -127,7 +127,7 @@ class LeverConnector(JobSourceConnector):
                             "state": loc_info["state"],
                             "country": loc_info["country"],
                             "remote_type": loc_info["remote_type"],
-                            "work_modality": "Online" if loc_info["remote_type"] == "remote" else "Offline",
+                            "work_modality": "Online" if loc_info["remote_type"] == "remote" else ("Hybrid" if loc_info["remote_type"] == "hybrid" else "Offline"),
                             "employment_type": commitment.lower(),
                             "experience_min": 0,
                             "experience_max": 2 if "intern" in title_lower or "junior" in title_lower else 5,

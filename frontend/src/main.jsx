@@ -67,14 +67,15 @@ class ErrorBoundary extends Component {
             <button
               onClick={() => window.location.reload()}
               style={{
-                backgroundColor: '#0ea5e9',
+                background: 'linear-gradient(135deg, #f59e0b, #ea580c)',
                 color: '#fff',
                 border: 'none',
                 padding: '0.65rem 1.25rem',
                 borderRadius: '8px',
                 fontWeight: 600,
                 fontSize: '0.875rem',
-                cursor: 'pointer'
+                cursor: 'pointer',
+                boxShadow: '0 4px 14px rgba(245, 158, 11, 0.3)'
               }}
             >
               Reload Dashboard

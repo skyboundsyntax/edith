@@ -15,7 +15,7 @@ export default function WorkflowHistoryModal({
       <div className="modal-content" onClick={(e) => e.stopPropagation()} style={{ maxWidth: '640px' }}>
         <div className="drawer-header">
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
-            <Layers size={22} color="var(--accent-cyan)" />
+            <Layers size={22} color="var(--accent-amber)" />
             <h2 className="drawer-title">Workflow Execution History</h2>
           </div>
           <button className="close-btn" onClick={onClose}>
@@ -38,7 +38,7 @@ export default function WorkflowHistoryModal({
                   style={{
                     padding: '1rem 1.25rem',
                     cursor: 'pointer',
-                    borderColor: isActive ? 'var(--accent-cyan)' : 'var(--border-subtle)',
+                    borderColor: isActive ? 'var(--accent-amber)' : 'var(--border-subtle)',
                     background: isActive ? 'var(--bg-glass-active)' : 'var(--bg-glass-card)'
                   }}
                   onClick={() => {
@@ -52,7 +52,7 @@ export default function WorkflowHistoryModal({
                         {wf.status === 'completed' ? (
                           <CheckCircle2 size={16} color="var(--accent-emerald)" />
                         ) : (
-                          <Clock size={16} color="var(--accent-cyan)" />
+                          <Clock size={16} color="var(--accent-amber)" />
                         )}
                         <span style={{ fontSize: '0.75rem', fontWeight: 600, textTransform: 'uppercase', color: 'var(--text-muted)' }}>
                           {wf.id} • {wf.status}

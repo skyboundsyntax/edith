@@ -12,9 +12,18 @@ from datetime import datetime, timezone
 import re
 
 from backend.app.sources.base import JobSourceConnector, SourceHealth, SourceCapabilities
-from backend.app.locations.india_locations import normalize_location, matches_location_preference, is_online_gig
+import html
+from bs4 import BeautifulSoup
 
 logger = logging.getLogger(__name__)
+
+def clean_html_snippet(raw_text: str) -> str:
+    if not raw_text:
+        return ""
+    unescaped = html.unescape(raw_text)
+    soup = BeautifulSoup(unescaped, "html.parser")
+    clean = soup.get_text(separator=" ", strip=True)
+    return re.sub(r'\s+', ' ', clean).strip()
 
 class JobicyConnector(JobSourceConnector):
     name = "Jobicy"
@@ -132,7 +141,7 @@ class JobicyConnector(JobSourceConnector):
                         "company": company,
                         "company_url": item.get("companyUrl") or f"https://jobicy.com/company/{company.lower().replace(' ', '-')}",
                         "company_domain": "jobicy.com",
-                        "description": item.get("jobDescription") or job_excerpt,
+                        "description": clean_html_snippet(item.get("jobDescription") or job_excerpt),
                         "requirements": [],
                         "responsibilities": [],
                         "skills": [s.title() for s in skills if s in title_lower] or ["Python", "FastAPI"],

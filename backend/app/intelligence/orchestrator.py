@@ -19,7 +19,23 @@ from backend.app.db.database import SessionLocal
 from backend.app.db.models import WorkflowModel, DataRecordModel, JobModel
 from backend.app.locations.india_locations import normalize_location, matches_location_preference, is_online_gig
 
+import html
+from bs4 import BeautifulSoup
+
 logger = logging.getLogger(__name__)
+
+def clean_html_text(raw_text: Optional[str]) -> str:
+    if not raw_text:
+        return ""
+    try:
+        unescaped = html.unescape(str(raw_text))
+        soup = BeautifulSoup(unescaped, "html.parser")
+        text = soup.get_text(separator=" ", strip=True)
+        text = re.sub(r'Find\s+Jobs\s+in\s+[^.]*\s+on\s+Arbeitnow', '', text, flags=re.IGNORECASE)
+        text = re.sub(r'Apply\s+(now\s+)?on\s+Arbeitnow', '', text, flags=re.IGNORECASE)
+        return re.sub(r'\s+', ' ', text).strip()
+    except Exception:
+        return re.sub(r'<[^>]*>', ' ', str(raw_text)).strip()
 
 async def run_job_ingestion_pipeline(
     workflow_id: str,
@@ -151,9 +167,14 @@ async def run_job_ingestion_pipeline(
             # drop foreign/mismatched listings (e.g. USA, UK, Germany, Spain, Czechia)
             job_loc = job.get("location") or "Remote"
             loc_match, loc_pts = matches_location_preference(job_loc, target_locs, remote_allowed)
-            if not loc_match and loc_pts == 0:
-                geo_excluded_count += 1
-                continue
+            if target_locs and not loc_match:
+                # Secondary check: if job title explicitly mentions the requested location
+                title_lower = title.lower()
+                matched_in_title = any(tloc.lower().strip() in title_lower for tloc in target_locs)
+                if not matched_in_title:
+                    geo_excluded_count += 1
+                    continue
+
 
             validated_jobs.append(job)
 
@@ -217,7 +238,8 @@ async def run_job_ingestion_pipeline(
             # Persist canonical JobModel records
             for idx, j in enumerate(scored_jobs):
                 raw_id = j.get("id") or f"job_{idx}"
-                db_job_id = f"{workflow_id}_{raw_id}"
+                db_job_id = f"{workflow_id}_{raw_id}_{idx}"
+                clean_desc = clean_html_text(j.get("description"))
                 # Create JobModel
                 new_job = JobModel(
                     id=db_job_id,
@@ -230,7 +252,7 @@ async def run_job_ingestion_pipeline(
                     company=j.get("company", ""),
                     company_url=j.get("company_url"),
                     company_domain=j.get("company_domain"),
-                    description=j.get("description"),
+                    description=clean_desc,
                     requirements=j.get("requirements", []),
                     responsibilities=j.get("responsibilities", []),
                     skills=j.get("skills", []),
@@ -265,14 +287,29 @@ async def run_job_ingestion_pipeline(
                     sources=j.get("sources", [j.get("source")]),
                     provenance=j.get("provenance", {})
                 )
-                db.add(new_job)
+                db.merge(new_job)
 
                 # Also persist DataRecordModel for backward compatibility
                 remote_type = str(j.get("remote_type") or "on-site").lower()
                 loc_str = str(j.get("location") or "").lower()
-                is_online = (remote_type == "remote") or any(k in loc_str for k in ["remote", "online", "virtual", "wfh", "anywhere"])
-                work_modality = "Online" if is_online else "Offline"
-                modality_detail = "Online (Remote)" if is_online else ("Offline (Hybrid)" if remote_type == "hybrid" else "Offline (On-site)")
+                title_str = str(j.get("title") or "").lower()
+                desc_str = str(j.get("description") or "").lower()[:300]
+
+                remote_signals = ["remote", "online", "virtual", "wfh", "anywhere", "work from home", "telecommute"]
+                hybrid_signals = ["hybrid", "flexible work", "partial remote"]
+
+                is_online = (remote_type == "remote") or any(k in loc_str or k in title_str or k in desc_str for k in remote_signals)
+                is_hybrid = (remote_type == "hybrid") or any(k in loc_str or k in title_str for k in hybrid_signals)
+
+                if is_online and not is_hybrid:
+                    work_modality = "Online"
+                    modality_detail = "Online (Remote)"
+                elif is_hybrid:
+                    work_modality = "Hybrid"
+                    modality_detail = "Hybrid (Flexible)"
+                else:
+                    work_modality = "Offline"
+                    modality_detail = "Offline (On-site)"
 
                 data_record = DataRecordModel(
                     id=f"rec_{db_job_id}",
@@ -300,8 +337,8 @@ async def run_job_ingestion_pipeline(
                         "potential_gaps": j.get("potential_gaps"),
                         "quality_signals": j.get("quality_signals"),
                         "sources": j.get("sources"),
-                        "description": j.get("description"),
-                        "description_snippet": (j.get("description") or "")[:400],
+                        "description": clean_desc,
+                        "description_snippet": clean_desc[:400],
                         "is_link_out": False
                     },
                     confidence_score=j.get("match_score", 0.0),
@@ -310,10 +347,10 @@ async def run_job_ingestion_pipeline(
                     source_url=j.get("source_url", ""),
                     source_title=f"{j.get('title')} at {j.get('company')}",
                     extracted_timestamp=datetime.now(timezone.utc).isoformat(),
-                    raw_snippet=j.get("description", "")[:400],
+                    raw_snippet=clean_desc[:400],
                     deduplication_hash=j.get("raw_content_hash", "")
                 )
-                db.add(data_record)
+                db.merge(data_record)
 
             db.commit()
 

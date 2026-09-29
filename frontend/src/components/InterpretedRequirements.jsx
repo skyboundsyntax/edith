@@ -40,14 +40,14 @@ export default function InterpretedRequirements({
   };
 
   return (
-    <div className="glass-panel" style={{ marginTop: '1rem', padding: '1.25rem', border: '1px solid rgba(14, 165, 233, 0.35)', borderRadius: '12px', background: 'rgba(10, 18, 30, 0.75)' }}>
+    <div className="glass-panel" style={{ marginTop: '1rem', padding: '1.25rem', border: '1px solid var(--border-amber)', borderRadius: '12px', background: 'var(--bg-secondary)' }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-          <Sparkles size={18} color="var(--accent-cyan)" />
+          <Sparkles size={18} color="var(--accent-amber)" />
           <h3 style={{ fontSize: '0.95rem', fontWeight: 600, color: '#f8fafc', margin: 0 }}>
             AI Interpreted Search Specification
           </h3>
-          <span style={{ fontSize: '0.72rem', background: 'rgba(14, 165, 233, 0.15)', color: 'var(--accent-cyan)', padding: '0.15rem 0.5rem', borderRadius: '4px', border: '1px solid rgba(14, 165, 233, 0.3)' }}>
+          <span style={{ fontSize: '0.72rem', background: 'rgba(245, 158, 11, 0.15)', color: 'var(--text-amber)', padding: '0.15rem 0.5rem', borderRadius: '4px', border: '1px solid rgba(245, 158, 11, 0.3)' }}>
             Zero-Hallucination Query Plan
           </span>
         </div>
@@ -82,7 +82,7 @@ export default function InterpretedRequirements({
           </div>
           <div style={{ fontSize: '0.85rem', color: '#ffffff', fontWeight: 500 }}>
             {spec.locations && spec.locations.length > 0 ? spec.locations.join(', ') : 'India (Pan-India)'}
-            {spec.remote && <span style={{ color: 'var(--accent-cyan)', marginLeft: '0.35rem' }}>(Remote Preferred)</span>}
+            {spec.remote && <span style={{ color: 'var(--text-amber)', marginLeft: '0.35rem' }}>(Remote Preferred)</span>}
           </div>
         </div>
 
@@ -119,7 +119,7 @@ export default function InterpretedRequirements({
             <span
               key={idx}
               className="skill-chip"
-              style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', background: 'rgba(14, 165, 233, 0.12)', border: '1px solid rgba(14, 165, 233, 0.25)', color: '#38bdf8' }}
+              style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', background: 'oklch(76% 0.17 60 / 0.14)', border: '1px solid oklch(76% 0.17 60 / 0.28)', color: 'var(--text-amber)' }}
             >
               {skill}
               {isEditing && (
@@ -194,7 +194,7 @@ export default function InterpretedRequirements({
                 id="remoteCheck"
                 checked={spec.remote}
                 onChange={(e) => onUpdateSpec({ ...spec, remote: e.target.checked })}
-                style={{ width: '16px', height: '16px', accentColor: 'var(--accent-cyan)' }}
+                style={{ width: '16px', height: '16px', accentColor: 'var(--accent-amber)' }}
               />
               <label htmlFor="remoteCheck" style={{ fontSize: '0.82rem', color: '#e2e8f0', cursor: 'pointer' }}>
                 Include Remote / Work From Home positions

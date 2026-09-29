@@ -13,7 +13,7 @@ export default function Header({
       <div className="header-content">
         <div className="brand-section">
           <div className="logo-icon">
-            <Briefcase size={22} color="var(--accent-cyan)" />
+            <Briefcase size={22} color="var(--accent-amber)" />
           </div>
           <div>
             <div className="brand-title">EDITH</div>
@@ -28,7 +28,7 @@ export default function Header({
             className="status-badge"
             onClick={onOpenSourceHealth}
             title="View Real-Time Status & Robots Compliance across 8 Sources"
-            style={{ cursor: 'pointer', border: '1px solid rgba(14, 165, 233, 0.3)' }}
+            style={{ cursor: 'pointer', border: '1px solid rgba(245, 158, 11, 0.3)' }}
           >
             <span className="pulse-dot"></span>
             <Activity size={14} />

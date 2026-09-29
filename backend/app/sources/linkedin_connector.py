@@ -59,7 +59,22 @@ class LinkedInConnector(JobSourceConnector):
             kw_parts.append("Software Engineer")
 
         search_kw = " ".join(kw_parts)
-        search_loc = locations[0] if locations else ("Remote" if query_spec.get("remote") else "India")
+        raw_loc = locations[0] if locations else ("Remote" if query_spec.get("remote") else "India")
+        loc_low = raw_loc.lower().strip()
+        if "pune" in loc_low or "hinjewadi" in loc_low:
+            search_loc = "Pune, Maharashtra, India"
+        elif "bangalore" in loc_low or "bengaluru" in loc_low:
+            search_loc = "Bengaluru, Karnataka, India"
+        elif "mumbai" in loc_low:
+            search_loc = "Mumbai, Maharashtra, India"
+        elif "hyderabad" in loc_low:
+            search_loc = "Hyderabad, Telangana, India"
+        elif "gurgaon" in loc_low or "gurugram" in loc_low:
+            search_loc = "Gurugram, Haryana, India"
+        elif "delhi" in loc_low or "noida" in loc_low:
+            search_loc = "Delhi NCR, India"
+        else:
+            search_loc = raw_loc
 
         encoded_kw = urllib.parse.quote_plus(search_kw)
         encoded_loc = urllib.parse.quote_plus(search_loc)
@@ -144,6 +159,7 @@ class LinkedInConnector(JobSourceConnector):
 
                     loc_info = normalize_location(item["loc_raw"])
                     content_hash = hashlib.sha256(f"{item['title']}_{item['company']}_{item['job_id']}".encode()).hexdigest()
+                    now_iso = datetime.now(timezone.utc).isoformat()
 
                     canonical_job = {
                         "id": f"li_{item['job_id']}",
@@ -165,7 +181,7 @@ class LinkedInConnector(JobSourceConnector):
                         "state": loc_info.get("state"),
                         "country": loc_info.get("country", "India"),
                         "remote_type": loc_info.get("remote_type", "on-site"),
-                        "work_modality": "Online" if loc_info.get("remote_type") == "remote" else "Offline",
+                        "work_modality": "Online" if loc_info.get("remote_type") == "remote" else ("Hybrid" if loc_info.get("remote_type") == "hybrid" else "Offline"),
                         "employment_type": "full-time",
                         "experience_min": query_spec.get("experience_min", 0),
                         "experience_max": query_spec.get("experience_max", 3),
