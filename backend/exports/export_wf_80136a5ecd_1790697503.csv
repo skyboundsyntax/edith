@@ -1,0 +1,460 @@
+apply_link,city,company,company_domain,date_posted,description,description_snippet,employment_type,experience_years,is_link_out,job_title,location,match_score,modality_detail,platform_source,potential_gaps,quality_signals,remote_type,salary_range,score_breakdown,skills,sources,why_it_matches,work_modality,record_id,confidence_score,human_review,source_url,timestamp
+https://www.arbeitnow.ch/jobs/companies/artefact/senior-ai-engineer-technical-consultant-lausanne-vaud-475347,Lausanne,Artefact,arbeitnow.com,2026-09-28T14:55:10+00:00,"&lt;h2 data-start=&quot;107&quot; data-end=&quot;126&quot;&gt;Who is Artefact?&lt;/h2&gt;
+&lt;p data-start=&quot;127&quot; data-end=&quot;406&quot;&gt;Artefact is a next-generation strategy and data consulting firm dedicated to transforming organizations through data and AI. We combine the rigor of top-tier strategy consulting with deep expertise in data, digital, and analytics to help clients achieve tangible business impact.&lt;/p&gt;
+&lt;p data-start=&quot;408&quot; data-end=&quot;795&quot;&gt;With 1,800+ consultants, data scientists, and engineers across 23 countries, we work with global leaders such as Samsung, L’Oréal, Orange, and Sanofi. Our Romandie office (Geneva/Lausanne) is at the heart of Artefact’s growth, advising clients on their most pressing strategic challenges — from AI strategy and governance to digital transformation roadmaps and new business model design.&lt;/p&gt;
+&lt;h2 data-start=&quot;797&quot; data-end=&quot;821&quot;&gt;Main Responsibilities&lt;/h2&gt;
+&lt;p data-start=&quot;822&quot; data-end=&quot;1096&quot;&gt;As a &lt;strong data-start=&quot;827&quot; data-end=&quot;879&quot;&gt;Senior Technical Consultant / Senior AI Engineer&lt;/strong&gt;, you will lead the design and delivery of impactful AI and data solutions. You’ll combine hands-on engineering with client advisory, guiding multi-disciplinary teams from opportunity framing to production deployment.&lt;/p&gt;
+&lt;ul data-start=&quot;1098&quot; data-end=&quot;2600&quot;&gt;
+&lt;li data-start=&quot;1098&quot; data-end=&quot;1326&quot;&gt;
+&lt;p data-start=&quot;1100&quot; data-end=&quot;1326&quot;&gt;&lt;strong data-start=&quot;1100&quot; data-end=&quot;1141&quot;&gt;Own solution architecture &amp;amp; delivery:&lt;/strong&gt; Define end-to-end architectures (data, ML/LLM, APIs, security), make build/buy decisions, and drive projects from PoC to production with reliability, observability, and cost in mind.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li data-start=&quot;1327&quot; data-end=&quot;1512&quot;&gt;
+&lt;p data-start=&quot;1329&quot; data-end=&quot;1512&quot;&gt;&lt;strong data-start=&quot;1329&quot; data-end=&quot;1360&quot;&gt;Lead complex PoCs &amp;amp; pilots:&lt;/strong&gt; Scope, prototype, and validate AI/ML use cases (incl. LLMs/GenAI, RAG, fine-tuning, evaluation) and convert successful pilots into scalable products.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li data-start=&quot;1513&quot; data-end=&quot;1754&quot;&gt;
+&lt;p data-start=&quot;1515&quot; data-end=&quot;1754&quot;&gt;&lt;strong data-start=&quot;1515&quot; data-end=&quot;1551&quot;&gt;Advanced programming &amp;amp; modeling:&lt;/strong&gt; Build, adapt, and evaluate ML/DL/LLM models using Python (PyTorch, TensorFlow, HuggingFace, LangChain/LlamaIndex), including prompt engineering, fine-tuning/LoRA, vector search, and safety/guardrails.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li data-start=&quot;1755&quot; data-end=&quot;1927&quot;&gt;
+&lt;p data-start=&quot;1757&quot; data-end=&quot;1927&quot;&gt;&lt;strong data-start=&quot;1757&quot; data-end=&quot;1782&quot;&gt;Cloud &amp;amp; MLOps/LLMOps:&lt;/strong&gt; Design and operate solutions on Azure, GCP, or AWS (CI/CD, containers, model serving, feature stores, vector DBs, monitoring, eval pipelines).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li data-start=&quot;1928&quot; data-end=&quot;2127&quot;&gt;
+&lt;p data-start=&quot;1930&quot; data-end=&quot;2127&quot;&gt;&lt;strong data-start=&quot;1930&quot; data-end=&quot;1975&quot;&gt;Client advisory &amp;amp; stakeholder management:&lt;/strong&gt; Translate business goals into technical roadmaps, present to senior stakeholders, manage risks and trade-offs, and ensure measurable business impact.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li data-start=&quot;2128&quot; data-end=&quot;2265&quot;&gt;
+&lt;p data-start=&quot;2130&quot; data-end=&quot;2265&quot;&gt;&lt;strong data-start=&quot;2130&quot; data-end=&quot;2165&quot;&gt;Quality, security &amp;amp; governance:&lt;/strong&gt; Enforce best practices on data privacy, model risk management, responsible AI, and documentation.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li data-start=&quot;2266&quot; data-end=&quot;2425&quot;&gt;
+&lt;p data-start=&quot;2268&quot; data-end=&quot;2425&quot;&gt;&lt;strong data-start=&quot;2268&quot; data-end=&quot;2300&quot;&gt;Team leadership &amp;amp; mentoring:&lt;/strong&gt; Coach engineers/consultants, perform code and design reviews, and help shape delivery standards and reusable accelerators.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li data-start=&quot;2426&quot; data-end=&quot;2600&quot;&gt;
+&lt;p data-start=&quot;2428&quot; data-end=&quot;2600&quot;&gt;&lt;strong data-start=&quot;2428&quot; data-end=&quot;2463&quot;&gt;Pre-sales &amp;amp; thought leadership:&lt;/strong&gt; Support proposals, estimates, and statements of work; contribute to assets, talks, and publications that advance Artefact’s AI offering.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 data-start=&quot;2602&quot; data-end=&quot;2622&quot;&gt;Candidate Profile&lt;/h2&gt;
+&lt;p data-start=&quot;2623&quot; data-end=&quot;2715&quot;&gt;Engineer first, consultant second — with a builder’s mindset and a track record of shipping.&lt;/p&gt;
+&lt;ul data-start=&quot;2717&quot; data-end=&quot;3945&quot;&gt;
+&lt;li data-start=&quot;2717&quot; data-end=&quot;2874&quot;&gt;
+&lt;p data-start=&quot;2719&quot; data-end=&quot;2874&quot;&gt;&lt;strong data-start=&quot;2719&quot; data-end=&quot;2734&quot;&gt;Experience:&lt;/strong&gt; 5–8+ years in data/ML/AI engineering or adjacent roles, including &lt;strong data-start=&quot;2801&quot; data-end=&quot;2849&quot;&gt;end-to-end delivery of production AI systems&lt;/strong&gt; (not just prototypes).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li data-start=&quot;2875&quot; data-end=&quot;3010&quot;&gt;
+&lt;p data-start=&quot;2877&quot; data-end=&quot;3010&quot;&gt;&lt;strong data-start=&quot;2877&quot; data-end=&quot;2893&quot;&gt;Programming:&lt;/strong&gt; Expert Python; solid software engineering (testing, packaging, CI/CD). SQL required; Java/Scala/TypeScript a plus.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li data-start=&quot;3011&quot; data-end=&quot;3145&quot;&gt;
+&lt;p data-start=&quot;3013&quot; data-end=&quot;3145&quot;&gt;&lt;strong data-start=&quot;3013&quot; data-end=&quot;3023&quot;&gt;AI/ML:&lt;/strong&gt; Hands-on with ML/DL and &lt;strong data-start=&quot;3048&quot; data-end=&quot;3056&quot;&gt;LLMs&lt;/strong&gt; (prompting, fine-tuning/LoRA, embeddings/RAG, evaluation &amp;amp; observability, guardrails).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li data-start=&quot;3146&quot; data-end=&quot;3266&quot;&gt;
+&lt;p data-start=&quot;3148&quot; data-end=&quot;3266&quot;&gt;&lt;strong data-start=&quot;3148&quot; data-end=&quot;3158&quot;&gt;Cloud:&lt;/strong&gt; Deep experience on &lt;strong data-start=&quot;3178&quot; data-end=&quot;3194&quot;&gt;at least one&lt;/strong&gt; major cloud (Azure, GCP, or AWS) deploying secure, scalable services.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li data-start=&quot;3267&quot; data-end=&quot;3504&quot;&gt;
+&lt;p data-start=&quot;3269&quot; data-end=&quot;3504&quot;&gt;&lt;strong data-start=&quot;3269&quot; data-end=&quot;3286&quot;&gt;MLOps/LLMOps:&lt;/strong&gt; Containers (Docker/Kubernetes), Git, pipelines (e.g., GitHub Actions/Cloud-native), model serving (FastAPI/TorchServe/Triton), experiment tracking, model registry, vector DBs (FAISS, Pinecone, pgvector, OpenSearch).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li data-start=&quot;3505&quot; data-end=&quot;3640&quot;&gt;
+&lt;p data-start=&quot;3507&quot; data-end=&quot;3640&quot;&gt;&lt;strong data-start=&quot;3507&quot; data-end=&quot;3531&quot;&gt;Architecture &amp;amp; data:&lt;/strong&gt; Designing data/ML platforms, APIs, microservices; familiarity with data pipelines and streaming is valued.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li data-start=&quot;3641&quot; data-end=&quot;3761&quot;&gt;
+&lt;p data-start=&quot;3643&quot; data-end=&quot;3761&quot;&gt;&lt;strong data-start=&quot;3643&quot; data-end=&quot;3665&quot;&gt;Consulting skills:&lt;/strong&gt; Requirements gathering, storytelling, senior stakeholder management, and clear documentation.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li data-start=&quot;3762&quot; data-end=&quot;3876&quot;&gt;
+&lt;p data-start=&quot;3764&quot; data-end=&quot;3876&quot;&gt;&lt;strong data-start=&quot;3764&quot; data-end=&quot;3778&quot;&gt;Languages:&lt;/strong&gt; &lt;strong data-start=&quot;3779&quot; data-end=&quot;3812&quot;&gt;Fluency in French and English&lt;/strong&gt; (written &amp;amp; spoken) is mandatory.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li data-start=&quot;3877&quot; data-end=&quot;3945&quot;&gt;
+&lt;p data-start=&quot;3879&quot; data-end=&quot;3945&quot;&gt;&lt;strong data-start=&quot;3879&quot; data-end=&quot;3900&quot;&gt;Work eligibility:&lt;/strong&gt; You must be eligible to work in Switzerland.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p data-start=&quot;3947&quot; data-end=&quot;3963&quot;&gt;&lt;strong data-start=&quot;3947&quot; data-end=&quot;3963&quot;&gt;Nice to have&lt;/strong&gt;&lt;/p&gt;
+&lt;ul data-start=&quot;3964&quot; data-end=&quot;4225&quot;&gt;
+&lt;li data-start=&quot;3964&quot; data-end=&quot;4062&quot;&gt;
+&lt;p data-start=&quot;3966&quot; data-end=&quot;4062&quot;&gt;Experience with responsible AI/governance frameworks, security reviews, and cost optimization.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li data-start=&quot;4063&quot; data-end=&quot;4158&quot;&gt;
+&lt;p data-start=&quot;4065&quot; data-end=&quot;4158&quot;&gt;Domain experience in one or more industries (e.g., retail, pharma, manufacturing, finance).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li data-start=&quot;4159&quot; data-end=&quot;4225&quot;&gt;
+&lt;p data-start=&quot;4161&quot; data-end=&quot;4225&quot;&gt;Contributions to open-source, publications, or conference talks.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 data-start=&quot;4227&quot; data-end=&quot;4241&quot;&gt;Why Join Us&lt;/h2&gt;
+&lt;ul data-start=&quot;4242&quot; data-end=&quot;4752&quot;&gt;
+&lt;li data-start=&quot;4242&quot; data-end=&quot;4359&quot;&gt;
+&lt;p data-start=&quot;4244&quot; data-end=&quot;4359&quot;&gt;&lt;strong data-start=&quot;4244&quot; data-end=&quot;4274&quot;&gt;Strategy with a Data Edge:&lt;/strong&gt; Operate at the intersection of boardroom strategy and cutting-edge AI engineering.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li data-start=&quot;4360&quot; data-end=&quot;4494&quot;&gt;
+&lt;p data-start=&quot;4362&quot; data-end=&quot;4494&quot;&gt;&lt;strong data-start=&quot;4362&quot; data-end=&quot;4389&quot;&gt;Romandie Office Impact:&lt;/strong&gt; High visibility from day one; help shape our Swiss footprint and work directly with senior leadership.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li data-start=&quot;4495&quot; data-end=&quot;4630&quot;&gt;
+&lt;p data-start=&quot;4497&quot; data-end=&quot;4630&quot;&gt;&lt;strong data-start=&quot;4497&quot; data-end=&quot;4519&quot;&gt;Learning &amp;amp; Growth:&lt;/strong&gt; Advanced training across strategy, AI/ML/LLM, and cloud; international missions and communities of practice.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li data-start=&quot;4631&quot; data-end=&quot;4752&quot;&gt;
+&lt;p data-start=&quot;4633&quot; data-end=&quot;4752&quot;&gt;&lt;strong data-start=&quot;4633&quot; data-end=&quot;4654&quot;&gt;Culture of Doers:&lt;/strong&gt; Innovation, action, collaboration. We move fast, deliver impact, and support each other’s growth.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p data-start=&quot;4754&quot; data-end=&quot;4796&quot;&gt;&lt;strong data-start=&quot;4754&quot; data-end=&quot;4767&quot;&gt;Location:&lt;/strong&gt; Lausanne / Geneva (Romandie)&lt;/p&gt;
+&lt;p data-start=&quot;4798&quot; data-end=&quot;4942&quot; data-is-last-node=&quot;&quot; data-is-only-node=&quot;&quot;&gt;If you don’t meet 100% of the criteria, we still want to hear from you. Passion, curiosity, and impact orientation matter — tell us about yours.&lt;/p&gt;<p>Find more <a href=""https://www.arbeitnow.ch/english-speaking-jobs"">English Speaking Jobs in Switzerland</a> on Arbeitnow</a>","&lt;h2 data-start=&quot;107&quot; data-end=&quot;126&quot;&gt;Who is Artefact?&lt;/h2&gt;
+&lt;p data-start=&quot;127&quot; data-end=&quot;406&quot;&gt;Artefact is a next-generation strategy and data consulting firm dedicated to transforming organizations through data and AI. We combine the rigor of top-tier strategy consulting with deep expertise in data, digital, and analytics to help clients ach",full-time,0-3 yrs,False,Senior AI Engineer / Technical Consultant,"Lausanne, Vaud",80.0,Offline (On-site),Arbeitnow,⚠ Role title differs from target keywords,"{'freshness_score': 95.0, 'source_confidence': 90.0, 'listing_quality_score': 95.0, 'risk_signals': []}",on-site,Not Disclosed,"{'skills': {'score': 30, 'max': 30}, 'role': {'score': 6, 'max': 20}, 'experience': {'score': 15, 'max': 15}, 'location': {'score': 7, 'max': 10}, 'education': {'score': 5, 'max': 5}, 'employment': {'score': 5, 'max': 5}, 'salary': {'score': 4, 'max': 5}, 'freshness': {'score': 4, 'max': 5}, 'requirements': {'score': 4, 'max': 5}}",Data Science,arbeitnow,"✓ Python, ✓ Ml, ✓ Ai, ✓ 0–3 years experience accepted, ✓ Offline fit: Lausanne, Vaud at Artefact",Offline,rec_wf_80136a5ecd_abn_senior-ai-engineer-techn_0,80.0%,NO,https://www.arbeitnow.ch/jobs/companies/artefact/senior-ai-engineer-technical-consultant-lausanne-vaud-475347,2026-09-29T15:58:23.390153+00:00
+https://www.arbeitnow.ch/jobs/companies/artefactlinkedin/senior-ai-engineer-technical-consultant-lausanne-vaud-322378,Lausanne,Artefactlinkedin,arbeitnow.com,2026-09-28T11:55:09+00:00,"&lt;h2 data-start=&quot;107&quot; data-end=&quot;126&quot;&gt;Who is Artefact?&lt;/h2&gt;
+&lt;p data-start=&quot;127&quot; data-end=&quot;406&quot;&gt;Artefact is a next-generation strategy and data consulting firm dedicated to transforming organizations through data and AI. We combine the rigor of top-tier strategy consulting with deep expertise in data, digital, and analytics to help clients achieve tangible business impact.&lt;/p&gt;
+&lt;p data-start=&quot;408&quot; data-end=&quot;795&quot;&gt;With 1,800+ consultants, data scientists, and engineers across 23 countries, we work with global leaders such as Samsung, L’Oréal, Orange, and Sanofi. Our Romandie office (Geneva/Lausanne) is at the heart of Artefact’s growth, advising clients on their most pressing strategic challenges — from AI strategy and governance to digital transformation roadmaps and new business model design.&lt;/p&gt;
+&lt;h2 data-start=&quot;797&quot; data-end=&quot;821&quot;&gt;Main Responsibilities&lt;/h2&gt;
+&lt;p data-start=&quot;822&quot; data-end=&quot;1096&quot;&gt;As a &lt;strong data-start=&quot;827&quot; data-end=&quot;879&quot;&gt;Senior Technical Consultant / Senior AI Engineer&lt;/strong&gt;, you will lead the design and delivery of impactful AI and data solutions. You’ll combine hands-on engineering with client advisory, guiding multi-disciplinary teams from opportunity framing to production deployment.&lt;/p&gt;
+&lt;ul data-start=&quot;1098&quot; data-end=&quot;2600&quot;&gt;
+&lt;li data-start=&quot;1098&quot; data-end=&quot;1326&quot;&gt;
+&lt;p data-start=&quot;1100&quot; data-end=&quot;1326&quot;&gt;&lt;strong data-start=&quot;1100&quot; data-end=&quot;1141&quot;&gt;Own solution architecture &amp;amp; delivery:&lt;/strong&gt; Define end-to-end architectures (data, ML/LLM, APIs, security), make build/buy decisions, and drive projects from PoC to production with reliability, observability, and cost in mind.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li data-start=&quot;1327&quot; data-end=&quot;1512&quot;&gt;
+&lt;p data-start=&quot;1329&quot; data-end=&quot;1512&quot;&gt;&lt;strong data-start=&quot;1329&quot; data-end=&quot;1360&quot;&gt;Lead complex PoCs &amp;amp; pilots:&lt;/strong&gt; Scope, prototype, and validate AI/ML use cases (incl. LLMs/GenAI, RAG, fine-tuning, evaluation) and convert successful pilots into scalable products.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li data-start=&quot;1513&quot; data-end=&quot;1754&quot;&gt;
+&lt;p data-start=&quot;1515&quot; data-end=&quot;1754&quot;&gt;&lt;strong data-start=&quot;1515&quot; data-end=&quot;1551&quot;&gt;Advanced programming &amp;amp; modeling:&lt;/strong&gt; Build, adapt, and evaluate ML/DL/LLM models using Python (PyTorch, TensorFlow, HuggingFace, LangChain/LlamaIndex), including prompt engineering, fine-tuning/LoRA, vector search, and safety/guardrails.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li data-start=&quot;1755&quot; data-end=&quot;1927&quot;&gt;
+&lt;p data-start=&quot;1757&quot; data-end=&quot;1927&quot;&gt;&lt;strong data-start=&quot;1757&quot; data-end=&quot;1782&quot;&gt;Cloud &amp;amp; MLOps/LLMOps:&lt;/strong&gt; Design and operate solutions on Azure, GCP, or AWS (CI/CD, containers, model serving, feature stores, vector DBs, monitoring, eval pipelines).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li data-start=&quot;1928&quot; data-end=&quot;2127&quot;&gt;
+&lt;p data-start=&quot;1930&quot; data-end=&quot;2127&quot;&gt;&lt;strong data-start=&quot;1930&quot; data-end=&quot;1975&quot;&gt;Client advisory &amp;amp; stakeholder management:&lt;/strong&gt; Translate business goals into technical roadmaps, present to senior stakeholders, manage risks and trade-offs, and ensure measurable business impact.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li data-start=&quot;2128&quot; data-end=&quot;2265&quot;&gt;
+&lt;p data-start=&quot;2130&quot; data-end=&quot;2265&quot;&gt;&lt;strong data-start=&quot;2130&quot; data-end=&quot;2165&quot;&gt;Quality, security &amp;amp; governance:&lt;/strong&gt; Enforce best practices on data privacy, model risk management, responsible AI, and documentation.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li data-start=&quot;2266&quot; data-end=&quot;2425&quot;&gt;
+&lt;p data-start=&quot;2268&quot; data-end=&quot;2425&quot;&gt;&lt;strong data-start=&quot;2268&quot; data-end=&quot;2300&quot;&gt;Team leadership &amp;amp; mentoring:&lt;/strong&gt; Coach engineers/consultants, perform code and design reviews, and help shape delivery standards and reusable accelerators.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li data-start=&quot;2426&quot; data-end=&quot;2600&quot;&gt;
+&lt;p data-start=&quot;2428&quot; data-end=&quot;2600&quot;&gt;&lt;strong data-start=&quot;2428&quot; data-end=&quot;2463&quot;&gt;Pre-sales &amp;amp; thought leadership:&lt;/strong&gt; Support proposals, estimates, and statements of work; contribute to assets, talks, and publications that advance Artefact’s AI offering.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 data-start=&quot;2602&quot; data-end=&quot;2622&quot;&gt;Candidate Profile&lt;/h2&gt;
+&lt;p data-start=&quot;2623&quot; data-end=&quot;2715&quot;&gt;Engineer first, consultant second — with a builder’s mindset and a track record of shipping.&lt;/p&gt;
+&lt;ul data-start=&quot;2717&quot; data-end=&quot;3945&quot;&gt;
+&lt;li data-start=&quot;2717&quot; data-end=&quot;2874&quot;&gt;
+&lt;p data-start=&quot;2719&quot; data-end=&quot;2874&quot;&gt;&lt;strong data-start=&quot;2719&quot; data-end=&quot;2734&quot;&gt;Experience:&lt;/strong&gt; 5–8+ years in data/ML/AI engineering or adjacent roles, including &lt;strong data-start=&quot;2801&quot; data-end=&quot;2849&quot;&gt;end-to-end delivery of production AI systems&lt;/strong&gt; (not just prototypes).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li data-start=&quot;2875&quot; data-end=&quot;3010&quot;&gt;
+&lt;p data-start=&quot;2877&quot; data-end=&quot;3010&quot;&gt;&lt;strong data-start=&quot;2877&quot; data-end=&quot;2893&quot;&gt;Programming:&lt;/strong&gt; Expert Python; solid software engineering (testing, packaging, CI/CD). SQL required; Java/Scala/TypeScript a plus.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li data-start=&quot;3011&quot; data-end=&quot;3145&quot;&gt;
+&lt;p data-start=&quot;3013&quot; data-end=&quot;3145&quot;&gt;&lt;strong data-start=&quot;3013&quot; data-end=&quot;3023&quot;&gt;AI/ML:&lt;/strong&gt; Hands-on with ML/DL and &lt;strong data-start=&quot;3048&quot; data-end=&quot;3056&quot;&gt;LLMs&lt;/strong&gt; (prompting, fine-tuning/LoRA, embeddings/RAG, evaluation &amp;amp; observability, guardrails).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li data-start=&quot;3146&quot; data-end=&quot;3266&quot;&gt;
+&lt;p data-start=&quot;3148&quot; data-end=&quot;3266&quot;&gt;&lt;strong data-start=&quot;3148&quot; data-end=&quot;3158&quot;&gt;Cloud:&lt;/strong&gt; Deep experience on &lt;strong data-start=&quot;3178&quot; data-end=&quot;3194&quot;&gt;at least one&lt;/strong&gt; major cloud (Azure, GCP, or AWS) deploying secure, scalable services.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li data-start=&quot;3267&quot; data-end=&quot;3504&quot;&gt;
+&lt;p data-start=&quot;3269&quot; data-end=&quot;3504&quot;&gt;&lt;strong data-start=&quot;3269&quot; data-end=&quot;3286&quot;&gt;MLOps/LLMOps:&lt;/strong&gt; Containers (Docker/Kubernetes), Git, pipelines (e.g., GitHub Actions/Cloud-native), model serving (FastAPI/TorchServe/Triton), experiment tracking, model registry, vector DBs (FAISS, Pinecone, pgvector, OpenSearch).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li data-start=&quot;3505&quot; data-end=&quot;3640&quot;&gt;
+&lt;p data-start=&quot;3507&quot; data-end=&quot;3640&quot;&gt;&lt;strong data-start=&quot;3507&quot; data-end=&quot;3531&quot;&gt;Architecture &amp;amp; data:&lt;/strong&gt; Designing data/ML platforms, APIs, microservices; familiarity with data pipelines and streaming is valued.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li data-start=&quot;3641&quot; data-end=&quot;3761&quot;&gt;
+&lt;p data-start=&quot;3643&quot; data-end=&quot;3761&quot;&gt;&lt;strong data-start=&quot;3643&quot; data-end=&quot;3665&quot;&gt;Consulting skills:&lt;/strong&gt; Requirements gathering, storytelling, senior stakeholder management, and clear documentation.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li data-start=&quot;3762&quot; data-end=&quot;3876&quot;&gt;
+&lt;p data-start=&quot;3764&quot; data-end=&quot;3876&quot;&gt;&lt;strong data-start=&quot;3764&quot; data-end=&quot;3778&quot;&gt;Languages:&lt;/strong&gt; &lt;strong data-start=&quot;3779&quot; data-end=&quot;3812&quot;&gt;Fluency in French and English&lt;/strong&gt; (written &amp;amp; spoken).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li data-start=&quot;3877&quot; data-end=&quot;3945&quot;&gt;
+&lt;p data-start=&quot;3879&quot; data-end=&quot;3945&quot;&gt;&lt;strong data-start=&quot;3879&quot; data-end=&quot;3900&quot;&gt;Work eligibility:&lt;/strong&gt; You must be eligible to work in Switzerland.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p data-start=&quot;3947&quot; data-end=&quot;3963&quot;&gt;&lt;strong data-start=&quot;3947&quot; data-end=&quot;3963&quot;&gt;Nice to have&lt;/strong&gt;&lt;/p&gt;
+&lt;ul data-start=&quot;3964&quot; data-end=&quot;4225&quot;&gt;
+&lt;li data-start=&quot;3964&quot; data-end=&quot;4062&quot;&gt;
+&lt;p data-start=&quot;3966&quot; data-end=&quot;4062&quot;&gt;Experience with responsible AI/governance frameworks, security reviews, and cost optimization.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li data-start=&quot;4063&quot; data-end=&quot;4158&quot;&gt;
+&lt;p data-start=&quot;4065&quot; data-end=&quot;4158&quot;&gt;Domain experience in one or more industries (e.g., retail, pharma, manufacturing, finance).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li data-start=&quot;4159&quot; data-end=&quot;4225&quot;&gt;
+&lt;p data-start=&quot;4161&quot; data-end=&quot;4225&quot;&gt;Contributions to open-source, publications, or conference talks.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 data-start=&quot;4227&quot; data-end=&quot;4241&quot;&gt;Why Join Us&lt;/h2&gt;
+&lt;ul data-start=&quot;4242&quot; data-end=&quot;4752&quot;&gt;
+&lt;li data-start=&quot;4242&quot; data-end=&quot;4359&quot;&gt;
+&lt;p data-start=&quot;4244&quot; data-end=&quot;4359&quot;&gt;&lt;strong data-start=&quot;4244&quot; data-end=&quot;4274&quot;&gt;Strategy with a Data Edge:&lt;/strong&gt; Operate at the intersection of boardroom strategy and cutting-edge AI engineering.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li data-start=&quot;4360&quot; data-end=&quot;4494&quot;&gt;
+&lt;p data-start=&quot;4362&quot; data-end=&quot;4494&quot;&gt;&lt;strong data-start=&quot;4362&quot; data-end=&quot;4389&quot;&gt;Romandie Office Impact:&lt;/strong&gt; High visibility from day one; help shape our Swiss footprint and work directly with senior leadership.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li data-start=&quot;4495&quot; data-end=&quot;4630&quot;&gt;
+&lt;p data-start=&quot;4497&quot; data-end=&quot;4630&quot;&gt;&lt;strong data-start=&quot;4497&quot; data-end=&quot;4519&quot;&gt;Learning &amp;amp; Growth:&lt;/strong&gt; Advanced training across strategy, AI/ML/LLM, and cloud; international missions and communities of practice.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li data-start=&quot;4631&quot; data-end=&quot;4752&quot;&gt;
+&lt;p data-start=&quot;4633&quot; data-end=&quot;4752&quot;&gt;&lt;strong data-start=&quot;4633&quot; data-end=&quot;4654&quot;&gt;Culture of Doers:&lt;/strong&gt; Innovation, action, collaboration. We move fast, deliver impact, and support each other’s growth.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p data-start=&quot;4754&quot; data-end=&quot;4796&quot;&gt;&lt;strong data-start=&quot;4754&quot; data-end=&quot;4767&quot;&gt;Location:&lt;/strong&gt; Lausanne / Geneva (Romandie)&lt;/p&gt;
+&lt;p data-start=&quot;4798&quot; data-end=&quot;4942&quot; data-is-last-node=&quot;&quot; data-is-only-node=&quot;&quot;&gt;If you don’t meet 100% of the criteria, we still want to hear from you. Passion, curiosity, and impact orientation matter — tell us about yours.&lt;/p&gt;<p>Find <a href=""https://www.arbeitnow.ch"">Jobs in Switzerland</a> on Arbeitnow</a>","&lt;h2 data-start=&quot;107&quot; data-end=&quot;126&quot;&gt;Who is Artefact?&lt;/h2&gt;
+&lt;p data-start=&quot;127&quot; data-end=&quot;406&quot;&gt;Artefact is a next-generation strategy and data consulting firm dedicated to transforming organizations through data and AI. We combine the rigor of top-tier strategy consulting with deep expertise in data, digital, and analytics to help clients ach",full-time,0-3 yrs,False,Senior AI Engineer / Technical Consultant,"Lausanne, Vaud",80.0,Offline (On-site),Arbeitnow,⚠ Role title differs from target keywords,"{'freshness_score': 95.0, 'source_confidence': 90.0, 'listing_quality_score': 95.0, 'risk_signals': []}",on-site,Not Disclosed,"{'skills': {'score': 30, 'max': 30}, 'role': {'score': 6, 'max': 20}, 'experience': {'score': 15, 'max': 15}, 'location': {'score': 7, 'max': 10}, 'education': {'score': 5, 'max': 5}, 'employment': {'score': 5, 'max': 5}, 'salary': {'score': 4, 'max': 5}, 'freshness': {'score': 4, 'max': 5}, 'requirements': {'score': 4, 'max': 5}}",Data Science,arbeitnow,"✓ Python, ✓ Ml, ✓ Ai, ✓ 0–3 years experience accepted, ✓ Offline fit: Lausanne, Vaud at Artefactlinkedin",Offline,rec_wf_80136a5ecd_abn_senior-ai-engineer-techn_1,80.0%,NO,https://www.arbeitnow.ch/jobs/companies/artefactlinkedin/senior-ai-engineer-technical-consultant-lausanne-vaud-322378,2026-09-29T15:58:23.394053+00:00
+https://www.arbeitnow.com/jobs/companies/sonarsource/ai-systems-engineer-bochum-155682,Bochum,Sonarsource,arbeitnow.com,2026-09-29T14:04:34+00:00,"<div>
+<h3><strong>Who is Sonar?</strong></h3>
+<p>Sonar is driving the future of agent-centric software development. As the leader in AI code verification and governance, we solve a critical problem: ensuring that software generated by AI-assisted developers or autonomous agents is reliable, secure, and maintainable.</p>
+<p>Integrating seamlessly with Claude Code, Codex, Cursor, GitHub Copilot, Gemini, and Devin, we help over 75% of the Fortune 100 build trusted, reliable, compliant software. Customers who use Sonar are 44% less likely to report an outage due to AI-generated code.</p>
+<p>We believe code verification is the critical missing link in the Agent-Centric Development Cycle (AC/DC). Industry giants like Nvidia, ServiceNow,<a href=""http://booking.com""> </a>Booking.com, Goldman Sachs, AstraZeneca, and Ford Motor Company count on us to provide independent, explainable, consistent review and governance of their AI-generated code via products like:</p>
+<ul>
+<li>SonarQube: The world’s leading AI code review and verification platform.</li>
+<li>SonarQube Foundation Agent: Currently topping the leaderboards for agentic software repair.</li>
+<li>SonarSweep &amp; Sonar Context Augmentation: Providing the enterprise-grade context and constraints agents need to be truly effective.</li>
+</ul>
+<p>Our team operates across global hubs in Austin, Bochum, Dubai, Geneva, London, Singapore, Tokyo, and Washington D.C. We move with a mindset we call CODE:</p>
+<ul>
+<li>Committed to our customers and community.</li>
+<li>Obsessed with quality.</li>
+<li>Deliberate in our decisions.</li>
+<li>Effective as one team.</li>
+</ul>
+<div>
+<p>With over $400M in revenue and profitable, fast-paced growth, we are building the backbone of the AI software revolution. If you’re hungry to have an impact, want to build at a fast pace, and ready to work at the forefront of AI, we want to hear from you.</p>
+</div>
+</div><div><br></div><h3><strong>Position description</strong></h3>
+<div>
+<p>The Business Technology team is composed of passionate technologists who are fully engaged in delivering the best products that help teams deliver their best work. We are focused on reducing friction and getting the most value from solutions to enhance outcomes. We want to expand our Business Technology landscape to manage more systems in a predictable way that accounts for scalability, resilience, and performance.</p>
+<p>This role sits at the intersection of AI-native operations, enterprise platform engineering, and IT service management. You will own how Sonar designs, builds, and operationalizes AI-augmented systems across its internal technology ecosystem — engineering AI agents and connectors, automating workflows end-to-end, and integrating our enterprise tool stack, with Jira Service Management and the Atlassian suite as one core platform among several.</p>
+<p>While Jira Service Management and the broader Atlassian suite form a core part of your platform footprint, your scope extends well beyond it: you will build and maintain integrations across our enterprise tool stack, engineer automation pipelines that eliminate manual work at scale, and operationalize AI-native capabilities (Enterprise Apps connectors, Claude MCP integrations, Rovo agents) that put Sonar ahead of the curve in AI-driven internal operations.</p>
+<p>Your success will directly enable every internal team at Sonar to work faster, smarter, and with less friction — and will give leadership real-time visibility, consistent governance, and a platform that scales effortlessly with the company's global growth.</p>
+</div><br><strong>What you will do</strong><br><div>
+<p>You are confident in owning and evolving a multi-platform internal technology ecosystem for a fast-growing, multi-site, multinational organization. You bring deep expertise in building AI-native systems and automations, and you are equally at home administering and evolving ITSM platforms — especially Atlassian — that anchor Sonar's internal operations.</p>
+<p><strong>You bring proven, multi-year experience in:</strong></p>
+
+<li>
+<p><strong>AI Systems &amp; Agent Engineering (primary focus): </strong>Designing, building, and operationalizing AI-native capabilities across Sonar's internal stack — Claude MCP (Model Context Protocol) integrations, custom Claude skills, Rovo agents, and Enterprise Apps connectors. You prototype on the frontier, then harden what works into reliable, governed production systems that internal teams depend on daily.</p>
+</li>
+<li>
+<p><strong>ITSM Platform Ownership (JSM): </strong>Administering, configuring, and continuously evolving Jira Service Management — including service catalog design, SLA management, queue configuration, request type rationalization, and automated routing. You treat JSM as a product, not a ticket system.</p>
+</li>
+<li>
+<p><strong>Atlassian Suite Administration: </strong>Managing the full Atlassian Cloud ecosystem (Jira Software, Confluence, JSM, Guard, Loom, Trello, Bitbucket) with deep expertise in governance, user access management, project templates, and platform health monitoring.</p>
+</li>
+<li>
+<p><strong>Automation Engineering: </strong>Designing and implementing sophisticated workflow automations — using Atlassian Automation, REST APIs, and third-party middleware — that eliminate manual processes and scale operations without adding headcount.</p>
+</li>
+<li>
+<p><strong>Enterprise Integration Architecture: </strong>Building and maintaining integrations between Atlassian and adjacent enterprise systems (Slack, HR platforms, identity providers, monitoring tools) using webhooks, APIs, and marketplace apps.</p>
+</li>
+<li>
+<p><strong>CMDB &amp; Asset Management: </strong>Owning JSM Assets configuration, data integrity, and lifecycle management across IT hardware, software licenses, and configuration items (CIs) — ensuring a reliable, audit-ready source of truth.</p>
+</li>
+<li>
+<p><strong>ITSM Process Governance: </strong>Defining and enforcing ITIL-aligned processes including incident management, change management, problem management, and access management — translating business needs into governed, automated workflows.</p>
+</li>
+<li>
+<p><strong>Security, Compliance &amp; Audit Support: </strong>Ensuring platform configurations adhere to SonarSource's data protection, access control, and audit requirements. Supporting external audit engagements (KPMG, PwC) with documentation and evidence packages.</p>
+</li>
+<li>
+<p><strong>Stakeholder Enablement: </strong>Partnering with all internal teams (HR, Finance, Legal, IT, Security, GTM) to identify automation opportunities, gather requirements, and deliver continuous improvements — acting as a true internal platform consultant.</p>
+</li>
+<li>
+<p><strong>Platform Roadmap Contribution: </strong>Proactively identifying opportunities to modernize internal processes, adopt new platform capabilities, and drive the platform roadmap forward in partnership with the BizTech BackOffice lead</p>
+</li>
+
+</div><br><strong>Experience and qualifications</strong><br><div>
+<p><strong>Experience &amp; Technical Acumen</strong></p>
+
+<li>
+<p><strong>AI Engineering (Required): </strong>Hands-on experience with AI-native platforms and building on them — Claude/Anthropic, MCP, agent frameworks (Rovo or equivalent), connectors, and prompt-based workflows. You've built and shipped something real, not just experimented.</p>
+</li>
+<li>
+<p><strong>Atlassian Platform Expertise (Required): </strong>5+ years hands-on administration of Jira Service Management (JSM), Jira Software, and Confluence Cloud in enterprise, multi-team environments. Deep knowledge of JSM request types, workflows, SLAs, queues, automations, and service catalog design.</p>
+</li>
+<li>
+<p><strong>Automation &amp; Integration Engineering: </strong>Proven experience building workflow automations using Atlassian Automation and/or third-party tools. Comfortable with REST APIs, webhooks, and JSON for system integrations. Scripting experience (Python, Groovy, JavaScript) is a strong plus.</p>
+</li>
+<li>
+<p><strong>Enterprise Tool Breadth: </strong>Experience with adjacent enterprise systems — identity providers (Okta, JumpCloud), collaboration tools (Slack, Zoom), or business systems (NetSuite, BambooHR, Salesforce) — is a strong differentiator. We don't need deep expertise in all of them, but curiosity and adaptability across the stack matters.</p>
+</li>
+<li>
+<p><strong>CMDB / Asset Management: </strong>Experience configuring and maintaining a CMDB or IT asset management system (JSM Assets, ServiceNow CMDB, or equivalent).</p>
+</li>
+<li>
+<p><strong>ITSM &amp; ITIL Knowledge: </strong>Strong understanding of ITSM processes and ITIL v3/v4 frameworks — including incident, change, problem, and request management — with the ability to configure platform workflows that enforce these processes at scale.</p>
+</li>
+<li>
+<p><strong>Security &amp; Compliance Awareness: </strong>Understanding of IT General Controls (ITGC), access governance, and audit-readiness requirements. Experience supporting external audit engagements is a plus.</p>
+</li>
+<li>
+<p><strong>Atlassian Certifications (Plus): </strong>ACP-620 (Jira Service Management), ACP-120 (Jira Administrator), or ACP-420 (Confluence Administrator) are highly valued.</p>
+</li>
+
+<p><strong>Leadership &amp; Soft Skills</strong></p>
+
+<li>
+<p>Exceptional analytical, strategic thinking, and problem-solving abilities — you see patterns others miss and turn complexity into clean solutions.</p>
+</li>
+<li>
+<p>Highly autonomous and pragmatic: you make concrete progress in the face of ambiguity and imperfect information, without waiting for perfect requirements.</p>
+</li>
+<li>
+<p>Strong decision-making skills, with the ability to prioritize across competing demands and manage multiple concurrent initiatives.</p>
+</li>
+<li>
+<p>Self-confident enough to challenge the status quo — and to give and receive direct feedback in the service of continuous improvement.</p>
+</li>
+<li>
+<p>Excellent communication skills for both technical and non-technical audiences. Fluent in English, written and verbal.</p>
+</li>
+<li>
+<p>Collaborative by nature: you share information and ideas freely, and you understand that the best solutions emerge from collective thinking.</p>
+</li>
+<li>
+<p>Leadership mindset: you take ownership of initiatives end-to-end and drive them to completion with accountability and autonomy.</p>
+</li>
+<li>
+<p>Values ""done"" over ""perfect"" — while continuously looking for ways to improve processes and deliver measurable impact.</p>
+</li>
+
+</div><div>
+<h3><strong>In-office culture</strong></h3>
+<p>We're intentional about this. We believe the best teams are built in the room together. Three anchor days — Mondays, Tuesdays, and Thursdays — create the collaboration rhythm that makes a hub office worth having.&nbsp;</p>
+<p>Candidates need to be genuinely based in the location the role is posted&nbsp; — if that's not where you are today, we're happy to support relocation for the right person.</p>
+<p>&nbsp;</p>
+<h3><strong>We value diversity, equity, and inclusion</strong></h3>
+<p>At Sonar, we believe that our diversity is our strength. We are a global company that values and respects different backgrounds, perspectives, and cultures. We are committed to fostering a diverse and inclusive work environment where everyone feels valued and empowered to contribute their best. We are proud to be an equal opportunity employer and welcome all qualified applicants, regardless of race, color, religion, gender, gender identity or expression, sexual orientation, national origin, genetics, disability, age, or veteran status.</p>
+<p>If you need any accommodation, please reach out to us at <a ----------
+<p>All offers of employment at Sonar are contingent upon the results of a comprehensive background check and reference verification conducted before the start date.&nbsp;</p>
+<p>Applications that are submitted through agencies or third party recruiters will not be considered.&nbsp;</p>
+</div><p>Find more <a href=""https://www.arbeitnow.com/english-speaking-jobs"">English Speaking Jobs in Germany</a> on Arbeitnow</a>","<div>
+<h3><strong>Who is Sonar?</strong></h3>
+<p>Sonar is driving the future of agent-centric software development. As the leader in AI code verification and governance, we solve a critical problem: ensuring that software generated by AI-assisted developers or autonomous agents is reliable, secure, and maintainable.</p>
+<p>Integrating seamlessly with Claude Code, Codex, Cursor, GitHub Copilot, Gem",full-time,0-3 yrs,False,AI Systems Engineer (f/m/d),Bochum,71.0,Offline (On-site),Arbeitnow,"⚠ Ml not explicitly emphasized, ⚠ Role title differs from target keywords","{'freshness_score': 95.0, 'source_confidence': 90.0, 'listing_quality_score': 95.0, 'risk_signals': []}",on-site,Not Disclosed,"{'skills': {'score': 20, 'max': 30}, 'role': {'score': 6, 'max': 20}, 'experience': {'score': 15, 'max': 15}, 'location': {'score': 7, 'max': 10}, 'education': {'score': 5, 'max': 5}, 'employment': {'score': 5, 'max': 5}, 'salary': {'score': 4, 'max': 5}, 'freshness': {'score': 5, 'max': 5}, 'requirements': {'score': 4, 'max': 5}}",Business Technology,arbeitnow,"✓ Python, ✓ Ai, ✓ 0–3 years experience accepted, ✓ Offline fit: Bochum at Sonarsource, ✓ Education qualifications satisfied",Offline,rec_wf_80136a5ecd_abn_ai-systems-engineer-boch_2,71.0%,NO,https://www.arbeitnow.com/jobs/companies/sonarsource/ai-systems-engineer-bochum-155682,2026-09-29T15:58:23.397394+00:00
+https://www.arbeitnow.ch/jobs/companies/tenstorrent/staff-design-verification-engineer-ai-hw-zurich-77609,Zürich,tenstorrent,arbeitnow.com,2026-09-28T11:55:19+00:00,"&lt;div class=&quot;content-intro&quot;&gt;&lt;p&gt;Tenstorrent is leading the industry on cutting-edge AI technology, revolutionizing performance expectations, ease of use, and cost efficiency. With AI redefining the computing paradigm, solutions must evolve to unify innovations in software models, compilers, platforms, networking, and semiconductors. Our diverse team of technologists have developed a high performance RISC-V CPU from scratch, and share a passion for AI and a deep desire to build the best AI platform possible. We value collaboration, curiosity, and a commitment to solving hard problems. We are growing our team and looking for contributors of all seniorities.&lt;/p&gt;&lt;/div&gt;&lt;p class=&quot;wnfdnte&quot; data-pm-slice=&quot;1 1 []&quot;&gt;Our Tensix team is building custom AI compute cores, RISC-V CPUs, and chiplet-based architectures for datacenter, edge, and automotive AI. Design Verification Engineers on this team validate compute IP and subsystems and build scalable DV infrastructure to keep verification fast, automated, and production-grade.&lt;/p&gt;
+&lt;p class=&quot;wnfdnte&quot;&gt;This role is hybrid, based out of Toronto, ON, Austin, TX or Belgrade, Serbia.&lt;/p&gt;
+&lt;p class=&quot;wnfdnte&quot;&gt;We welcome candidates at various experience levels for this role. During the interview process, candidates will be assessed for the appropriate level, and offers will align with that level, which may differ from the one in this posting.&lt;/p&gt;
+&lt;p class=&quot;wnfdnte&quot;&gt;&amp;nbsp;&lt;/p&gt;
+&lt;p class=&quot;wnfdnte&quot;&gt;&lt;strong&gt;Who You Are&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Experienced in modern verification methodologies with strong SystemVerilog skills and exposure to structured testbench development.&lt;/li&gt;
+&lt;li&gt;Comfortable working from block-level to system-level verification and reasoning about microarchitecture behavior from specs and waveforms.&lt;/li&gt;
+&lt;li&gt;Proficient in Linux environments with Python, or Bash scripting for automate builds, parse logs, manage CI pipelines.&lt;/li&gt;
+&lt;li&gt;Skilled in coverage-driven verification and confident debugging across RTL, testbench, and workload scenarios.&lt;/li&gt;
+&lt;li&gt;Motivated by AI hardware and eager to learn verification strategies for new architectures and domains.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;What We Need&lt;/strong&gt;&lt;/p&gt;
+&lt;ul data-list-tree=&quot;true&quot; data-indent=&quot;0&quot; data-border=&quot;1&quot; data-border-radius-top-cap=&quot;0&quot; data-border-radius-bottom-cap=&quot;0&quot;&gt;
+&lt;li&gt;Contribute to verification of Tensix IP and subsystems from early planning through tape-out, owning coverage goals and driving them to closure.&lt;/li&gt;
+&lt;li&gt;Build and maintain reusable verification environments, agents, scoreboards, and supporting infrastructure in SystemVerilog and Python.&lt;/li&gt;
+&lt;li&gt;Develop constrained-random and directed tests and close functional, code, and assertion coverage using data-driven approaches.&lt;/li&gt;
+&lt;li&gt;Debug complex issues across RTL and testbench while collaborating with design, firmware, compiler, and architecture teams.&lt;/li&gt;
+&lt;li&gt;Help evolve DV infrastructure including regression flows, CI/CD integration, EDA compute environments, and reproducible setups.&lt;/li&gt;
+&lt;li&gt;Nice to have: Exposure to functional safety (FuSa) verification concepts for automotive AI workloads.&lt;/li&gt;
+&lt;li&gt;Nice to have: Familiarity with formal verification methodologies, SVA (SystemVerilog Assertions), or formal property verification for complex control logic and microarchitectural corner cases.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;What You Will Learn&lt;/strong&gt;&lt;/p&gt;
+&lt;ul data-list-tree=&quot;true&quot; data-indent=&quot;0&quot; data-border=&quot;1&quot; data-border-radius-top-cap=&quot;0&quot; data-border-radius-bottom-cap=&quot;0&quot;&gt;
+&lt;li&gt;How Tenstorrent verifies AI-native compute architectures including Tensix cores, RISC-V CPUs, matrix units, vector units, and datapath.&lt;/li&gt;
+&lt;li&gt;How simulation, emulation, and software-driven workloads combine to validate both functional correctness and performance.&lt;/li&gt;
+&lt;li&gt;How numerical precision formats such as BF16, FP4, and INT8 and on-chip dataflow impact verification complexity and coverage strategy.&lt;/li&gt;
+&lt;li&gt;How to build scalable DV infrastructure across hybrid compute environments including containerized regression systems.&lt;/li&gt;
+&lt;li&gt;How data analytics and modern AI tooling can enhance verification workflows and accelerate convergence.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p class=&quot;wnfdnte&quot;&gt;&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;div&gt;
+&lt;p&gt;&lt;em&gt;Compensation for all engineers at Tenstorrent ranges from $100k - $500k including base and variable compensation targets. Experience, skills, education, background and location all impact the actual offer made.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Tenstorrent offers a highly competitive compensation package and benefits, and we are an equal opportunity employer.&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;&lt;div class=&quot;content-conclusion&quot;&gt;&lt;p&gt;&lt;em&gt;This offer of employment is contingent upon the applicant being eligible to access U.S. export-controlled technology. &amp;nbsp;Due to U.S. export laws, including those codified in the U.S. Export Administration Regulations (EAR), the Company is required to ensure compliance with these laws when transferring technology to nationals of certain countries (such as EAR Country Groups D:1, E1, and E2). &amp;nbsp; These requirements apply to persons located in the U.S. and all countries outside the U.S. &amp;nbsp;As the position offered will have direct and/or indirect access to information, systems, or technologies subject to these laws, the offer may be contingent upon your citizenship/permanent residency status or ability to obtain prior license approval from the U.S. Commerce Department or applicable federal agency. &amp;nbsp;If employment is not possible due to U.S. export laws, any offer of employment will be rescinded.&lt;/em&gt;&lt;/p&gt;&lt;/div&gt;<p>Find <a href=""https://www.arbeitnow.ch"">Jobs in Switzerland</a> on Arbeitnow</a>","&lt;div class=&quot;content-intro&quot;&gt;&lt;p&gt;Tenstorrent is leading the industry on cutting-edge AI technology, revolutionizing performance expectations, ease of use, and cost efficiency. With AI redefining the computing paradigm, solutions must evolve to unify innovations in software models, compilers, platforms, networking, and semiconductors. Our diverse team of technologists have develo",full-time,0-3 yrs,False,"Staff Design Verification Engineer, AI HW",Zürich,70.0,Offline (On-site),Arbeitnow,"⚠ Ml not explicitly emphasized, ⚠ Role title differs from target keywords","{'freshness_score': 95.0, 'source_confidence': 90.0, 'listing_quality_score': 95.0, 'risk_signals': []}",on-site,Not Disclosed,"{'skills': {'score': 20, 'max': 30}, 'role': {'score': 6, 'max': 20}, 'experience': {'score': 15, 'max': 15}, 'location': {'score': 7, 'max': 10}, 'education': {'score': 5, 'max': 5}, 'employment': {'score': 5, 'max': 5}, 'salary': {'score': 4, 'max': 5}, 'freshness': {'score': 4, 'max': 5}, 'requirements': {'score': 4, 'max': 5}}",Ai Hardware,arbeitnow,"✓ Python, ✓ Ai, ✓ 0–3 years experience accepted, ✓ Offline fit: Zürich at tenstorrent, ✓ Education qualifications satisfied",Offline,rec_wf_80136a5ecd_abn_staff-design-verificatio_3,70.0%,NO,https://www.arbeitnow.ch/jobs/companies/tenstorrent/staff-design-verification-engineer-ai-hw-zurich-77609,2026-09-29T15:58:23.403804+00:00
+https://www.arbeitnow.com/jobs/companies/neoshare/data-protection-ai-governance-advisor-munchen-287460,München,neoshare,arbeitnow.com,2026-09-29T14:09:57+00:00,"<br><strong>Your mission</strong><p>Datenschutz <br><ul><li>Du unterstützt unsere Business Funktionen bei der Dokumentation ihrer Verarbeitungsprozessen und pflegst die Verzeichnisse nach Art. 30 Abs. 1 + 2 DSGVO.</li><li>Du erstellst Datenschutz-Folgenabschätzungen, Legitimate Interest Assessments und Transfer Impact Assessments.</li><li>Du berätst die Fachbereiche zur datenschutzrechtlichen Ausgestaltung unserer SaaS-Produkte und internen Prozesse – insbesondere zu Datenminimierung, Mandantentrennung, Berechtigungskonzepten, Löschung und Privacy by Design.</li><li>Du prüfst Auftragsverarbeitungsverträge und führst Vorabprüfungen neuer Dienstleister und KI-Tools durch.</li><li>Du betreibst das Datenschutzmanagementsystem: Du pflegst Richtlinien und Vorlagen, führst Kontrollen durch, überwachst Abhilfemaßnahmen und verwaltest unsere Datenschutz- und KI-Governanceplattform.</li></ul> <br>AI Governance <br><ul><li>Du baust das Inventar unserer KI-Systeme auf und pflegst es, bereitest die Einordnung nach Art. 6 und Anhang III AI Act vor und bestimmst unsere Rolle als Anbieter oder Betreiber.</li><li>Du wirkst am Freigabeprozess für KI-Vorhaben mit und entwickelst Prüfkriterien, Gates und Entscheidungsvorlagen.</li><li>Du erstellst die Pflichtdokumentation zu Risikomanagement, Daten-Governance und Bias-Prüfung, technischer Dokumentation, menschlicher Aufsicht, Protokollierung sowie Transparenzpflichten.</li><li>Du prüfst KI-Modelle und -Dienste auf vertragliche Zusagen zu Trainingsnutzung, Datenhaltung und Vereinbarkeit mit unseren Kundenzusagen.</li></ul> <br>So arbeiten wir zusammen <br><ul><li>Du wirst Teil eines kleinen, schlagkräftigen Teams, das pragmatisch denkt und eng mit Produkt, Engineering und Legal zusammenarbeitet. Wir schätzen offenen Austausch, kurze Wege und die gemeinsame Freude daran, komplexe Regulatorik in praktikable Lösungen zu übersetzen.</li></ul></p><br><strong>Your profile</strong><p><ul><li>Du bringst mindestens drei Jahre Berufserfahrung im Datenschutz mit, davon substanziell in einer Second-Line-Funktion – etwa als Datenschutzkoordinator, im Datenschutzmanagement, in einer Compliance- oder Governance-Einheit oder in einer externen Beratungsrolle mit vergleichbarem Prüfauftrag.</li><li>Du hast Erfahrung in der Durchführung von Datenschutz-Folgenabschätzungen, Legitimate Interest Assessments und Transfer Impact Assessments.</li><li>Du gehst sicher mit der DSGVO auf Normebene um, kennst die EDSA-Leitlinien und bist vertraut mit der Rechtsprechung zu Drittlandtransfers und Verantwortlichkeit.</li><li>Du hast erste belegbare Berührungspunkte mit KI-Governance und dem EU AI Act – etwa durch Klassifizierung von KI-Systemen, Bewertung von LLM-gestützten Funktionen, Modell- oder Bias-Prüfungen, Erstellung von Transparenzhinweisen oder Mitarbeit an einer KI-Richtlinie. Du musst keine vollständige AI-Act-Routine mitbringen; die Bereitschaft, dir diese Tiefe bei uns aufzubauen, genügt uns.</li><li>Du arbeitest strukturiert und verlässlich mit hoher Sorgfalt in der Dokumentation.</li><li>Du beherrschst Deutsch und Englisch verhandlungssicher.</li></ul>Wünschenswert: Du hast ein juristisches Studium abgeschlossen sowie eine Zertifizierung wie etwa IAPP CIPP/E, CIPM oder AIGP erworben. <br>Für Juristinnen und Juristen: Du strebst eine Zulassung als Syndikusrechtsanwältin oder Syndikusrechtsanwalt an? Wir unterstützen dich aktiv dabei – sowohl im Zulassungsverfahren als auch bei der fachlichen Ausgestaltung deiner Rolle.</p><br><strong>Why us</strong><p><ul style=""border:0px solid;font-family:Inter, '-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', 'Open Sans', 'system-ui', '-apple-system', 'Segoe UI', Roboto, Ubuntu, Cantarell, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';font-size:14px;font-style:normal;font-weight:400;text-transform:none;""><li style=""border:0px solid;margin:0px;"">Weil wir Talent höher bewerten als Hierarchien.</li><li style=""border:0px solid;margin:0px;"">Weil Verantwortung bei uns nicht delegiert, sondern übernommen wird.</li><li style=""border:0px solid;margin:0px;"">Weil wir moderne KI und Technologie als Hebel für außergewöhnliche Ergebnisse nutzen.</li><li style=""border:0px solid;margin:0px;"">Weil wir Menschen fördern, die lernen, wachsen und liefern wollen.</li><li style=""border:0px solid;margin:0px;"">Weil Leistung, Qualität und Impact bei uns untrennbar zusammengehören.</li><li style=""border:0px solid;margin:0px;"">Weil wir gemeinsam daran arbeiten, einen europäischen Tech-Champion aufzubauen.</li></ul></p><br><strong>What You Can Expect</strong><p><ul style=""border:0px solid;margin-top:0in;margin-bottom:0in;font-family:Inter, '-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', 'Open Sans', 'system-ui', '-apple-system', 'Segoe UI', Roboto, Ubuntu, Cantarell, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';font-size:14px;font-style:normal;font-weight:400;text-transform:none;color:rgb(0,0,0);""><li style=""border:0px solid;margin:0px;font-family:Arial, Helvetica, sans-serif;font-size:14px;"">Leistungsorientierte, überdurchschnittliche Vergütung, die herausragenden Einsatz honoriert.</li><li style=""border:0px solid;margin:0px;font-family:Arial, Helvetica, sans-serif;font-size:14px;"">High-End-Offices, die Zusammenarbeit, Gesundheit und Bestleistung fördern - inklusive attraktiver Gesundheits- und Fitnessangebote.</li><li style=""border:0px solid;margin:0px;font-family:Arial, Helvetica, sans-serif;font-size:14px;"">Legendäre Team Events, bei denen wir Erfolge gemeinsam feiern und unseren Zusammenhalt stärken.</li><li style=""border:0px solid;margin:0px;font-family:Arial, Helvetica, sans-serif;font-size:14px;"">Modernste KI-Tools, erstklassige Arbeitsmittel und ein Umfeld, das Eigenverantwortung und persönliches Wachstum fördert.</li><li style=""border:0px solid;margin:0px;font-family:Arial, Helvetica, sans-serif;font-size:14px;"">Hohe Talentdichte, schnelle Entscheidungen und die Chance, früh echten Einfluss zu übernehmen.</li></ul><p style=""border:0px solid;margin:0in;font-style:normal;font-weight:400;text-transform:none;color:rgb(0,0,0);font-size:12pt;font-family:Arial;""><span style=""border:0px solid;margin:0px;font-family:Arial, Helvetica, sans-serif;font-size:14px;""> </span></p><p style=""border:0px solid;margin:0in;font-style:normal;font-weight:400;text-transform:none;font-family:Calibri;font-size:11pt;color:rgb(0,0,0);""><span style=""border:0px solid;margin:0px;font-family:Arial, Helvetica, sans-serif;font-size:14px;"">Kandidatinnen und Kandidaten müssen eine gültige Arbeitserlaubnis für die EU besitzen; Visa-Sponsoring wird für diese Stelle nicht angeboten.</span></p></p><p>Find more <a href=""https://www.arbeitnow.com/english-speaking-jobs"">English Speaking Jobs in Germany</a> on Arbeitnow</a>","<br><strong>Your mission</strong><p>Datenschutz <br><ul><li>Du unterstützt unsere Business Funktionen bei der Dokumentation ihrer Verarbeitungsprozessen und pflegst die Verzeichnisse nach Art. 30 Abs. 1 + 2 DSGVO.</li><li>Du erstellst Datenschutz-Folgenabschätzungen, Legitimate Interest Assessments und Transfer Impact Assessments.</li><li>Du berätst die Fachbereiche zur datenschutzrechtlichen Ausg",full-time,0-3 yrs,False,Data Protection & AI Governance Advisor (m/w/d),München,61.0,Offline (On-site),Arbeitnow,"⚠ Python not explicitly emphasized, ⚠ Ml not explicitly emphasized, ⚠ Role title differs from target keywords","{'freshness_score': 95.0, 'source_confidence': 90.0, 'listing_quality_score': 95.0, 'risk_signals': []}",on-site,Not Disclosed,"{'skills': {'score': 10, 'max': 30}, 'role': {'score': 6, 'max': 20}, 'experience': {'score': 15, 'max': 15}, 'location': {'score': 7, 'max': 10}, 'education': {'score': 5, 'max': 5}, 'employment': {'score': 5, 'max': 5}, 'salary': {'score': 4, 'max': 5}, 'freshness': {'score': 5, 'max': 5}, 'requirements': {'score': 4, 'max': 5}}","Gdpr, Datenschutz, Eu Ai Act",arbeitnow,"✓ Ai, ✓ 0–3 years experience accepted, ✓ Offline fit: München at neoshare, ✓ Education qualifications satisfied, ✓ Full-Time employment type",Offline,rec_wf_80136a5ecd_abn_data-protection-ai-gover_4,61.0%,NO,https://www.arbeitnow.com/jobs/companies/neoshare/data-protection-ai-governance-advisor-munchen-287460,2026-09-29T15:58:23.412727+00:00
+https://www.arbeitnow.com/jobs/companies/trusteq-gmbh/governance-risk-compliance-senior-consultant-munchen-484119,München,Trusteq Gmbh,arbeitnow.com,2026-09-29T11:09:49+00:00,"<br><strong>DEINE AUFGABEN</strong><p><ul><li>Du unterstützt beim Aufbau und der Optimierung von Corporate-Governance-Systemen, insbesondere Enterprise Risk Management, Business Continuity Management und Internes Kontrollsystem<ul><li>Zusätzlich im Senior Level: Du übernimmst die Leitung komplexer (Teil-)Projekte zum Aufbau dieser Systeme und trägst die Verantwortung für Automatisierungs- und Digitalisierungsstrategien und die Erstellung von Zielbildern und Roadmaps</li></ul></li><li>Du wirkst bei der Durchführung von Prozess-/ Risikoanalysen mit und unterstützt bei der Definition geeigneter Maßnahmen<ul><li>Zusätzlich im Senior Level: Du verantwortest die methodische Durchführung von Risiko-/ Prozessanalysen, leitest daraus Handlungsempfehlungen und notwendige Maßnahmen ab und stimmst diese mit Führungskräften ab</li></ul></li><li>Du begleitest die Durchführung von Kundenworkshops und Trainings<ul><li>Zusätzlich im Senior Level: Du setzt die relevanten Unterlagen auf und leitest Workshops und Trainings eigenständig, moderierst Stakeholder-Diskussionen und erstellst fundierte Entscheidungsvorlagen</li></ul></li><li>Du unterstützt bei der Datenanalyse und dem Design prüfungssicherer und automatisierter Kontrollen <ul><li>Zusätzlich im Senior Level: Du konzipierst automatisierte Kontrollen in Zusammenarbeit mit IT und Fachbereich und stellst deren Wirksamkeit und Auditsicherheit her</li></ul></li><li>Du unterstützt beim Aufsetzen geeigneter Management-Dashboards und Reportings (z.B. mittels Microsoft Power BI) <ul><li>Zusätzlich im Senior Level: Du entwickelst Dashboard- und Reporting-Konzepte, die auf Entscheidungsträger:innen zugeschnitten sind, und berätst zur Ausgestaltung geeigneter Kennzahlen</li></ul></li><li>Du wirkst bei der Bewertung von Bedrohungsszenarien und dem Aufsetzen von Notfallplänen mit<ul><li>Zusätzlich im Senior Level: Du verantwortest die Bewertung von Bedrohungsszenarien und berätst Unternehmen bei der Entwicklung robuster Notfall- und Krisenmanagementpläne und leitest Trainings</li></ul></li><li>Du wirkst an der Erarbeitung kundenspezifischer und profitabler KI Use Cases mit<ul><li>Zusätzlich im Senior Level: Du entwickelst kundenspezifische AI Use Cases eigenständig und berätst zu deren technischer Umsetzung und nachhaltigen Verankerung</li></ul></li><li>Du unterstützt den gesamten Akquiseprozess, d.h. von der Angebotserstellung bis hin zum Auftragsabschluss. <ul><li>Zusätzlich im Senior Level: Du erstellst selbstständig Angebote und Präsentationen in Abstimmung mit dem Proposal-Lead und begleitest Angebotspräsentationen bei unseren Kunden</li></ul></li></ul></p><br><strong>DEIN PROFIL</strong><p><ul><li>Du hast Dein Studium erfolgreich abgeschlossen und bringst erste relevante Praxiserfahrung mit, z.B. durch Praktika oder Werkstudententätigkeiten, idealerweise in der Beratung oder einem strategisch geprägten Umfeld<ul><li>Zusätzlich im Senior Level: Du verfügst über mindestens 3 Jahre relevante Berufserfahrung, idealerweise in einer Beratung, Prüfung (Big4) oder Linienfunktion</li></ul></li><li>Du brennst für Themen wie Enterprise Risk Management, Business Continuity Management oder Internes Kontrollsystem und deren Weiterentwicklung und bringst hierfür ein erstes Fundament mit<ul><li>Zusätzlich im Senior Level: Du bringst umfassende Praxiserfahrung und Expertise im Aufbau und der Transformation von Corporate Governance-Systemen mit </li></ul></li><li>Du hast Interesse an einschlägigen Standards, Normen und gesetzlichen Vorgaben und deren pragmatischer Umsetzung, insbesondere IDW-Standards, COSO, ISO, SOX und FISG<ul><li>Zusätzlich im Senior Level: Du verfügst über fundierte Kenntnisse der IDW-Standards, COSO, ISO, SOX und FISG und kannst diese praxisnah in organisatorische und technische Maßnahmen übersetzen</li></ul></li><li>Du hast ein grundlegendes Verständnis von Prozess-und Risikoanalysen und die Ableitung von Maßnahmen bzw. Notfallplänen <ul><li>Zusätzlich im Senior Level: Du besitzt fundierte Erfahrung in der Durchführung von Risiko- und Prozessanalysen im Kontext von Governance-Systemen</li></ul></li><li>Du hast idealerweise erste Berührungspunkte mit Datenanalysen und automatisierten Kontrollen in SAP oder vergleichbaren ERP-Systemen<br><ul><li>Zusätzlich im Senior Level: Du verfügst über fundierte SAP-Kenntnisse und insbesondere im Design von automatisierter Kontrollen und der Umsetzung eines Continuous Controls Monitorings</li></ul></li><li>Du hast idealerweise erste Kenntnisse in Power BI und Power Apps (MS 365)<ul><li>Zusätzlich im Senior Level: Du verfügst über fundierte Kenntnisse in Power BI und Power Apps (MS 365) und kannst diese zur Automatisierung und Visualisierung von Governance-Prozessen einsetzen</li></ul></li><li>Du interessierst Dich für den Einsatz von KI im Unternehmenskontext und bringst die Bereitschaft mit, Dich in AI Use Cases einzuarbeiten<ul><li>Zusätzlich im Senior Level: Du besitzt bereits Erfahrung in der Entwicklung und Umsetzung kundenspezifischer KI Use Cases</li></ul></li><li>Du arbeitest gerne im Team, bist eigeninitiativ und offen für Feedback und Weiterentwicklung<ul><li>Zusätzlich im Senior Level: Du übernimmst gerne Verantwortung und eine aktive Rolle im Team, förderst den fachlichen Austausch und unterstützt die Weiterentwicklung anderer</li></ul></li><li>Du bist kommunikationsstark und sicher im Auftreten auf Deutsch und Englisch (mind. C1 in beiden Sprachen)<ul><li>Zusätzlich im Senior Level: Du kommunizierst souverän auf Deutsch und Englisch auch gegenüber Senior-Stakeholdern</li></ul></li></ul></p><br><strong>DEINE BENEFITS</strong><p><ul style=""border:0px solid rgb(229,231,235);font-family:'Open Sans', sans-serif, Inter, Arial, Helvetica, sans-serif;margin:8px 0px;padding:0px 0px 0px 24px;color:rgb(66,66,66);font-size:14px;font-style:normal;font-weight:400;text-transform:none;background-color:rgb(255,255,255);""><li style=""border:0px solid rgb(229,231,235);font-family:Arial, Helvetica, sans-serif;list-style-type:disc;margin-bottom:4px;font-size:14px;""><strong style=""border:0px solid rgb(229,231,235);font-family:inherit;font-weight:600;"">Unterstützende Teamkultur</strong>: Teamzusammenhalt ist uns wichtig - wir unterstützen uns gegenseitig und pflegen eine gesunde Officekultur. Unser Eventteam plant regelmäßige Afterworks und sorgt für einen Austausch außerhalb des Arbeitsplatzes.</li><li style=""border:0px solid rgb(229,231,235);font-family:Arial, Helvetica, sans-serif;list-style-type:disc;margin-bottom:4px;font-size:14px;""><strong style=""border:0px solid rgb(229,231,235);font-family:inherit;font-weight:600;"">Schnelle Verantwortungsübernahme: </strong>Du übernimmst ab Tag 1 spannende Aufgaben mit eigener Verantwortung - egal ob auf Deinem Projekt oder bei der Einbringung in interne Aufgabe - du gestaltest mit!</li><li style=""border:0px solid rgb(229,231,235);font-family:Arial, Helvetica, sans-serif;list-style-type:disc;margin-bottom:4px;font-size:14px;""><strong style=""border:0px solid rgb(229,231,235);font-family:inherit;font-weight:600;"">Klare Karrieremöglichkeiten: </strong>Bei uns findest du ein Umfeld, das Dich fördert, fordert und weiterbringt. Wir haben klar definierte Karrieremöglichkeiten und ein transparentes Anforderungsmanagement and jedes Level.</li><li style=""border:0px solid rgb(229,231,235);font-family:Arial, Helvetica, sans-serif;list-style-type:disc;margin-bottom:4px;font-size:14px;""><strong style=""border:0px solid rgb(229,231,235);font-family:inherit;font-weight:600;"">Kreativer Arbeitsplatz: </strong>Wir geben dir die Freiheit und Zeit, kreative Lösungen zu entwickeln und bieten dir dafür die beste und modernste Hardware an (Apple oder Windows).</li><li style=""border:0px solid rgb(229,231,235);font-family:Arial, Helvetica, sans-serif;list-style-type:disc;margin-bottom:4px;font-size:14px;""><strong style=""border:0px solid rgb(229,231,235);font-family:inherit;font-weight:600;"">Mitarbeiterbenefits: </strong>Flexible Arbeitsmodelle, BahnCard, JobRad, Spendit-Card, Wellpass und betriebliche Altersvorsorge sorgen für Dein Wohlbefinden. Außerdem gibt es bei uns im Office den Besten Kaffee aus unserer neuen Siebträgermaschine und einen immer gefüllten Soft-Getränkekühlschrank.</li><li style=""border:0px solid rgb(229,231,235);font-family:Arial, Helvetica, sans-serif;list-style-type:disc;margin-bottom:4px;font-size:14px;""><strong style=""border:0px solid rgb(229,231,235);font-family:inherit;font-weight:600;"">Attraktive Urlaubsregelung: </strong>Du genießt 30 Tage Urlaub im Jahr und kannst flexibel von daheim arbeiten.</li></ul></p><p>Find <a href=""https://www.arbeitnow.com"">Jobs in Germany</a> on Arbeitnow</a>","<br><strong>DEINE AUFGABEN</strong><p><ul><li>Du unterstützt beim Aufbau und der Optimierung von Corporate-Governance-Systemen, insbesondere Enterprise Risk Management, Business Continuity Management und Internes Kontrollsystem<ul><li>Zusätzlich im Senior Level: Du übernimmst die Leitung komplexer (Teil-)Projekte zum Aufbau dieser Systeme und trägst die Verantwortung für Automatisierungs- und Digi",full-time,0-3 yrs,False,"Governance, Risk & Compliance (Senior) Consultant (m/w/d)",München,61.0,Offline (On-site),Arbeitnow,"⚠ Python not explicitly emphasized, ⚠ Ml not explicitly emphasized, ⚠ Role title differs from target keywords","{'freshness_score': 95.0, 'source_confidence': 90.0, 'listing_quality_score': 95.0, 'risk_signals': []}",on-site,Not Disclosed,"{'skills': {'score': 10, 'max': 30}, 'role': {'score': 6, 'max': 20}, 'experience': {'score': 15, 'max': 15}, 'location': {'score': 7, 'max': 10}, 'education': {'score': 5, 'max': 5}, 'employment': {'score': 5, 'max': 5}, 'salary': {'score': 4, 'max': 5}, 'freshness': {'score': 5, 'max': 5}, 'requirements': {'score': 4, 'max': 5}}","Ai, Genai, Ki, Künstliche Intelligenz, Artificial Intelligence",arbeitnow,"✓ Ai, ✓ 0–3 years experience accepted, ✓ Offline fit: München at Trusteq Gmbh, ✓ Education qualifications satisfied, ✓ Full-Time employment type",Offline,rec_wf_80136a5ecd_abn_governance-risk-complian_5,61.0%,NO,https://www.arbeitnow.com/jobs/companies/trusteq-gmbh/governance-risk-compliance-senior-consultant-munchen-484119,2026-09-29T15:58:23.418677+00:00
+https://www.arbeitnow.ch/jobs/companies/artefact/senior-consultant-strategy-data-ai-transformation-zurich-269489,Zürich,Artefact,arbeitnow.com,2026-09-28T14:55:10+00:00,"&lt;h2&gt;Who is Artefact?&lt;/h2&gt;
+&lt;p&gt;Artefact is a next-generation strategy and data consulting firm dedicated to transforming organisations through data and AI. We combine the rigour of top-tier strategy consulting with deep expertise in data, digital and analytics to help clients achieve tangible business impact.&lt;/p&gt;
+&lt;p&gt;With 2,500+ consultants, data scientists and engineers, we work with global leaders such as Samsung, L’Oréal, Orange and Sanofi. Our Swiss offices are at the heart of Artefact’s growth, advising clients on their most pressing strategic challenges — from AI strategy and governance to digital transformation roadmaps and new business model design.&lt;/p&gt;
+&lt;h2&gt;Main Responsibilities&lt;/h2&gt;
+&lt;p&gt;As a Senior Consultant in our Zurich/Lausanne office, you will work at the intersection of strategy consulting and data and AI delivery. You will:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Strategy Development:&lt;/strong&gt; Work with client leadership teams to address high-stakes questions. How can AI reshape our business model? How should we govern and organise for data? Which strategic programmes deliver the most impact?&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Structured Problem-Solving:&lt;/strong&gt; Break complex challenges down into decisions a client can act on, combining consulting rigour with a working knowledge of what current AI can and cannot actually do.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Solution Design:&lt;/strong&gt; Turn a business question into a solution shape — what data it depends on, what kind of platform or product it should sit on, and what “good” looks like once it is built. You will do this alongside our data scientists and engineers.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Project Delivery:&lt;/strong&gt; Support engagements end to end, from hypothesis framing and market and competitor analysis through to data maturity assessments, client workshops, governance design and implementation roadmaps.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Client Engagement:&lt;/strong&gt; Work closely with C-level stakeholders and business unit leaders. You will build trusted relationships, communicate recommendations with clarity, and keep the work aligned to what the client is actually trying to decide.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Knowledge &amp;amp; Practice Building:&lt;/strong&gt; Contribute to the growth of Artefact&#39;s Zurich office by shaping new offerings, creating intellectual capital - frameworks, thought pieces, benchmarks - and taking part in business development.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Candidate Profile&lt;/h2&gt;
+&lt;p&gt;We are looking for someone who can hold a technical position and a commercial one at the same time. The strongest candidates meet most of the following.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Education:&lt;/strong&gt; A degree in Computer Science, Engineering, Data Science, Business, Economics or a related field.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Work Experience:&lt;/strong&gt; Around three to five years in consulting, or in a technical/date-focussed role with client-facing responsibility.&amp;nbsp;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Business Acumen &amp;amp; AI Fluency:&lt;/strong&gt; A genuine dual affinity for business and technology. You are comfortable with modern data and AI concepts - generative AI and LLMs, retrieval, predictive machine learning, cloud platforms - and with what they cost and where they fail, not only with what they are called.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Technical Depth:&lt;/strong&gt; You have built AI or data products, not only advised on them. You can explain why you chose which model you put on which part of the work, and what that choice did to both output quality and cost. You will not be writing production code in this role, but you should have the basic understanding.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Analytical &amp;amp; Problem-Solving Skills:&lt;/strong&gt; Strong quantitative and analytical skills, and the judgement to know which number actually decides the question. You are comfortable getting to a defensible estimate with your assumptions stated out loud.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Communication &amp;amp; Interpersonal Skills:&lt;/strong&gt; Excellent written and verbal communication. You enjoy working in teams and in front of clients.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Languages:&lt;/strong&gt; Fluency in German/French and English, written and spoken, is strongly preferred..&amp;nbsp;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Work Eligibility:&lt;/strong&gt; You must be eligible to work in Switzerland.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Why Join Us&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Strategy and the Build:&lt;/strong&gt; Artefact is neither a traditional strategy consultancy nor a pure technology player. You will move between the boardroom and the build, and be expected to be credible in both.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Engineers, not hand-offs:&lt;/strong&gt; Our 2,500 people include the data scientists and engineers you will work beside on the same engagement - not a delivery organisation you hand a slide deck to.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Zurich Office Impact:&lt;/strong&gt; As part of a growing Swiss team you will have visibility and impact from the first day. You will help shape Artefact&#39;s footprint in the region and work directly with senior leadership.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Learning &amp;amp; Growth:&lt;/strong&gt; Regular training in both consulting method and AI and data capability, combined with international exposure.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Culture of Doers:&lt;/strong&gt; Innovation, action, collaboration. We are entrepreneurial and fast-moving, committed to delivering impact while supporting each other&#39;s growth.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This position is based in &lt;strong&gt;Zürich or Lausanne&lt;/strong&gt;.&lt;/p&gt;<p>Find <a href=""https://www.arbeitnow.ch"">Jobs in Switzerland</a> on Arbeitnow</a>","&lt;h2&gt;Who is Artefact?&lt;/h2&gt;
+&lt;p&gt;Artefact is a next-generation strategy and data consulting firm dedicated to transforming organisations through data and AI. We combine the rigour of top-tier strategy consulting with deep expertise in data, digital and analytics to help clients achieve tangible business impact.&lt;/p&gt;
+&lt;p&gt;With 2,500+ consultants, data scientists and engineers",full-time,0-3 yrs,False,Senior Consultant (Strategy & Data/AI Transformation),Zürich,60.0,Offline (On-site),Arbeitnow,"⚠ Python not explicitly emphasized, ⚠ Ml not explicitly emphasized, ⚠ Role title differs from target keywords","{'freshness_score': 95.0, 'source_confidence': 90.0, 'listing_quality_score': 95.0, 'risk_signals': []}",on-site,Not Disclosed,"{'skills': {'score': 10, 'max': 30}, 'role': {'score': 6, 'max': 20}, 'experience': {'score': 15, 'max': 15}, 'location': {'score': 7, 'max': 10}, 'education': {'score': 5, 'max': 5}, 'employment': {'score': 5, 'max': 5}, 'salary': {'score': 4, 'max': 5}, 'freshness': {'score': 4, 'max': 5}, 'requirements': {'score': 4, 'max': 5}}",Data Consulting,arbeitnow,"✓ Ai, ✓ 0–3 years experience accepted, ✓ Offline fit: Zürich at Artefact, ✓ Education qualifications satisfied, ✓ Full-Time employment type",Offline,rec_wf_80136a5ecd_abn_senior-consultant-strate_6,60.0%,NO,https://www.arbeitnow.ch/jobs/companies/artefact/senior-consultant-strategy-data-ai-transformation-zurich-269489,2026-09-29T15:58:23.421844+00:00
+https://www.arbeitnow.ch/jobs/companies/imc/python-software-engineer-digital-assets-zug-495607,Zug,Imc,arbeitnow.com,2026-09-28T14:55:07+00:00,"&lt;p&gt;IMC has a strong presence in traditional Finance and has been expanding into Crypto over the last years. Through its overseas affiliates, IMC provides liquidity and trades on many cryptocurrency exchanges and DeFi protocols. You can expect a dynamic, fast-paced environment that delivers a steady stream of challenges and opportunities, with one of the most exciting aspects of the job being our quick feedback loop in the research, development and deployment of strategies.&lt;/p&gt;
+&lt;p&gt;As a Python Software Engineer, you will work closely with our trading and engineering teams on a variety of applications, tools and automation projects. You’ll be placed in an environment consisting primarily of a large Python analysis ecosystem drawing data from various sources including our own trading systems. You’ll build analysis &amp;amp; visualisation tools at the heart of the business logic, in close collaboration with the traders who use them. Your work involves both interpreting ideas, coming up with your own, and efficiently implementing these into tools that are reliable, scalable and performant.&lt;/p&gt;
+&lt;p&gt;Together with traders, researchers and engineers, you deliver challenging projects, while taking ownership for end-to-end product development – from requirements gathering to production. You’ll write reliable and scalable software while balancing time to production with quality and testability. Advanced automated testing and daily deployments will allow you to achieve agile and incremental benefits. Within a complex landscape of varying systems and technologies, you’ll be constantly challenged to consider trade-offs between throughput, simplicity, scalability and maintainability.&lt;/p&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Your Core Responsibilities:&amp;nbsp;&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Collaborate closely with researchers, and engineers to deliver challenging projects.&lt;/li&gt;
+&lt;li&gt;Build, maintain, and enhance research frameworks and data pipelines that enable trading and quantitative research.&lt;/li&gt;
+&lt;li&gt;Curate, transform, and present data in clear, accessible formats for traders and researchers.&lt;/li&gt;
+&lt;li&gt;Take ownership of end-to-end product development, from requirements gathering to production deployment&lt;/li&gt;
+&lt;li&gt;Navigate a complex landscape of diverse systems and technologies, making informed trade-offs between throughput, simplicity, scalability, and maintainability&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Your Skills and Experience: &lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Master’s or Ph.D. in Mathematics, Physics, Statistics, Computer Science, Econometrics, or a related discipline.&lt;/li&gt;
+&lt;li&gt;2–3 years of professional Python development experience&lt;/li&gt;
+&lt;li&gt;solid computer science knowledge, has experience or capability to quickly adapt to additional languages such as Java, Scala, C++, Go, etc.&lt;/li&gt;
+&lt;li&gt;Hands-on experience with statistical analysis, numerical programming, data engineering, or machine learning in Python (Polars, Pandas, NumPy, SciPy, TensorFlow).&lt;/li&gt;
+&lt;li&gt;Proven ability to handle large datasets, architect and optimize data pipelines, and present data effectively.&lt;/li&gt;
+&lt;li&gt;Experience with orchestration and containerization tools like Kubernetes and Docker is a plus.&lt;/li&gt;
+&lt;li&gt;Solid grounding in calculus, probability, statistics, and optimization; familiarity with machine-learning techniques is beneficial.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Location and Office Culture:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;IMC office in Zug, Switzerland&lt;/li&gt;
+&lt;li&gt;Note that this is an onsite role, with some but limited flexibility for working from home&lt;/li&gt;
+&lt;li&gt;You can expect a dynamic, fast-paced environment that delivers a steady stream of challenges and opportunities&lt;/li&gt;
+&lt;li&gt;One of the most exciting aspects of the job is our quick feedback loop in the research, development and deployment of strategies&lt;/li&gt;
+&lt;li&gt;We give people lots of responsibility and the support they need to make an impact from day one&lt;/li&gt;
+&lt;li&gt;We promise you a flat structure and an open, collaborative culture that stimulates the sharing of ideas, knowledge and technology between our teams and offices&lt;/li&gt;
+&lt;/ul&gt;&lt;div class=&quot;content-conclusion&quot;&gt;&lt;p&gt;&lt;strong&gt;About Us&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;IMC is a research-driven trading firm where quantitative modeling, machine learning, and engineering shape how modern markets are traded. A stabilizing force in markets since 1989, we provide liquidity across trading venues, delivering the best outcome in value and risk management to investors. Using our own technology and capital, we build proprietary systems and algorithms that operate across global markets. Our researchers, traders, and engineers work as a collective, combining rapid experimentation, advanced infrastructure, and real-time feedback to turn insight into execution and execution into advantage.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;/div&gt;<p>Find <a href=""https://www.arbeitnow.ch"">Jobs in Switzerland</a> on Arbeitnow</a>","&lt;p&gt;IMC has a strong presence in traditional Finance and has been expanding into Crypto over the last years. Through its overseas affiliates, IMC provides liquidity and trades on many cryptocurrency exchanges and DeFi protocols. You can expect a dynamic, fast-paced environment that delivers a steady stream of challenges and opportunities, with one of the most exciting aspects of the job being",full-time,0-3 yrs,False,Python Software Engineer - Digital Assets,Zug,60.0,Offline (On-site),Arbeitnow,"⚠ Ml not explicitly emphasized, ⚠ Ai not explicitly emphasized, ⚠ Role title differs from target keywords","{'freshness_score': 95.0, 'source_confidence': 90.0, 'listing_quality_score': 95.0, 'risk_signals': []}",on-site,Not Disclosed,"{'skills': {'score': 10, 'max': 30}, 'role': {'score': 6, 'max': 20}, 'experience': {'score': 15, 'max': 15}, 'location': {'score': 7, 'max': 10}, 'education': {'score': 5, 'max': 5}, 'employment': {'score': 5, 'max': 5}, 'salary': {'score': 4, 'max': 5}, 'freshness': {'score': 4, 'max': 5}, 'requirements': {'score': 4, 'max': 5}}",Development (Group),arbeitnow,"✓ Python, ✓ 0–3 years experience accepted, ✓ Offline fit: Zug at Imc, ✓ Education qualifications satisfied, ✓ Full-Time employment type",Offline,rec_wf_80136a5ecd_abn_python-software-engineer_7,60.0%,NO,https://www.arbeitnow.ch/jobs/companies/imc/python-software-engineer-digital-assets-zug-495607,2026-09-29T15:58:23.425491+00:00
+https://www.arbeitnow.ch/jobs/companies/artefactlinkedin/senior-consultant-strategy-data-ai-transformation-zurich-134394,Zürich,Artefactlinkedin,arbeitnow.com,2026-09-28T11:55:09+00:00,"&lt;h2&gt;Who is Artefact?&lt;/h2&gt;
+&lt;p&gt;Artefact is a next-generation strategy and data consulting firm dedicated to transforming organisations through data and AI. We combine the rigour of top-tier strategy consulting with deep expertise in data, digital and analytics to help clients achieve tangible business impact.&lt;/p&gt;
+&lt;p&gt;With 2,500+ consultants, data scientists and engineers, we work with global leaders such as Samsung, L’Oréal, Orange and Sanofi. Our Swiss offices are at the heart of Artefact’s growth, advising clients on their most pressing strategic challenges — from AI strategy and governance to digital transformation roadmaps and new business model design.&lt;/p&gt;
+&lt;h2&gt;Main Responsibilities&lt;/h2&gt;
+&lt;p&gt;As a Senior Consultant in our Zurich/Lausanne office, you will work at the intersection of strategy consulting and data and AI delivery. You will:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Strategy Development:&lt;/strong&gt; Work with client leadership teams to address high-stakes questions. How can AI reshape our business model? How should we govern and organise for data? Which strategic programmes deliver the most impact?&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Structured Problem-Solving:&lt;/strong&gt; Break complex challenges down into decisions a client can act on, combining consulting rigour with a working knowledge of what current AI can and cannot actually do.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Solution Design:&lt;/strong&gt; Turn a business question into a solution shape — what data it depends on, what kind of platform or product it should sit on, and what “good” looks like once it is built. You will do this alongside our data scientists and engineers.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Project Delivery:&lt;/strong&gt; Support engagements end to end, from hypothesis framing and market and competitor analysis through to data maturity assessments, client workshops, governance design and implementation roadmaps.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Client Engagement:&lt;/strong&gt; Work closely with C-level stakeholders and business unit leaders. You will build trusted relationships, communicate recommendations with clarity, and keep the work aligned to what the client is actually trying to decide.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Knowledge &amp;amp; Practice Building:&lt;/strong&gt; Contribute to the growth of Artefact&#39;s Zurich office by shaping new offerings, creating intellectual capital - frameworks, thought pieces, benchmarks - and taking part in business development.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Candidate Profile&lt;/h2&gt;
+&lt;p&gt;We are looking for someone who can hold a technical position and a commercial one at the same time. The strongest candidates meet most of the following.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Education:&lt;/strong&gt; A degree in Computer Science, Engineering, Data Science, Business, Economics or a related field.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Work Experience:&lt;/strong&gt; Around three to five years in consulting, or in a technical/date-focussed role with client-facing responsibility.&amp;nbsp;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Business Acumen &amp;amp; AI Fluency:&lt;/strong&gt; A genuine dual affinity for business and technology. You are comfortable with modern data and AI concepts - generative AI and LLMs, retrieval, predictive machine learning, cloud platforms - and with what they cost and where they fail, not only with what they are called.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Technical Depth:&lt;/strong&gt; You have built AI or data products, not only advised on them. You can explain why you chose which model you put on which part of the work, and what that choice did to both output quality and cost. You will not be writing production code in this role, but you should have the basic understanding.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Analytical &amp;amp; Problem-Solving Skills:&lt;/strong&gt; Strong quantitative and analytical skills, and the judgement to know which number actually decides the question. You are comfortable getting to a defensible estimate with your assumptions stated out loud.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Communication &amp;amp; Interpersonal Skills:&lt;/strong&gt; Excellent written and verbal communication. You enjoy working in teams and in front of clients.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Languages:&lt;/strong&gt; Fluency in German/French and English, written and spoken, is strongly preferred..&amp;nbsp;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Work Eligibility:&lt;/strong&gt; You must be eligible to work in Switzerland.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Why Join Us&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Strategy and the Build:&lt;/strong&gt; Artefact is neither a traditional strategy consultancy nor a pure technology player. You will move between the boardroom and the build, and be expected to be credible in both.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Engineers, not hand-offs:&lt;/strong&gt; Our 2,500 people include the data scientists and engineers you will work beside on the same engagement - not a delivery organisation you hand a slide deck to.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Zurich Office Impact:&lt;/strong&gt; As part of a growing Swiss team you will have visibility and impact from the first day. You will help shape Artefact&#39;s footprint in the region and work directly with senior leadership.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Learning &amp;amp; Growth:&lt;/strong&gt; Regular training in both consulting method and AI and data capability, combined with international exposure.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Culture of Doers:&lt;/strong&gt; Innovation, action, collaboration. We are entrepreneurial and fast-moving, committed to delivering impact while supporting each other&#39;s growth.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This position is based in &lt;strong&gt;Zürich or Lausanne&lt;/strong&gt;.&lt;/p&gt;<p>Find <a href=""https://www.arbeitnow.ch"">Jobs in Switzerland</a> on Arbeitnow</a>","&lt;h2&gt;Who is Artefact?&lt;/h2&gt;
+&lt;p&gt;Artefact is a next-generation strategy and data consulting firm dedicated to transforming organisations through data and AI. We combine the rigour of top-tier strategy consulting with deep expertise in data, digital and analytics to help clients achieve tangible business impact.&lt;/p&gt;
+&lt;p&gt;With 2,500+ consultants, data scientists and engineers",full-time,0-3 yrs,False,Senior Consultant (Strategy & Data/AI Transformation),Zürich,60.0,Offline (On-site),Arbeitnow,"⚠ Python not explicitly emphasized, ⚠ Ml not explicitly emphasized, ⚠ Role title differs from target keywords","{'freshness_score': 95.0, 'source_confidence': 90.0, 'listing_quality_score': 95.0, 'risk_signals': []}",on-site,Not Disclosed,"{'skills': {'score': 10, 'max': 30}, 'role': {'score': 6, 'max': 20}, 'experience': {'score': 15, 'max': 15}, 'location': {'score': 7, 'max': 10}, 'education': {'score': 5, 'max': 5}, 'employment': {'score': 5, 'max': 5}, 'salary': {'score': 4, 'max': 5}, 'freshness': {'score': 4, 'max': 5}, 'requirements': {'score': 4, 'max': 5}}",Data Consulting,arbeitnow,"✓ Ai, ✓ 0–3 years experience accepted, ✓ Offline fit: Zürich at Artefactlinkedin, ✓ Education qualifications satisfied, ✓ Full-Time employment type",Offline,rec_wf_80136a5ecd_abn_senior-consultant-strate_8,60.0%,NO,https://www.arbeitnow.ch/jobs/companies/artefactlinkedin/senior-consultant-strategy-data-ai-transformation-zurich-134394,2026-09-29T15:58:23.428886+00:00
