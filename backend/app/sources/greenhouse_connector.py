@@ -9,9 +9,10 @@ import logging
 import hashlib
 from typing import Dict, List, Optional, Any
 from datetime import datetime, timezone
+import re
 
 from backend.app.sources.base import JobSourceConnector, SourceHealth, SourceCapabilities
-from backend.app.locations.india_locations import normalize_location
+from backend.app.locations.india_locations import normalize_location, matches_location_preference, is_online_gig
 
 logger = logging.getLogger(__name__)
 
@@ -52,7 +53,7 @@ class GreenhouseConnector(JobSourceConnector):
         roles = [r.lower() for r in (query_spec.get("roles") or [])]
         skills = [s.lower() for s in (query_spec.get("skills") or [])]
         target_locations = [l.lower() for l in (query_spec.get("locations") or [])]
-        remote_allowed = query_spec.get("remote", True)
+        remote_allowed = query_spec.get("remote", False)
 
         search_tokens = set(keywords + roles + skills)
 
@@ -77,37 +78,33 @@ class GreenhouseConnector(JobSourceConnector):
                         loc_raw = (item.get("location") or {}).get("name", "")
                         loc_lower = loc_raw.lower()
 
-                        # Relevancy check: title or department matches target keywords/roles
-                        matches_role = True
+                        # 1. Skip non-engineering online gigs
+                        if is_online_gig(title, ""):
+                            continue
+
+                        # 2. Strict Location check (Drop foreign jobs when searching Pune/Bengaluru/India)
+                        loc_matches, loc_pts = matches_location_preference(loc_raw, target_locations, remote_allowed)
+                        if not loc_matches or loc_pts == 0:
+                            continue
+
+                        # 3. Relevancy check: title or department matches target keywords/roles using word boundaries
+                        matches_role = False
                         if search_tokens:
-                            matches_role = any(tok in title_lower for tok in search_tokens)
-                            if not matches_role:
-                                dept_name = ""
+                            if any(re.search(r'\b' + re.escape(tok) + r'\b', title_lower) for tok in search_tokens):
+                                matches_role = True
+                            else:
                                 departments = item.get("departments", [])
                                 if departments:
                                     dept_name = departments[0].get("name", "").lower()
-                                if any(tok in dept_name for tok in search_tokens):
-                                    matches_role = True
+                                    if any(re.search(r'\b' + re.escape(tok) + r'\b', dept_name) for tok in search_tokens):
+                                        matches_role = True
+                        else:
+                            matches_role = True
 
                         if not matches_role:
                             continue
 
-                        # Location check
                         loc_info = normalize_location(loc_raw)
-                        is_remote = loc_info["remote_type"] == "remote" or "remote" in loc_lower
-
-                        loc_matches = True
-                        if target_locations:
-                            loc_matches = False
-                            if remote_allowed and is_remote:
-                                loc_matches = True
-                            elif any(target in loc_lower or target in (loc_info.get("city") or "").lower() for target in target_locations):
-                                loc_matches = True
-                            elif "india" in loc_lower or loc_info.get("country") == "India":
-                                loc_matches = True
-
-                        if not loc_matches:
-                            continue
 
                         job_id = str(item.get("id"))
                         apply_url = item.get("absolute_url") or f"https://boards.greenhouse.io/{board_token}/jobs/{job_id}"
@@ -137,6 +134,7 @@ class GreenhouseConnector(JobSourceConnector):
                             "state": loc_info["state"],
                             "country": loc_info["country"],
                             "remote_type": loc_info["remote_type"],
+                            "work_modality": "Online" if loc_info["remote_type"] == "remote" else "Offline",
                             "employment_type": "full-time",
                             "experience_min": 0,
                             "experience_max": 2 if "intern" in title_lower or "junior" in title_lower else 5,

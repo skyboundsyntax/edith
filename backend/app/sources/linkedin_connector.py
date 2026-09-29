@@ -15,7 +15,7 @@ from typing import Dict, List, Optional, Any
 from datetime import datetime, timezone
 
 from backend.app.sources.base import JobSourceConnector, SourceHealth, SourceCapabilities
-from backend.app.locations.india_locations import normalize_location
+from backend.app.locations.india_locations import normalize_location, matches_location_preference, is_online_gig
 
 logger = logging.getLogger(__name__)
 
@@ -126,12 +126,21 @@ class LinkedInConnector(JobSourceConnector):
                 desc_tasks = [fetch_desc(item) for item in parsed_items[:4]]
                 descriptions = await asyncio.gather(*desc_tasks, return_exceptions=True)
 
-                now_iso = datetime.now(timezone.utc).isoformat()
+                remote_allowed = query_spec.get("remote", False)
                 for idx, item in enumerate(parsed_items):
                     if idx < len(descriptions) and isinstance(descriptions[idx], str):
                         desc = descriptions[idx]
                     else:
                         desc = f"Live opening for {item['title']} at {item['company']} in {item['loc_raw']}. Posted: {item['posted_date']}. Apply directly on LinkedIn."
+
+                    # 1. Skip non-engineering online gigs
+                    if is_online_gig(item["title"], desc):
+                        continue
+
+                    # 2. Strict location check
+                    loc_matches, loc_pts = matches_location_preference(item["loc_raw"], locations, remote_allowed)
+                    if not loc_matches or loc_pts == 0:
+                        continue
 
                     loc_info = normalize_location(item["loc_raw"])
                     content_hash = hashlib.sha256(f"{item['title']}_{item['company']}_{item['job_id']}".encode()).hexdigest()
@@ -156,6 +165,7 @@ class LinkedInConnector(JobSourceConnector):
                         "state": loc_info.get("state"),
                         "country": loc_info.get("country", "India"),
                         "remote_type": loc_info.get("remote_type", "on-site"),
+                        "work_modality": "Online" if loc_info.get("remote_type") == "remote" else "Offline",
                         "employment_type": "full-time",
                         "experience_min": query_spec.get("experience_min", 0),
                         "experience_max": query_spec.get("experience_max", 3),

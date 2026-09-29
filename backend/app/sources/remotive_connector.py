@@ -12,8 +12,9 @@ from bs4 import BeautifulSoup
 from typing import Dict, List, Optional, Any
 from datetime import datetime, timezone
 
+import re
 from backend.app.sources.base import JobSourceConnector, SourceHealth, SourceCapabilities
-from backend.app.locations.india_locations import normalize_location
+from backend.app.locations.india_locations import normalize_location, matches_location_preference, is_online_gig
 
 logger = logging.getLogger(__name__)
 
@@ -27,6 +28,11 @@ class RemotiveConnector(JobSourceConnector):
     enabled = True
 
     def can_handle(self, query_spec: Dict[str, Any]) -> bool:
+        locations = query_spec.get("locations") or []
+        remote = query_spec.get("remote", False)
+        # If user explicitly wants on-site local jobs only, skip Remotive
+        if locations and not remote:
+            return False
         return True
 
     async def search(self, query_spec: Dict[str, Any]) -> List[Dict[str, Any]]:
@@ -34,6 +40,8 @@ class RemotiveConnector(JobSourceConnector):
         keywords = [k.lower() for k in (query_spec.get("keywords") or [])]
         roles = [r.lower() for r in (query_spec.get("roles") or [])]
         skills = [s.lower() for s in (query_spec.get("skills") or [])]
+        target_locations = [l.lower() for l in (query_spec.get("locations") or [])]
+        remote_allowed = query_spec.get("remote", False)
         search_tokens = set(keywords + roles + skills)
 
         search_term = "software"
@@ -55,13 +63,33 @@ class RemotiveConnector(JobSourceConnector):
                 data = resp.json()
                 items = data.get("jobs", [])
 
-                for item in items[:8]:
+                for item in items:
                     title = item.get("title", "")
+                    title_lower = title.lower()
                     company = item.get("company_name", "Tech Startup")
                     job_url = item.get("url", "")
                     raw_desc = item.get("description", "")
                     clean_desc = BeautifulSoup(raw_desc, "html.parser").get_text(separator="\n", strip=True) if raw_desc else ""
                     candidate_loc = item.get("candidate_required_location") or "Remote"
+
+                    # 1. Skip non-engineering online gigs
+                    if is_online_gig(title, clean_desc):
+                        continue
+
+                    # 2. Strict location matching
+                    loc_matches, loc_pts = matches_location_preference(candidate_loc, target_locations, remote_allowed)
+                    if not loc_matches or loc_pts == 0:
+                        continue
+
+                    # 3. Relevancy check with word boundaries
+                    if search_tokens:
+                        has_title_match = any(re.search(r'\b' + re.escape(tok) + r'\b', title_lower) for tok in search_tokens)
+                        tags_lower = " ".join([t.lower() for t in item.get("tags", [])])
+                        has_tag_match = any(re.search(r'\b' + re.escape(tok) + r'\b', tags_lower) for tok in search_tokens)
+                        if not has_title_match and not has_tag_match:
+                            continue
+
+                    loc_info = normalize_location(candidate_loc)
                     salary = item.get("salary") or "Not Disclosed"
                     job_id = str(item.get("id"))
                     now_iso = datetime.now(timezone.utc).isoformat()
@@ -84,11 +112,12 @@ class RemotiveConnector(JobSourceConnector):
                         "responsibilities": [],
                         "skills": [s.title() for s in item.get("tags", [])][:5],
                         "technologies": [],
-                        "location": candidate_loc,
-                        "city": "Remote",
-                        "state": None,
-                        "country": "Remote",
+                        "location": loc_info["canonical_location"],
+                        "city": loc_info.get("city") or "Remote",
+                        "state": loc_info.get("state"),
+                        "country": loc_info.get("country", "India"),
                         "remote_type": "remote",
+                        "work_modality": "Online",
                         "employment_type": item.get("job_type", "full-time").lower(),
                         "experience_min": query_spec.get("experience_min", 0),
                         "experience_max": query_spec.get("experience_max", 3),

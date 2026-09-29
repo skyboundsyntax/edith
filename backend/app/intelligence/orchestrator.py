@@ -10,13 +10,14 @@ import logging
 from typing import Dict, List, Optional, Any, Callable
 from datetime import datetime, timezone
 import json
+import re
 
 from backend.app.sources.registry import source_registry
 from backend.app.intelligence.deduplicator import deduplicate_jobs
 from backend.app.intelligence.match_scorer import score_job_match
 from backend.app.db.database import SessionLocal
 from backend.app.db.models import WorkflowModel, DataRecordModel, JobModel
-from backend.app.locations.india_locations import normalize_location
+from backend.app.locations.india_locations import normalize_location, matches_location_preference, is_online_gig
 
 logger = logging.getLogger(__name__)
 
@@ -115,20 +116,61 @@ async def run_job_ingestion_pipeline(
             "message": f"Deduplication pruned {duplicates_pruned} cross-platform duplicate postings."
         })
 
-        # Step 4: Validation & Liveness
+        # Step 4: Validation & Liveness & Localization Filtering
         validated_jobs = []
         expired_count = 0
+        geo_excluded_count = 0
+        gig_excluded_count = 0
+
+        target_locs = query_spec.get("locations") or []
+        remote_allowed = query_spec.get("remote", False)
+
+        all_query_terms = " ".join(
+            [r.lower() for r in (query_spec.get("roles") or [])] +
+            [s.lower() for s in (query_spec.get("skills") or [])] +
+            [k.lower() for k in (query_spec.get("keywords") or [])]
+        )
+        is_tech_search = any(re.search(r'\b' + kw + r'\b', all_query_terms) for kw in ["software", "engineer", "developer", "ai", "ml", "python", "data", "frontend", "backend", "fullstack"])
+
         for job in canonical_jobs:
             # Active check
-            if job.get("is_active", True):
-                validated_jobs.append(job)
-            else:
+            if not job.get("is_active", True):
                 expired_count += 1
+                continue
+
+            title = job.get("title") or ""
+            desc = job.get("description") or ""
+
+            # Online non-tech gig filter
+            if is_tech_search and is_online_gig(title, desc):
+                gig_excluded_count += 1
+                continue
+
+            # Strict Location / Geographic Filter:
+            # If target locations (e.g. Pune, Bengaluru) or India context is requested,
+            # drop foreign/mismatched listings (e.g. USA, UK, Germany, Spain, Czechia)
+            job_loc = job.get("location") or "Remote"
+            loc_match, loc_pts = matches_location_preference(job_loc, target_locs, remote_allowed)
+            if not loc_match and loc_pts == 0:
+                geo_excluded_count += 1
+                continue
+
+            validated_jobs.append(job)
+
+        msg_parts = [f"{len(validated_jobs)} active listings verified"]
+        if expired_count > 0:
+            msg_parts.append(f"{expired_count} closed postings flagged")
+        if geo_excluded_count > 0:
+            msg_parts.append(f"{geo_excluded_count} foreign/mismatched locations filtered")
+        if gig_excluded_count > 0:
+            msg_parts.append(f"{gig_excluded_count} non-engineering online gigs pruned")
 
         await emit("validation_completed", {
             "active_count": len(validated_jobs),
             "expired_count": expired_count,
-            "message": f"{len(validated_jobs)} active listings verified. {expired_count} closed postings flagged."
+            "geo_excluded_count": geo_excluded_count,
+            "gig_excluded_count": gig_excluded_count,
+            "message": ". ".join(msg_parts) + "."
         })
 
         # Step 5: Deterministic Match Scoring & Explainability
@@ -226,6 +268,12 @@ async def run_job_ingestion_pipeline(
                 db.add(new_job)
 
                 # Also persist DataRecordModel for backward compatibility
+                remote_type = str(j.get("remote_type") or "on-site").lower()
+                loc_str = str(j.get("location") or "").lower()
+                is_online = (remote_type == "remote") or any(k in loc_str for k in ["remote", "online", "virtual", "wfh", "anywhere"])
+                work_modality = "Online" if is_online else "Offline"
+                modality_detail = "Online (Remote)" if is_online else ("Offline (Hybrid)" if remote_type == "hybrid" else "Offline (On-site)")
+
                 data_record = DataRecordModel(
                     id=f"rec_{db_job_id}",
                     workflow_id=workflow_id,
@@ -236,7 +284,9 @@ async def run_job_ingestion_pipeline(
                         "company_domain": j.get("company_domain"),
                         "location": j.get("location"),
                         "city": j.get("city"),
-                        "remote_type": j.get("remote_type"),
+                        "remote_type": j.get("remote_type") or ("remote" if is_online else "on-site"),
+                        "work_modality": work_modality,
+                        "modality_detail": modality_detail,
                         "employment_type": j.get("employment_type"),
                         "skills": j.get("skills"),
                         "experience_years": f"{j.get('experience_min', 0)}-{j.get('experience_max', 2)} yrs" if j.get("experience_max") is not None else "0-2 yrs",

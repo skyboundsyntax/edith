@@ -9,9 +9,10 @@ import logging
 import hashlib
 from typing import Dict, List, Optional, Any
 from datetime import datetime, timezone
+import re
 
 from backend.app.sources.base import JobSourceConnector, SourceHealth, SourceCapabilities
-from backend.app.locations.india_locations import normalize_location
+from backend.app.locations.india_locations import normalize_location, matches_location_preference, is_online_gig
 
 logger = logging.getLogger(__name__)
 
@@ -25,6 +26,11 @@ class ArbeitnowConnector(JobSourceConnector):
     enabled = True
 
     def can_handle(self, query_spec: Dict[str, Any]) -> bool:
+        locations = query_spec.get("locations") or []
+        remote = query_spec.get("remote", False)
+        # If user explicitly wants on-site local jobs in India, skip EU board
+        if locations and not remote:
+            return False
         return True
 
     async def search(self, query_spec: Dict[str, Any]) -> List[Dict[str, Any]]:
@@ -33,7 +39,7 @@ class ArbeitnowConnector(JobSourceConnector):
         roles = [r.lower() for r in (query_spec.get("roles") or [])]
         skills = [s.lower() for s in (query_spec.get("skills") or [])]
         target_locations = [l.lower() for l in (query_spec.get("locations") or [])]
-        remote_allowed = query_spec.get("remote", True)
+        remote_allowed = query_spec.get("remote", False)
 
         search_tokens = set(keywords + roles + skills)
 
@@ -56,32 +62,35 @@ class ArbeitnowConnector(JobSourceConnector):
                     loc_lower = loc_raw.lower()
                     is_remote = item.get("remote", False)
                     tags = [t.lower() for t in item.get("tags", [])]
+                    desc_raw = item.get("description", "")
 
-                    # Relevancy check
-                    matches_role = True
+                    # 1. Skip non-engineering online gigs
+                    if is_online_gig(title, desc_raw):
+                        continue
+
+                    # 2. Strict Location check (Drop European/German on-site or geo-restricted jobs for India queries)
+                    loc_matches, loc_pts = matches_location_preference(loc_raw, target_locations, remote_allowed)
+                    if not loc_matches or loc_pts == 0:
+                        continue
+
+                    # 3. Relevancy check using word boundaries (avoids 'ai' matching 'trainer', 'trainee', 'spain', etc.)
+                    matches_role = False
                     if search_tokens:
-                        matches_role = any(tok in title_lower for tok in search_tokens) or any(tok in " ".join(tags) for tok in search_tokens)
+                        if any(re.search(r'\b' + re.escape(tok) + r'\b', title_lower) for tok in search_tokens):
+                            matches_role = True
+                        else:
+                            tags_text = " ".join(tags)
+                            if any(re.search(r'\b' + re.escape(tok) + r'\b', tags_text) for tok in search_tokens):
+                                matches_role = True
+                    else:
+                        matches_role = True
 
                     if not matches_role:
                         continue
 
-                    # Location check
                     loc_info = normalize_location(loc_raw)
                     if is_remote:
                         loc_info["remote_type"] = "remote"
-
-                    loc_matches = True
-                    if target_locations:
-                        loc_matches = False
-                        if remote_allowed and is_remote:
-                            loc_matches = True
-                        elif any(target in loc_lower or target in (loc_info.get("city") or "").lower() for target in target_locations):
-                            loc_matches = True
-                        elif "india" in loc_lower or loc_info.get("country") == "India":
-                            loc_matches = True
-
-                    if not loc_matches:
-                        continue
 
                     job_id = item.get("slug") or str(hash(title + company))
                     apply_url = item.get("url") or f"https://www.arbeitnow.com/jobs/{job_id}"
@@ -115,6 +124,7 @@ class ArbeitnowConnector(JobSourceConnector):
                         "state": loc_info["state"],
                         "country": loc_info["country"],
                         "remote_type": "remote" if is_remote else loc_info["remote_type"],
+                        "work_modality": "Online" if (is_remote or loc_info["remote_type"] == "remote") else "Offline",
                         "employment_type": "full-time",
                         "experience_min": 0,
                         "experience_max": 3,

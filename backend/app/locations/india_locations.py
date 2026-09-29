@@ -233,6 +233,7 @@ def normalize_location(raw_location: str) -> Dict[str, Any]:
             "state": state,
             "country": country,
             "remote_type": remote_type,
+            "work_modality": "Online" if remote_type == "remote" else "Offline",
             "is_india": True,
             "is_worldwide": False,
             "is_foreign": False
@@ -246,6 +247,7 @@ def normalize_location(raw_location: str) -> Dict[str, Any]:
             "state": None,
             "country": "India",
             "remote_type": remote_type,
+            "work_modality": "Online" if remote_type == "remote" else "Offline",
             "is_india": True,
             "is_worldwide": False,
             "is_foreign": False
@@ -266,6 +268,7 @@ def normalize_location(raw_location: str) -> Dict[str, Any]:
                 "state": None,
                 "country": "Worldwide",
                 "remote_type": "remote",
+                "work_modality": "Online",
                 "is_india": False,
                 "is_worldwide": True,
                 "is_foreign": False
@@ -282,6 +285,7 @@ def normalize_location(raw_location: str) -> Dict[str, Any]:
                     "state": None,
                     "country": reg_name,
                     "remote_type": remote_type,
+                    "work_modality": "Online" if remote_type == "remote" else "Offline",
                     "is_india": False,
                     "is_worldwide": False,
                     "is_foreign": True
@@ -294,6 +298,7 @@ def normalize_location(raw_location: str) -> Dict[str, Any]:
         "state": None,
         "country": "Unspecified",
         "remote_type": remote_type,
+        "work_modality": "Online" if remote_type == "remote" else "Offline",
         "is_india": False,
         "is_worldwide": False,
         "is_foreign": False

@@ -55,10 +55,16 @@ export default function DataGrid({
       if (score < minScoreFilter) return false;
 
 
-      // Location filter
+      // Location & Modality filter
       if (locationFilter !== 'ALL') {
         const loc = String(data.location || '').toLowerCase();
-        if (locationFilter === 'REMOTE' && !loc.includes('remote')) return false;
+        const rtype = String(data.remote_type || '').toLowerCase();
+        const mod = String(data.work_modality || '').toLowerCase();
+        const isRecOnline = mod.includes('online') || rtype === 'remote' || loc.includes('remote') || loc.includes('virtual') || loc.includes('wfh') || loc.includes('online') || loc.includes('anywhere');
+
+        if (locationFilter === 'ONLINE' && !isRecOnline) return false;
+        if (locationFilter === 'OFFLINE' && isRecOnline) return false;
+        if (locationFilter === 'REMOTE' && !isRecOnline) return false;
         if (locationFilter === 'PUNE' && !loc.includes('pune')) return false;
         if (locationFilter === 'BANGALORE' && !loc.includes('bangalore') && !loc.includes('bengaluru')) return false;
         if (locationFilter === 'HYDERABAD' && !loc.includes('hyderabad')) return false;
@@ -120,8 +126,9 @@ export default function DataGrid({
               value={locationFilter}
               onChange={(e) => setLocationFilter(e.target.value)}
             >
-              <option value="ALL">All Locations</option>
-              <option value="REMOTE">Remote Only</option>
+              <option value="ALL">All Modalities & Locations</option>
+              <option value="ONLINE">Online (Remote / Virtual)</option>
+              <option value="OFFLINE">Offline (In-Person / Hybrid)</option>
               <option value="PUNE">Pune</option>
               <option value="BANGALORE">Bangalore / Bengaluru</option>
               <option value="HYDERABAD">Hyderabad</option>
@@ -187,7 +194,7 @@ export default function DataGrid({
                 <th>ROLE & EXPERIENCE</th>
                 <th>COMPANY</th>
                 <th>SOURCE & TYPE</th>
-                <th>LOCATION</th>
+                <th>MODE & LOCATION</th>
                 <th>SKILLS & SIGNALS</th>
                 <th>SALARY (CTC)</th>
                 <th>ACTION</th>
@@ -226,6 +233,11 @@ export default function DataGrid({
                   const whyMatches = Array.isArray(data.why_it_matches) ? data.why_it_matches : [];
                   const gaps = Array.isArray(data.potential_gaps) ? data.potential_gaps : [];
                   const isLinkOut = Boolean(data.is_linkout_only);
+                  const remoteType = String(data.remote_type || '').toLowerCase();
+                  const locLower = String(data.location || '').toLowerCase();
+                  const rawModality = String(data.work_modality || '').toLowerCase();
+                  const isOnline = rawModality === 'online' || remoteType === 'remote' || locLower.includes('remote') || locLower.includes('virtual') || locLower.includes('wfh') || locLower.includes('online') || locLower.includes('anywhere');
+                  const isHybrid = remoteType === 'hybrid' || locLower.includes('hybrid');
 
                   return (
                     <React.Fragment key={r.id}>
@@ -273,6 +285,10 @@ export default function DataGrid({
                                 Exp: {data.experience_years}
                               </span>
                             )}
+                            <span className={`modality-pill ${isOnline ? 'online' : isHybrid ? 'hybrid' : 'offline'}`} style={{ padding: '0.08rem 0.4rem', fontSize: '0.68rem' }}>
+                              {isOnline ? <Globe size={10} /> : <Building2 size={10} />}
+                              <span>{isOnline ? 'Online' : isHybrid ? 'Offline (Hybrid)' : 'Offline'}</span>
+                            </span>
                             {whyMatches.slice(0, 2).map((reason, idx) => (
                               <span key={idx} className="chip-match-reason" title={reason}>
                                 {reason}
@@ -301,11 +317,17 @@ export default function DataGrid({
                           </div>
                         </td>
 
-                        {/* Location */}
+                        {/* Mode & Location */}
                         <td style={{ color: 'var(--text-secondary)', fontSize: '0.825rem' }}>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-                            <MapPin size={12} color="var(--text-muted)" />
-                            <span>{data.location || 'Remote'}</span>
+                          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem', alignItems: 'flex-start' }}>
+                            <span className={`modality-pill ${isOnline ? 'online' : isHybrid ? 'hybrid' : 'offline'}`}>
+                              {isOnline ? <Globe size={11} /> : <Building2 size={11} />}
+                              <span>{isOnline ? 'Online (Remote)' : isHybrid ? 'Offline • Hybrid' : 'Offline (On-site)'}</span>
+                            </span>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', color: 'var(--text-secondary)', fontSize: '0.82rem' }}>
+                              <MapPin size={12} color="var(--text-muted)" />
+                              <span>{data.location || (isOnline ? 'Remote, India' : 'On-site')}</span>
+                            </div>
                           </div>
                         </td>
 
@@ -380,6 +402,31 @@ export default function DataGrid({
                         <tr>
                           <td colSpan={9} style={{ padding: '0 1rem 1rem 1rem', background: 'rgba(14, 165, 233, 0.04)' }}>
                             <div className="expanded-job-card">
+                              {/* Modality, Company, Location Banner */}
+                              <div style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'space-between',
+                                background: 'rgba(0, 0, 0, 0.3)',
+                                padding: '0.65rem 0.85rem',
+                                borderRadius: 'var(--radius-sm)',
+                                border: '1px solid var(--border-subtle)',
+                                flexWrap: 'wrap',
+                                gap: '0.6rem'
+                              }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                  <span style={{ fontSize: '0.72rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 600 }}>Work Mode:</span>
+                                  <span className={`modality-pill ${isOnline ? 'online' : isHybrid ? 'hybrid' : 'offline'}`}>
+                                    {isOnline ? <Globe size={11} /> : <Building2 size={11} />}
+                                    <span>{isOnline ? 'Online (Remote / Virtual)' : isHybrid ? 'Offline (Hybrid In-Office)' : 'Offline (In-Person / On-site)'}</span>
+                                  </span>
+                                </div>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', fontSize: '0.785rem', color: 'var(--text-secondary)', flexWrap: 'wrap' }}>
+                                  <span><strong style={{ color: '#cbd5e1' }}>Company:</strong> {data.company || 'Tech Organization'}</span>
+                                  <span><strong style={{ color: '#cbd5e1' }}>Location:</strong> {data.location || (isOnline ? 'Remote' : 'On-site')}</span>
+                                </div>
+                              </div>
+
                               {/* 9-Factor Explainable Scoring Matrix */}
                               <div>
                                 <div style={{ fontSize: '0.785rem', fontWeight: 700, color: 'var(--text-cyan)', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>

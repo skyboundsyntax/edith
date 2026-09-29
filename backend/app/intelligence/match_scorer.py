@@ -131,7 +131,11 @@ def score_job_match(job: Dict[str, Any], query_spec: Dict[str, Any], weights: Op
     loc_match, loc_points = matches_location_preference(job_location, target_locs, remote_pref)
     breakdown["location"] = {"score": loc_points, "max": w["location"]}
     if loc_match:
-        why_it_matches.append(f"✓ Location fit ({job_location})")
+        rtype = str(job.get("remote_type") or "").lower()
+        is_job_online = (rtype == "remote") or ("remote" in job_location.lower()) or ("online" in job_location.lower())
+        modality_lbl = "Online (Remote)" if is_job_online else "Offline"
+        company_lbl = f" at {job.get('company')}" if job.get('company') else ""
+        why_it_matches.append(f"✓ {modality_lbl} fit: {job_location}{company_lbl}")
     else:
         if target_locs:
             potential_gaps.append(f"⚠ Located in {job_location} (incompatible with target: {', '.join(target_locs)})")

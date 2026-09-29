@@ -22,11 +22,20 @@ class ExportService:
         """
         payload = []
         for r in records:
+            data = dict(r.data_json) if isinstance(r.data_json, dict) else {}
+            if "work_modality" not in data or not data["work_modality"]:
+                rtype = str(data.get("remote_type") or "").lower()
+                loc = str(data.get("location") or "").lower()
+                is_online = (rtype == "remote") or any(k in loc for k in ["remote", "online", "virtual", "wfh", "anywhere"])
+                data["work_modality"] = "Online" if is_online else "Offline"
+                if "modality_detail" not in data:
+                    data["modality_detail"] = "Online (Remote)" if is_online else ("Offline (Hybrid)" if rtype == "hybrid" else "Offline (On-site)")
+
             payload.append({
                 "record_id": r.id,
                 "workflow_id": r.workflow_id,
                 "entity_name": r.entity_name,
-                "data": r.data_json,
+                "data": data,
                 "confidence_score": r.confidence_score,
                 "confidence_breakdown": r.confidence_breakdown,
                 "human_review_required": r.human_review_required,
@@ -72,7 +81,7 @@ class ExportService:
             }
 
         # Gather dynamic columns from data_json
-        data_keys = set()
+        data_keys = set(["work_modality", "modality_detail"])
         for r in records:
             if isinstance(r.data_json, dict):
                 data_keys.update(r.data_json.keys())
@@ -86,9 +95,18 @@ class ExportService:
 
         for r in records:
             row = {}
-            if isinstance(r.data_json, dict):
-                for k, v in r.data_json.items():
-                    row[k] = ", ".join(str(i) for i in v) if isinstance(v, list) else str(v)
+            data = dict(r.data_json) if isinstance(r.data_json, dict) else {}
+            if "work_modality" not in data or not data["work_modality"]:
+                rtype = str(data.get("remote_type") or "").lower()
+                loc = str(data.get("location") or "").lower()
+                is_online = (rtype == "remote") or any(k in loc for k in ["remote", "online", "virtual", "wfh", "anywhere"])
+                data["work_modality"] = "Online" if is_online else "Offline"
+                if "modality_detail" not in data:
+                    data["modality_detail"] = "Online (Remote)" if is_online else ("Offline (Hybrid)" if rtype == "hybrid" else "Offline (On-site)")
+
+            for k, v in data.items():
+                row[k] = ", ".join(str(i) for i in v) if isinstance(v, list) else str(v)
+
             row["record_id"] = r.id
             row["confidence_score"] = f"{r.confidence_score}%"
             row["human_review"] = "YES" if r.human_review_required else "NO"

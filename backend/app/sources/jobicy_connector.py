@@ -9,9 +9,10 @@ import logging
 import hashlib
 from typing import Dict, List, Optional, Any
 from datetime import datetime, timezone
+import re
 
 from backend.app.sources.base import JobSourceConnector, SourceHealth, SourceCapabilities
-from backend.app.locations.india_locations import normalize_location
+from backend.app.locations.india_locations import normalize_location, matches_location_preference, is_online_gig
 
 logger = logging.getLogger(__name__)
 
@@ -25,6 +26,11 @@ class JobicyConnector(JobSourceConnector):
     enabled = True
 
     def can_handle(self, query_spec: Dict[str, Any]) -> bool:
+        locations = query_spec.get("locations") or []
+        remote = query_spec.get("remote", False)
+        # If user explicitly wants on-site local jobs only, skip remote-only board
+        if locations and not remote:
+            return False
         return True
 
     async def search(self, query_spec: Dict[str, Any]) -> List[Dict[str, Any]]:
@@ -33,7 +39,7 @@ class JobicyConnector(JobSourceConnector):
         roles = [r.lower() for r in (query_spec.get("roles") or [])]
         skills = [s.lower() for s in (query_spec.get("skills") or [])]
         target_locations = [l.lower() for l in (query_spec.get("locations") or [])]
-        remote_allowed = query_spec.get("remote", True)
+        remote_allowed = query_spec.get("remote", False)
 
         search_tokens = set(keywords + roles + skills)
 
@@ -59,26 +65,31 @@ class JobicyConnector(JobSourceConnector):
                     geo_lower = job_geo.lower()
                     job_excerpt = item.get("jobExcerpt", "")
 
-                    # Relevancy check
-                    matches_role = True
+                    # 1. Skip non-engineering online gigs
+                    if is_online_gig(title, job_excerpt):
+                        continue
+
+                    # 2. Strict Location check (Drop USA / foreign jobs when searching Pune/Bengaluru/India)
+                    loc_matches, loc_pts = matches_location_preference(job_geo, target_locations, remote_allowed)
+                    if not loc_matches or loc_pts == 0:
+                        continue
+
+                    # 3. Relevancy check with word boundaries (avoid 'ai' matching 'domain', 'retail', etc.)
+                    matches_role = False
                     if search_tokens:
-                        matches_role = any(tok in title_lower or tok in job_excerpt.lower() for tok in search_tokens)
+                        if any(re.search(r'\b' + re.escape(tok) + r'\b', title_lower) for tok in search_tokens):
+                            matches_role = True
+                        elif any(re.search(r'\b' + re.escape(tok) + r'\b', job_excerpt.lower()) for tok in search_tokens if len(tok) > 2):
+                            matches_role = True
+                    else:
+                        matches_role = True
 
                     if not matches_role:
                         continue
 
                     # Location / Remote check
                     loc_info = normalize_location(job_geo)
-                    is_remote = True  # Jobicy is 100% remote positions
-
-                    loc_matches = True
-                    if target_locations:
-                        # If user specifically wants remote, Jobicy matches
-                        if not remote_allowed and "india" not in geo_lower and "anywhere" not in geo_lower:
-                            loc_matches = False
-
-                    if not loc_matches:
-                        continue
+                    is_remote = True
 
                     job_id = str(item.get("id"))
                     company = item.get("companyName") or "Tech Organization"
@@ -126,11 +137,12 @@ class JobicyConnector(JobSourceConnector):
                         "responsibilities": [],
                         "skills": [s.title() for s in skills if s in title_lower] or ["Python", "FastAPI"],
                         "technologies": [],
-                        "location": f"Remote ({job_geo})",
-                        "city": None,
-                        "state": None,
-                        "country": "India" if "india" in geo_lower else "Global",
+                        "location": loc_info["canonical_location"],
+                        "city": loc_info.get("city") or "Remote",
+                        "state": loc_info.get("state"),
+                        "country": loc_info.get("country", "India"),
                         "remote_type": "remote",
+                        "work_modality": "Online",
                         "employment_type": employment_type,
                         "experience_min": 0,
                         "experience_max": 3,
