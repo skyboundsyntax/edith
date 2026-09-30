@@ -1,10 +1,9 @@
 import React from 'react';
 import {
   LayoutGrid,
-  User,
+  Briefcase,
   Users,
   BarChart3,
-  Settings,
   Activity,
   Layers
 } from 'lucide-react';
@@ -13,16 +12,14 @@ export default function Sidebar({
   activeTab = 'dashboard',
   onSelectTab,
   onOpenSourceHealth,
-  onOpenProfile,
   onOpenHistory,
   sourceCount = 8
 }) {
   const navItems = [
     { id: 'dashboard', label: 'Dashboard', icon: LayoutGrid },
-    { id: 'jobs', label: 'My Roles', icon: User },
+    { id: 'jobs', label: 'Roles Directory', icon: Briefcase },
     { id: 'network', label: 'Network', icon: Users, onClick: onOpenSourceHealth },
-    { id: 'analytics', label: 'Insights', icon: BarChart3 },
-    { id: 'settings', label: 'Settings', icon: Settings, onClick: onOpenProfile }
+    { id: 'analytics', label: 'Insights', icon: BarChart3 }
   ];
 
   return (

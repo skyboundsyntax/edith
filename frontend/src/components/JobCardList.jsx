@@ -6,13 +6,14 @@ import {
   ChevronUp,
   Globe,
   Building2,
-  DollarSign,
+  IndianRupee,
   Sparkles,
   MapPin,
   CheckCircle2
 } from 'lucide-react';
 import { ModalityBadge, ResilientEmptyState } from './ui';
 import { sanitizeJobDescription } from '../utils/textSanitizer';
+import { formatSalaryInRupees } from '../utils/currencyFormatter';
 
 function extractSubscore(val, fallback = 0) {
   if (val === null || val === undefined) return fallback;
@@ -36,18 +37,19 @@ function extractSubscore(val, fallback = 0) {
  */
 function JobDataSpectrum({ subscores = {}, score = 85, id = 1 }) {
   const safeSub = subscores || {};
-  const sSkills = extractSubscore(safeSub.skills, 26) / 30;
-  const sRole = extractSubscore(safeSub.role_title || safeSub.role, 18) / 20;
-  const sExp = extractSubscore(safeSub.experience, 13) / 15;
-  const sLoc = extractSubscore(safeSub.location, 9) / 10;
+  const sSkills = Math.max(0, Math.min(1, extractSubscore(safeSub.skills, 26) / 30));
+  const sRole = Math.max(0, Math.min(1, extractSubscore(safeSub.role_title || safeSub.role, 18) / 20));
+  const sExp = Math.max(0, Math.min(1, extractSubscore(safeSub.experience, 13) / 15));
+  const sLoc = Math.max(0, Math.min(1, extractSubscore(safeSub.location, 9) / 10));
 
-  const y1 = Math.round(30 - sRole * 16);
-  const y2 = Math.round(30 - sSkills * 20);
-  const y3 = Math.round(30 - sExp * 18);
-  const y4 = Math.round(30 - sLoc * 16);
+  const y1 = Math.max(6, Math.min(30, Math.round(30 - sRole * 16)));
+  const y2 = Math.max(6, Math.min(30, Math.round(30 - sSkills * 20)));
+  const y3 = Math.max(6, Math.min(30, Math.round(30 - sExp * 18)));
+  const y4 = Math.max(6, Math.min(30, Math.round(30 - sLoc * 16)));
 
   const pathD = `M 0 28 C 30 ${y1}, 60 ${y2}, 95 ${y2} C 130 ${y2}, 160 ${y3}, 200 ${y4}`;
   const fillD = `${pathD} L 200 36 L 0 36 Z`;
+  const safeId = String(id || '1').replace(/[^a-zA-Z0-9_-]/g, '_');
 
   return (
     <div className="job-sparkline-wrap" title={`Data-backed fit continuum: Skills ${(sSkills*100).toFixed(0)}%, Exp ${(sExp*100).toFixed(0)}%, Location ${(sLoc*100).toFixed(0)}%`}>
@@ -58,21 +60,21 @@ function JobDataSpectrum({ subscores = {}, score = 85, id = 1 }) {
         aria-hidden="true"
       >
         <defs>
-          <linearGradient id={`fitGrad-${id}`} x1="0%" y1="0%" x2="100%" y2="0%">
+          <linearGradient id={`fitGrad-${safeId}`} x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stopColor="#f59e0b" stopOpacity="0.6" />
             <stop offset="50%" stopColor="#f97316" stopOpacity="1" />
             <stop offset="100%" stopColor="#818cf8" stopOpacity="0.85" />
           </linearGradient>
-          <linearGradient id={`fitFill-${id}`} x1="0%" y1="0%" x2="0%" y2="100%">
+          <linearGradient id={`fitFill-${safeId}`} x1="0%" y1="0%" x2="0%" y2="100%">
             <stop offset="0%" stopColor="#f59e0b" stopOpacity="0.25" />
             <stop offset="100%" stopColor="#f59e0b" stopOpacity="0.0" />
           </linearGradient>
         </defs>
-        <path d={fillD} fill={`url(#fitFill-${id})`} />
+        <path d={fillD} fill={`url(#fitFill-${safeId})`} />
         <path
           d={pathD}
           fill="none"
-          stroke={`url(#fitGrad-${id})`}
+          stroke={`url(#fitGrad-${safeId})`}
           strokeWidth="2"
           strokeLinecap="round"
         />
@@ -99,16 +101,15 @@ export default function JobCardList({
   };
 
   const formatDate = (isoString) => {
-    if (!isoString) return 'Sep 29, 2026';
     try {
-      const d = new Date(isoString);
+      const d = isoString ? new Date(isoString) : new Date();
       return d.toLocaleDateString('en-US', {
         month: 'short',
         day: 'numeric',
         year: 'numeric'
       });
     } catch {
-      return 'Sep 29, 2026';
+      return 'Recently Active';
     }
   };
 
@@ -125,7 +126,7 @@ export default function JobCardList({
         <div className="col-header col-role">ROLE & TECH STACK</div>
         <div className="col-header col-company">COMPANY & SOURCE</div>
         <div className="col-header col-location">MODE & LOCATION</div>
-        <div className="col-header col-salary">SALARY (CTC)</div>
+        <div className="col-header col-salary">SALARY (₹ CTC)</div>
         <div className="col-header col-fit" style={{ textAlign: 'right' }}>EDITH FIT</div>
       </div>
 
@@ -154,7 +155,7 @@ export default function JobCardList({
           const locationDisplay = data.location || (isOnline ? 'Remote' : 'India');
           const subscores = data.match_subscores || {};
           const skillsList = Array.isArray(data.skills) ? data.skills : (data.skills ? String(data.skills).split(',') : []);
-          const salaryDisplay = data.salary_range && data.salary_range !== 'Not Disclosed' ? data.salary_range : 'Market Competitive';
+          const salaryDisplay = formatSalaryInRupees(data.salary_range, 'Competitive Market CTC');
 
           return (
             <div
@@ -222,11 +223,11 @@ export default function JobCardList({
                   </div>
                 </div>
 
-                {/* 4. Salary (CTC) - Elevated to primary row */}
+                {/* 4. Salary (CTC) - Elevated to primary row in Rupees */}
                 <div className="job-cell cell-salary">
                   <span className="cell-mobile-label">Salary (CTC)</span>
-                  <div className={`salary-primary-pill ${salaryDisplay !== 'Market Competitive' ? 'disclosed' : 'undisclosed'}`}>
-                    <DollarSign size={13} />
+                  <div className={`salary-primary-pill ${salaryDisplay !== 'Competitive Market CTC' ? 'disclosed' : 'undisclosed'}`}>
+                    <IndianRupee size={12} />
                     <span>{salaryDisplay}</span>
                   </div>
                 </div>

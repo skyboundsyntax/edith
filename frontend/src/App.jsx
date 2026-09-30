@@ -13,7 +13,6 @@ import DataGrid from './components/DataGrid';
 import SourceDrawer from './components/SourceDrawer';
 import WorkflowHistoryModal from './components/WorkflowHistoryModal';
 import SourceHealthModal from './components/SourceHealthModal';
-import CandidateProfileModal from './components/CandidateProfileModal';
 import { api } from './services/api';
 import { Award, ShieldCheck, Sparkles, Activity, Play, Sliders, LayoutGrid, List } from 'lucide-react';
 import {
@@ -73,10 +72,10 @@ class ErrorBoundary extends React.Component {
 const PRESET_PROMPTS = [
   'Python Backend & AI Engineer Jobs in Pune (Hinjewadi / Kharadi, ₹8-18 LPA)',
   'Active Python Backend & FastAPI Roles (Remote / Bangalore, ₹12-25 LPA)',
-  'React 19 & Full Stack Openings across LinkedIn & ATS boards',
-  'Generative AI, PyTorch & LLM Systems Engineer Jobs ($120k+ / Remote)',
-  'Fresher & SDE-1 Engineering Jobs (Pune / India)',
-  'DevOps, Kubernetes & Cloud Architecture Vacancies'
+  'React 19 & Full Stack Openings across LinkedIn & ATS boards (₹10-22 LPA)',
+  'Generative AI, PyTorch & LLM Systems Engineer Jobs (₹35-70 LPA / Remote)',
+  'Fresher & SDE-1 Engineering Jobs (Pune / India, ₹6-12 LPA)',
+  'DevOps, Kubernetes & Cloud Architecture Vacancies (₹18-35 LPA)'
 ];
 
 export default function App() {
@@ -104,19 +103,9 @@ export default function App() {
   const [inspectRecordId, setInspectRecordId] = useState(null);
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
   const [isSourceHealthOpen, setIsSourceHealthOpen] = useState(false);
-  const [isProfileOpen, setIsProfileOpen] = useState(false);
-  const [userProfile, setUserProfile] = useState(null);
+  const [isLoadingInitial, setIsLoadingInitial] = useState(true);
 
   const socketRef = useRef(null);
-
-  // Load User Profile on mount
-  useEffect(() => {
-    api.getUserProfile()
-      .then((data) => {
-        if (data?.profile) setUserProfile(data.profile);
-      })
-      .catch((err) => console.error('Error fetching user profile:', err));
-  }, []);
 
   const selectWorkflow = useCallback(async (workflowId) => {
     try {
@@ -138,6 +127,8 @@ export default function App() {
       setRecords(datasetRes?.records || []);
     } catch (err) {
       console.error('Failed to select workflow:', err);
+    } finally {
+      setIsLoadingInitial(false);
     }
   }, []);
 
@@ -147,10 +138,12 @@ export default function App() {
       setWorkflows(data);
       if (data.length > 0 && !activeWorkflow) {
         const best = data.find((w) => (w.total_deduplicated || 0) > 0) || data[0];
-        selectWorkflow(best.id);
+        await selectWorkflow(best.id);
       }
     } catch (err) {
       console.error('Failed to load workflows:', err);
+    } finally {
+      setIsLoadingInitial(false);
     }
   }, [activeWorkflow, selectWorkflow]);
 
@@ -158,25 +151,27 @@ export default function App() {
   useEffect(() => {
     let ignore = false;
     api.getWorkflows()
-      .then((data) => {
+      .then(async (data) => {
         if (!ignore) {
           setWorkflows(data);
           if (data.length > 0) {
             const best = data.find((w) => (w.total_deduplicated || 0) > 0) || data[0];
-            selectWorkflow(best.id);
+            await selectWorkflow(best.id);
           }
+          setIsLoadingInitial(false);
         }
       })
-      .catch((err) => console.error('Failed to load workflows:', err));
+      .catch((err) => {
+        console.error('Failed to load workflows:', err);
+        if (!ignore) setIsLoadingInitial(false);
+      });
     return () => { ignore = true; };
-  }, [selectWorkflow, loadWorkflows]);
+  }, [selectWorkflow]);
 
   const handleRetryConnection = useCallback(async () => {
     setIsRetryingConnection(true);
     try {
       await loadWorkflows();
-      const prof = await api.getUserProfile();
-      if (prof?.profile) setUserProfile(prof.profile);
       setNetworkError(null);
     } catch (err) {
       setNetworkError(err?.message || 'Unable to establish connection to EDITH backend daemon.');
@@ -400,7 +395,6 @@ export default function App() {
         activeTab={activeTab}
         onSelectTab={setActiveTab}
         onOpenSourceHealth={() => setIsSourceHealthOpen(true)}
-        onOpenProfile={() => setIsProfileOpen(true)}
         onOpenHistory={() => setIsHistoryOpen(true)}
         sourceCount={8}
       />
@@ -409,16 +403,12 @@ export default function App() {
       <div className="edith-main-viewport">
         {/* Top Navbar */}
         <TopNavbar
-          title={activeTab === 'jobs' ? 'Scraped Openings' : activeTab === 'analytics' ? 'Pipeline Analytics' : 'Dashboard'}
           searchTerm={searchTerm}
           onSearchChange={setSearchTerm}
-          onOpenProfile={() => setIsProfileOpen(true)}
           onOpenSourceHealth={() => setIsSourceHealthOpen(true)}
           onExport={handleExport}
           isExporting={isExporting}
           unreadCount={records.length > 0 ? 1 : 0}
-          userName={userProfile?.name ? userProfile.name.toUpperCase() : 'ALEX R.'}
-          filteredCount={filteredRecords.length}
           totalCount={records.length}
         />
 
@@ -452,7 +442,7 @@ export default function App() {
                     <input
                       type="text"
                       className="prompt-input"
-                      placeholder="Enter target role, tech stack, or location (e.g. 'Senior Python & FastAPI developer jobs remote with salary')..."
+                      placeholder="Enter target role, tech stack, or location (e.g. 'Python & AI Engineer jobs in Pune, minimum ₹8 LPA')..."
                       value={prompt}
                       onChange={(e) => setPrompt(e.target.value)}
                       disabled={isRunning}
@@ -576,7 +566,16 @@ export default function App() {
 
               {/* 6. Main Jobs Presentation */}
               {dashboardViewMode === 'cards' ? (
-                filteredRecords.length === 0 ? (
+                isLoadingInitial ? (
+                  <div className="glass-panel" style={{ padding: '3.5rem 2rem', textAlign: 'center', borderRadius: '18px', background: 'rgba(13, 23, 42, 0.65)' }}>
+                    <div className="status-indicator-dot" style={{ margin: '0 auto 1.25rem auto', width: '14px', height: '14px' }}>
+                      <span className="ping-ring" style={{ background: '#38bdf8' }} />
+                      <span className="core-dot" style={{ width: '8px', height: '8px', background: '#38bdf8' }} />
+                    </div>
+                    <h3 style={{ margin: '0 0 0.5rem 0', color: '#f8fafc', fontSize: '1.15rem', fontWeight: 600 }}>Connecting to Live Job Ingestion Stream</h3>
+                    <p style={{ margin: 0, color: 'var(--text-muted)', fontSize: '0.85rem' }}>Aggregating deterministic postings from Greenhouse, Lever, Ashby, LinkedIn, and Arbeitnow...</p>
+                  </div>
+                ) : filteredRecords.length === 0 ? (
                   <ResilientEmptyState
                     filterType={activeLocationFilter}
                     searchTerm={searchTerm}
@@ -722,12 +721,6 @@ export default function App() {
       <SourceHealthModal
         isOpen={isSourceHealthOpen}
         onClose={() => setIsSourceHealthOpen(false)}
-      />
-
-      <CandidateProfileModal
-        isOpen={isProfileOpen}
-        onClose={() => setIsProfileOpen(false)}
-        onProfileUpdated={(updated) => setUserProfile(updated)}
       />
     </div>
   );

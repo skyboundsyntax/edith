@@ -4,7 +4,6 @@ import { Briefcase, Download, Layers, Activity } from 'lucide-react';
 export default function Header({
   onOpenHistory,
   onOpenSourceHealth,
-  onOpenProfile,
   onExport,
   isExporting
 }) {
@@ -33,11 +32,6 @@ export default function Header({
             <span className="pulse-dot"></span>
             <Activity size={14} />
             <span>Sources: Live (8)</span>
-          </button>
-
-          {/* Candidate Profile */}
-          <button className="btn btn-secondary" onClick={onOpenProfile} title="Configure Job Seeker Candidate Profile">
-            <span>Candidate Profile</span>
           </button>
 
           {/* Workflow History */}

@@ -1,56 +1,47 @@
 import React, { useMemo } from 'react';
+import { IndianRupee } from 'lucide-react';
+import { calculateAverageRupeeSalary } from '../utils/currencyFormatter';
 
 /**
  * Salary Intelligence Widget
- * Accurately reproduces the top-right card from the reference screenshot:
- * Features "Salary Intelligence", divider, "Average salary tracker", prominent "$192,500",
- * the glowing cyan progression bar, and "Average salary $192,500".
+ * Real-time compensation intelligence calibrated in Indian Rupees (₹) & LPA:
+ * Displays Average salary tracker (e.g. ₹18.5 LPA), glowing cyan progression bar,
+ * and annual CTC breakdown.
  */
 export default function SalaryIntelligenceWidget({ records = [] }) {
-  const { avgDisplay, progressPercent } = useMemo(() => {
-    const safeRecords = Array.isArray(records) ? records : [];
-    let count = 0;
-    let sumInUSD = 0;
-
-    safeRecords.forEach((r) => {
-      const data = r.data || {};
-      const sal = String(data.salary_range || '').toLowerCase();
-
-      // Check USD match e.g. $175k-$210k or $192k
-      const usdMatch = sal.match(/\$?(\d+)\s*k\s*-\s*\$?(\d+)\s*k/i) || sal.match(/\$?(\d+)\s*k/i);
-      if (usdMatch) {
-        const val = usdMatch[2] ? (parseFloat(usdMatch[1]) + parseFloat(usdMatch[2])) / 2 : parseFloat(usdMatch[1]);
-        sumInUSD += val * 1000;
-        count++;
-      } else {
-        // Check INR LPA match e.g. 15-25 LPA -> convert approx to USD
-        const lpaMatch = sal.match(/(\d+(?:\.\d+)?)\s*-\s*(\d+(?:\.\d+)?)\s*lpa/i) || sal.match(/(\d+(?:\.\d+)?)\s*lpa/i);
-        if (lpaMatch) {
-          const lpa = lpaMatch[2] ? (parseFloat(lpaMatch[1]) + parseFloat(lpaMatch[2])) / 2 : parseFloat(lpaMatch[1]);
-          sumInUSD += (lpa * 100000) / 84; // INR to USD
-          count++;
-        }
-      }
-    });
-
-    const averageUSD = count > 0 ? Math.round(sumInUSD / count) : 192500;
-    const formatted = `$${averageUSD.toLocaleString()}`;
-    const progress = Math.min(95, Math.max(30, Math.round((averageUSD / 250000) * 100)));
-
-    return {
-      avgDisplay: formatted,
-      progressPercent: progress
-    };
+  const { lpaDisplay, annualDisplay, progressPercent, sampleCount } = useMemo(() => {
+    return calculateAverageRupeeSalary(records);
   }, [records]);
 
   return (
     <div className="salary-intelligence-card glass-panel-glow">
-      <h3 className="salary-card-title">Salary Intelligence</h3>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <h3 className="salary-card-title">Salary Intelligence</h3>
+        <span
+          style={{
+            fontSize: '0.7rem',
+            color: 'var(--text-cyan)',
+            fontWeight: 700,
+            background: 'rgba(56, 189, 248, 0.1)',
+            padding: '0.15rem 0.5rem',
+            borderRadius: '999px',
+            border: '1px solid rgba(56, 189, 248, 0.3)',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '0.2rem'
+          }}
+        >
+          <IndianRupee size={10} /> INR Standard
+        </span>
+      </div>
       <div className="salary-card-divider" />
 
       <div className="salary-tracker-section">
         <div className="salary-tracker-label">Average salary tracker</div>
-        <div className="salary-tracker-value">{avgDisplay}</div>
+        <div className="salary-tracker-value" style={{ display: 'flex', alignItems: 'baseline', gap: '0.35rem' }}>
+          <span>{lpaDisplay}</span>
+          <span style={{ fontSize: '0.85rem', fontWeight: 500, color: 'var(--text-muted)' }}>CTC</span>
+        </div>
 
         <div className="salary-tracker-bar-track">
           <div
@@ -63,9 +54,10 @@ export default function SalaryIntelligenceWidget({ records = [] }) {
 
         <div className="salary-tracker-footer">
           <span>Average salary</span>
-          <span className="salary-tracker-subval">{avgDisplay}</span>
+          <span className="salary-tracker-subval">{annualDisplay}</span>
         </div>
       </div>
     </div>
   );
 }
+

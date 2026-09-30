@@ -48,7 +48,9 @@ export default function FloatingCommandBar({
         </button>
       </form>
 
-      <span className="bottom-command-date">SEP 29, 2026</span>
+      <span className="bottom-command-date">
+        {new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).toUpperCase()}
+      </span>
     </div>
   );
 }

@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { ModalityBadge, StatMonolith } from './ui';
 import { sanitizeJobDescription } from '../utils/textSanitizer';
+import { formatSalaryInRupees } from '../utils/currencyFormatter';
 
 /**
  * Strips HTML tags, entities, and crawler watermarks from scraped descriptions.
@@ -75,7 +76,7 @@ export default function HeroJobCard({
   const location = data.location || data.city || 'Remote / Worldwide';
   const platform = data.platform_source || (job?.source ? job.source.toUpperCase() : 'WEB');
   const salary = data.salary_range && data.salary_range !== 'Not Disclosed'
-    ? data.salary_range
+    ? formatSalaryInRupees(data.salary_range)
     : null;
   const experienceYears = data.experience_years || null;
   const skills = Array.isArray(data.skills)
@@ -206,9 +207,9 @@ export default function HeroJobCard({
       <div className="dossier-figures-strip">
         <StatMonolith
           icon={TrendingUp}
-          label="COMPENSATION (CTC)"
+          label="COMPENSATION (₹ CTC)"
           value={salary || 'TOP MARKET TIER'}
-          subtext={salary ? 'Direct Ingestion Term' : 'Competitive • CTC Disclosed on Apply'}
+          subtext={salary ? 'Direct Ingestion (₹)' : 'Competitive • CTC Disclosed on Apply'}
           theme="amber"
           className="comp-monolith"
         />
@@ -218,7 +219,7 @@ export default function HeroJobCard({
           label="EDITH MATCH SCORE"
           value={score}
           unit="/100 PTS"
-          subtext={score >= 85 ? 'High Compatibility Match' : 'Verified Candidate Fit'}
+          subtext={score >= 85 ? 'High Compatibility Match' : 'Verified Role Compatibility'}
           theme="emerald"
           className="score-monolith"
         />

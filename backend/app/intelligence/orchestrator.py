@@ -37,6 +37,39 @@ def clean_html_text(raw_text: Optional[str]) -> str:
     except Exception:
         return re.sub(r'<[^>]*>', ' ', str(raw_text)).strip()
 
+def format_to_inr_range(s_min, s_max, currency="INR") -> str:
+    if s_min is None and s_max is None:
+        return "Not Disclosed"
+    try:
+        min_v = float(s_min) if s_min is not None else float(s_max)
+        max_v = float(s_max) if s_max is not None else float(s_min)
+    except (ValueError, TypeError):
+        return "Not Disclosed"
+
+    curr = (currency or "INR").upper()
+    if curr == "USD":
+        min_lpa = (min_v * 86.0) / 100000.0
+        max_lpa = (max_v * 86.0) / 100000.0
+    elif curr == "EUR":
+        min_lpa = (min_v * 92.0) / 100000.0
+        max_lpa = (max_v * 92.0) / 100000.0
+    elif curr == "GBP":
+        min_lpa = (min_v * 110.0) / 100000.0
+        max_lpa = (max_v * 110.0) / 100000.0
+    else:
+        if max_v <= 150: # Already in LPA
+            min_lpa = min_v
+            max_lpa = max_v
+        else:
+            min_lpa = min_v / 100000.0
+            max_lpa = max_v / 100000.0
+
+    if min_lpa <= 0 or max_lpa <= 0:
+        return "Competitive Market CTC"
+    if abs(min_lpa - max_lpa) < 0.1:
+        return f"₹{min_lpa:.1f} LPA"
+    return f"₹{min_lpa:.0f} - {max_lpa:.0f} LPA"
+
 async def run_job_ingestion_pipeline(
     workflow_id: str,
     query_spec: Dict[str, Any],
@@ -327,7 +360,7 @@ async def run_job_ingestion_pipeline(
                         "employment_type": j.get("employment_type"),
                         "skills": j.get("skills"),
                         "experience_years": f"{j.get('experience_min', 0)}-{j.get('experience_max', 2)} yrs" if j.get("experience_max") is not None else "0-2 yrs",
-                        "salary_range": f"{j.get('salary_currency', 'INR')} {int(j['salary_min'])} - {int(j['salary_max'])}" if j.get("salary_min") and j.get("salary_max") else "Not Disclosed",
+                        "salary_range": format_to_inr_range(j.get("salary_min"), j.get("salary_max"), j.get("salary_currency", "INR")),
                         "apply_link": j.get("apply_url"),
                         "platform_source": j.get("source", "Careers").title(),
                         "date_posted": j.get("date_posted"),

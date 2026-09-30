@@ -1,10 +1,11 @@
 import React, { useState, useMemo } from 'react';
 import {
   Search, ExternalLink, ShieldCheck, Filter, FileSpreadsheet, FileCode,
-  MapPin, DollarSign, CheckCircle2, AlertTriangle, ChevronDown, ChevronUp,
+  MapPin, IndianRupee, CheckCircle2, AlertTriangle, ChevronDown, ChevronUp,
   Briefcase, Zap, Info, Globe, Building2, Calendar
 } from 'lucide-react';
 import { sanitizeJobDescription } from '../utils/textSanitizer';
+import { formatSalaryInRupees } from '../utils/currencyFormatter';
 
 function extractSubscore(val, fallback = 0) {
   if (val === null || val === undefined) return fallback;
@@ -213,7 +214,7 @@ export default function DataGrid({
                 <th>SOURCE & TYPE</th>
                 <th>MODE & LOCATION</th>
                 <th>SKILLS & SIGNALS</th>
-                <th>SALARY (CTC)</th>
+                <th>SALARY (₹ CTC)</th>
                 <th>ACTION</th>
                 <th style={{ textAlign: 'right' }}>DETAILS</th>
               </tr>
@@ -370,12 +371,12 @@ export default function DataGrid({
                           </div>
                         </td>
 
-                        {/* Salary (CTC) */}
+                        {/* Salary (₹ CTC) */}
                         <td>
                           {data.salary_range && data.salary_range !== 'Not Disclosed' ? (
                             <span className="salary-pill">
-                              <DollarSign size={12} />
-                              {data.salary_range}
+                              <IndianRupee size={12} />
+                              {formatSalaryInRupees(data.salary_range)}
                             </span>
                           ) : (
                             <span className="salary-pill undisclosed">Undisclosed</span>
