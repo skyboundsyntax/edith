@@ -7,6 +7,7 @@ import time
 import httpx
 import logging
 import hashlib
+import asyncio
 from typing import Dict, List, Optional, Any
 from datetime import datetime, timezone
 import re
@@ -45,123 +46,118 @@ class AshbyConnector(JobSourceConnector):
         remote_allowed = query_spec.get("remote", False)
 
         search_tokens = set(keywords + roles + skills)
+        role_pattern = re.compile(r'\b(?:' + '|'.join(re.escape(tok) for tok in search_tokens) + r')\b', re.IGNORECASE) if search_tokens else None
 
-        async with httpx.AsyncClient(timeout=8.0) as client:
-            for comp in ASHBY_COMPANIES:
-                org_token = comp["token"]
-                company_name = comp["company"]
-                company_domain = comp["domain"]
-                url = f"https://api.ashbyhq.com/posting-api/job-board/{org_token}"
+        async def fetch_ashby_company(client: httpx.AsyncClient, comp: Dict[str, str]) -> List[Dict[str, Any]]:
+            org_token = comp["token"]
+            company_name = comp["company"]
+            company_domain = comp["domain"]
+            url = f"https://api.ashbyhq.com/posting-api/job-board/{org_token}"
+            comp_jobs = []
 
-                try:
-                    resp = await client.get(url, headers={"User-Agent": "EDITH-JobIntelligence/1.0"})
-                    if resp.status_code != 200:
+            try:
+                resp = await client.get(url, headers={"User-Agent": "EDITH-JobIntelligence/1.0"})
+                if resp.status_code != 200:
+                    return []
+
+                data = resp.json()
+                job_postings = data.get("jobs", [])
+
+                for item in job_postings:
+                    title = item.get("title", "")
+                    title_lower = title.lower()
+                    dept = item.get("department") or ""
+
+                    # 1. Relevancy check: title or dept matches target keywords/roles
+                    if role_pattern:
+                        if not role_pattern.search(title_lower) and not (dept and role_pattern.search(dept.lower())):
+                            continue
+
+                    # 2. Skip non-engineering online gigs
+                    if is_online_gig(title, ""):
                         continue
 
-                    data = resp.json()
-                    job_postings = data.get("jobs", [])
+                    # 3. Strict Location check (Drop foreign jobs when searching Pune/Bengaluru/India)
+                    loc_raw = item.get("location") or ""
+                    is_remote_flag = item.get("isRemote", False)
+                    effective_loc = loc_raw or ("Remote" if is_remote_flag else "")
+                    loc_matches, loc_pts = matches_location_preference(effective_loc, target_locations, remote_allowed)
+                    if not loc_matches or loc_pts == 0:
+                        continue
 
-                    for item in job_postings:
-                        title = item.get("title", "")
-                        title_lower = title.lower()
+                    loc_info = normalize_location(effective_loc)
 
-                        loc_raw = item.get("location") or ""
-                        loc_lower = loc_raw.lower()
-                        is_remote_flag = item.get("isRemote", False)
-                        dept = item.get("department") or ""
+                    job_id = str(item.get("id"))
+                    apply_url = item.get("jobUrl") or f"https://jobs.ashbyhq.com/{org_token}/{job_id}"
+                    now_iso = datetime.now(timezone.utc).isoformat()
+                    published_at = item.get("publishedAt") or now_iso
 
-                        # 1. Skip non-engineering online gigs
-                        if is_online_gig(title, ""):
-                            continue
+                    raw_str = f"{title}_{company_name}_{job_id}_{loc_raw}"
+                    content_hash = hashlib.sha256(raw_str.encode()).hexdigest()
 
-                        # 2. Strict Location check (Drop foreign jobs when searching Pune/Bengaluru/India)
-                        effective_loc = loc_raw or ("Remote" if is_remote_flag else "")
-                        loc_matches, loc_pts = matches_location_preference(effective_loc, target_locations, remote_allowed)
-                        if not loc_matches or loc_pts == 0:
-                            continue
-
-                        # 3. Relevancy check using word boundaries
-                        matches_role = False
-                        if search_tokens:
-                            if any(re.search(r'\b' + re.escape(tok) + r'\b', title_lower) for tok in search_tokens):
-                                matches_role = True
-                            elif dept and any(re.search(r'\b' + re.escape(tok) + r'\b', dept.lower()) for tok in search_tokens):
-                                matches_role = True
-                        else:
-                            matches_role = True
-
-                        if not matches_role:
-                            continue
-
-                        loc_info = normalize_location(effective_loc)
-
-                        job_id = str(item.get("id"))
-                        apply_url = item.get("jobUrl") or f"https://jobs.ashbyhq.com/{org_token}/{job_id}"
-                        now_iso = datetime.now(timezone.utc).isoformat()
-                        published_at = item.get("publishedAt") or now_iso
-
-                        raw_str = f"{title}_{company_name}_{job_id}_{loc_raw}"
-                        content_hash = hashlib.sha256(raw_str.encode()).hexdigest()
-
-                        canonical_job = {
-                            "id": f"ash_{org_token}_{job_id}",
-                            "source": "ashby",
-                            "source_job_id": job_id,
-                            "source_url": apply_url,
-                            "apply_url": apply_url,
-                            "title": title,
-                            "company": company_name,
-                            "company_url": f"https://{company_domain}",
-                            "company_domain": company_domain,
-                            "description": f"Role: {title} at {company_name}. Department: {dept}. Location: {loc_raw}.",
-                            "requirements": [],
-                            "responsibilities": [],
-                            "skills": [s.title() for s in skills if s in title_lower] or ["Software Development"],
-                            "technologies": [],
-                            "location": loc_info["canonical_location"],
-                            "city": loc_info["city"],
-                            "state": loc_info["state"],
-                            "country": loc_info["country"],
-                            "remote_type": "remote" if (is_remote_flag or loc_info["remote_type"] == "remote") else loc_info["remote_type"],
-                            "work_modality": "Online" if (is_remote_flag or loc_info["remote_type"] == "remote") else ("Hybrid" if loc_info["remote_type"] == "hybrid" else "Offline"),
-                            "employment_type": (item.get("employmentType") or "full-time").lower(),
-                            "experience_min": 0,
-                            "experience_max": 2 if "intern" in title_lower or "junior" in title_lower else 5,
-                            "salary_min": None,
-                            "salary_max": None,
-                            "salary_currency": "INR",
-                            "salary_period": "year",
-                            "education": "Relevant software engineering experience or degree",
-                            "date_posted": published_at,
-                            "date_updated": published_at,
-                            "first_seen_at": now_iso,
-                            "last_seen_at": now_iso,
-                            "is_active": True,
-                            "is_verified": True,
+                    canonical_job = {
+                        "id": f"ash_{org_token}_{job_id}",
+                        "source": "ashby",
+                        "source_job_id": job_id,
+                        "source_url": apply_url,
+                        "apply_url": apply_url,
+                        "title": title,
+                        "company": company_name,
+                        "company_url": f"https://{company_domain}",
+                        "company_domain": company_domain,
+                        "description": f"Role: {title} at {company_name}. Department: {dept}. Location: {loc_raw}.",
+                        "requirements": [],
+                        "responsibilities": [],
+                        "skills": [s.title() for s in skills if s in title_lower] or ["Software Development"],
+                        "technologies": [],
+                        "location": loc_info["canonical_location"],
+                        "city": loc_info["city"],
+                        "state": loc_info["state"],
+                        "country": loc_info["country"],
+                        "remote_type": "remote" if (is_remote_flag or loc_info["remote_type"] == "remote") else loc_info["remote_type"],
+                        "work_modality": "Online" if (is_remote_flag or loc_info["remote_type"] == "remote") else ("Hybrid" if loc_info["remote_type"] == "hybrid" else "Offline"),
+                        "employment_type": (item.get("employmentType") or "full-time").lower(),
+                        "experience_min": 0,
+                        "experience_max": 2 if "intern" in title_lower or "junior" in title_lower else 5,
+                        "salary_min": None,
+                        "salary_max": None,
+                        "salary_currency": "INR",
+                        "salary_period": "year",
+                        "education": "Relevant software engineering experience or degree",
+                        "date_posted": published_at,
+                        "date_updated": published_at,
+                        "first_seen_at": now_iso,
+                        "last_seen_at": now_iso,
+                        "is_active": True,
+                        "is_verified": True,
+                        "source_timestamp": published_at,
+                        "raw_content_hash": content_hash,
+                        "sources": ["ashby", "company-careers"],
+                        "provenance": {
+                            "source_name": "Ashby Public Job Postings API",
+                            "source_url": url,
+                            "original_job_url": apply_url,
+                            "retrieval_timestamp": now_iso,
+                            "parser_version": "1.0-ash",
+                            "content_hash": content_hash,
                             "source_timestamp": published_at,
-                            "raw_content_hash": content_hash,
-                            "sources": ["ashby", "company-careers"],
-                            "provenance": {
-                                "source_name": "Ashby Public Job Postings API",
-                                "source_url": url,
-                                "original_job_url": apply_url,
-                                "retrieval_timestamp": now_iso,
-                                "parser_version": "1.0-ash",
-                                "content_hash": content_hash,
-                                "source_timestamp": published_at,
-                                "last_successful_fetch": now_iso
-                            }
+                            "last_successful_fetch": now_iso
                         }
-                        results.append(canonical_job)
+                    }
+                    comp_jobs.append(canonical_job)
+                    if len(comp_jobs) >= 8:
+                        break
+                return comp_jobs
+            except Exception as e:
+                logger.warning(f"Ashby fetch error for {org_token}: {e}")
+                return []
 
-                        if len(results) >= 20:
-                            break
-                except Exception as e:
-                    logger.warning(f"Ashby fetch error for {org_token}: {e}")
-                    continue
-
-                if len(results) >= 20:
-                    break
+        async with httpx.AsyncClient(timeout=6.0, limits=httpx.Limits(max_connections=20, max_keepalive_connections=10)) as client:
+            tasks = [fetch_ashby_company(client, comp) for comp in ASHBY_COMPANIES]
+            batch_results = await asyncio.gather(*tasks, return_exceptions=True)
+            for res in batch_results:
+                if isinstance(res, list):
+                    results.extend(res)
 
         return results
 

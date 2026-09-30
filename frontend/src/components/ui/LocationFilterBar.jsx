@@ -1,5 +1,5 @@
 import React from 'react';
-import { MapPin, Globe, Building2, Sparkles, Filter, Zap } from 'lucide-react';
+import { MapPin, Globe, Building2, Filter, Zap } from 'lucide-react';
 
 const PUNE_KEYWORDS = [
   'pune', 'hinjewadi', 'hinjawadi', 'magarpatta', 'kharadi',
@@ -97,16 +97,9 @@ export default function LocationFilterBar({
   }, [records]);
 
   const FILTERS = [
-    { id: 'ALL', label: 'All Openings', icon: Filter, count: counts.all },
-    {
-      id: 'PUNE',
-      label: '📍 Pune Only',
-      sublabel: 'Hinjewadi / Kharadi',
-      icon: MapPin,
-      count: counts.pune,
-      highlight: true
-    },
+    { id: 'ALL', label: '🇮🇳 All India', sublabel: 'Pan-India & Remote', icon: Globe, count: counts.all },
     { id: 'BLR', label: 'Bengaluru', icon: MapPin, count: counts.blr },
+    { id: 'PUNE', label: 'Pune', icon: MapPin, count: counts.pune },
     { id: 'MUM', label: 'Mumbai', icon: MapPin, count: counts.mum },
     { id: 'DEL', label: 'Delhi NCR', icon: MapPin, count: counts.del },
     { id: 'HYD', label: 'Hyderabad', icon: MapPin, count: counts.hyd },
@@ -157,14 +150,13 @@ export default function LocationFilterBar({
 
         {FILTERS.map((f) => {
           const isActive = activeFilter === f.id;
-          const isPunePill = f.id === 'PUNE';
 
           return (
             <button
               key={f.id}
               type="button"
               onClick={() => onSelectFilter(f.id)}
-              className={`loc-filter-pill ${isActive ? 'is-active' : ''} ${isPunePill ? 'pune-pill' : ''}`}
+              className={`loc-filter-pill ${isActive ? 'is-active' : ''}`}
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -176,20 +168,14 @@ export default function LocationFilterBar({
                 cursor: 'pointer',
                 transition: 'all 0.15s ease',
                 border: isActive
-                  ? isPunePill
-                    ? '1.5px solid #f59e0b'
-                    : '1.5px solid #38bdf8'
+                  ? '1.5px solid #38bdf8'
                   : '1px solid rgba(255, 255, 255, 0.12)',
                 background: isActive
-                  ? isPunePill
-                    ? 'linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(217, 119, 6, 0.15))'
-                    : 'linear-gradient(135deg, rgba(56, 189, 248, 0.25), rgba(14, 165, 233, 0.15))'
+                  ? 'linear-gradient(135deg, rgba(56, 189, 248, 0.25), rgba(14, 165, 233, 0.15))'
                   : 'rgba(255, 255, 255, 0.04)',
                 color: isActive ? '#ffffff' : '#cbd5e1',
                 boxShadow: isActive
-                  ? isPunePill
-                    ? '0 0 14px rgba(245, 158, 11, 0.35)'
-                    : '0 0 14px rgba(56, 189, 248, 0.3)'
+                  ? '0 0 14px rgba(56, 189, 248, 0.3)'
                   : 'none'
               }}
               title={f.sublabel ? `${f.label} (${f.sublabel})` : f.label}
@@ -202,7 +188,7 @@ export default function LocationFilterBar({
                   padding: '0.1rem 0.4rem',
                   borderRadius: '999px',
                   background: isActive ? 'rgba(0,0,0,0.35)' : 'rgba(255,255,255,0.08)',
-                  color: isActive ? (isPunePill ? '#fbbf24' : '#38bdf8') : '#94a3b8',
+                  color: isActive ? '#38bdf8' : '#94a3b8',
                   fontWeight: 700
                 }}
               >
@@ -213,13 +199,13 @@ export default function LocationFilterBar({
         })}
       </div>
 
-      {/* Quick Action: Scrape Real Pune Jobs on demand */}
-      {counts.pune === 0 && onScrapePune && (
+      {/* Quick Action: Live Real-Time Web Scrape */}
+      {onScrapePune && (
         <button
           type="button"
           onClick={onScrapePune}
           disabled={isRunning}
-          className="btn-pune-instant-scrape"
+          className="btn-live-realtime-scrape"
           style={{
             display: 'inline-flex',
             alignItems: 'center',
@@ -228,17 +214,17 @@ export default function LocationFilterBar({
             borderRadius: '10px',
             fontSize: '0.75rem',
             fontWeight: 700,
-            background: 'linear-gradient(135deg, #f59e0b, #d97706)',
-            color: '#000000',
+            background: 'linear-gradient(135deg, #38bdf8, #0284c7)',
+            color: '#ffffff',
             border: 'none',
             cursor: isRunning ? 'wait' : 'pointer',
-            boxShadow: '0 0 16px rgba(245, 158, 11, 0.45)',
+            boxShadow: '0 0 16px rgba(56, 189, 248, 0.35)',
             whiteSpace: 'nowrap'
           }}
-          title="Dispatch live LinkedIn & ATS scrapers targeted specifically at Pune tech hubs"
+          title="Dispatch real-time web scrapers across LinkedIn, Greenhouse, Lever, Ashby, Jobicy & Remotive"
         >
           <Zap size={14} />
-          <span>{isRunning ? 'Scraping Pune...' : '⚡ Scrape Real Pune Jobs Now'}</span>
+          <span>{isRunning ? 'Scraping Live...' : '⚡ Live Web Scrape'}</span>
         </button>
       )}
     </div>

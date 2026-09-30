@@ -7,25 +7,25 @@ import {
   Globe,
   Building2,
   IndianRupee,
-  Sparkles,
   MapPin,
   CheckCircle2
 } from 'lucide-react';
-import { ModalityBadge, ResilientEmptyState } from './ui';
-import { sanitizeJobDescription } from '../utils/textSanitizer';
+import { ModalityBadge, ResilientEmptyState, Butterfly } from './ui';
+import { sanitizeJobDescription, formatSkillName } from '../utils/textSanitizer';
 import { formatSalaryInRupees } from '../utils/currencyFormatter';
+import { getSafeExternalUrl, truncateSafe } from '../utils/urlValidator';
 
 function extractSubscore(val, fallback = 0) {
   if (val === null || val === undefined) return fallback;
-  if (typeof val === 'number') return isNaN(val) ? fallback : val;
+  if (typeof val === 'number') return Number.isFinite(val) ? val : fallback;
   if (typeof val === 'string') {
     const parsed = parseFloat(val);
-    return isNaN(parsed) ? fallback : parsed;
+    return Number.isFinite(parsed) ? parsed : fallback;
   }
   if (typeof val === 'object') {
-    if (typeof val.score === 'number') return val.score;
-    if (typeof val.val === 'number') return val.val;
-    if (typeof val.points === 'number') return val.points;
+    if (typeof val.score === 'number' && Number.isFinite(val.score)) return val.score;
+    if (typeof val.val === 'number' && Number.isFinite(val.val)) return val.val;
+    if (typeof val.points === 'number' && Number.isFinite(val.points)) return val.points;
   }
   return fallback;
 }
@@ -121,15 +121,6 @@ export default function JobCardList({
 
   return (
     <div className="job-card-list-container">
-      {/* High-Density Column Headers */}
-      <div className="job-list-header-row">
-        <div className="col-header col-role">ROLE & TECH STACK</div>
-        <div className="col-header col-company">COMPANY & SOURCE</div>
-        <div className="col-header col-location">MODE & LOCATION</div>
-        <div className="col-header col-salary">SALARY (₹ CTC)</div>
-        <div className="col-header col-fit" style={{ textAlign: 'right' }}>EDITH FIT</div>
-      </div>
-
       {/* Cards Stream */}
       <div className="job-cards-stream">
         {records.map((r, idx) => {
@@ -139,37 +130,62 @@ export default function JobCardList({
           const remoteType = String(data.remote_type || '').toLowerCase();
           const locLower = String(data.location || '').toLowerCase();
           const rawModality = String(data.work_modality || '').toLowerCase();
-          const titleDisplay = data.job_title || 'Software Engineer';
-          const companyDisplay = data.company || 'Company';
-          const platform = data.platform_source || (r.source_url?.includes('linkedin') ? 'LinkedIn' : r.source_url?.includes('naukri') ? 'Naukri' : 'ATS Live');
+          const titleDisplay = data.job_title || data.title || r.source_title || 'Software Engineer';
+          const companyDisplay = data.company || 'Verified Company';
           const rawApply = data.apply_link || r.source_url || '';
-          const applyUrl = rawApply && rawApply !== '#'
-            ? rawApply
-            : `https://www.google.com/search?q=${encodeURIComponent(`${companyDisplay} ${titleDisplay} apply online`)}`;
-          const companySiteUrl = data.company_url || `https://www.google.com/search?q=${encodeURIComponent(`${companyDisplay} careers`)}`;
+          const safeApply = String(rawApply || r.source_url || '').toLowerCase();
+          const platform = String(
+            data.platform_source ||
+            data.source ||
+            r.source ||
+            (safeApply.includes('linkedin')
+              ? 'LinkedIn'
+              : safeApply.includes('greenhouse')
+                ? 'Greenhouse'
+                : safeApply.includes('lever')
+                  ? 'Lever'
+                  : safeApply.includes('ashby')
+                    ? 'Ashby'
+                    : safeApply.includes('naukri')
+                      ? 'Naukri'
+                      : safeApply.includes('remotive')
+                        ? 'Remotive'
+                        : safeApply.includes('jobicy')
+                          ? 'Jobicy'
+                          : 'ATS Direct')
+          );
+          const applyUrl = getSafeExternalUrl(rawApply, `${companyDisplay} ${titleDisplay} apply online`);
+          const companySiteUrl = getSafeExternalUrl(data.company_url, `${companyDisplay} official careers`);
           
+          const rawSkills = Array.isArray(data.skills)
+            ? data.skills
+            : typeof data.skills === 'string'
+              ? data.skills.split(/[,|/]/)
+              : [];
+          const skillsList = rawSkills
+            .map((s) => formatSkillName(typeof s === 'string' ? s.trim() : String(s || '').trim()))
+            .filter((s) => s.length > 0 && s.length <= 40);
+
           const fullContext = (titleDisplay + ' ' + locLower + ' ' + (data.description_snippet || '')).toLowerCase();
           const isOnline = rawModality === 'online' || remoteType === 'remote' || /remote|online|virtual|wfh|telecommute/i.test(fullContext);
           const isHybrid = rawModality === 'hybrid' || remoteType === 'hybrid' || /hybrid/i.test(fullContext);
-          const modalityDetail = isOnline ? 'Online • Remote' : isHybrid ? 'Offline • Hybrid' : 'Offline • On-site';
-          const locationDisplay = data.location || (isOnline ? 'Remote' : 'India');
+          const locationDisplay = data.location || (isOnline ? 'Remote / Worldwide' : 'India');
           const subscores = data.match_subscores || {};
-          const skillsList = Array.isArray(data.skills) ? data.skills : (data.skills ? String(data.skills).split(',') : []);
-          const salaryDisplay = formatSalaryInRupees(data.salary_range, 'Competitive Market CTC');
+          const salaryDisplay = formatSalaryInRupees(data.salary_range || data.salary, 'Competitive Market CTC');
 
           return (
             <div
               key={r.id}
               className={`frosted-job-card ${isExpanded ? 'is-expanded' : ''}`}
             >
-              {/* Main Job Row (Elevated Information Density) */}
+              {/* Main Clickable Job Card Body */}
               <div
-                className="job-card-main-row"
+                className="job-card-main-content"
                 onClick={() => toggleExpand(r.id)}
                 role="button"
                 tabIndex={0}
                 aria-expanded={isExpanded}
-                aria-label={`${titleDisplay} at ${companyDisplay}, ${salaryDisplay}, ${locationDisplay}, ${isOnline ? 'Online' : 'Offline'}`}
+                aria-label={`${titleDisplay} at ${companyDisplay}, ${salaryDisplay}, ${locationDisplay}`}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
@@ -177,81 +193,53 @@ export default function JobCardList({
                   }
                 }}
               >
-                {/* 1. Job Title, Real Spectrum Curve, & Primary Skills */}
-                <div className="job-cell cell-title-wave">
-                  <div className="title-row">
-                    <span className="job-title-text">{titleDisplay}</span>
-                    {data.experience_years && (
-                      <span className="exp-mini-tag">{data.experience_years}</span>
-                    )}
+                {/* Tier 1: Role Title, Company, Salary & Apply Actions */}
+                <div className="card-tier-primary">
+                  <div className="card-identity-group">
+                    <div className="card-role-header">
+                      <h4 className="card-role-title" dir="auto">{titleDisplay}</h4>
+                      {data.experience_years && (
+                        <span className="card-exp-tag">{data.experience_years}</span>
+                      )}
+                    </div>
+
+                    <div className="card-company-line">
+                      <span className="card-company-name" dir="auto">{companyDisplay}</span>
+                      <span className="card-dot-sep">•</span>
+                      <span className="platform-subtag">{platform}</span>
+                      <span className="card-dot-sep">•</span>
+                      <span className="card-timestamp">{formatDate(r.created_at || data.date_posted)}</span>
+                    </div>
                   </div>
 
-                  {/* Real Data Spectrum Curve */}
-                  <JobDataSpectrum subscores={subscores} score={score} id={r.id} />
+                  <div className="card-actions-group">
+                    {/* Salary Pill */}
+                    <div className={`salary-primary-pill ${salaryDisplay !== 'Competitive Market CTC' ? 'disclosed' : 'undisclosed'}`}>
+                      <IndianRupee size={13} />
+                      <span>{salaryDisplay}</span>
+                    </div>
 
-                  {/* Visible Top Skills Chips */}
-                  <div className="row-skills-chips">
-                    {skillsList.slice(0, 3).map((s, i) => (
-                      <span key={i} className="mini-skill-chip">{String(s).trim()}</span>
-                    ))}
-                    {skillsList.length > 3 && (
-                      <span className="mini-skill-more">+{skillsList.length - 3}</span>
-                    )}
-                  </div>
-                </div>
-
-                {/* 2. Company & Source */}
-                <div className="job-cell cell-company">
-                  <span className="cell-mobile-label">Company</span>
-                  <div className="company-info-wrap">
-                    <span className="company-name-text">{companyDisplay}</span>
-                    <span className="platform-subtag">{platform}</span>
-                  </div>
-                </div>
-
-                {/* 3. Mode & Location */}
-                <div className="job-cell cell-location flex-item-safe">
-                  <span className="cell-mobile-label">Mode & Location</span>
-                  <div className="location-stack" style={{ minWidth: 0 }}>
-                    <ModalityBadge
-                      modality={rawModality}
-                      remoteType={remoteType}
-                      rawLocation={locationDisplay}
-                      size="sm"
-                    />
-                    <span className="location-name-text truncate" title={locationDisplay}>{locationDisplay}</span>
-                  </div>
-                </div>
-
-                {/* 4. Salary (CTC) - Elevated to primary row in Rupees */}
-                <div className="job-cell cell-salary">
-                  <span className="cell-mobile-label">Salary (CTC)</span>
-                  <div className={`salary-primary-pill ${salaryDisplay !== 'Competitive Market CTC' ? 'disclosed' : 'undisclosed'}`}>
-                    <IndianRupee size={12} />
-                    <span>{salaryDisplay}</span>
-                  </div>
-                </div>
-
-                {/* 5. Fit Score & Direct Apply CTA */}
-                <div className="job-cell cell-fit">
-                  <div className="fit-toggle-group">
+                    {/* Fit Score Badge */}
                     <div className={`fit-pill-badge ${score >= 80 ? 'high' : score >= 65 ? 'mid' : 'fair'}`}>
-                      <Sparkles size={12} />
+                      <Butterfly size={13} />
                       <span>{score}% Fit</span>
                     </div>
 
+                    {/* Direct Apply CTA Button */}
                     <a
                       href={applyUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="row-direct-apply-btn"
+                      className="card-apply-btn"
                       onClick={(e) => e.stopPropagation()}
-                      title={`Open official application for ${titleDisplay} on ${platform}`}
+                      title={`Apply directly on ${platform}`}
+                      aria-label={`Apply for ${titleDisplay} on ${platform}`}
                     >
                       <span>Apply</span>
                       <ExternalLink size={12} />
                     </a>
 
+                    {/* Expand Collapse Toggle */}
                     <button
                       type="button"
                       className="job-expand-toggle-btn"
@@ -264,6 +252,40 @@ export default function JobCardList({
                     >
                       {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
                     </button>
+                  </div>
+                </div>
+
+                {/* Tier 2: Modality, Location, Skills & Sparkline Continuum */}
+                <div className="card-tier-secondary">
+                  <div className="card-geo-modality">
+                    <ModalityBadge
+                      modality={rawModality}
+                      remoteType={remoteType}
+                      rawLocation={locationDisplay}
+                      size="sm"
+                    />
+                    <span className="card-location-text" title={locationDisplay}>
+                      <MapPin size={12} style={{ display: 'inline', verticalAlign: '-1px', marginRight: '4px' }} />
+                      {locationDisplay}
+                    </span>
+                  </div>
+
+                  {skillsList.length > 0 && (
+                    <div className="card-skills-row">
+                      {skillsList.slice(0, 5).map((s, i) => (
+                        <span key={i} className="mini-skill-chip" title={String(s).trim()}>
+                          {truncateSafe(String(s).trim(), 24)}
+                        </span>
+                      ))}
+                      {skillsList.length > 5 && (
+                        <span className="mini-skill-more">+{skillsList.length - 5} more</span>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Real Data Fit Continuum Sparkline */}
+                  <div className="card-spectrum-dock">
+                    <JobDataSpectrum subscores={subscores} score={score} id={r.id} />
                   </div>
                 </div>
               </div>

@@ -6,7 +6,6 @@ import {
   ChevronRight,
   Globe,
   Building2,
-  Sparkles,
   CheckCircle2,
   MapPin,
   Briefcase,
@@ -14,9 +13,10 @@ import {
   TrendingUp,
   Award
 } from 'lucide-react';
-import { ModalityBadge, StatMonolith } from './ui';
-import { sanitizeJobDescription } from '../utils/textSanitizer';
+import { ModalityBadge, StatMonolith, Butterfly } from './ui';
+import { sanitizeJobDescription, formatSkillName } from '../utils/textSanitizer';
 import { formatSalaryInRupees } from '../utils/currencyFormatter';
+import { getSafeExternalUrl, truncateSafe } from '../utils/urlValidator';
 
 /**
  * Strips HTML tags, entities, and crawler watermarks from scraped descriptions.
@@ -27,11 +27,12 @@ function cleanDescription(text) {
 
 /**
  * Executive High-End Tech Dossier Hero Job Card
- * - Dramatic typographic scale jumps (Syne display font, massive salary and match figures)
- * - Obsidian architectural framing with warm gold/amber and emerald accents
- * - High-voltage modality tags (🟢 ONLINE / 🏢 OFFLINE / 🟣 HYBRID)
- * - Commanding, unmissable 1-click Direct Apply dock
- * - Deterministic Jev Anti-Ghost verification badge
+ * Hardened for:
+ * - Extreme text lengths (titles, companies, descriptions)
+ * - Safe URL validation & XSS protection
+ * - Internationalization (RTL with dir="auto", CJK)
+ * - Defensive data extraction & skill list limits
+ * - Keyboard & Screen reader resilience
  */
 export default function HeroJobCard({
   job,
@@ -44,10 +45,10 @@ export default function HeroJobCard({
 }) {
   if (!job) {
     return (
-      <div className="hero-dossier-card empty-state">
+      <div className="hero-dossier-card empty-state" role="region" aria-label="Job Dossier Empty State">
         <div className="dossier-empty-decor">
           <div className="dossier-radar-pulse" />
-          <Sparkles size={28} color="var(--accent-amber)" />
+          <Butterfly size={30} color="var(--accent-amber)" />
         </div>
         <div className="dossier-empty-body">
           <div className="dossier-micro-label">PIPELINE STANDBY // ZERO RECORDS LOADED</div>
@@ -60,6 +61,7 @@ export default function HeroJobCard({
             type="button"
             className="dossier-hero-apply-btn primary-glow"
             onClick={onTriggerScrape}
+            aria-label="Launch Live Web Scrapers Now"
           >
             <Zap size={18} />
             <span>Launch Live Web Scrapers Now</span>
@@ -70,33 +72,70 @@ export default function HeroJobCard({
   }
 
   const data = job?.data || {};
-  const score = data.match_score ?? job?.confidence_score ?? 92;
-  const roleTitle = data.job_title || job?.source_title || 'Lead Systems Engineer';
-  const company = data.company || 'Verified Enterprise';
-  const location = data.location || data.city || 'Remote / Worldwide';
-  const platform = data.platform_source || (job?.source ? job.source.toUpperCase() : 'WEB');
-  const salary = data.salary_range && data.salary_range !== 'Not Disclosed'
-    ? formatSalaryInRupees(data.salary_range)
+
+  // Score clamping & sanitization
+  const rawScore = data.match_score ?? job?.confidence_score ?? 92;
+  const score = Math.min(100, Math.max(0, Math.round(Number(String(rawScore).replace(/[^0-9.]/g, '')) || 92)));
+
+  const roleTitle = String(data.job_title || job?.source_title || 'Lead Systems Engineer').trim();
+  const company = String(data.company || 'Verified Enterprise').trim();
+  const location = String(data.location || data.city || 'Remote / Worldwide').trim();
+  const rawSalary = data.salary_range || data.salary;
+  const salary = rawSalary && rawSalary !== 'Not Disclosed'
+    ? formatSalaryInRupees(rawSalary)
     : null;
-  const experienceYears = data.experience_years || null;
-  const skills = Array.isArray(data.skills)
-    ? data.skills
-    : (data.skills ? String(data.skills).split(',') : []);
+  const experienceYears = data.experience_years ? String(data.experience_years).trim() : null;
 
-  // Direct Apply URL & Website link
+  // Safe skill extraction & normalization
+  let rawSkills = [];
+  if (Array.isArray(data.skills)) {
+    rawSkills = data.skills;
+  } else if (typeof data.skills === 'string') {
+    rawSkills = data.skills.split(/[,|/]/);
+  }
+  const skills = rawSkills
+    .map((s) => formatSkillName(typeof s === 'string' ? s.trim() : String(s || '').trim()))
+    .filter((s) => s.length > 0 && s.length <= 40);
+
+  // Secure External URLs with sanitization & XSS guard
   const rawApply = data.apply_link || job?.source_url || '';
-  const applyUrl = rawApply && rawApply !== '#'
-    ? rawApply
-    : `https://www.google.com/search?q=${encodeURIComponent(`${company} ${roleTitle} apply online`)}`;
-  const companyWebsiteUrl = data.company_url || `https://www.google.com/search?q=${encodeURIComponent(`${company} official careers`)}`;
+  const fallbackSearchQuery = `${company} ${roleTitle} careers application`;
+  const applyUrl = getSafeExternalUrl(rawApply, fallbackSearchQuery);
 
-  // Clean description snippet
+  const rawCompanySite = data.company_url || '';
+  const companyWebsiteUrl = getSafeExternalUrl(rawCompanySite, `${company} official careers`);
+
+  // Detect origin platform for provenance stamp and direct apply CTA
+  const safeApply = String(applyUrl || rawApply || '').toLowerCase();
+  const platform = String(
+    data.platform_source ||
+    data.source ||
+    job?.source ||
+    (safeApply.includes('linkedin')
+      ? 'LinkedIn'
+      : safeApply.includes('greenhouse')
+        ? 'Greenhouse'
+        : safeApply.includes('lever')
+          ? 'Lever'
+          : safeApply.includes('ashby')
+            ? 'Ashby'
+            : safeApply.includes('remotive')
+              ? 'Remotive'
+              : safeApply.includes('jobicy')
+                ? 'Jobicy'
+                : 'ATS Direct')
+  );
+
+  // Clean description snippet capped to avoid runaway heights
   const rawDesc = data.raw_snippet || data.description || data.description_snippet || '';
-  const snippet = cleanDescription(rawDesc) || `Immediate vacancy for ${roleTitle} at ${company} in ${location}.`;
+  const cleanedDesc = cleanDescription(rawDesc);
+  const snippet = cleanedDesc
+    ? truncateSafe(cleanedDesc, 480)
+    : `Immediate vacancy for ${roleTitle} at ${company} in ${location}.`;
 
   // Accurate Work Modality determination
-  const rawModality = (data.work_modality || '').toLowerCase();
-  const rawRemoteType = (data.remote_type || '').toLowerCase();
+  const rawModality = String(data.work_modality || '').toLowerCase();
+  const rawRemoteType = String(data.remote_type || '').toLowerCase();
   const rawLoc = (location + ' ' + roleTitle + ' ' + snippet).toLowerCase();
 
   const isOnline = rawModality === 'online' || rawRemoteType === 'remote' || /remote|online|virtual|wfh|telecommute/i.test(rawLoc);
@@ -110,7 +149,7 @@ export default function HeroJobCard({
 
   const modalityClass = isOnline ? 'online' : isHybrid ? 'hybrid' : 'offline';
 
-  // Format record serial tag
+  // Format record serial tag safely
   const serialTag = `REF-${String(job.id || '001').slice(-6).toUpperCase()}`;
 
   return (
@@ -178,20 +217,20 @@ export default function HeroJobCard({
         </div>
       </div>
 
-      {/* 3. Hero Role Title & Company Identity (Extreme Scale Jump 1) */}
+      {/* 3. Hero Role Title & Company Identity with RTL and wrapping protection */}
       <div className="dossier-identity-block">
         <div className="dossier-company-row">
-          <span className="dossier-company-name wrap-resilient">{company}</span>
+          <span className="dossier-company-name wrap-resilient" dir="auto">{company}</span>
           <span className="dossier-geo-bullet">•</span>
-          <span className="dossier-geo-location">
-            <MapPin size={13} style={{ display: 'inline', verticalAlign: '-1px', marginRight: '4px' }} />
+          <span className="dossier-geo-location" dir="auto">
+            <MapPin size={13} style={{ display: 'inline', verticalAlign: '-1px', marginRight: '4px', flexShrink: 0 }} />
             {location}
           </span>
           {experienceYears && (
             <>
               <span className="dossier-geo-bullet">•</span>
               <span className="dossier-exp-tag">
-                <Briefcase size={12} style={{ display: 'inline', verticalAlign: '-1px', marginRight: '4px' }} />
+                <Briefcase size={12} style={{ display: 'inline', verticalAlign: '-1px', marginRight: '4px', flexShrink: 0 }} />
                 {experienceYears} Exp
               </span>
             </>
@@ -234,14 +273,14 @@ export default function HeroJobCard({
         />
       </div>
 
-      {/* 5. Key Skills Stack Chips */}
+      {/* 5. Key Skills Stack Chips (Safely capped with truncation) */}
       {skills.length > 0 && (
         <div className="dossier-skills-tray">
           <span className="skills-tray-title">REQUIRED TECH STACK:</span>
           <div className="skills-tray-chips">
             {skills.slice(0, 7).map((s, idx) => (
-              <span key={idx} className="dossier-skill-pill">
-                {String(s).trim()}
+              <span key={idx} className="dossier-skill-pill truncate" style={{ maxWidth: '170px' }} title={s}>
+                {truncateSafe(s, 24)}
               </span>
             ))}
             {skills.length > 7 && (
@@ -256,7 +295,7 @@ export default function HeroJobCard({
       {/* 6. Executive Narrative Excerpt */}
       <div className="dossier-narrative-box">
         <div className="narrative-headline">ROLE SUMMARY & SCOPE</div>
-        <p className="narrative-body">{snippet}</p>
+        <p className="narrative-body wrap-resilient" dir="auto">{snippet}</p>
       </div>
 
       {/* 7. Unmissable High-Voltage Apply Command Dock */}
@@ -269,6 +308,7 @@ export default function HeroJobCard({
             rel="noopener noreferrer"
             className="dossier-hero-apply-btn"
             title={`Open official job application for ${roleTitle} on ${platform}`}
+            aria-label={`Apply for ${roleTitle} on ${platform}`}
           >
             <Zap size={20} />
             <span className="apply-btn-label">APPLY NOW ON {platform.toUpperCase()} ↗</span>
@@ -281,6 +321,7 @@ export default function HeroJobCard({
             rel="noopener noreferrer"
             className="dossier-secondary-site-btn"
             title={`Visit ${company} official career website`}
+            aria-label={`Visit ${company} official career website`}
           >
             <Globe size={16} />
             <span>Visit Company Site</span>
@@ -295,6 +336,7 @@ export default function HeroJobCard({
               className="dossier-audit-btn"
               onClick={() => onInspectProvenance(job.id)}
               title="Inspect Jev Anti-Ghost cryptographic provenance and source proof"
+              aria-label="Inspect source provenance audit trail"
             >
               <ShieldCheck size={14} color="var(--accent-emerald)" />
               <span>Inspect Source Provenance & Anti-Ghost Audit Trail</span>

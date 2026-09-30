@@ -1,0 +1,1410 @@
+[
+  {
+    "record_id": "rec_wf_43ddd234c9_li_4461966225_0",
+    "workflow_id": "wf_43ddd234c9",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Senior Frontend Developer",
+      "company": "PrepLadder",
+      "company_domain": "linkedin.com",
+      "location": "Bengaluru, Karnataka, India",
+      "city": "Bangalore",
+      "remote_type": "on-site",
+      "work_modality": "Offline",
+      "modality_detail": "Offline (On-site)",
+      "employment_type": "full-time",
+      "skills": [
+        "React"
+      ],
+      "experience_years": "0-2 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://in.linkedin.com/jobs/view/senior-frontend-developer-at-prepladder-4461966225",
+      "platform_source": "Linkedin",
+      "date_posted": "2026-09-30T02:06:34.761765+00:00",
+      "match_score": 97.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 30,
+          "max": 30
+        },
+        "role": {
+          "score": 20,
+          "max": 20
+        },
+        "experience": {
+          "score": 14,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 5,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 React",
+        "\u2713 Target role match (Frontend Developer)",
+        "\u2713 Offline fit: Bengaluru, Karnataka, India at PrepLadder",
+        "\u2713 Education qualifications satisfied",
+        "\u2713 Full-Time employment type"
+      ],
+      "potential_gaps": [],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 80.0,
+        "listing_quality_score": 95.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "linkedin"
+      ],
+      "description": "About Us: PrepLadder is a leading medical learning platform helping students and doctors prepare for competitive medical exams. We\u2019re building impactful learning experiences at the intersection of education, technology, and healthcare , with a mission to help millions of medical aspirants achieve their career goals. About the Role: We\u2019re looking for a Senior Frontend Developer (SDE II ) who has solid hands-on experience with React.js and enjoys building clean, scalable user interfaces. You\u2019ll work closely with product, design, and backend teams to ship features used by a large user base. Key Responsibilities: Develop and maintai n responsive, scalable, and high-performance web applicatio ns usin g React.js and Next.js Translat e UI/UX desig ns into clean, efficient, and reusable frontend components. Optimize applications for maximum speed, performance, and scalability. Collaborate with product managers, designers, and backend engineers to define and deliver features. Write clean, maintainable, and testable code following best practices. Integrate frontend applications with RESTful APIs and backend services. Ensure cross-browser compatibility and mobile responsiveness. Required Skills & Qualifications: 2\u20134 years of hands-on experience in frontend development. Strong proficiency in JavaScript, React.js, and Next.js. Experience with HTML5, CSS3, and modern styling approaches (CSS Modules, Styled Components, Tailwind, etc.). Good understanding of state management (Redux, Context API, or similar). Experience working with REST APIs and asynchronous data handling. Familiarity with version control systems like Git. Ability to work in a fast-paced, agile environment. What We Offer Opportunity to work on high-impact products used by millions of learners. Collaborative and fast-paced work environment. Competitive compensation and benefits. Strong learning and growth opportunities.",
+      "description_snippet": "About Us: PrepLadder is a leading medical learning platform helping students and doctors prepare for competitive medical exams. We\u2019re building impactful learning experiences at the intersection of education, technology, and healthcare , with a mission to help millions of medical aspirants achieve their career goals. About the Role: We\u2019re looking for a Senior Frontend Developer (SDE II ) who has so",
+      "is_link_out": false
+    },
+    "confidence_score": 97.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 30,
+        "max": 30
+      },
+      "role": {
+        "score": 20,
+        "max": 20
+      },
+      "experience": {
+        "score": 14,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 5,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://in.linkedin.com/jobs/view/senior-frontend-developer-at-prepladder-4461966225",
+    "source_title": "Senior Frontend Developer at PrepLadder",
+    "extracted_timestamp": "2026-09-30T02:06:35.696182+00:00",
+    "raw_snippet": "About Us: PrepLadder is a leading medical learning platform helping students and doctors prepare for competitive medical exams. We\u2019re building impactful learning experiences at the intersection of education, technology, and healthcare , with a mission to help millions of medical aspirants achieve their career goals. About the Role: We\u2019re looking for a Senior Frontend Developer (SDE II ) who has so"
+  },
+  {
+    "record_id": "rec_wf_43ddd234c9_li_4461880487_1",
+    "workflow_id": "wf_43ddd234c9",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Senior Frontend Engineer I - Confluent",
+      "company": "IBM",
+      "company_domain": "linkedin.com",
+      "location": "Bengaluru, Karnataka, India",
+      "city": "Bangalore",
+      "remote_type": "on-site",
+      "work_modality": "Offline",
+      "modality_detail": "Offline (On-site)",
+      "employment_type": "full-time",
+      "skills": [
+        "React"
+      ],
+      "experience_years": "0-2 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://in.linkedin.com/jobs/view/senior-frontend-engineer-i-confluent-at-ibm-4461880487",
+      "platform_source": "Linkedin",
+      "date_posted": "2026-09-30T02:06:34.761966+00:00",
+      "match_score": 97.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 30,
+          "max": 30
+        },
+        "role": {
+          "score": 20,
+          "max": 20
+        },
+        "experience": {
+          "score": 14,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 5,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 React",
+        "\u2713 Target role match (Frontend Developer)",
+        "\u2713 Offline fit: Bengaluru, Karnataka, India at IBM",
+        "\u2713 Education qualifications satisfied",
+        "\u2713 Full-Time employment type"
+      ],
+      "potential_gaps": [],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 80.0,
+        "listing_quality_score": 95.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "linkedin"
+      ],
+      "description": "Introduction At IBM Software, we transform client challenges into solutions. Building the world\u2019s leading AI-powered, cloud-native products that shape the future of business and society. Our legacy of innovation creates endless opportunities for IBMers to learn, grow, and make an impact on a global scale. Working in Software means joining a team fueled by curiosity and collaboration. You\u2019ll work with diverse technologies, partners, and industries to design, develop, and deliver solutions that power digital transformation. With a culture that values innovation, growth, and continuous learning, IBM Software places you at the heart of IBM\u2019s product and technology landscape. Here, you\u2019ll have the tools and opportunities to advance your career while creating software that changes the world. Your Role And Responsibilities About the Role: We are looking for a Senior Frontend Engineer interested in building engaging and insightful products for managing and visualising large scale distributed real-time data streams. Data flow is central to how companies operate, and we aim to make that experience intuitive and attractive. As a Front-End Software Engineer, you will be responsible for creating new visualisations and interfaces that scale with Apache Kafka. More About Our Stack Our Cloud UI stack is written in Typescript and built based on React. The UI connects to multiple REST and GraphQL APIs. We unit test our code with Jest. We deploy the UI to production every day, with the ability to test each and every commit in production (even PRs) before it goes live. Feature flags unblock us from coordinating releases with backend teams Bots keep all of our dependencies up to date What You Will Do As a Senior Frontend Engineer, you will build engaging and insightful products for managing and visualizing large scale distributed data streams, make data flow intuitive and attractive, and build client-side web applications for data-intensive applications. You Will Build new features using advanced knowledge based on user requirements and make revisions to features based on feedback Build platform as a service (PaaS) product Take user requirements and vet the application program interface (API) contracts and user interface (UI) wireframes against them. Work with backend software engineers to understand the API contract and ensure the user experience is not degraded due to performance constraints from the backend APIs. Work with designers to understand and build components stylin",
+      "description_snippet": "Introduction At IBM Software, we transform client challenges into solutions. Building the world\u2019s leading AI-powered, cloud-native products that shape the future of business and society. Our legacy of innovation creates endless opportunities for IBMers to learn, grow, and make an impact on a global scale. Working in Software means joining a team fueled by curiosity and collaboration. You\u2019ll work w",
+      "is_link_out": false
+    },
+    "confidence_score": 97.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 30,
+        "max": 30
+      },
+      "role": {
+        "score": 20,
+        "max": 20
+      },
+      "experience": {
+        "score": 14,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 5,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://in.linkedin.com/jobs/view/senior-frontend-engineer-i-confluent-at-ibm-4461880487",
+    "source_title": "Senior Frontend Engineer I - Confluent at IBM",
+    "extracted_timestamp": "2026-09-30T02:06:35.699762+00:00",
+    "raw_snippet": "Introduction At IBM Software, we transform client challenges into solutions. Building the world\u2019s leading AI-powered, cloud-native products that shape the future of business and society. Our legacy of innovation creates endless opportunities for IBMers to learn, grow, and make an impact on a global scale. Working in Software means joining a team fueled by curiosity and collaboration. You\u2019ll work w"
+  },
+  {
+    "record_id": "rec_wf_43ddd234c9_li_4433707976_2",
+    "workflow_id": "wf_43ddd234c9",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Sr Frontend Engineer",
+      "company": "iTCart",
+      "company_domain": "linkedin.com",
+      "location": "Bengaluru, Karnataka, India",
+      "city": "Bangalore",
+      "remote_type": "on-site",
+      "work_modality": "Offline",
+      "modality_detail": "Offline (On-site)",
+      "employment_type": "full-time",
+      "skills": [
+        "React"
+      ],
+      "experience_years": "0-2 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://in.linkedin.com/jobs/view/sr-frontend-engineer-at-itcart-4433707976",
+      "platform_source": "Linkedin",
+      "date_posted": "2026-09-30T02:06:34.762024+00:00",
+      "match_score": 97.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 30,
+          "max": 30
+        },
+        "role": {
+          "score": 20,
+          "max": 20
+        },
+        "experience": {
+          "score": 14,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 5,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 React",
+        "\u2713 Target role match (Frontend Developer)",
+        "\u2713 Offline fit: Bengaluru, Karnataka, India at iTCart",
+        "\u2713 Education qualifications satisfied",
+        "\u2713 Full-Time employment type"
+      ],
+      "potential_gaps": [],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 80.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "linkedin"
+      ],
+      "description": "Live opening for Sr Frontend Engineer at iTCart in Bengaluru, Karnataka, India. Posted: 2 months ago. Apply directly on LinkedIn.",
+      "description_snippet": "Live opening for Sr Frontend Engineer at iTCart in Bengaluru, Karnataka, India. Posted: 2 months ago. Apply directly on LinkedIn.",
+      "is_link_out": false
+    },
+    "confidence_score": 97.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 30,
+        "max": 30
+      },
+      "role": {
+        "score": 20,
+        "max": 20
+      },
+      "experience": {
+        "score": 14,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 5,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://in.linkedin.com/jobs/view/sr-frontend-engineer-at-itcart-4433707976",
+    "source_title": "Sr Frontend Engineer at iTCart",
+    "extracted_timestamp": "2026-09-30T02:06:35.700811+00:00",
+    "raw_snippet": "Live opening for Sr Frontend Engineer at iTCart in Bengaluru, Karnataka, India. Posted: 2 months ago. Apply directly on LinkedIn."
+  },
+  {
+    "record_id": "rec_wf_43ddd234c9_li_4471871344_3",
+    "workflow_id": "wf_43ddd234c9",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Software Development Engineer II - Frontend",
+      "company": "Sigmoid",
+      "company_domain": "linkedin.com",
+      "location": "Bengaluru, Karnataka, India",
+      "city": "Bangalore",
+      "remote_type": "on-site",
+      "work_modality": "Offline",
+      "modality_detail": "Offline (On-site)",
+      "employment_type": "full-time",
+      "skills": [
+        "React"
+      ],
+      "experience_years": "0-2 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://in.linkedin.com/jobs/view/software-development-engineer-ii-frontend-at-sigmoid-4471871344",
+      "platform_source": "Linkedin",
+      "date_posted": "2026-09-30T02:06:34.762050+00:00",
+      "match_score": 97.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 30,
+          "max": 30
+        },
+        "role": {
+          "score": 20,
+          "max": 20
+        },
+        "experience": {
+          "score": 14,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 5,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 React",
+        "\u2713 Target role match (Frontend Developer)",
+        "\u2713 Offline fit: Bengaluru, Karnataka, India at Sigmoid",
+        "\u2713 Education qualifications satisfied",
+        "\u2713 Full-Time employment type"
+      ],
+      "potential_gaps": [],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 80.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "linkedin"
+      ],
+      "description": "Live opening for Software Development Engineer II - Frontend at Sigmoid in Bengaluru, Karnataka, India. Posted: 4 days ago. Apply directly on LinkedIn.",
+      "description_snippet": "Live opening for Software Development Engineer II - Frontend at Sigmoid in Bengaluru, Karnataka, India. Posted: 4 days ago. Apply directly on LinkedIn.",
+      "is_link_out": false
+    },
+    "confidence_score": 97.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 30,
+        "max": 30
+      },
+      "role": {
+        "score": 20,
+        "max": 20
+      },
+      "experience": {
+        "score": 14,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 5,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://in.linkedin.com/jobs/view/software-development-engineer-ii-frontend-at-sigmoid-4471871344",
+    "source_title": "Software Development Engineer II - Frontend at Sigmoid",
+    "extracted_timestamp": "2026-09-30T02:06:35.701793+00:00",
+    "raw_snippet": "Live opening for Software Development Engineer II - Frontend at Sigmoid in Bengaluru, Karnataka, India. Posted: 4 days ago. Apply directly on LinkedIn."
+  },
+  {
+    "record_id": "rec_wf_43ddd234c9_li_4471327516_4",
+    "workflow_id": "wf_43ddd234c9",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Software Engineer (Frontend)",
+      "company": "Simbian",
+      "company_domain": "linkedin.com",
+      "location": "Bengaluru East, Karnataka, India",
+      "city": "Bangalore",
+      "remote_type": "on-site",
+      "work_modality": "Offline",
+      "modality_detail": "Offline (On-site)",
+      "employment_type": "full-time",
+      "skills": [
+        "React"
+      ],
+      "experience_years": "0-2 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://in.linkedin.com/jobs/view/software-engineer-frontend-at-simbian-4471327516",
+      "platform_source": "Linkedin",
+      "date_posted": "2026-09-30T02:06:34.762129+00:00",
+      "match_score": 97.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 30,
+          "max": 30
+        },
+        "role": {
+          "score": 20,
+          "max": 20
+        },
+        "experience": {
+          "score": 14,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 5,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 React",
+        "\u2713 Target role match (Frontend Developer)",
+        "\u2713 Offline fit: Bengaluru East, Karnataka, India at Simbian",
+        "\u2713 Education qualifications satisfied",
+        "\u2713 Full-Time employment type"
+      ],
+      "potential_gaps": [],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 80.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "linkedin"
+      ],
+      "description": "Live opening for Software Engineer (Frontend) at Simbian in Bengaluru East, Karnataka, India. Posted: 2 days ago. Apply directly on LinkedIn.",
+      "description_snippet": "Live opening for Software Engineer (Frontend) at Simbian in Bengaluru East, Karnataka, India. Posted: 2 days ago. Apply directly on LinkedIn.",
+      "is_link_out": false
+    },
+    "confidence_score": 97.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 30,
+        "max": 30
+      },
+      "role": {
+        "score": 20,
+        "max": 20
+      },
+      "experience": {
+        "score": 14,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 5,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://in.linkedin.com/jobs/view/software-engineer-frontend-at-simbian-4471327516",
+    "source_title": "Software Engineer (Frontend) at Simbian",
+    "extracted_timestamp": "2026-09-30T02:06:35.702681+00:00",
+    "raw_snippet": "Live opening for Software Engineer (Frontend) at Simbian in Bengaluru East, Karnataka, India. Posted: 2 days ago. Apply directly on LinkedIn."
+  },
+  {
+    "record_id": "rec_wf_43ddd234c9_li_4470826800_5",
+    "workflow_id": "wf_43ddd234c9",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Software Engineer Frontend (React / TypeScript)_104088",
+      "company": "MyCareernet",
+      "company_domain": "linkedin.com",
+      "location": "Bengaluru, Karnataka, India",
+      "city": "Bangalore",
+      "remote_type": "on-site",
+      "work_modality": "Offline",
+      "modality_detail": "Offline (On-site)",
+      "employment_type": "full-time",
+      "skills": [
+        "React"
+      ],
+      "experience_years": "0-2 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://in.linkedin.com/jobs/view/software-engineer-frontend-react-typescript-104088-at-mycareernet-4470826800",
+      "platform_source": "Linkedin",
+      "date_posted": "2026-09-30T02:06:34.762156+00:00",
+      "match_score": 97.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 30,
+          "max": 30
+        },
+        "role": {
+          "score": 20,
+          "max": 20
+        },
+        "experience": {
+          "score": 14,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 5,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 React",
+        "\u2713 Target role match (Frontend Developer)",
+        "\u2713 Offline fit: Bengaluru, Karnataka, India at MyCareernet",
+        "\u2713 Education qualifications satisfied",
+        "\u2713 Full-Time employment type"
+      ],
+      "potential_gaps": [],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 80.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "linkedin"
+      ],
+      "description": "Live opening for Software Engineer Frontend (React / TypeScript)_104088 at MyCareernet in Bengaluru, Karnataka, India. Posted: 1 day ago. Apply directly on LinkedIn.",
+      "description_snippet": "Live opening for Software Engineer Frontend (React / TypeScript)_104088 at MyCareernet in Bengaluru, Karnataka, India. Posted: 1 day ago. Apply directly on LinkedIn.",
+      "is_link_out": false
+    },
+    "confidence_score": 97.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 30,
+        "max": 30
+      },
+      "role": {
+        "score": 20,
+        "max": 20
+      },
+      "experience": {
+        "score": 14,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 5,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://in.linkedin.com/jobs/view/software-engineer-frontend-react-typescript-104088-at-mycareernet-4470826800",
+    "source_title": "Software Engineer Frontend (React / TypeScript)_104088 at MyCareernet",
+    "extracted_timestamp": "2026-09-30T02:06:35.703589+00:00",
+    "raw_snippet": "Live opening for Software Engineer Frontend (React / TypeScript)_104088 at MyCareernet in Bengaluru, Karnataka, India. Posted: 1 day ago. Apply directly on LinkedIn."
+  },
+  {
+    "record_id": "rec_wf_43ddd234c9_li_4431243645_6",
+    "workflow_id": "wf_43ddd234c9",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Front-End Developer",
+      "company": "Tradelab Technologies",
+      "company_domain": "linkedin.com",
+      "location": "Bengaluru East, Karnataka, India",
+      "city": "Bangalore",
+      "remote_type": "on-site",
+      "work_modality": "Offline",
+      "modality_detail": "Offline (On-site)",
+      "employment_type": "full-time",
+      "skills": [
+        "React"
+      ],
+      "experience_years": "0-2 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://in.linkedin.com/jobs/view/front-end-developer-at-tradelab-technologies-4431243645",
+      "platform_source": "Linkedin",
+      "date_posted": "2026-09-30T02:06:34.761611+00:00",
+      "match_score": 83.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 30,
+          "max": 30
+        },
+        "role": {
+          "score": 6,
+          "max": 20
+        },
+        "experience": {
+          "score": 14,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 5,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 React",
+        "\u2713 Offline fit: Bengaluru East, Karnataka, India at Tradelab Technologies",
+        "\u2713 Education qualifications satisfied",
+        "\u2713 Full-Time employment type",
+        "\u2713 Fresh posting (< 24h old)"
+      ],
+      "potential_gaps": [
+        "\u26a0 Role title differs from target keywords"
+      ],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 80.0,
+        "listing_quality_score": 95.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "linkedin"
+      ],
+      "description": "About Us At Tradelab Technologies Pvt Ltd, we don\u2019t just build web applications, we create high-performance trading platforms tailored for brokers and financial institutions. Our platforms power real-time market analysis, ultra-low-latency trade execution, and seamless broker-client interactions. We work in a high-stakes, outcome-driven environment where brokers demand reliability, speed, and security. If you're an expert React developer who thrives on solving complex front-end engineering challenges in the brokerage and trading domain, this is the role for you. For more info, visit: https://tradelab.in/ Job Summary We are looking for a talented Front-End Developer with strong expertise in modern JavaScript frameworks and responsive web development. The ideal candidate should have hands-on experience with Next.js, React.js, Redux Toolkit, and front-end technologies to build scalable, high-performance, and user-friendly web applications. Key Responsibilities Develop and maintain responsive web applications using Next.js and React.js. Build reusable, modular, and maintainable UI components. Implement state management using Redux Toolkit. Collaborate with UI/UX designers to translate designs into high-quality user interfaces. Optimize applications for maximum speed, scalability, and cross-browser compatibility. Integrate front-end applications with REST APIs and backend services. Troubleshoot, debug, and enhance existing applications. Participate in code reviews and follow best development practices. Required Skills Strong experience with Next.js and React.js. Proficiency in JavaScript (ES6+), HTML5, and CSS3. Hands-on experience with Redux Toolkit for state management. Experience with Tailwind CSS and Bootstrap. Knowledge of responsive design and mobile-first development. Familiarity with RESTful APIs and JSON. Experience with Git and version control systems. Understanding of modern front-end development workflows and best practices. Educational Qualification B.E./B.Tech/MCA in Computer Science, Information Technology, Software Engineering, or a related field from a recognized university.",
+      "description_snippet": "About Us At Tradelab Technologies Pvt Ltd, we don\u2019t just build web applications, we create high-performance trading platforms tailored for brokers and financial institutions. Our platforms power real-time market analysis, ultra-low-latency trade execution, and seamless broker-client interactions. We work in a high-stakes, outcome-driven environment where brokers demand reliability, speed, and secu",
+      "is_link_out": false
+    },
+    "confidence_score": 83.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 30,
+        "max": 30
+      },
+      "role": {
+        "score": 6,
+        "max": 20
+      },
+      "experience": {
+        "score": 14,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 5,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://in.linkedin.com/jobs/view/front-end-developer-at-tradelab-technologies-4431243645",
+    "source_title": "Front-End Developer at Tradelab Technologies",
+    "extracted_timestamp": "2026-09-30T02:06:35.704867+00:00",
+    "raw_snippet": "About Us At Tradelab Technologies Pvt Ltd, we don\u2019t just build web applications, we create high-performance trading platforms tailored for brokers and financial institutions. Our platforms power real-time market analysis, ultra-low-latency trade execution, and seamless broker-client interactions. We work in a high-stakes, outcome-driven environment where brokers demand reliability, speed, and secu"
+  },
+  {
+    "record_id": "rec_wf_43ddd234c9_li_4463271056_7",
+    "workflow_id": "wf_43ddd234c9",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "React JS Developer",
+      "company": "Tata Consultancy Services",
+      "company_domain": "linkedin.com",
+      "location": "Bengaluru, Karnataka, India",
+      "city": "Bangalore",
+      "remote_type": "on-site",
+      "work_modality": "Offline",
+      "modality_detail": "Offline (On-site)",
+      "employment_type": "full-time",
+      "skills": [
+        "React"
+      ],
+      "experience_years": "0-2 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://in.linkedin.com/jobs/view/react-js-developer-at-tata-consultancy-services-4463271056",
+      "platform_source": "Linkedin",
+      "date_posted": "2026-09-30T02:06:34.761835+00:00",
+      "match_score": 83.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 30,
+          "max": 30
+        },
+        "role": {
+          "score": 6,
+          "max": 20
+        },
+        "experience": {
+          "score": 14,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 5,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 React",
+        "\u2713 Offline fit: Bengaluru, Karnataka, India at Tata Consultancy Services",
+        "\u2713 Education qualifications satisfied",
+        "\u2713 Full-Time employment type",
+        "\u2713 Fresh posting (< 24h old)"
+      ],
+      "potential_gaps": [
+        "\u26a0 Role title differs from target keywords"
+      ],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 80.0,
+        "listing_quality_score": 95.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "linkedin"
+      ],
+      "description": "Greetings From TCS !!! Exp: 5 to 12 Location: Chennai, Bengalore, Hyderabad JOB Description Key Responsibilities: Build responsive and user-friendly web applications using React.js . Develop reusable UI components and integrate with REST APIs/GraphQL. Ensure cross-browser compatibility and mobile responsiveness. Collaborate with backend developers, designers, and QA teams. Optimize application performance and maintain code quality. Technical Requirements: 6 years frontend development experience with React.js . Strong knowledge of JavaScript (ES6+), HTML5, CSS3 . Familiarity with state management (Redux, Context API). Experience with REST/GraphQL API integration . Knowledge of Git, CI/CD, and testing frameworks (Jest, React Testing Library). Good problem-solving and communication skills. Ability to work in a fast-paced Agile environment. Preferred Skills (Good to Have): Exposure cloud platforms (AWS, Azure, GCP). Experience with Reactive Programming (Spring Web Flux) or GraphQL APIs . Knowledge of Domain-Driven Design (DDD) . Prior work in Agile/Scrum environments.",
+      "description_snippet": "Greetings From TCS !!! Exp: 5 to 12 Location: Chennai, Bengalore, Hyderabad JOB Description Key Responsibilities: Build responsive and user-friendly web applications using React.js . Develop reusable UI components and integrate with REST APIs/GraphQL. Ensure cross-browser compatibility and mobile responsiveness. Collaborate with backend developers, designers, and QA teams. Optimize application per",
+      "is_link_out": false
+    },
+    "confidence_score": 83.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 30,
+        "max": 30
+      },
+      "role": {
+        "score": 6,
+        "max": 20
+      },
+      "experience": {
+        "score": 14,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 5,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://in.linkedin.com/jobs/view/react-js-developer-at-tata-consultancy-services-4463271056",
+    "source_title": "React JS Developer at Tata Consultancy Services",
+    "extracted_timestamp": "2026-09-30T02:06:35.706730+00:00",
+    "raw_snippet": "Greetings From TCS !!! Exp: 5 to 12 Location: Chennai, Bengalore, Hyderabad JOB Description Key Responsibilities: Build responsive and user-friendly web applications using React.js . Develop reusable UI components and integrate with REST APIs/GraphQL. Ensure cross-browser compatibility and mobile responsiveness. Collaborate with backend developers, designers, and QA teams. Optimize application per"
+  },
+  {
+    "record_id": "rec_wf_43ddd234c9_gh_okta_8185311_8",
+    "workflow_id": "wf_43ddd234c9",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Senior Fullstack Engineer (Java + React.js)",
+      "company": "Okta",
+      "company_domain": "okta.com",
+      "location": "Bangalore, Karnataka, India",
+      "city": "Bangalore",
+      "remote_type": "on-site",
+      "work_modality": "Offline",
+      "modality_detail": "Offline (On-site)",
+      "employment_type": "full-time",
+      "skills": [
+        "React"
+      ],
+      "experience_years": "0-5 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://www.okta.com/company/careers/opportunity/8185311?gh_jid=8185311",
+      "platform_source": "Greenhouse",
+      "date_posted": "2026-09-29T08:31:27-04:00",
+      "match_score": 83.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 30,
+          "max": 30
+        },
+        "role": {
+          "score": 6,
+          "max": 20
+        },
+        "experience": {
+          "score": 14,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 5,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 React",
+        "\u2713 Offline fit: Bangalore, Karnataka, India at Okta",
+        "\u2713 Education qualifications satisfied",
+        "\u2713 Full-Time employment type",
+        "\u2713 Fresh posting (< 24h old)"
+      ],
+      "potential_gaps": [
+        "\u26a0 Role title differs from target keywords"
+      ],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 98.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "greenhouse",
+        "company-careers"
+      ],
+      "description": "Role: Senior Fullstack Engineer (Java + React.js) at Okta. Department: Engineering. Location: Bengaluru, India.",
+      "description_snippet": "Role: Senior Fullstack Engineer (Java + React.js) at Okta. Department: Engineering. Location: Bengaluru, India.",
+      "is_link_out": false
+    },
+    "confidence_score": 83.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 30,
+        "max": 30
+      },
+      "role": {
+        "score": 6,
+        "max": 20
+      },
+      "experience": {
+        "score": 14,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 5,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://www.okta.com/company/careers/opportunity/8185311?gh_jid=8185311",
+    "source_title": "Senior Fullstack Engineer (Java + React.js) at Okta",
+    "extracted_timestamp": "2026-09-30T02:06:35.707882+00:00",
+    "raw_snippet": "Role: Senior Fullstack Engineer (Java + React.js) at Okta. Department: Engineering. Location: Bengaluru, India."
+  },
+  {
+    "record_id": "rec_wf_43ddd234c9_gh_okta_8119089_9",
+    "workflow_id": "wf_43ddd234c9",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Senior Fullstack Engineer [ Node.js Heavy + React ]",
+      "company": "Okta",
+      "company_domain": "okta.com",
+      "location": "Bangalore, Karnataka, India",
+      "city": "Bangalore",
+      "remote_type": "on-site",
+      "work_modality": "Offline",
+      "modality_detail": "Offline (On-site)",
+      "employment_type": "full-time",
+      "skills": [
+        "React"
+      ],
+      "experience_years": "0-5 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://www.okta.com/company/careers/opportunity/8119089?gh_jid=8119089",
+      "platform_source": "Greenhouse",
+      "date_posted": "2026-09-21T12:43:00-04:00",
+      "match_score": 81.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 30,
+          "max": 30
+        },
+        "role": {
+          "score": 6,
+          "max": 20
+        },
+        "experience": {
+          "score": 14,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 3,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 React",
+        "\u2713 Offline fit: Bangalore, Karnataka, India at Okta",
+        "\u2713 Education qualifications satisfied",
+        "\u2713 Full-Time employment type"
+      ],
+      "potential_gaps": [
+        "\u26a0 Role title differs from target keywords"
+      ],
+      "quality_signals": {
+        "freshness_score": 80.0,
+        "source_confidence": 98.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "greenhouse",
+        "company-careers"
+      ],
+      "description": "Role: Senior Fullstack Engineer [ Node.js Heavy + React ] at Okta. Department: Engineering. Location: Bengaluru, India.",
+      "description_snippet": "Role: Senior Fullstack Engineer [ Node.js Heavy + React ] at Okta. Department: Engineering. Location: Bengaluru, India.",
+      "is_link_out": false
+    },
+    "confidence_score": 81.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 30,
+        "max": 30
+      },
+      "role": {
+        "score": 6,
+        "max": 20
+      },
+      "experience": {
+        "score": 14,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 3,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://www.okta.com/company/careers/opportunity/8119089?gh_jid=8119089",
+    "source_title": "Senior Fullstack Engineer [ Node.js Heavy + React ] at Okta",
+    "extracted_timestamp": "2026-09-30T02:06:35.708831+00:00",
+    "raw_snippet": "Role: Senior Fullstack Engineer [ Node.js Heavy + React ] at Okta. Department: Engineering. Location: Bengaluru, India."
+  },
+  {
+    "record_id": "rec_wf_43ddd234c9_gh_okta_7929542_10",
+    "workflow_id": "wf_43ddd234c9",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Staff FullStack Engineer - Backend Focused (Java & React/Typescript)",
+      "company": "Okta",
+      "company_domain": "okta.com",
+      "location": "Bangalore, Karnataka, India",
+      "city": "Bangalore",
+      "remote_type": "on-site",
+      "work_modality": "Offline",
+      "modality_detail": "Offline (On-site)",
+      "employment_type": "full-time",
+      "skills": [
+        "React"
+      ],
+      "experience_years": "0-5 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://www.okta.com/company/careers/opportunity/7929542?gh_jid=7929542",
+      "platform_source": "Greenhouse",
+      "date_posted": "2026-09-21T12:43:00-04:00",
+      "match_score": 81.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 30,
+          "max": 30
+        },
+        "role": {
+          "score": 6,
+          "max": 20
+        },
+        "experience": {
+          "score": 14,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 3,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 React",
+        "\u2713 Offline fit: Bangalore, Karnataka, India at Okta",
+        "\u2713 Education qualifications satisfied",
+        "\u2713 Full-Time employment type"
+      ],
+      "potential_gaps": [
+        "\u26a0 Role title differs from target keywords"
+      ],
+      "quality_signals": {
+        "freshness_score": 80.0,
+        "source_confidence": 98.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "greenhouse",
+        "company-careers"
+      ],
+      "description": "Role: Staff FullStack Engineer - Backend Focused (Java & React/Typescript) at Okta. Department: Engineering. Location: Bengaluru, India.",
+      "description_snippet": "Role: Staff FullStack Engineer - Backend Focused (Java & React/Typescript) at Okta. Department: Engineering. Location: Bengaluru, India.",
+      "is_link_out": false
+    },
+    "confidence_score": 81.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 30,
+        "max": 30
+      },
+      "role": {
+        "score": 6,
+        "max": 20
+      },
+      "experience": {
+        "score": 14,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 3,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://www.okta.com/company/careers/opportunity/7929542?gh_jid=7929542",
+    "source_title": "Staff FullStack Engineer - Backend Focused (Java & React/Typescript) at Okta",
+    "extracted_timestamp": "2026-09-30T02:06:35.709728+00:00",
+    "raw_snippet": "Role: Staff FullStack Engineer - Backend Focused (Java & React/Typescript) at Okta. Department: Engineering. Location: Bengaluru, India."
+  }
+]

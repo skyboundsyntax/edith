@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Sliders, Sparkles, MapPin, Briefcase, Code, CheckCircle, ChevronDown, ChevronUp, X, Plus } from 'lucide-react';
+import { Sliders, MapPin, Briefcase, Code, CheckCircle, ChevronDown, ChevronUp, X, Plus } from 'lucide-react';
+import { Butterfly } from './ui';
+import { formatSkillName } from '../utils/textSanitizer';
 
 export default function InterpretedRequirements({
   spec,
@@ -43,7 +45,7 @@ export default function InterpretedRequirements({
     <div className="glass-panel" style={{ marginTop: '1rem', padding: '1.25rem', border: '1px solid var(--border-amber)', borderRadius: '12px', background: 'var(--bg-secondary)' }}>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-          <Sparkles size={18} color="var(--accent-amber)" />
+          <Butterfly size={18} color="var(--accent-amber)" />
           <h3 style={{ fontSize: '0.95rem', fontWeight: 600, color: '#f8fafc', margin: 0 }}>
             AI Interpreted Search Specification
           </h3>
@@ -121,7 +123,7 @@ export default function InterpretedRequirements({
               className="skill-chip"
               style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', background: 'oklch(76% 0.17 60 / 0.14)', border: '1px solid oklch(76% 0.17 60 / 0.28)', color: 'var(--text-amber)' }}
             >
-              {skill}
+              {formatSkillName(skill)}
               {isEditing && (
                 <X
                   size={11}

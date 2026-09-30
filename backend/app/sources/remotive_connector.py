@@ -28,10 +28,10 @@ class RemotiveConnector(JobSourceConnector):
     enabled = True
 
     def can_handle(self, query_spec: Dict[str, Any]) -> bool:
-        locations = query_spec.get("locations") or []
-        remote = query_spec.get("remote", False)
-        # If user explicitly wants on-site local jobs only, skip Remotive
-        if locations and not remote:
+        # Remotive provides global and India-compatible remote developer jobs
+        # Only skip if user explicitly specified on-site only
+        keywords = [k.lower() for k in (query_spec.get("keywords") or [])]
+        if any("on-site only" in k or "onsite only" in k or "offline only" in k for k in keywords):
             return False
         return True
 

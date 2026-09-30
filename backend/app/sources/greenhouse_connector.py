@@ -7,6 +7,7 @@ import time
 import httpx
 import logging
 import hashlib
+import asyncio
 from typing import Dict, List, Optional, Any
 from datetime import datetime, timezone
 import re
@@ -18,16 +19,20 @@ logger = logging.getLogger(__name__)
 
 # Curated active tech companies with public Greenhouse boards that hire in India / Remote
 GREENHOUSE_COMPANIES = [
-    {"token": "razorpay", "company": "Razorpay", "domain": "razorpay.com"},
-    {"token": "swiggy", "company": "Swiggy", "domain": "swiggy.com"},
-    {"token": "postman", "company": "Postman", "domain": "postman.com"},
-    {"token": "browserstack", "company": "BrowserStack", "domain": "browserstack.com"},
     {"token": "inmobi", "company": "InMobi", "domain": "inmobi.com"},
+    {"token": "rubrik", "company": "Rubrik", "domain": "rubrik.com"},
+    {"token": "mongodb", "company": "MongoDB", "domain": "mongodb.com"},
+    {"token": "databricks", "company": "Databricks", "domain": "databricks.com"},
+    {"token": "cloudflare", "company": "Cloudflare", "domain": "cloudflare.com"},
+    {"token": "elastic", "company": "Elastic", "domain": "elastic.co"},
+    {"token": "stripe", "company": "Stripe", "domain": "stripe.com"},
     {"token": "gitlab", "company": "GitLab", "domain": "gitlab.com"},
     {"token": "figma", "company": "Figma", "domain": "figma.com"},
-    {"token": "automattic", "company": "Automattic", "domain": "automattic.com"},
-    {"token": "docker", "company": "Docker", "domain": "docker.com"},
-    {"token": "stripe", "company": "Stripe", "domain": "stripe.com"}
+    {"token": "hackerrank", "company": "HackerRank", "domain": "hackerrank.com"},
+    {"token": "okta", "company": "Okta", "domain": "okta.com"},
+    {"token": "coinbase", "company": "Coinbase", "domain": "coinbase.com"},
+    {"token": "airbnb", "company": "Airbnb", "domain": "airbnb.com"},
+    {"token": "twilio", "company": "Twilio", "domain": "twilio.com"}
 ]
 
 class GreenhouseConnector(JobSourceConnector):
@@ -56,123 +61,118 @@ class GreenhouseConnector(JobSourceConnector):
         remote_allowed = query_spec.get("remote", False)
 
         search_tokens = set(keywords + roles + skills)
+        role_pattern = re.compile(r'\b(?:' + '|'.join(re.escape(tok) for tok in search_tokens) + r')\b', re.IGNORECASE) if search_tokens else None
 
-        async with httpx.AsyncClient(timeout=8.0) as client:
-            for comp in GREENHOUSE_COMPANIES:
-                board_token = comp["token"]
-                company_name = comp["company"]
-                company_domain = comp["domain"]
-                url = f"https://boards-api.greenhouse.io/v1/boards/{board_token}/jobs?content=false"
+        async def fetch_company_jobs(client: httpx.AsyncClient, comp: Dict[str, str]) -> List[Dict[str, Any]]:
+            board_token = comp["token"]
+            company_name = comp["company"]
+            company_domain = comp["domain"]
+            url = f"https://boards-api.greenhouse.io/v1/boards/{board_token}/jobs?content=false"
+            comp_jobs = []
 
-                try:
-                    resp = await client.get(url, headers={"User-Agent": "EDITH-JobIntelligence/1.0"})
-                    if resp.status_code != 200:
+            try:
+                resp = await client.get(url, headers={"User-Agent": "EDITH-JobIntelligence/1.0"})
+                if resp.status_code != 200:
+                    return []
+                
+                data = resp.json()
+                jobs_list = data.get("jobs", [])
+
+                for item in jobs_list:
+                    title = item.get("title", "")
+                    title_lower = title.lower()
+
+                    # 1. Relevancy check: title or department matches target keywords/roles
+                    if role_pattern:
+                        if not role_pattern.search(title_lower):
+                            departments = item.get("departments", [])
+                            dept_name = departments[0].get("name", "").lower() if departments else ""
+                            if not role_pattern.search(dept_name):
+                                continue
+
+                    # 2. Skip non-engineering online gigs
+                    if is_online_gig(title, ""):
                         continue
-                    
-                    data = resp.json()
-                    jobs_list = data.get("jobs", [])
 
-                    for item in jobs_list:
-                        title = item.get("title", "")
-                        title_lower = title.lower()
-                        loc_raw = (item.get("location") or {}).get("name", "")
-                        loc_lower = loc_raw.lower()
+                    # 3. Strict Location check (Drop foreign jobs when searching Pune/Bengaluru/India)
+                    loc_raw = (item.get("location") or {}).get("name", "")
+                    loc_matches, loc_pts = matches_location_preference(loc_raw, target_locations, remote_allowed)
+                    if not loc_matches or loc_pts == 0:
+                        continue
 
-                        # 1. Skip non-engineering online gigs
-                        if is_online_gig(title, ""):
-                            continue
+                    loc_info = normalize_location(loc_raw)
 
-                        # 2. Strict Location check (Drop foreign jobs when searching Pune/Bengaluru/India)
-                        loc_matches, loc_pts = matches_location_preference(loc_raw, target_locations, remote_allowed)
-                        if not loc_matches or loc_pts == 0:
-                            continue
+                    job_id = str(item.get("id"))
+                    apply_url = item.get("absolute_url") or f"https://boards.greenhouse.io/{board_token}/jobs/{job_id}"
+                    now_iso = datetime.now(timezone.utc).isoformat()
+                    updated_at = item.get("updated_at") or now_iso
 
-                        # 3. Relevancy check: title or department matches target keywords/roles using word boundaries
-                        matches_role = False
-                        if search_tokens:
-                            if any(re.search(r'\b' + re.escape(tok) + r'\b', title_lower) for tok in search_tokens):
-                                matches_role = True
-                            else:
-                                departments = item.get("departments", [])
-                                if departments:
-                                    dept_name = departments[0].get("name", "").lower()
-                                    if any(re.search(r'\b' + re.escape(tok) + r'\b', dept_name) for tok in search_tokens):
-                                        matches_role = True
-                        else:
-                            matches_role = True
+                    raw_str = f"{title}_{company_name}_{job_id}_{loc_raw}"
+                    content_hash = hashlib.sha256(raw_str.encode()).hexdigest()
 
-                        if not matches_role:
-                            continue
-
-                        loc_info = normalize_location(loc_raw)
-
-                        job_id = str(item.get("id"))
-                        apply_url = item.get("absolute_url") or f"https://boards.greenhouse.io/{board_token}/jobs/{job_id}"
-                        now_iso = datetime.now(timezone.utc).isoformat()
-                        updated_at = item.get("updated_at") or now_iso
-
-                        raw_str = f"{title}_{company_name}_{job_id}_{loc_raw}"
-                        content_hash = hashlib.sha256(raw_str.encode()).hexdigest()
-
-                        canonical_job = {
-                            "id": f"gh_{board_token}_{job_id}",
-                            "source": "greenhouse",
-                            "source_job_id": job_id,
-                            "source_url": apply_url,
-                            "apply_url": apply_url,
-                            "title": title,
-                            "company": company_name,
-                            "company_url": f"https://{company_domain}",
-                            "company_domain": company_domain,
-                            "description": f"Role: {title} at {company_name}. Department: {item.get('departments', [{}])[0].get('name', 'Engineering')}. Location: {loc_raw}.",
-                            "requirements": [],
-                            "responsibilities": [],
-                            "skills": [s.title() for s in skills if s in title_lower] or ["Software Development"],
-                            "technologies": [],
-                            "location": loc_info["canonical_location"],
-                            "city": loc_info["city"],
-                            "state": loc_info["state"],
-                            "country": loc_info["country"],
-                            "remote_type": loc_info["remote_type"],
-                            "work_modality": "Online" if loc_info["remote_type"] == "remote" else "Offline",
-                            "employment_type": "full-time",
-                            "experience_min": 0,
-                            "experience_max": 2 if "intern" in title_lower or "junior" in title_lower else 5,
-                            "salary_min": None,
-                            "salary_max": None,
-                            "salary_currency": "INR",
-                            "salary_period": "year",
-                            "education": "Degree in Computer Science, Engineering, or related technical field",
-                            "date_posted": updated_at,
-                            "date_updated": updated_at,
-                            "first_seen_at": now_iso,
-                            "last_seen_at": now_iso,
-                            "is_active": True,
-                            "is_verified": True,
+                    canonical_job = {
+                        "id": f"gh_{board_token}_{job_id}",
+                        "source": "greenhouse",
+                        "source_job_id": job_id,
+                        "source_url": apply_url,
+                        "apply_url": apply_url,
+                        "title": title,
+                        "company": company_name,
+                        "company_url": f"https://{company_domain}",
+                        "company_domain": company_domain,
+                        "description": f"Role: {title} at {company_name}. Department: {item.get('departments', [{}])[0].get('name', 'Engineering')}. Location: {loc_raw}.",
+                        "requirements": [],
+                        "responsibilities": [],
+                        "skills": [s.title() for s in skills if s in title_lower] or ["Software Development"],
+                        "technologies": [],
+                        "location": loc_info["canonical_location"],
+                        "city": loc_info["city"],
+                        "state": loc_info["state"],
+                        "country": loc_info["country"],
+                        "remote_type": loc_info["remote_type"],
+                        "work_modality": "Online" if loc_info["remote_type"] == "remote" else "Offline",
+                        "employment_type": "full-time",
+                        "experience_min": 0,
+                        "experience_max": 2 if "intern" in title_lower or "junior" in title_lower else 5,
+                        "salary_min": None,
+                        "salary_max": None,
+                        "salary_currency": "INR",
+                        "salary_period": "year",
+                        "education": "Degree in Computer Science, Engineering, or related technical field",
+                        "date_posted": updated_at,
+                        "date_updated": updated_at,
+                        "first_seen_at": now_iso,
+                        "last_seen_at": now_iso,
+                        "is_active": True,
+                        "is_verified": True,
+                        "source_timestamp": updated_at,
+                        "raw_content_hash": content_hash,
+                        "sources": ["greenhouse", "company-careers"],
+                        "provenance": {
+                            "source_name": "Greenhouse Public Job Board API",
+                            "source_url": url,
+                            "original_job_url": apply_url,
+                            "retrieval_timestamp": now_iso,
+                            "parser_version": "1.0-gh",
+                            "content_hash": content_hash,
                             "source_timestamp": updated_at,
-                            "raw_content_hash": content_hash,
-                            "sources": ["greenhouse", "company-careers"],
-                            "provenance": {
-                                "source_name": "Greenhouse Public Job Board API",
-                                "source_url": url,
-                                "original_job_url": apply_url,
-                                "retrieval_timestamp": now_iso,
-                                "parser_version": "1.0-gh",
-                                "content_hash": content_hash,
-                                "source_timestamp": updated_at,
-                                "last_successful_fetch": now_iso
-                            }
+                            "last_successful_fetch": now_iso
                         }
-                        results.append(canonical_job)
+                    }
+                    comp_jobs.append(canonical_job)
+                    if len(comp_jobs) >= 8:
+                        break
+                return comp_jobs
+            except Exception as e:
+                logger.warning(f"Greenhouse board fetch error for {board_token}: {e}")
+                return []
 
-                        if len(results) >= 20:
-                            break
-                except Exception as e:
-                    logger.warning(f"Greenhouse board fetch error for {board_token}: {e}")
-                    continue
-
-                if len(results) >= 20:
-                    break
+        async with httpx.AsyncClient(timeout=6.0, limits=httpx.Limits(max_connections=20, max_keepalive_connections=10)) as client:
+            tasks = [fetch_company_jobs(client, comp) for comp in GREENHOUSE_COMPANIES]
+            batch_results = await asyncio.gather(*tasks, return_exceptions=True)
+            for res in batch_results:
+                if isinstance(res, list):
+                    results.extend(res)
 
         return results
 
@@ -184,7 +184,7 @@ class GreenhouseConnector(JobSourceConnector):
         start_time = time.time()
         try:
             async with httpx.AsyncClient(timeout=4.0) as client:
-                res = await client.get("https://boards-api.greenhouse.io/v1/boards/razorpay/jobs?content=false")
+                res = await client.get("https://boards-api.greenhouse.io/v1/boards/inmobi/jobs?content=false")
                 latency = int((time.time() - start_time) * 1000)
                 if res.status_code == 200:
                     return SourceHealth(

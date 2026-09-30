@@ -1,27 +1,27 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import {
   Search, ExternalLink, ShieldCheck, Filter, FileSpreadsheet, FileCode,
   MapPin, IndianRupee, CheckCircle2, AlertTriangle, ChevronDown, ChevronUp,
   Briefcase, Zap, Info, Globe, Building2, Calendar
 } from 'lucide-react';
-import { sanitizeJobDescription } from '../utils/textSanitizer';
-import { formatSalaryInRupees } from '../utils/currencyFormatter';
+import { sanitizeJobDescription, formatSkillName } from '../utils/textSanitizer';
+import { formatSalaryInRupees, extractSalaryQuery, matchesSalaryBracket } from '../utils/currencyFormatter';
+import { getSafeExternalUrl, truncateSafe, sanitizeSearchQuery } from '../utils/urlValidator';
 
 function extractSubscore(val, fallback = 0) {
   if (val === null || val === undefined) return fallback;
-  if (typeof val === 'number') return isNaN(val) ? fallback : val;
+  if (typeof val === 'number') return Number.isFinite(val) ? val : fallback;
   if (typeof val === 'string') {
     const parsed = parseFloat(val);
-    return isNaN(parsed) ? fallback : parsed;
+    return Number.isFinite(parsed) ? parsed : fallback;
   }
   if (typeof val === 'object') {
-    if (typeof val.score === 'number') return val.score;
-    if (typeof val.val === 'number') return val.val;
-    if (typeof val.points === 'number') return val.points;
+    if (typeof val.score === 'number' && Number.isFinite(val.score)) return val.score;
+    if (typeof val.val === 'number' && Number.isFinite(val.val)) return val.val;
+    if (typeof val.points === 'number' && Number.isFinite(val.points)) return val.points;
   }
   return fallback;
 }
-
 
 export default function DataGrid({
   records = [],
@@ -33,9 +33,12 @@ export default function DataGrid({
   const [searchTerm, setSearchTerm] = useState('');
   const [minScoreFilter, setMinScoreFilter] = useState(0);
   const [locationFilter, setLocationFilter] = useState('ALL');
+  const [salaryBracketFilter, setSalaryBracketFilter] = useState('ALL');
   const [sourceTypeFilter, setSourceTypeFilter] = useState('ALL');
   const [showOnlyReview, setShowOnlyReview] = useState(false);
   const [expandedRecordId, setExpandedRecordId] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 15;
 
   // Check if current dataset is job-focused
   const isJobDataset = useMemo(() => {
@@ -65,13 +68,29 @@ export default function DataGrid({
 
   // Filter records
   const filteredRecords = useMemo(() => {
+    const cleanSearch = sanitizeSearchQuery(searchTerm).trim();
+    const querySalary = extractSalaryQuery(cleanSearch);
+
+    let effectiveMinLpa = null;
+    let effectiveMaxLpa = null;
+
+    if (querySalary.hasSalaryFilter) {
+      effectiveMinLpa = querySalary.minLpa;
+      effectiveMaxLpa = querySalary.maxLpa;
+    } else if (salaryBracketFilter !== 'ALL') {
+      if (salaryBracketFilter === '6-12') { effectiveMinLpa = 6; effectiveMaxLpa = 12; }
+      else if (salaryBracketFilter === '12-20') { effectiveMinLpa = 12; effectiveMaxLpa = 20; }
+      else if (salaryBracketFilter === '20-30') { effectiveMinLpa = 20; effectiveMaxLpa = 30; }
+      else if (salaryBracketFilter === '30-40') { effectiveMinLpa = 30; effectiveMaxLpa = 40; }
+      else if (salaryBracketFilter === '40+') { effectiveMinLpa = 40; effectiveMaxLpa = null; }
+    }
+
     return records.filter((r) => {
       const data = r.data || {};
       const score = data.match_score ?? r.confidence_score ?? 0;
 
       if (showOnlyReview && !r.human_review_required) return false;
       if (score < minScoreFilter) return false;
-
 
       // Location & Modality filter
       if (locationFilter !== 'ALL') {
@@ -90,9 +109,20 @@ export default function DataGrid({
         if (locationFilter === 'MUMBAI' && !loc.includes('mumbai')) return false;
       }
 
-      if (!searchTerm) return true;
+      // Strict Salary Bracket filter:
+      // Show jobs in bracket + unlisted roles, hide any job with listed salary outside bracket
+      if (effectiveMinLpa !== null || effectiveMaxLpa !== null) {
+        const sal = data.salary_range || data.salary || '';
+        if (!matchesSalaryBracket(sal, effectiveMinLpa, effectiveMaxLpa)) {
+          return false;
+        }
+      }
 
-      const term = searchTerm.toLowerCase();
+      // Search term filter across record fields & source
+      const textToMatch = querySalary.hasSalaryFilter ? querySalary.remainingQuery : cleanSearch;
+      if (!textToMatch) return true;
+
+      const term = textToMatch.toLowerCase();
       const matchesData = Object.values(data).some((v) =>
         String(v).toLowerCase().includes(term)
       );
@@ -100,7 +130,20 @@ export default function DataGrid({
                             r.source_title?.toLowerCase().includes(term);
       return matchesData || matchesSource;
     });
-  }, [records, searchTerm, minScoreFilter, locationFilter, sourceTypeFilter, showOnlyReview]);
+  }, [records, searchTerm, minScoreFilter, locationFilter, salaryBracketFilter, sourceTypeFilter, showOnlyReview]);
+
+  // Reset page to 1 when filters or search change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, minScoreFilter, locationFilter, salaryBracketFilter, sourceTypeFilter, showOnlyReview]);
+
+  const totalPages = Math.max(1, Math.ceil(filteredRecords.length / pageSize));
+  const safeCurrentPage = Math.min(currentPage, totalPages);
+
+  const paginatedRecords = useMemo(() => {
+    const start = (safeCurrentPage - 1) * pageSize;
+    return filteredRecords.slice(start, start + pageSize);
+  }, [filteredRecords, safeCurrentPage, pageSize]);
 
   const getScoreColor = (score) => {
     if (score >= 80) return { class: 'excellent', hex: '#10b981' };
@@ -152,6 +195,23 @@ export default function DataGrid({
               <option value="HYDERABAD">Hyderabad</option>
               <option value="MUMBAI">Mumbai</option>
               <option value="DELHI">Delhi NCR</option>
+            </select>
+          )}
+
+          {/* Salary Bracket Filter */}
+          {isJobDataset && (
+            <select
+              className="grid-filter-select"
+              value={salaryBracketFilter}
+              onChange={(e) => setSalaryBracketFilter(e.target.value)}
+              title="Filter by CTC Salary Bracket"
+            >
+              <option value="ALL">All CTC Brackets</option>
+              <option value="6-12">₹6 - 12 LPA</option>
+              <option value="12-20">₹12 - 20 LPA</option>
+              <option value="20-30">₹20 - 30 LPA</option>
+              <option value="30-40">₹30 - 40 LPA</option>
+              <option value="40+">₹40+ LPA</option>
             </select>
           )}
 
@@ -237,15 +297,15 @@ export default function DataGrid({
                 </td>
               </tr>
             ) : (
-              filteredRecords.map((r) => {
+              paginatedRecords.map((r) => {
                 const data = r.data || {};
                 const isExpanded = expandedRecordId === r.id;
 
                 if (isJobDataset) {
                   const score = data.match_score ?? r.confidence_score ?? 0;
-                  const scoreTheme = getScoreColor(score);
                   const platform = data.platform_source || (r.source_url?.includes('linkedin') ? 'LinkedIn' : r.source_url?.includes('naukri') ? 'Naukri' : r.source_url?.includes('indeed') ? 'Indeed' : 'Careers');
-                  const skillsList = Array.isArray(data.skills) ? data.skills : (data.skills ? String(data.skills).split(',') : []);
+                  const rawSkills = Array.isArray(data.skills) ? data.skills : (data.skills ? String(data.skills).split(',') : []);
+                  const skillsList = rawSkills.map((s) => formatSkillName(s));
                   const subscores = data.match_subscores || {};
                   const whyMatches = Array.isArray(data.why_it_matches) ? data.why_it_matches : [];
                   const gaps = Array.isArray(data.potential_gaps) ? data.potential_gaps : [];
@@ -258,9 +318,7 @@ export default function DataGrid({
                   const isOnline = rawModality === 'online' || remoteType === 'remote' || /remote|online|virtual|wfh|telecommute|anywhere/i.test(fullContext);
                   const isHybrid = rawModality === 'hybrid' || remoteType === 'hybrid' || /hybrid/i.test(fullContext);
                   const rawApply = data.apply_link || r.source_url || '';
-                  const applyUrl = rawApply && rawApply !== '#'
-                    ? rawApply
-                    : `https://www.google.com/search?q=${encodeURIComponent(`${data.company || ''} ${data.job_title || ''} apply online`)}`;
+                  const applyUrl = getSafeExternalUrl(rawApply, `${data.company || ''} ${data.job_title || ''} apply online`);
 
                   return (
                     <React.Fragment key={r.id}>
@@ -373,14 +431,17 @@ export default function DataGrid({
 
                         {/* Salary (₹ CTC) */}
                         <td>
-                          {data.salary_range && data.salary_range !== 'Not Disclosed' ? (
-                            <span className="salary-pill">
-                              <IndianRupee size={12} />
-                              {formatSalaryInRupees(data.salary_range)}
-                            </span>
-                          ) : (
-                            <span className="salary-pill undisclosed">Undisclosed</span>
-                          )}
+                          {(() => {
+                            const salVal = data.salary_range || data.salary;
+                            return salVal && salVal !== 'Not Disclosed' ? (
+                              <span className="salary-pill">
+                                <IndianRupee size={12} />
+                                {formatSalaryInRupees(salVal)}
+                              </span>
+                            ) : (
+                              <span className="salary-pill undisclosed">Undisclosed</span>
+                            );
+                          })()}
                         </td>
 
                         {/* Direct Apply Button */}
@@ -651,6 +712,38 @@ export default function DataGrid({
           </tbody>
         </table>
       </div>
+
+      {/* Pagination Bar for Large Dataset Resilience */}
+      {filteredRecords.length > pageSize && (
+        <div className="datagrid-pagination-bar" role="navigation" aria-label="Table pagination">
+          <div className="pagination-info">
+            Showing <strong>{(safeCurrentPage - 1) * pageSize + 1}</strong> – <strong>{Math.min(safeCurrentPage * pageSize, filteredRecords.length)}</strong> of <strong>{filteredRecords.length}</strong> records
+          </div>
+          <div className="pagination-controls">
+            <button
+              type="button"
+              className="pagination-btn"
+              onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+              disabled={safeCurrentPage <= 1}
+              aria-label="Previous page"
+            >
+              Previous
+            </button>
+            <span className="pagination-page-indicator">
+              Page {safeCurrentPage} of {totalPages}
+            </span>
+            <button
+              type="button"
+              className="pagination-btn"
+              onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+              disabled={safeCurrentPage >= totalPages}
+              aria-label="Next page"
+            >
+              Next
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

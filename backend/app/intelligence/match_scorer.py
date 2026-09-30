@@ -162,16 +162,48 @@ def score_job_match(job: Dict[str, Any], query_spec: Dict[str, Any], weights: Op
 
     # 7. Salary Fit (5 pts)
     target_sal_min = query_spec.get("salary_min")
+    target_sal_max = query_spec.get("salary_max")
     job_sal_min = job.get("salary_min")
-    if target_sal_min and job_sal_min:
-        if job_sal_min >= target_sal_min:
+    job_sal_max = job.get("salary_max")
+    job_curr = (job.get("salary_currency") or "INR").upper()
+
+    if (target_sal_min or target_sal_max) and (job_sal_min or job_sal_max):
+        eff_min = float(job_sal_min) if job_sal_min is not None else float(job_sal_max)
+        eff_max = float(job_sal_max) if job_sal_max is not None else float(job_sal_min)
+        if job_curr == "USD":
+            eff_min *= 86.0
+            eff_max *= 86.0
+        elif job_curr == "EUR":
+            eff_min *= 92.0
+            eff_max *= 92.0
+        elif job_curr == "GBP":
+            eff_min *= 110.0
+            eff_max *= 110.0
+        elif eff_max <= 150: # In LPA
+            eff_min *= 100000.0
+            eff_max *= 100000.0
+
+        in_bracket = True
+        if target_sal_min is not None and eff_max < target_sal_min:
+            in_bracket = False
+        if target_sal_max is not None and eff_min > target_sal_max:
+            in_bracket = False
+
+        if in_bracket:
             sal_score = w["salary"]
-            why_it_matches.append(f"✓ Compensation meets target criteria")
+            min_lpa = int(target_sal_min / 100000) if target_sal_min else None
+            max_lpa = int(target_sal_max / 100000) if target_sal_max else None
+            if min_lpa and max_lpa:
+                why_it_matches.append(f"✓ Compensation matches requested bracket (₹{min_lpa}–{max_lpa} LPA)")
+            elif min_lpa:
+                why_it_matches.append(f"✓ Compensation satisfies minimum threshold (₹{min_lpa}+ LPA)")
+            else:
+                why_it_matches.append("✓ Compensation satisfies target criteria")
         else:
-            sal_score = round(0.6 * w["salary"])
-            potential_gaps.append("⚠ Stated compensation is slightly below target")
+            sal_score = round(0.4 * w["salary"])
+            potential_gaps.append("⚠ Stated compensation falls outside desired salary bracket")
     else:
-        sal_score = round(0.8 * w["salary"])  # Undisclosed is common in tech
+        sal_score = round(0.85 * w["salary"])  # Undisclosed compensation is common in tech
     breakdown["salary"] = {"score": sal_score, "max": w["salary"]}
 
     # 8. Freshness (5 pts)

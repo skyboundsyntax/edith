@@ -7,22 +7,35 @@ const USD_TO_INR = 86; // standard conversion
 const EUR_TO_INR = 92;
 const GBP_TO_INR = 110;
 
+const inrFormatter = new Intl.NumberFormat('en-IN', {
+  maximumFractionDigits: 0
+});
+
 /**
  * Formats Indian number system with commas: 1850000 -> 18,50,000
+ * Handles negative, zero, extreme values, and non-number inputs defensively.
  */
 export function formatIndianCurrency(amount) {
-  if (!amount || isNaN(amount)) return '0';
-  const rounded = Math.round(amount);
-  return rounded.toLocaleString('en-IN');
+  if (amount === null || amount === undefined) return '0';
+  const num = typeof amount === 'number' ? amount : parseFloat(String(amount).replace(/,/g, ''));
+  if (!Number.isFinite(num)) return '0';
+  // Clamp to reasonable financial range to prevent integer overflow
+  const clamped = Math.max(-10000000000, Math.min(10000000000, Math.round(num)));
+  try {
+    return inrFormatter.format(clamped);
+  } catch {
+    return String(clamped);
+  }
 }
 
 /**
  * Parses any incoming salary text and returns equivalent annual INR value in Rupees.
  */
 export function parseSalaryToInr(salaryText) {
-  if (!salaryText) return null;
-  const str = String(salaryText).trim().toLowerCase();
+  if (salaryText === null || salaryText === undefined) return null;
+  const str = String(salaryText).trim().toLowerCase().slice(0, 150);
   if (
+    !str ||
     str === 'not disclosed' ||
     str === 'undisclosed' ||
     str.includes('competitive') ||
@@ -194,3 +207,146 @@ export function calculateAverageRupeeSalary(records = []) {
     sampleCount: count
   };
 }
+
+/**
+ * Extracts numeric minimum and maximum LPA values from any salary string.
+ * Returns { minLpa: number | null, maxLpa: number | null, isDisclosed: boolean }
+ */
+export function parseSalaryRangeLPA(salaryText) {
+  if (!salaryText) return { minLpa: null, maxLpa: null, isDisclosed: false };
+  const str = String(salaryText).trim().toLowerCase();
+  if (
+    str === 'not disclosed' ||
+    str === 'undisclosed' ||
+    str === 'competitive market ctc' ||
+    str.includes('competitive') ||
+    str.includes('disclosed on application')
+  ) {
+    return { minLpa: null, maxLpa: null, isDisclosed: false };
+  }
+
+  // 1. Range in LPA: e.g. '30-40 LPA', '₹30 - 40 LPA', '30lpa-40lpa', '30 to 40 lac'
+  const lpaRange = str.match(/(\d+(?:\.\d+)?)\s*(?:lpa|lac|lakh)?\s*(?:-|to)\s*(\d+(?:\.\d+)?)\s*(?:lpa|lac|lakh)/i);
+  if (lpaRange) {
+    return {
+      minLpa: parseFloat(lpaRange[1]),
+      maxLpa: parseFloat(lpaRange[2]),
+      isDisclosed: true
+    };
+  }
+
+  // 2. Single LPA: e.g. '35 LPA', '₹35 LPA', '35lpa'
+  const singleLpa = str.match(/(\d+(?:\.\d+)?)\s*(?:lpa|lac|lakh)/i);
+  if (singleLpa) {
+    const val = parseFloat(singleLpa[1]);
+    return { minLpa: val, maxLpa: val, isDisclosed: true };
+  }
+
+  // 3. USD range: e.g. '$120k-$150k' -> converted to INR LPA
+  const usdRange = str.match(/\$?\s*(\d+(?:\.\d+)?)\s*k\s*(?:-|to)\s*\$?\s*(\d+(?:\.\d+)?)\s*k/i);
+  if (usdRange) {
+    const minVal = (parseFloat(usdRange[1]) * 1000 * USD_TO_INR) / 100000;
+    const maxVal = (parseFloat(usdRange[2]) * 1000 * USD_TO_INR) / 100000;
+    return { minLpa: Math.round(minVal), maxLpa: Math.round(maxVal), isDisclosed: true };
+  }
+
+  // 4. Raw INR: '₹30,00,000' -> 30 LPA
+  const rawNumMatch = str.match(/(?:₹|inr|rs\.?)\s*([0-9,]+)/i) || str.match(/([0-9,]{5,})/);
+  if (rawNumMatch) {
+    const num = parseFloat(rawNumMatch[1].replace(/,/g, ''));
+    if (!isNaN(num) && num > 10000) {
+      const lpa = Math.round((num / 100000) * 10) / 10;
+      return { minLpa: lpa, maxLpa: lpa, isDisclosed: true };
+    }
+  }
+
+  return { minLpa: null, maxLpa: null, isDisclosed: false };
+}
+
+/**
+ * Extracts salary bracket intent from search query strings (e.g. 'python 30lpa-40lpa').
+ * Strips out the salary portion so keywords match role titles cleanly.
+ */
+export function extractSalaryQuery(queryText) {
+  if (!queryText || typeof queryText !== 'string') {
+    return { minLpa: null, maxLpa: null, remainingQuery: '', hasSalaryFilter: false };
+  }
+
+  let text = queryText;
+  let minLpa = null;
+  let maxLpa = null;
+  let hasSalaryFilter = false;
+
+  // 1. Range match: '30lpa-40lpa', '30-40 lpa', '30 to 40 LPA', '₹30 - 40 LPA', '₹30LPA - ₹40LPA'
+  const rangeMatch = text.match(/(?:₹|rs\.?|inr)?\s*(\d+(?:\.\d+)?)\s*(?:lpa|lac|lakh)?\s*(?:-|to)\s*(?:₹|rs\.?|inr)?\s*(\d+(?:\.\d+)?)\s*(?:lpa|lac|lakh)/i);
+  if (rangeMatch) {
+    minLpa = parseFloat(rangeMatch[1]);
+    maxLpa = parseFloat(rangeMatch[2]);
+    hasSalaryFilter = true;
+    text = text.replace(rangeMatch[0], ' ');
+  } else {
+    // 2. Minimum or Plus match: '30+ lpa', 'min 30 lpa', '30 lpa+'
+    const plusMatch = text.match(/(?:minimum|min|at least)?\s*(?:₹|rs\.?|inr)?\s*(\d+(?:\.\d+)?)\s*(?:lpa|lac|lakh)\s*\+?/i);
+    if (plusMatch && (text.includes('+') || /min|at least/i.test(plusMatch[0]))) {
+      minLpa = parseFloat(plusMatch[1]);
+      maxLpa = null;
+      hasSalaryFilter = true;
+      text = text.replace(plusMatch[0], ' ');
+    } else {
+      // 3. Single match: '35lpa', '35 LPA', '₹35 LPA'
+      const singleMatch = text.match(/(?:₹|rs\.?|inr)?\s*(\d+(?:\.\d+)?)\s*(?:lpa|lac|lakh)/i);
+      if (singleMatch) {
+        const val = parseFloat(singleMatch[1]);
+        minLpa = val;
+        maxLpa = val;
+        hasSalaryFilter = true;
+        text = text.replace(singleMatch[0], ' ');
+      }
+    }
+  }
+
+  const remainingQuery = text.replace(/\s+/g, ' ').trim();
+  return { minLpa, maxLpa, remainingQuery, hasSalaryFilter };
+}
+
+/**
+ * Validates if a job listing satisfies the requested salary bracket.
+ * Rule:
+ * - Shows jobs strictly inside / overlapping the bracket.
+ * - Shows jobs with unlisted / undisclosed salaries.
+ * - Discards / hides jobs with listed salaries strictly outside the bracket.
+ */
+export function matchesSalaryBracket(salaryText, targetMinLpa, targetMaxLpa) {
+  if (
+    (targetMinLpa === null || targetMinLpa === undefined) &&
+    (targetMaxLpa === null || targetMaxLpa === undefined)
+  ) {
+    return true;
+  }
+
+  const { minLpa: jobMin, maxLpa: jobMax, isDisclosed } = parseSalaryRangeLPA(salaryText);
+
+  // If salary is unlisted/undisclosed, always include it
+  if (!isDisclosed || jobMin === null) {
+    return true;
+  }
+
+  const reqMin = (targetMinLpa !== null && targetMinLpa !== undefined) ? Number(targetMinLpa) : 0;
+  const reqMax = (targetMaxLpa !== null && targetMaxLpa !== undefined) ? Number(targetMaxLpa) : Infinity;
+
+  const actualJobMin = jobMin;
+  const actualJobMax = jobMax !== null ? jobMax : jobMin;
+
+  // If job's maximum salary is strictly below requested minimum -> outside bracket
+  if (actualJobMax < reqMin) {
+    return false;
+  }
+
+  // If job's minimum salary is strictly above requested maximum -> outside bracket
+  if (actualJobMin > reqMax) {
+    return false;
+  }
+
+  return true;
+}
+

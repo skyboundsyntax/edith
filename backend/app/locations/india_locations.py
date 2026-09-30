@@ -163,22 +163,45 @@ ONLINE_GIG_DESC_PATTERNS = [
 ]
 
 
+# Pre-compiled high-performance regular expressions and lookup tables
+GIG_TITLE_COMPILED = re.compile('|'.join(ONLINE_GIG_TITLE_PATTERNS), re.IGNORECASE)
+GIG_DESC_COMPILED = re.compile('|'.join(ONLINE_GIG_DESC_PATTERNS), re.IGNORECASE)
+
+REMOTE_COMPILED = re.compile(r'\b(?:' + '|'.join(re.escape(k) for k in REMOTE_KEYWORDS) + r')\b', re.IGNORECASE)
+HYBRID_COMPILED = re.compile(r'\b(?:' + '|'.join(re.escape(k) for k in HYBRID_KEYWORDS) + r')\b', re.IGNORECASE)
+WORLDWIDE_COMPILED = re.compile(r'\b(?:' + '|'.join(re.escape(w) for w in WORLDWIDE_KEYWORDS) + r')\b', re.IGNORECASE)
+INDIA_GEN_COMPILED = re.compile(r'\b(india|pan india)\b', re.IGNORECASE)
+
+# Mapping aliases to hub data
+ALIAS_TO_HUB: Dict[str, Dict[str, Any]] = {}
+for hub_key, hub_data in INDIAN_TECH_HUBS.items():
+    for alias in hub_data["aliases"]:
+        ALIAS_TO_HUB[alias.lower()] = hub_data
+
+sorted_hub_aliases = sorted(ALIAS_TO_HUB.keys(), key=len, reverse=True)
+INDIAN_HUBS_COMPILED = re.compile(r'\b(?:' + '|'.join(re.escape(a) for a in sorted_hub_aliases) + r')\b', re.IGNORECASE)
+
+# Mapping aliases to foreign regions
+ALIAS_TO_FOREIGN: Dict[str, str] = {}
+for reg_name, reg_aliases in FOREIGN_REGIONS.items():
+    for alias in reg_aliases:
+        ALIAS_TO_FOREIGN[alias.lower()] = reg_name
+
+sorted_foreign_aliases = sorted(ALIAS_TO_FOREIGN.keys(), key=len, reverse=True)
+FOREIGN_COMPILED = re.compile(r'\b(?:' + '|'.join(re.escape(a) for a in sorted_foreign_aliases) + r')\b', re.IGNORECASE)
+
+_LOCATION_CACHE: Dict[str, Dict[str, Any]] = {}
+
+
 def is_online_gig(title: str, description: str = "") -> bool:
     """
     Detects low-quality microtasks, crowdwork, content rating, online language training,
     or non-engineering online tasks that should not masquerade as tech/developer jobs.
     """
-    t_lower = (title or "").lower()
-    d_lower = (description or "").lower()
-
-    for pat in ONLINE_GIG_TITLE_PATTERNS:
-        if re.search(pat, t_lower):
-            return True
-
-    for pat in ONLINE_GIG_DESC_PATTERNS:
-        if re.search(pat, d_lower):
-            return True
-
+    if title and GIG_TITLE_COMPILED.search(title):
+        return True
+    if description and GIG_DESC_COMPILED.search(description):
+        return True
     return False
 
 
@@ -186,6 +209,7 @@ def normalize_location(raw_location: str) -> Dict[str, Any]:
     """
     Normalizes any raw location string into canonical city, state, country, remote type,
     and flags for India vs Foreign vs Worldwide compatibility.
+    Uses O(1) dictionary caching for extreme high-throughput pipelines.
     """
     if not raw_location or not str(raw_location).strip():
         return {
@@ -194,32 +218,29 @@ def normalize_location(raw_location: str) -> Dict[str, Any]:
             "state": None,
             "country": "India",
             "remote_type": "remote",
+            "work_modality": "Online",
             "is_india": True,
             "is_worldwide": False,
             "is_foreign": False
         }
 
     raw_str = str(raw_location).strip()
+    if raw_str in _LOCATION_CACHE:
+        return dict(_LOCATION_CACHE[raw_str])
+
     raw_lower = raw_str.lower()
 
     # Detect remote/hybrid
     remote_type = "on-site"
-    if any(k in raw_lower for k in REMOTE_KEYWORDS):
+    if REMOTE_COMPILED.search(raw_lower):
         remote_type = "remote"
-    elif any(k in raw_lower for k in HYBRID_KEYWORDS):
+    elif HYBRID_COMPILED.search(raw_lower):
         remote_type = "hybrid"
 
     # Check for Indian tech hub
-    matched_hub = None
-    for hub_key, hub_data in INDIAN_TECH_HUBS.items():
-        for alias in hub_data["aliases"]:
-            if re.search(r'\b' + re.escape(alias) + r'\b', raw_lower):
-                matched_hub = hub_data
-                break
-        if matched_hub:
-            break
-
-    if matched_hub:
+    hub_match = INDIAN_HUBS_COMPILED.search(raw_lower)
+    if hub_match:
+        matched_hub = ALIAS_TO_HUB[hub_match.group(0).lower()]
         city = matched_hub["canonical"]
         state = matched_hub["state"]
         country = matched_hub["country"]
@@ -229,7 +250,7 @@ def normalize_location(raw_location: str) -> Dict[str, Any]:
             canonical = f"{city} (Hybrid)"
         else:
             canonical = f"{city}, {state}, {country}"
-        return {
+        res = {
             "canonical_location": canonical,
             "city": city,
             "state": state,
@@ -240,10 +261,12 @@ def normalize_location(raw_location: str) -> Dict[str, Any]:
             "is_worldwide": False,
             "is_foreign": False
         }
+        _LOCATION_CACHE[raw_str] = res
+        return dict(res)
 
     # Check for general India match
-    if re.search(r'\b(india|pan india)\b', raw_lower) or raw_lower in ["in", "/in", "india"]:
-        return {
+    if INDIA_GEN_COMPILED.search(raw_lower) or raw_lower in ["in", "/in", "india"]:
+        res = {
             "canonical_location": "India (Remote)" if remote_type == "remote" else ("India (Hybrid)" if remote_type == "hybrid" else "India"),
             "city": None,
             "state": None,
@@ -254,16 +277,14 @@ def normalize_location(raw_location: str) -> Dict[str, Any]:
             "is_worldwide": False,
             "is_foreign": False
         }
+        _LOCATION_CACHE[raw_str] = res
+        return dict(res)
 
     # Check for Worldwide / Global / Anywhere
-    if any(re.search(r'\b' + re.escape(w) + r'\b', raw_lower) for w in WORLDWIDE_KEYWORDS):
-        has_foreign = False
-        for reg_name, reg_aliases in FOREIGN_REGIONS.items():
-            if any(re.search(r'\b' + re.escape(a) + r'\b', raw_lower) for a in reg_aliases):
-                has_foreign = True
-                break
+    if WORLDWIDE_COMPILED.search(raw_lower):
+        has_foreign = bool(FOREIGN_COMPILED.search(raw_lower))
         if not has_foreign:
-            return {
+            res = {
                 "canonical_location": "Worldwide (Remote)",
                 "city": "Worldwide",
                 "state": None,
@@ -274,26 +295,30 @@ def normalize_location(raw_location: str) -> Dict[str, Any]:
                 "is_worldwide": True,
                 "is_foreign": False
             }
+            _LOCATION_CACHE[raw_str] = res
+            return dict(res)
 
     # Check for Foreign Regions (USA, UK, Europe, etc.)
-    for reg_name, reg_aliases in FOREIGN_REGIONS.items():
-        for alias in reg_aliases:
-            if re.search(r'\b' + re.escape(alias) + r'\b', raw_lower):
-                canonical = f"{reg_name} (Remote)" if remote_type == "remote" else (f"{raw_str} (Hybrid)" if remote_type == "hybrid" else f"{raw_str} ({reg_name})")
-                return {
-                    "canonical_location": canonical,
-                    "city": raw_str.split(',')[0].strip() if ',' in raw_str else raw_str,
-                    "state": None,
-                    "country": reg_name,
-                    "remote_type": remote_type,
-                    "work_modality": "Online" if remote_type == "remote" else ("Hybrid" if remote_type == "hybrid" else "Offline"),
-                    "is_india": False,
-                    "is_worldwide": False,
-                    "is_foreign": True
-                }
+    foreign_match = FOREIGN_COMPILED.search(raw_lower)
+    if foreign_match:
+        reg_name = ALIAS_TO_FOREIGN[foreign_match.group(0).lower()]
+        canonical = f"{reg_name} (Remote)" if remote_type == "remote" else (f"{raw_str} (Hybrid)" if remote_type == "hybrid" else f"{raw_str} ({reg_name})")
+        res = {
+            "canonical_location": canonical,
+            "city": raw_str.split(',')[0].strip() if ',' in raw_str else raw_str,
+            "state": None,
+            "country": reg_name,
+            "remote_type": remote_type,
+            "work_modality": "Online" if remote_type == "remote" else ("Hybrid" if remote_type == "hybrid" else "Offline"),
+            "is_india": False,
+            "is_worldwide": False,
+            "is_foreign": True
+        }
+        _LOCATION_CACHE[raw_str] = res
+        return dict(res)
 
     # Fallback to cleaned raw string
-    return {
+    res = {
         "canonical_location": raw_str,
         "city": raw_str.split(',')[0].strip() if ',' in raw_str else raw_str,
         "state": None,
@@ -304,6 +329,8 @@ def normalize_location(raw_location: str) -> Dict[str, Any]:
         "is_worldwide": False,
         "is_foreign": False
     }
+    _LOCATION_CACHE[raw_str] = res
+    return dict(res)
 
 
 def is_foreign_preference(location_str: str) -> bool:
@@ -311,11 +338,7 @@ def is_foreign_preference(location_str: str) -> bool:
     Checks if a user's location preference explicitly asks for a foreign region (e.g. USA, UK, Germany).
     """
     loc_lower = str(location_str).lower().strip()
-    for reg_name, reg_aliases in FOREIGN_REGIONS.items():
-        for alias in reg_aliases:
-            if re.search(r'\b' + re.escape(alias) + r'\b', loc_lower):
-                return True
-    return False
+    return bool(FOREIGN_COMPILED.search(loc_lower))
 
 
 def matches_location_preference(job_location: str, preferred_locations: List[str], remote_preferred: bool) -> Tuple[bool, int]:
@@ -338,21 +361,30 @@ def matches_location_preference(job_location: str, preferred_locations: List[str
         return True, 9
 
     user_wants_remote = any(p in ["remote", "online", "anywhere", "worldwide", "wfh", "work from home"] for p in clean_prefs)
+    user_wants_foreign = any(is_foreign_preference(p) for p in clean_prefs)
 
     # Rule 2: If the job is remote/online
     if is_remote:
+        job_loc_str = str(job_location).lower()
+        # Drop foreign remote jobs if user did not request foreign jobs
+        if loc_info["is_foreign"] and not user_wants_foreign:
+            return False, 0
+
         if user_wants_remote or remote_preferred:
             return True, 10
-        # Check if job location explicitly includes target city (e.g., "Pune (Remote)")
-        job_loc_str = str(job_location).lower()
+
+        # If user searched India / Pan India, include any India-based or Worldwide remote positions
+        if any(p in ["india", "pan india"] for p in clean_prefs):
+            if loc_info["is_india"] or loc_info["is_worldwide"] or "india" in job_loc_str:
+                return True, 10
+
+        # Check if job location or city explicitly matches any preferred location (e.g. Pune, Bengaluru)
         for p in clean_prefs:
-            if p in job_loc_str:
+            if p in job_loc_str or (loc_info.get("city") and p in loc_info["city"].lower()):
                 return True, 10
         return False, 0
 
     # Rule 3: Check if preferred locations specify foreign vs India
-    user_wants_foreign = any(is_foreign_preference(p) for p in clean_prefs)
-
     if loc_info["is_foreign"]:
         if user_wants_foreign:
             for pref in clean_prefs:

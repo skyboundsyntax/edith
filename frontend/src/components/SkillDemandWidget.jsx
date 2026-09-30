@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { formatSkillName } from '../utils/textSanitizer';
 
 /**
  * Skill Demand Trend Widget
@@ -14,7 +15,7 @@ export default function SkillDemandWidget({ records = [] }) {
       const skills = r.data?.skills;
       if (Array.isArray(skills)) {
         skills.forEach((s) => {
-          const name = String(s).trim();
+          const name = formatSkillName(String(s).trim());
           if (name) skillCounts[name] = (skillCounts[name] || 0) + 1;
         });
       }

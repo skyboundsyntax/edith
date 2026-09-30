@@ -37,7 +37,7 @@ class LinkOutPlatformConnector(JobSourceConnector):
         return SourceHealth(
             name=self.name,
             domain=self.domain,
-            status="ONLINE",
+            status="LINK_OUT_ONLY",
             access_method=self.access_method,
             permission_status=self.permission_status,
             robots_policy=self.robots_policy,

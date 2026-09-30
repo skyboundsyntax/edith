@@ -37,6 +37,14 @@ def clean_html_text(raw_text: Optional[str]) -> str:
     except Exception:
         return re.sub(r'<[^>]*>', ' ', str(raw_text)).strip()
 
+def normalize_skill_name(s: str) -> str:
+    s_clean = str(s).strip()
+    s_lower = s_clean.lower()
+    acronyms = {"ai": "AI", "ml": "ML", "llm": "LLM", "nlp": "NLP", "api": "API", "aws": "AWS", "gcp": "GCP", "sql": "SQL", "sdk": "SDK", "ui": "UI", "ux": "UX", "ci/cd": "CI/CD", "cicd": "CI/CD"}
+    if s_lower in acronyms:
+        return acronyms[s_lower]
+    return re.sub(r'\bAi\b', 'AI', s_clean, flags=re.IGNORECASE)
+
 def format_to_inr_range(s_min, s_max, currency="INR") -> str:
     if s_min is None and s_max is None:
         return "Not Disclosed"
@@ -113,7 +121,7 @@ async def run_job_ingestion_pipeline(
         })
 
         # Step 2: Fetch sources in parallel with resilience
-        live_connectors = source_registry.get_live_connectors()
+        live_connectors = [c for c in source_registry.get_live_connectors() if c.can_handle(query_spec)]
         linkout_connectors = source_registry.get_linkout_connectors()
         
         all_raw_jobs: List[Dict[str, Any]] = []
@@ -126,7 +134,7 @@ async def run_job_ingestion_pipeline(
             t0 = time.time()
             await emit("source_started", {"source": c_name, "domain": connector.domain, "access_method": connector.access_method})
             try:
-                jobs = await asyncio.wait_for(connector.search(query_spec), timeout=9.0)
+                jobs = await asyncio.wait_for(connector.search(query_spec), timeout=12.0)
                 duration_ms = int((time.time() - t0) * 1000)
                 await emit("jobs_found", {"source": c_name, "count": len(jobs), "duration_ms": duration_ms})
                 await emit("source_completed", {"source": c_name, "count": len(jobs), "duration_ms": duration_ms, "status": "success"})
@@ -134,9 +142,10 @@ async def run_job_ingestion_pipeline(
                 return c_name, jobs, None
             except Exception as err:
                 duration_ms = int((time.time() - t0) * 1000)
-                logger.error(f"Source {c_name} failed: {err}")
-                await emit("source_completed", {"source": c_name, "count": 0, "duration_ms": duration_ms, "status": "SOURCE UNAVAILABLE", "error": str(err)})
-                return c_name, [], str(err)
+                err_msg = f"{type(err).__name__}: {err}" if str(err) else type(err).__name__
+                logger.error(f"Source {c_name} failed: {err_msg}")
+                await emit("source_completed", {"source": c_name, "count": 0, "duration_ms": duration_ms, "status": "SOURCE UNAVAILABLE", "error": err_msg})
+                return c_name, [], err_msg
 
         # Launch all live connectors concurrently
         tasks = [fetch_from_source(c) for c in live_connectors]
@@ -170,9 +179,12 @@ async def run_job_ingestion_pipeline(
         expired_count = 0
         geo_excluded_count = 0
         gig_excluded_count = 0
+        sal_excluded_count = 0
 
         target_locs = query_spec.get("locations") or []
         remote_allowed = query_spec.get("remote", False)
+        target_sal_min = query_spec.get("salary_min")
+        target_sal_max = query_spec.get("salary_max")
 
         all_query_terms = " ".join(
             [r.lower() for r in (query_spec.get("roles") or [])] +
@@ -208,6 +220,39 @@ async def run_job_ingestion_pipeline(
                     geo_excluded_count += 1
                     continue
 
+            # Strict Salary Bracket Filter:
+            # Keeps jobs in desired bracket AND unlisted jobs; excludes jobs strictly outside bracket!
+            if target_sal_min is not None or target_sal_max is not None:
+                j_min = job.get("salary_min")
+                j_max = job.get("salary_max")
+                j_curr = (job.get("salary_currency") or "INR").upper()
+
+                if j_min is not None or j_max is not None:
+                    try:
+                        eff_j_min = float(j_min) if j_min is not None else float(j_max)
+                        eff_j_max = float(j_max) if j_max is not None else float(j_min)
+                        if j_curr == "USD":
+                            eff_j_min *= 86.0
+                            eff_j_max *= 86.0
+                        elif j_curr == "EUR":
+                            eff_j_min *= 92.0
+                            eff_j_max *= 92.0
+                        elif j_curr == "GBP":
+                            eff_j_min *= 110.0
+                            eff_j_max *= 110.0
+                        elif eff_j_max <= 150: # Already in LPA
+                            eff_j_min *= 100000.0
+                            eff_j_max *= 100000.0
+
+                        # Outside bracket checks:
+                        if target_sal_min is not None and eff_j_max < target_sal_min:
+                            sal_excluded_count += 1
+                            continue
+                        if target_sal_max is not None and eff_j_min > target_sal_max:
+                            sal_excluded_count += 1
+                            continue
+                    except (ValueError, TypeError):
+                        pass # Keep unparsable/unlisted compensation
 
             validated_jobs.append(job)
 
@@ -218,12 +263,15 @@ async def run_job_ingestion_pipeline(
             msg_parts.append(f"{geo_excluded_count} foreign/mismatched locations filtered")
         if gig_excluded_count > 0:
             msg_parts.append(f"{gig_excluded_count} non-engineering online gigs pruned")
+        if sal_excluded_count > 0:
+            msg_parts.append(f"{sal_excluded_count} postings outside target salary bracket filtered")
 
         await emit("validation_completed", {
             "active_count": len(validated_jobs),
             "expired_count": expired_count,
             "geo_excluded_count": geo_excluded_count,
             "gig_excluded_count": gig_excluded_count,
+            "sal_excluded_count": sal_excluded_count,
             "message": ". ".join(msg_parts) + "."
         })
 
@@ -358,7 +406,7 @@ async def run_job_ingestion_pipeline(
                         "work_modality": work_modality,
                         "modality_detail": modality_detail,
                         "employment_type": j.get("employment_type"),
-                        "skills": j.get("skills"),
+                        "skills": [normalize_skill_name(s) for s in (j.get("skills") if isinstance(j.get("skills"), list) else [j.get("skills")] if j.get("skills") else []) if s],
                         "experience_years": f"{j.get('experience_min', 0)}-{j.get('experience_max', 2)} yrs" if j.get("experience_max") is not None else "0-2 yrs",
                         "salary_range": format_to_inr_range(j.get("salary_min"), j.get("salary_max"), j.get("salary_currency", "INR")),
                         "apply_link": j.get("apply_url"),

@@ -7,6 +7,7 @@ import time
 import httpx
 import logging
 import hashlib
+import asyncio
 from typing import Dict, List, Optional, Any
 from datetime import datetime, timezone
 import re
@@ -44,128 +45,124 @@ class LeverConnector(JobSourceConnector):
         remote_allowed = query_spec.get("remote", False)
 
         search_tokens = set(keywords + roles + skills)
+        role_pattern = re.compile(r'\b(?:' + '|'.join(re.escape(tok) for tok in search_tokens) + r')\b', re.IGNORECASE) if search_tokens else None
 
-        async with httpx.AsyncClient(timeout=8.0) as client:
-            for comp in LEVER_COMPANIES:
-                company_token = comp["token"]
-                company_name = comp["company"]
-                company_domain = comp["domain"]
-                url = f"https://api.lever.co/v0/postings/{company_token}?mode=json"
+        async def fetch_lever_company(client: httpx.AsyncClient, comp: Dict[str, str]) -> List[Dict[str, Any]]:
+            company_token = comp["token"]
+            company_name = comp["company"]
+            company_domain = comp["domain"]
+            url = f"https://api.lever.co/v0/postings/{company_token}?mode=json"
+            comp_jobs = []
 
-                try:
-                    resp = await client.get(url, headers={"User-Agent": "EDITH-JobIntelligence/1.0"})
-                    if resp.status_code != 200:
+            try:
+                resp = await client.get(url, headers={"User-Agent": "EDITH-JobIntelligence/1.0"})
+                if resp.status_code != 200:
+                    return []
+
+                postings = resp.json()
+                if not isinstance(postings, list):
+                    return []
+
+                for item in postings:
+                    title = item.get("text", "")
+                    title_lower = title.lower()
+
+                    categories = item.get("categories") or {}
+                    team = categories.get("team") or ""
+                    commitment = categories.get("commitment") or "Full-time"
+
+                    # 1. Relevancy check: title or team matches target keywords/roles
+                    if role_pattern:
+                        if not role_pattern.search(title_lower) and not (team and role_pattern.search(team.lower())):
+                            continue
+
+                    # 2. Skip non-engineering online gigs
+                    if is_online_gig(title, ""):
                         continue
 
-                    postings = resp.json()
-                    if not isinstance(postings, list):
+                    # 3. Strict Location check (Drop foreign jobs when searching Pune/Bengaluru/India)
+                    loc_raw = categories.get("location") or ""
+                    loc_matches, loc_pts = matches_location_preference(loc_raw, target_locations, remote_allowed)
+                    if not loc_matches or loc_pts == 0:
                         continue
 
-                    for item in postings:
-                        title = item.get("text", "")
-                        title_lower = title.lower()
+                    loc_info = normalize_location(loc_raw)
 
-                        categories = item.get("categories") or {}
-                        loc_raw = categories.get("location") or ""
-                        loc_lower = loc_raw.lower()
-                        team = categories.get("team") or ""
-                        commitment = categories.get("commitment") or "Full-time"
+                    job_id = str(item.get("id"))
+                    apply_url = item.get("hostedUrl") or item.get("applyUrl") or f"https://jobs.lever.co/{company_token}/{job_id}"
+                    now_iso = datetime.now(timezone.utc).isoformat()
+                    created_epoch = item.get("createdAt")
+                    if created_epoch:
+                        date_posted = datetime.fromtimestamp(created_epoch / 1000, tz=timezone.utc).isoformat()
+                    else:
+                        date_posted = now_iso
 
-                        # 1. Skip non-engineering online gigs
-                        if is_online_gig(title, ""):
-                            continue
+                    raw_str = f"{title}_{company_name}_{job_id}_{loc_raw}"
+                    content_hash = hashlib.sha256(raw_str.encode()).hexdigest()
 
-                        # 2. Strict Location check (Drop foreign jobs when searching Pune/Bengaluru/India)
-                        loc_matches, loc_pts = matches_location_preference(loc_raw, target_locations, remote_allowed)
-                        if not loc_matches or loc_pts == 0:
-                            continue
-
-                        # 3. Relevancy check using word boundaries
-                        matches_role = False
-                        if search_tokens:
-                            if any(re.search(r'\b' + re.escape(tok) + r'\b', title_lower) for tok in search_tokens):
-                                matches_role = True
-                            elif team and any(re.search(r'\b' + re.escape(tok) + r'\b', team.lower()) for tok in search_tokens):
-                                matches_role = True
-                        else:
-                            matches_role = True
-
-                        if not matches_role:
-                            continue
-
-                        loc_info = normalize_location(loc_raw)
-
-                        job_id = str(item.get("id"))
-                        apply_url = item.get("hostedUrl") or item.get("applyUrl") or f"https://jobs.lever.co/{company_token}/{job_id}"
-                        now_iso = datetime.now(timezone.utc).isoformat()
-                        created_epoch = item.get("createdAt")
-                        if created_epoch:
-                            date_posted = datetime.fromtimestamp(created_epoch / 1000, tz=timezone.utc).isoformat()
-                        else:
-                            date_posted = now_iso
-
-                        raw_str = f"{title}_{company_name}_{job_id}_{loc_raw}"
-                        content_hash = hashlib.sha256(raw_str.encode()).hexdigest()
-
-                        canonical_job = {
-                            "id": f"lev_{company_token}_{job_id}",
-                            "source": "lever",
-                            "source_job_id": job_id,
-                            "source_url": apply_url,
-                            "apply_url": apply_url,
-                            "title": title,
-                            "company": company_name,
-                            "company_url": f"https://{company_domain}",
-                            "company_domain": company_domain,
-                            "description": item.get("descriptionPlain") or f"Role: {title} at {company_name}. Team: {team}. Location: {loc_raw}.",
-                            "requirements": [],
-                            "responsibilities": [],
-                            "skills": [s.title() for s in skills if s in title_lower] or ["Engineering"],
-                            "technologies": [],
-                            "location": loc_info["canonical_location"],
-                            "city": loc_info["city"],
-                            "state": loc_info["state"],
-                            "country": loc_info["country"],
-                            "remote_type": loc_info["remote_type"],
-                            "work_modality": "Online" if loc_info["remote_type"] == "remote" else ("Hybrid" if loc_info["remote_type"] == "hybrid" else "Offline"),
-                            "employment_type": commitment.lower(),
-                            "experience_min": 0,
-                            "experience_max": 2 if "intern" in title_lower or "junior" in title_lower else 5,
-                            "salary_min": None,
-                            "salary_max": None,
-                            "salary_currency": "INR",
-                            "salary_period": "year",
-                            "education": "Degree in Computer Science or related practical experience",
-                            "date_posted": date_posted,
-                            "date_updated": date_posted,
-                            "first_seen_at": now_iso,
-                            "last_seen_at": now_iso,
-                            "is_active": True,
-                            "is_verified": True,
+                    canonical_job = {
+                        "id": f"lev_{company_token}_{job_id}",
+                        "source": "lever",
+                        "source_job_id": job_id,
+                        "source_url": apply_url,
+                        "apply_url": apply_url,
+                        "title": title,
+                        "company": company_name,
+                        "company_url": f"https://{company_domain}",
+                        "company_domain": company_domain,
+                        "description": item.get("descriptionPlain") or f"Role: {title} at {company_name}. Team: {team}. Location: {loc_raw}.",
+                        "requirements": [],
+                        "responsibilities": [],
+                        "skills": [s.title() for s in skills if s in title_lower] or ["Engineering"],
+                        "technologies": [],
+                        "location": loc_info["canonical_location"],
+                        "city": loc_info["city"],
+                        "state": loc_info["state"],
+                        "country": loc_info["country"],
+                        "remote_type": loc_info["remote_type"],
+                        "work_modality": "Online" if loc_info["remote_type"] == "remote" else ("Hybrid" if loc_info["remote_type"] == "hybrid" else "Offline"),
+                        "employment_type": commitment.lower(),
+                        "experience_min": 0,
+                        "experience_max": 2 if "intern" in title_lower or "junior" in title_lower else 5,
+                        "salary_min": None,
+                        "salary_max": None,
+                        "salary_currency": "INR",
+                        "salary_period": "year",
+                        "education": "Degree in Computer Science or related practical experience",
+                        "date_posted": date_posted,
+                        "date_updated": date_posted,
+                        "first_seen_at": now_iso,
+                        "last_seen_at": now_iso,
+                        "is_active": True,
+                        "is_verified": True,
+                        "source_timestamp": date_posted,
+                        "raw_content_hash": content_hash,
+                        "sources": ["lever", "company-careers"],
+                        "provenance": {
+                            "source_name": "Lever Public Postings API",
+                            "source_url": url,
+                            "original_job_url": apply_url,
+                            "retrieval_timestamp": now_iso,
+                            "parser_version": "1.0-lev",
+                            "content_hash": content_hash,
                             "source_timestamp": date_posted,
-                            "raw_content_hash": content_hash,
-                            "sources": ["lever", "company-careers"],
-                            "provenance": {
-                                "source_name": "Lever Public Postings API",
-                                "source_url": url,
-                                "original_job_url": apply_url,
-                                "retrieval_timestamp": now_iso,
-                                "parser_version": "1.0-lev",
-                                "content_hash": content_hash,
-                                "source_timestamp": date_posted,
-                                "last_successful_fetch": now_iso
-                            }
+                            "last_successful_fetch": now_iso
                         }
-                        results.append(canonical_job)
+                    }
+                    comp_jobs.append(canonical_job)
+                    if len(comp_jobs) >= 8:
+                        break
+                return comp_jobs
+            except Exception as e:
+                logger.warning(f"Lever fetch error for {company_token}: {e}")
+                return []
 
-                        if len(results) >= 20:
-                            break
-                except Exception as e:
-                    logger.warning(f"Lever fetch error for {company_token}: {e}")
-                    continue
-
-                if len(results) >= 20:
-                    break
+        async with httpx.AsyncClient(timeout=6.0, limits=httpx.Limits(max_connections=20, max_keepalive_connections=10)) as client:
+            tasks = [fetch_lever_company(client, comp) for comp in LEVER_COMPANIES]
+            batch_results = await asyncio.gather(*tasks, return_exceptions=True)
+            for res in batch_results:
+                if isinstance(res, list):
+                    results.extend(res)
 
         return results
 

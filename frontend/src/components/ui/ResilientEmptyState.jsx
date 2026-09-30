@@ -1,5 +1,6 @@
 import React from 'react';
-import { Sparkles, MapPin, Search, RefreshCw, Zap } from 'lucide-react';
+import { MapPin, Search, RefreshCw, Zap } from 'lucide-react';
+import Butterfly from './Butterfly';
 
 /**
  * Resilient Empty State Component
@@ -12,14 +13,23 @@ export default function ResilientEmptyState({
   onTriggerScrape,
   isRunning = false
 }) {
-  const isPune = filterType === 'PUNE';
+  const locationLabels = {
+    PUNE: 'Pune',
+    BLR: 'Bengaluru',
+    MUM: 'Mumbai',
+    DEL: 'Delhi NCR',
+    HYD: 'Hyderabad',
+    REMOTE: 'Remote / Online',
+    OFFLINE: 'Offline / On-Site'
+  };
+  const activeLocLabel = locationLabels[filterType];
 
   let title = 'No Matching Openings Found';
   let desc = 'No job vacancies currently match your query criteria or active filter.';
 
-  if (isPune) {
-    title = 'No Openings in Pune in Current Snapshot';
-    desc = 'The current dataset does not have vacancies in Pune tech hubs (Hinjewadi, Kharadi, Baner, Wakad). You can launch a live scrape specifically for Pune right now.';
+  if (activeLocLabel) {
+    title = `No Openings in ${activeLocLabel} in Current Snapshot`;
+    desc = `The current dataset does not have vacancies in ${activeLocLabel}. You can launch a live real-time scrape across genuine ATS portals right now.`;
   } else if (searchTerm) {
     title = `No Results for "${searchTerm}"`;
     desc = 'Try adjusting your search keywords, role names, or resetting the location filter.';
@@ -50,17 +60,17 @@ export default function ResilientEmptyState({
           width: '56px',
           height: '56px',
           borderRadius: '50%',
-          background: isPune ? 'rgba(245, 158, 11, 0.15)' : 'rgba(56, 189, 248, 0.15)',
+          background: activeLocLabel ? 'rgba(56, 189, 248, 0.15)' : 'rgba(56, 189, 248, 0.15)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          border: isPune ? '1px solid rgba(245, 158, 11, 0.35)' : '1px solid rgba(56, 189, 248, 0.35)'
+          border: '1px solid rgba(56, 189, 248, 0.35)'
         }}
       >
-        {isPune ? (
-          <MapPin size={26} color="#fbbf24" />
+        {activeLocLabel ? (
+          <MapPin size={26} color="#38bdf8" />
         ) : (
-          <Sparkles size={26} color="#38bdf8" />
+          <Butterfly size={28} color="#38bdf8" />
         )}
       </div>
 
@@ -98,27 +108,27 @@ export default function ResilientEmptyState({
           marginTop: '0.5rem'
         }}
       >
-        {isPune && onTriggerScrape && (
+        {onTriggerScrape && (
           <button
             type="button"
             className="btn btn-primary"
             onClick={onTriggerScrape}
             disabled={isRunning}
             style={{
-              background: 'linear-gradient(135deg, #f59e0b, #d97706)',
-              color: '#000000',
-              fontWeight: 800,
+              background: 'linear-gradient(135deg, #0284c7, #0369a1)',
+              color: '#ffffff',
+              fontWeight: 700,
               padding: '0.65rem 1.25rem',
               borderRadius: '12px',
               border: 'none',
               display: 'flex',
               alignItems: 'center',
               gap: '0.45rem',
-              boxShadow: '0 0 20px rgba(245, 158, 11, 0.45)'
+              boxShadow: '0 0 20px rgba(56, 189, 248, 0.35)'
             }}
           >
             <Zap size={16} />
-            <span>{isRunning ? 'Scraping Pune Portals...' : '⚡ Scrape Real Pune Jobs Now'}</span>
+            <span>{isRunning ? 'Scraping Live Portals...' : `⚡ Scrape Real-Time ${activeLocLabel ? activeLocLabel + ' ' : ''}Jobs Now`}</span>
           </button>
         )}
 

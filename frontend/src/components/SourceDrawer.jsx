@@ -1,28 +1,43 @@
-import React, { useState, useEffect } from 'react';
-import { X, ExternalLink, ShieldCheck, CheckCircle2, AlertTriangle } from 'lucide-react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { X, ExternalLink, ShieldCheck, CheckCircle2, AlertTriangle, RefreshCw } from 'lucide-react';
 import { api } from '../services/api';
+import { getSafeExternalUrl, truncateSafe } from '../utils/urlValidator';
 
 export default function SourceDrawer({ recordId, onClose, onRecordUpdated }) {
   const [provenance, setProvenance] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [reviewing, setReviewing] = useState(false);
 
-  useEffect(() => {
+  const loadProvenance = useCallback(async () => {
     if (!recordId) return;
-    let isMounted = true;
-    api.getRecordProvenance(recordId)
-      .then((data) => {
-        if (isMounted) {
-          setProvenance(data);
-          setLoading(false);
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-        if (isMounted) setLoading(false);
-      });
-    return () => { isMounted = false; };
+    setLoading(true);
+    setError(null);
+    try {
+      const data = await api.getRecordProvenance(recordId);
+      setProvenance(data);
+    } catch (err) {
+      console.error('Failed to load provenance:', err);
+      setError(err?.message || 'Unable to retrieve cryptographic provenance record.');
+    } finally {
+      setLoading(false);
+    }
   }, [recordId]);
+
+  useEffect(() => {
+    loadProvenance();
+  }, [loadProvenance]);
+
+  // Keyboard navigation: Escape key closes drawer
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onClose]);
 
   const handleReviewAction = async (action) => {
     setReviewing(true);
@@ -39,26 +54,53 @@ export default function SourceDrawer({ recordId, onClose, onRecordUpdated }) {
 
   if (!recordId) return null;
 
+  const originUrl = provenance?.source?.url;
+  const safeOriginUrl = originUrl ? getSafeExternalUrl(originUrl) : null;
+
+  let formattedPayload = '';
+  try {
+    formattedPayload = JSON.stringify(provenance?.payload || {}, null, 2);
+  } catch {
+    formattedPayload = '/* Unserializable structured payload */';
+  }
+
   return (
-    <div className="modal-backdrop" onClick={onClose}>
+    <div className="modal-backdrop" onClick={onClose} role="dialog" aria-modal="true" aria-label="Source Provenance Audit">
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="drawer-header">
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
             <ShieldCheck size={22} color="var(--accent-emerald)" />
             <h2 className="drawer-title">Data Lineage & Traceability Audit (SDD Section 3)</h2>
           </div>
-          <button className="close-btn" onClick={onClose}>
+          <button className="close-btn" onClick={onClose} aria-label="Close modal">
             <X size={20} />
           </button>
         </div>
 
         {loading ? (
-          <div style={{ padding: '3rem', textAlign: 'center', color: 'var(--text-muted)' }}>
+          <div style={{ padding: '3.5rem 2rem', textAlign: 'center', color: 'var(--text-muted)' }}>
+            <div className="status-indicator-dot" style={{ margin: '0 auto 1rem auto', width: '12px', height: '12px' }}>
+              <span className="ping-ring" style={{ background: '#38bdf8' }} />
+              <span className="core-dot" style={{ width: '8px', height: '8px', background: '#38bdf8' }} />
+            </div>
             Retrieving source-backed provenance audit trail...
           </div>
-        ) : !provenance ? (
-          <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--text-rose)' }}>
-            Failed to load record provenance.
+        ) : error || !provenance ? (
+          <div style={{ padding: '2.5rem 1.5rem', textAlign: 'center' }}>
+            <AlertTriangle size={32} color="var(--accent-rose)" style={{ margin: '0 auto 0.75rem auto' }} />
+            <h3 style={{ fontSize: '1rem', color: '#f87171', marginBottom: '0.5rem' }}>Provenance Record Unavailable</h3>
+            <p style={{ fontSize: '0.825rem', color: 'var(--text-muted)', marginBottom: '1.25rem' }}>
+              {error || 'Unable to retrieve cryptographic provenance record.'}
+            </p>
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={loadProvenance}
+              style={{ display: 'inline-flex', alignItems: 'center', gap: '0.45rem' }}
+            >
+              <RefreshCw size={14} />
+              <span>Retry Audit Fetch</span>
+            </button>
           </div>
         ) : (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
@@ -68,23 +110,29 @@ export default function SourceDrawer({ recordId, onClose, onRecordUpdated }) {
                 ORIGIN URL METADATA (LANGCHAIN DOCUMENT BINDING)
               </div>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '0.35rem' }}>
-                <a
-                  href={provenance.source?.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    color: 'var(--text-amber)',
-                    fontWeight: 600,
-                    textDecoration: 'none',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '0.5rem',
-                    wordBreak: 'break-all'
-                  }}
-                >
-                  <ExternalLink size={15} />
-                  <span>{provenance.source?.url}</span>
-                </a>
+                {safeOriginUrl ? (
+                  <a
+                    href={safeOriginUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      color: 'var(--text-amber)',
+                      fontWeight: 600,
+                      textDecoration: 'none',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.5rem',
+                      wordBreak: 'break-all'
+                    }}
+                  >
+                    <ExternalLink size={15} />
+                    <span>{truncateSafe(originUrl, 80)}</span>
+                  </a>
+                ) : (
+                  <span style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>
+                    Origin URL not captured for this source
+                  </span>
+                )}
               </div>
               <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginTop: '0.35rem' }}>
                 Captured Timestamp: {provenance.source?.captured_timestamp || 'N/A'} • Source Title: {provenance.source?.title || 'Web Intelligence'}
@@ -159,7 +207,7 @@ export default function SourceDrawer({ recordId, onClose, onRecordUpdated }) {
               <div style={{ fontSize: '0.8rem', fontWeight: 600, color: 'var(--text-secondary)', marginBottom: '0.35rem' }}>
                 RAW SOURCE SNIPPET CITATION (ORIGIN WEBPAGE CONTENT)
               </div>
-              <div className="snippet-box">
+              <div className="snippet-box wrap-resilient" dir="auto">
                 {provenance.source?.raw_snippet || 'No raw snippet captured.'}
               </div>
             </div>
@@ -182,7 +230,7 @@ export default function SourceDrawer({ recordId, onClose, onRecordUpdated }) {
                   maxHeight: '160px'
                 }}
               >
-                {JSON.stringify(provenance.payload, null, 2)}
+                {formattedPayload}
               </pre>
             </div>
 

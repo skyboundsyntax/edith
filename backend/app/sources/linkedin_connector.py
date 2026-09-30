@@ -124,7 +124,7 @@ class LinkedInConnector(JobSourceConnector):
                     link = item["clean_link"]
                     desc_text = f"Live opening for {item['title']} at {item['company']} in {item['loc_raw']}. Posted: {item['posted_date']}. Apply directly on LinkedIn."
                     try:
-                        d_resp = await client.get(link, timeout=3.5)
+                        d_resp = await client.get(link, timeout=2.0)
                         if d_resp.status_code == 200:
                             d_soup = BeautifulSoup(d_resp.text, "html.parser")
                             desc_el = d_soup.find("div", class_="show-more-less-html__markup") or \

@@ -12,6 +12,7 @@ from datetime import datetime, timezone
 import re
 
 from backend.app.sources.base import JobSourceConnector, SourceHealth, SourceCapabilities
+from backend.app.locations.india_locations import normalize_location, matches_location_preference, is_online_gig
 import html
 from bs4 import BeautifulSoup
 
@@ -35,10 +36,10 @@ class JobicyConnector(JobSourceConnector):
     enabled = True
 
     def can_handle(self, query_spec: Dict[str, Any]) -> bool:
-        locations = query_spec.get("locations") or []
-        remote = query_spec.get("remote", False)
-        # If user explicitly wants on-site local jobs only, skip remote-only board
-        if locations and not remote:
+        # Jobicy provides remote opportunities open worldwide/India
+        # Only skip if user explicitly specified on-site only
+        keywords = [k.lower() for k in (query_spec.get("keywords") or [])]
+        if any("on-site only" in k or "onsite only" in k or "offline only" in k for k in keywords):
             return False
         return True
 

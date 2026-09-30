@@ -14,9 +14,13 @@ import SourceDrawer from './components/SourceDrawer';
 import WorkflowHistoryModal from './components/WorkflowHistoryModal';
 import SourceHealthModal from './components/SourceHealthModal';
 import { api } from './services/api';
-import { Award, ShieldCheck, Sparkles, Activity, Play, Sliders, LayoutGrid, List } from 'lucide-react';
+import { Award, ShieldCheck, Activity, Play, Sliders, LayoutGrid, List, CheckCircle2, AlertCircle } from 'lucide-react';
+import { sanitizeSearchQuery } from './utils/urlValidator';
+import { extractSalaryQuery, matchesSalaryBracket } from './utils/currencyFormatter';
 import {
   LocationFilterBar,
+  SalaryBracketFilterBar,
+  Butterfly,
   isJobInPune,
   isJobInBengaluru,
   isJobInMumbai,
@@ -55,13 +59,25 @@ class ErrorBoundary extends React.Component {
           <p style={{ margin: '0 0 1.25rem 0', color: '#cbd5e1', fontSize: '0.9rem' }}>
             {this.state.error?.message || 'An unexpected rendering error occurred.'}
           </p>
-          <button
-            type="button"
-            className="btn btn-primary"
-            onClick={() => this.setState({ hasError: false, error: null })}
-          >
-            Retry & Reload View
-          </button>
+          <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={() => {
+                this.setState({ hasError: false, error: null });
+                window.location.reload();
+              }}
+            >
+              🔄 Retry & Reload Dashboard
+            </button>
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={() => this.setState({ hasError: false, error: null })}
+            >
+              Dismiss & Recover View
+            </button>
+          </div>
         </div>
       );
     }
@@ -70,26 +86,36 @@ class ErrorBoundary extends React.Component {
 }
 
 const PRESET_PROMPTS = [
-  'Python Backend & AI Engineer Jobs in Pune (Hinjewadi / Kharadi, ₹8-18 LPA)',
+  'Python Backend & AI Engineer Jobs across India (₹12-25 LPA)',
   'Active Python Backend & FastAPI Roles (Remote / Bangalore, ₹12-25 LPA)',
   'React 19 & Full Stack Openings across LinkedIn & ATS boards (₹10-22 LPA)',
   'Generative AI, PyTorch & LLM Systems Engineer Jobs (₹35-70 LPA / Remote)',
-  'Fresher & SDE-1 Engineering Jobs (Pune / India, ₹6-12 LPA)',
+  'Fresher & SDE-1 Engineering Jobs across India (₹6-12 LPA)',
   'DevOps, Kubernetes & Cloud Architecture Vacancies (₹18-35 LPA)'
 ];
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('dashboard');
   const [dashboardViewMode, setDashboardViewMode] = useState('cards');
-  const [prompt, setPrompt] = useState('Find entry-level Python & AI/ML engineer roles in Pune (Hinjewadi / Magarpatta), 0-2 years experience, minimum ₹6 LPA');
+  const [prompt, setPrompt] = useState('Find Python, AI/ML, Full Stack & Backend Engineer jobs in India, ₹12-30 LPA');
   const [searchTerm, setSearchTerm] = useState('');
-  const [activeLocationFilter, setActiveLocationFilter] = useState('PUNE');
+  const [activeLocationFilter, setActiveLocationFilter] = useState('ALL');
+  const [activeSalaryBracket, setActiveSalaryBracket] = useState('ALL');
   const [networkError, setNetworkError] = useState(null);
   const [isRetryingConnection, setIsRetryingConnection] = useState(false);
   const [confidenceThreshold, setConfidenceThreshold] = useState(75.0);
   const [isRunning, setIsRunning] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
   const [selectedJobId, setSelectedJobId] = useState(null);
+  const [toast, setToast] = useState(null);
+
+  const showToast = useCallback((message, type = 'info') => {
+    setToast({ message, type });
+    const timer = setTimeout(() => {
+      setToast((prev) => (prev?.message === message ? null : prev));
+    }, 4500);
+    return () => clearTimeout(timer);
+  }, []);
 
   // Workflow & State Data
   const [activeWorkflow, setActiveWorkflow] = useState(null);
@@ -168,6 +194,26 @@ export default function App() {
     return () => { ignore = true; };
   }, [selectWorkflow]);
 
+  // Online / Offline resilience listeners
+  useEffect(() => {
+    const handleOnline = () => {
+      setNetworkError(null);
+      showToast('Network connection re-established. Live streams active.', 'success');
+      loadWorkflows();
+    };
+    const handleOffline = () => {
+      setNetworkError('Network connectivity lost. Operating in cached view until connection restores.');
+    };
+
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, [loadWorkflows, showToast]);
+
   const handleRetryConnection = useCallback(async () => {
     setIsRetryingConnection(true);
     try {
@@ -180,18 +226,16 @@ export default function App() {
     }
   }, [loadWorkflows]);
 
-  const handleScrapePune = () => {
-    const punePrompt = 'Active Python & AI Engineer jobs in Pune, Maharashtra (Hinjewadi / Kharadi / Baner), 0-2 years, minimum ₹6 LPA';
-    setPrompt(punePrompt);
-    setActiveLocationFilter('PUNE');
-    handleLaunchWorkflow(punePrompt);
+  const handleScrapeLive = () => {
+    handleLaunchWorkflow(prompt);
   };
 
   const handleLaunchWorkflow = async (promptText) => {
     const query = promptText || prompt;
     if (!query.trim() || isRunning) return;
 
-    // Auto-sync location filter based on prompt content
+    // Auto-sync location filter based on prompt content:
+    // If a specific city is specified, sync to that city; otherwise default to All India & Remote
     const qLower = query.toLowerCase();
     if (qLower.includes('pune') || qLower.includes('hinjewadi') || qLower.includes('kharadi') || qLower.includes('baner')) {
       setActiveLocationFilter('PUNE');
@@ -203,6 +247,24 @@ export default function App() {
       setActiveLocationFilter('DEL');
     } else if (qLower.includes('hyderabad')) {
       setActiveLocationFilter('HYD');
+    } else {
+      setActiveLocationFilter('ALL');
+    }
+
+    // Auto-sync salary filter if query specifies a bracket
+    const salCheck = extractSalaryQuery(query);
+    if (salCheck.hasSalaryFilter) {
+      if (salCheck.minLpa >= 30 && (salCheck.maxLpa === null || salCheck.maxLpa <= 45)) {
+        setActiveSalaryBracket('30-40');
+      } else if (salCheck.minLpa >= 20 && salCheck.maxLpa <= 30) {
+        setActiveSalaryBracket('20-30');
+      } else if (salCheck.minLpa >= 12 && salCheck.maxLpa <= 20) {
+        setActiveSalaryBracket('12-20');
+      } else if (salCheck.minLpa >= 6 && salCheck.maxLpa <= 12) {
+        setActiveSalaryBracket('6-12');
+      } else if (salCheck.minLpa >= 40) {
+        setActiveSalaryBracket('40+');
+      }
     }
 
     setPrompt(query);
@@ -302,7 +364,8 @@ export default function App() {
       }, 45000);
 
     } catch (err) {
-      alert(`Workflow execution failed: ${err.message}`);
+      setNetworkError(err?.message || 'Workflow execution failed. Verify connection.');
+      showToast(`Scrape pipeline error: ${err.message}`, 'error');
       setIsRunning(false);
     }
   };
@@ -314,15 +377,19 @@ export default function App() {
       if (res.download_url) {
         window.open(res.download_url, '_blank');
       }
-      alert(`Dataset exported successfully as ${res.filename} (${res.record_count} records)`);
+      showToast(`Dataset exported successfully as ${res.filename} (${res.record_count} records)`, 'success');
     } catch (err) {
-      alert(`Export failed: ${err.message}`);
+      showToast(`Export failed: ${err.message}`, 'error');
     } finally {
       setIsExporting(false);
     }
   };
 
-  // Filter records by strict location selection AND search terms
+  // Query-driven salary bracket detection
+  const cleanSearch = useMemo(() => sanitizeSearchQuery(searchTerm).trim(), [searchTerm]);
+  const detectedQueryBracket = useMemo(() => extractSalaryQuery(cleanSearch), [cleanSearch]);
+
+  // Filter records by strict location selection, salary bracket, AND search terms
   const filteredRecords = useMemo(() => {
     let result = records || [];
 
@@ -343,9 +410,39 @@ export default function App() {
       result = result.filter(isJobOfflineOnSite);
     }
 
-    // 2. Search term filter across title, company, location, skills, modality
-    if (!searchTerm.trim()) return result;
-    const term = searchTerm.toLowerCase();
+    // 2. Strict Salary bracket filter:
+    // Only show desired jobs in salary bracket and other jobs with unlisted salaries,
+    // discard/hide any job with listed salary outside bracket.
+    let effectiveMinLpa = null;
+    let effectiveMaxLpa = null;
+
+    if (detectedQueryBracket.hasSalaryFilter) {
+      effectiveMinLpa = detectedQueryBracket.minLpa;
+      effectiveMaxLpa = detectedQueryBracket.maxLpa;
+    } else if (activeSalaryBracket !== 'ALL') {
+      if (activeSalaryBracket === '6-12') { effectiveMinLpa = 6; effectiveMaxLpa = 12; }
+      else if (activeSalaryBracket === '12-20') { effectiveMinLpa = 12; effectiveMaxLpa = 20; }
+      else if (activeSalaryBracket === '20-30') { effectiveMinLpa = 20; effectiveMaxLpa = 30; }
+      else if (activeSalaryBracket === '30-40') { effectiveMinLpa = 30; effectiveMaxLpa = 40; }
+      else if (activeSalaryBracket === '40+') { effectiveMinLpa = 40; effectiveMaxLpa = null; }
+    }
+
+    if (effectiveMinLpa !== null || effectiveMaxLpa !== null) {
+      result = result.filter((r) => {
+        const d = r.data || {};
+        const sal = d.salary_range || d.salary || '';
+        return matchesSalaryBracket(sal, effectiveMinLpa, effectiveMaxLpa);
+      });
+    }
+
+    // 3. Search term filter across title, company, location, skills, modality
+    const remainingText = detectedQueryBracket.hasSalaryFilter
+      ? detectedQueryBracket.remainingQuery
+      : cleanSearch;
+
+    if (!remainingText) return result;
+    const term = remainingText.toLowerCase();
+
     return result.filter((r) => {
       const d = r.data || {};
       const title = String(d.job_title || '').toLowerCase();
@@ -360,7 +457,7 @@ export default function App() {
         skills.includes(term) ||
         modality.includes(term);
     });
-  }, [records, activeLocationFilter, searchTerm]);
+  }, [records, activeLocationFilter, cleanSearch, detectedQueryBracket, activeSalaryBracket]);
 
   // Hero Job Selection & Paging
   const [showSecondaryStream, setShowSecondaryStream] = useState(false);
@@ -517,8 +614,20 @@ export default function App() {
                 activeFilter={activeLocationFilter}
                 onSelectFilter={setActiveLocationFilter}
                 records={records}
-                onScrapePune={handleScrapePune}
+                onScrapePune={handleScrapeLive}
                 isRunning={isRunning}
+              />
+
+              {/* 4b. Strict Salary Bracket Filter Bar */}
+              <SalaryBracketFilterBar
+                activeBracket={activeSalaryBracket}
+                onSelectBracket={setActiveSalaryBracket}
+                detectedQueryBracket={detectedQueryBracket}
+                onClearQueryBracket={() => {
+                  if (detectedQueryBracket.hasSalaryFilter) {
+                    setSearchTerm(detectedQueryBracket.remainingQuery);
+                  }
+                }}
               />
 
               {/* 5. Verified Openings Header with View Mode Switcher */}
@@ -532,10 +641,10 @@ export default function App() {
               }}>
                 <div>
                   <h3 style={{ margin: 0, fontSize: '1.25rem', fontWeight: 700, color: '#ffffff', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                    <Sparkles size={18} color="var(--accent-amber)" />
+                    <Butterfly size={19} color="var(--accent-amber)" />
                     <span>Real-Time Scraped Openings</span>
                     <span style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-muted)' }}>
-                      ({filteredRecords.length} Active Positions {activeLocationFilter !== 'ALL' ? `in ${activeLocationFilter}` : ''})
+                      ({filteredRecords.length} Active Positions{activeLocationFilter !== 'ALL' ? ` in ${activeLocationFilter}` : ''}{activeSalaryBracket !== 'ALL' && !detectedQueryBracket.hasSalaryFilter ? ` • ₹${activeSalaryBracket} LPA` : detectedQueryBracket.hasSalaryFilter ? ` • Query ₹${detectedQueryBracket.minLpa}${detectedQueryBracket.maxLpa ? `-${detectedQueryBracket.maxLpa}` : '+'} LPA` : ''})
                     </span>
                   </h3>
                 </div>
@@ -583,7 +692,7 @@ export default function App() {
                       setActiveLocationFilter('ALL');
                       setSearchTerm('');
                     }}
-                    onTriggerScrape={activeLocationFilter === 'PUNE' ? handleScrapePune : () => handleLaunchWorkflow()}
+                    onTriggerScrape={() => handleLaunchWorkflow()}
                     isRunning={isRunning}
                   />
                 ) : (
@@ -722,6 +831,57 @@ export default function App() {
         isOpen={isSourceHealthOpen}
         onClose={() => setIsSourceHealthOpen(false)}
       />
+
+      {/* Non-blocking Resilience Toast Dock */}
+      {toast && (
+        <div
+          role="status"
+          aria-live="polite"
+          style={{
+            position: 'fixed',
+            bottom: '24px',
+            right: '24px',
+            zIndex: 9999,
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.65rem',
+            padding: '0.85rem 1.25rem',
+            borderRadius: '12px',
+            backdropFilter: 'blur(24px)',
+            boxShadow: '0 10px 40px rgba(0,0,0,0.5)',
+            border: toast.type === 'error' ? '1px solid rgba(239, 68, 68, 0.4)' : toast.type === 'success' ? '1px solid rgba(16, 185, 129, 0.4)' : '1px solid rgba(56, 189, 248, 0.4)',
+            background: toast.type === 'error' ? 'rgba(30, 10, 15, 0.92)' : toast.type === 'success' ? 'rgba(6, 30, 20, 0.92)' : 'rgba(8, 24, 40, 0.92)',
+            color: toast.type === 'error' ? '#fca5a5' : toast.type === 'success' ? '#6ee7b7' : '#bae6fd',
+            fontSize: '0.85rem',
+            fontWeight: 500,
+            maxWidth: '420px',
+            animation: 'fadeInUp 0.25s ease-out'
+          }}
+        >
+          {toast.type === 'error' ? (
+            <AlertCircle size={18} color="#f87171" style={{ flexShrink: 0 }} />
+          ) : (
+            <CheckCircle2 size={18} color="#34d399" style={{ flexShrink: 0 }} />
+          )}
+          <span style={{ flex: 1 }}>{toast.message}</span>
+          <button
+            type="button"
+            onClick={() => setToast(null)}
+            style={{
+              background: 'transparent',
+              border: 'none',
+              color: 'inherit',
+              cursor: 'pointer',
+              padding: '0 4px',
+              fontSize: '1rem',
+              lineHeight: 1
+            }}
+            aria-label="Dismiss notification"
+          >
+            ×
+          </button>
+        </div>
+      )}
     </div>
   );
 }

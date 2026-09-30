@@ -119,14 +119,32 @@ def parse_job_query_to_spec(natural_language_prompt: str) -> JobSearchSpecificat
                     detected_locations.append(hub_data["canonical"])
                 break
 
-    if "india" in prompt_lower and not detected_locations:
+    # India is the default geographic scope if no specific city is requested
+    if not detected_locations:
+        detected_locations.append("India")
+    elif "India" not in detected_locations and any(k in prompt_lower for k in ["india", "pan india", "across india"]):
         detected_locations.append("India")
 
-    # 6. Salary minimum (e.g. "6 LPA", "600000", "₹6 LPA")
+    # 6. Salary Bracket / Range (e.g. "30lpa-40lpa", "30-40 LPA", "₹30-40 LPA", "minimum 6 LPA")
     salary_min: Optional[float] = None
-    lpa_match = re.search(r'(?:minimum|min|at least|starting)?\s*(?:₹|rs\.?|inr)?\s*(\d+(?:\.\d+)?)\s*lpa', prompt_lower)
-    if lpa_match:
-        salary_min = float(lpa_match.group(1)) * 100000
+    salary_max: Optional[float] = None
+
+    # Check for range: e.g. "30lpa-40lpa", "30-40 lpa", "30 to 40 lpa", "₹30 - 40 LPA"
+    range_match = re.search(
+        r'(?:₹|rs\.?|inr)?\s*(\d+(?:\.\d+)?)\s*(?:lpa|lac|lakh)?\s*(?:-|to)\s*(?:₹|rs\.?|inr)?\s*(\d+(?:\.\d+)?)\s*(?:lpa|lac|lakh)',
+        prompt_lower
+    )
+    if range_match:
+        salary_min = float(range_match.group(1)) * 100000.0
+        salary_max = float(range_match.group(2)) * 100000.0
+    else:
+        # Check for minimum or single LPA: e.g. "30 LPA", "minimum 6 LPA", "30lpa"
+        single_match = re.search(
+            r'(?:minimum|min|at least|starting)?\s*(?:₹|rs\.?|inr)?\s*(\d+(?:\.\d+)?)\s*(?:lpa|lac|lakh)',
+            prompt_lower
+        )
+        if single_match:
+            salary_min = float(single_match.group(1)) * 100000.0
 
     # 7. Excluded keywords (e.g. "don't want jobs requiring more than 1 year", "no senior")
     excluded = []
@@ -165,7 +183,7 @@ def parse_job_query_to_spec(natural_language_prompt: str) -> JobSearchSpecificat
         locations=detected_locations,
         remote=remote_pref,
         salary_min=salary_min,
-        salary_max=None,
+        salary_max=salary_max,
         companies=[],
         industries=industries,
         preferred_sources=[],

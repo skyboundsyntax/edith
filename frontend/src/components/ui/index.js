@@ -10,5 +10,7 @@ export {
   isJobOnlineRemote,
   isJobOfflineOnSite
 } from './LocationFilterBar';
+export { default as SalaryBracketFilterBar } from './SalaryBracketFilterBar';
 export { default as ResilientEmptyState } from './ResilientEmptyState';
 export { default as OfflineAlert } from './OfflineAlert';
+export { default as Butterfly } from './Butterfly';
