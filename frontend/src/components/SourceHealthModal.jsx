@@ -2,42 +2,26 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { X, ShieldCheck, Activity, Globe, ExternalLink, RefreshCw, CheckCircle2, AlertTriangle, Radio } from 'lucide-react';
 import { api } from '../services/api';
 
-const CANONICAL_SOURCES = [
-  { id: "linkedin", name: "LinkedIn", domain: "linkedin.com", access_method: "PUBLIC_API", status: "ONLINE", latency_ms: 180, robots_policy: "Public Guest Search API: Permitted unauthenticated queries for public job listings" },
-  { id: "greenhouse", name: "Greenhouse", domain: "boards-api.greenhouse.io", access_method: "PUBLIC_API", status: "ONLINE", latency_ms: 125, robots_policy: "Public Board REST API: Unrestricted access to active public job postings" },
-  { id: "lever", name: "Lever", domain: "api.lever.co", access_method: "PUBLIC_API", status: "ONLINE", latency_ms: 140, robots_policy: "Public Postings REST API: Permitted endpoint for public job listings" },
-  { id: "ashby", name: "Ashby", domain: "api.ashbyhq.com", access_method: "PUBLIC_API", status: "ONLINE", latency_ms: 165, robots_policy: "Public Posting Board API: Permitted read access to published openings" },
-  { id: "jobicy", name: "Jobicy", domain: "jobicy.com", access_method: "PUBLIC_FEED", status: "ONLINE", latency_ms: 95, robots_policy: "Public Remote Jobs RSS/JSON Feed: Open access syndication feed" },
-  { id: "arbeitnow", name: "Arbeitnow", domain: "arbeitnow.com", access_method: "PUBLIC_API", status: "ONLINE", latency_ms: 110, robots_policy: "Public Jobs REST API: Open community job board endpoint" },
-  { id: "remotive", name: "Remotive", domain: "remotive.com", access_method: "PUBLIC_API", status: "ONLINE", latency_ms: 130, robots_policy: "Public Remote Jobs API: Free public API for remote vacancies" },
-  { id: "indeed", name: "Indeed", domain: "in.indeed.com", access_method: "LINK_OUT_ONLY", status: "LINK_OUT_ONLY", latency_ms: 15, robots_policy: "Platform restricts automated data collection. EDITH does not generate mock or placeholder listings." },
-  { id: "naukri", name: "Naukri", domain: "naukri.com", access_method: "LINK_OUT_ONLY", status: "LINK_OUT_ONLY", latency_ms: 15, robots_policy: "Platform restricts automated data collection. EDITH does not generate mock or placeholder listings." }
-];
-
 export default function SourceHealthModal({ isOpen, onClose }) {
-  const [sources, setSources] = useState(CANONICAL_SOURCES);
+  const [sources, setSources] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [stats, setStats] = useState({ total: 9, online: 7, linkout: 2 });
+  const [stats, setStats] = useState({ total: 0, online: 0, linkout: 0 });
 
   const fetchHealth = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
       const data = await api.getSourcesHealth();
-      if (data && Array.isArray(data.sources) && data.sources.length > 0) {
-        setSources(data.sources);
-        const onlineCount = data.online_sources ?? data.sources.filter(s => s.status === 'ONLINE' || s.status === 'DEGRADED').length;
-        const linkoutCount = data.linkout_sources ?? data.sources.filter(s => s.status === 'LINK_OUT_ONLY').length;
-        setStats({
-          total: data.total_sources || data.sources.length,
-          online: onlineCount || 7,
-          linkout: linkoutCount || 2
-        });
-      }
+      setSources(data.sources || []);
+      setStats({
+        total: data.total_sources || 0,
+        online: data.online_sources || 0,
+        linkout: data.linkout_sources || 0
+      });
     } catch (err) {
-      console.error('Failed to refresh live source health:', err);
-      setError('Live ping telemetry delayed. Showing active registered manifest.');
+      console.error('Failed to load sources health:', err);
+      setError(err?.message || 'Unable to retrieve source health telemetry.');
     } finally {
       setLoading(false);
     }
@@ -63,19 +47,12 @@ export default function SourceHealthModal({ isOpen, onClose }) {
 
   return (
     <div className="modal-backdrop" onClick={onClose} role="dialog" aria-modal="true" aria-label="Source Policy Registry">
-      <div className="modal-container" style={{ maxWidth: '880px' }} onClick={(e) => e.stopPropagation()}>
+      <div className="modal-container" style={{ maxWidth: '850px' }} onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
             <Activity size={20} color="var(--accent-amber)" />
             <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <h2 style={{ fontSize: '1.15rem', margin: 0, fontWeight: 600 }}>Source Policy Registry & Health Matrix</h2>
-                {loading && (
-                  <span style={{ fontSize: '0.7rem', color: 'var(--text-amber)', display: 'inline-flex', alignItems: 'center', gap: '0.25rem' }}>
-                    <RefreshCw size={10} style={{ animation: 'spin 1s linear infinite' }} /> Probing...
-                  </span>
-                )}
-              </div>
+              <h2 style={{ fontSize: '1.15rem', margin: 0, fontWeight: 600 }}>Source Policy Registry & Health Matrix</h2>
               <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
                 Legal compliance, robots policies & real-time connection status
               </span>
@@ -120,15 +97,18 @@ export default function SourceHealthModal({ isOpen, onClose }) {
             </div>
           </div>
 
-          {error && (
-            <div style={{ padding: '0.5rem 0.85rem', marginBottom: '1rem', background: 'rgba(245, 158, 11, 0.1)', border: '1px solid rgba(245, 158, 11, 0.3)', borderRadius: '6px', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <AlertTriangle size={14} color="var(--accent-amber)" />
-              <span style={{ color: '#fbbf24', fontSize: '0.78rem' }}>{error}</span>
+          {error ? (
+            <div style={{ padding: '2.5rem', textAlign: 'center' }}>
+              <AlertTriangle size={32} color="var(--accent-rose)" style={{ margin: '0 auto 0.75rem auto' }} />
+              <p style={{ color: '#f87171', fontSize: '0.9rem', marginBottom: '1rem' }}>{error}</p>
+              <button type="button" className="btn btn-secondary" onClick={fetchHealth}>
+                <RefreshCw size={14} style={{ marginRight: '0.35rem' }} />
+                <span>Retry Health Matrix Check</span>
+              </button>
             </div>
-          )}
-
-          {/* Sources Table */}
-          <div className="table-responsive">
+          ) : (
+            /* Sources Table */
+            <div className="table-responsive">
               <table className="data-table">
                 <thead>
                   <tr>
@@ -186,6 +166,7 @@ export default function SourceHealthModal({ isOpen, onClose }) {
                 </tbody>
               </table>
             </div>
+          )}
         </div>
 
         <div className="modal-footer" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>

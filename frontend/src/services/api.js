@@ -120,29 +120,8 @@ export const api = {
 
   // --- Source Policy Registry & Health Matrix ---
   async getSourcesHealth() {
-    try {
-      const res = await fetchWithTimeout(`${API_BASE}/sources/health`, {}, 8000);
-      return await res.json();
-    } catch (err) {
-      console.warn('Backend source health fetch failed, using fallback manifest:', err);
-      return {
-        status: "operational",
-        total_sources: 9,
-        online_sources: 7,
-        linkout_sources: 2,
-        sources: [
-          { id: "linkedin", name: "LinkedIn", domain: "linkedin.com", access_method: "PUBLIC_API", status: "ONLINE", latency_ms: 180, robots_policy: "Public Guest Search API: Permitted unauthenticated queries for public job listings" },
-          { id: "greenhouse", name: "Greenhouse", domain: "boards-api.greenhouse.io", access_method: "PUBLIC_API", status: "ONLINE", latency_ms: 125, robots_policy: "Public Board REST API: Unrestricted access to active public job postings" },
-          { id: "lever", name: "Lever", domain: "api.lever.co", access_method: "PUBLIC_API", status: "ONLINE", latency_ms: 140, robots_policy: "Public Postings REST API: Permitted endpoint for public job listings" },
-          { id: "ashby", name: "Ashby", domain: "api.ashbyhq.com", access_method: "PUBLIC_API", status: "ONLINE", latency_ms: 165, robots_policy: "Public Posting Board API: Permitted read access to published openings" },
-          { id: "jobicy", name: "Jobicy", domain: "jobicy.com", access_method: "PUBLIC_FEED", status: "ONLINE", latency_ms: 95, robots_policy: "Public Remote Jobs RSS/JSON Feed: Open access syndication feed" },
-          { id: "arbeitnow", name: "Arbeitnow", domain: "arbeitnow.com", access_method: "PUBLIC_API", status: "ONLINE", latency_ms: 110, robots_policy: "Public Jobs REST API: Open community job board endpoint" },
-          { id: "remotive", name: "Remotive", domain: "remotive.com", access_method: "PUBLIC_API", status: "ONLINE", latency_ms: 130, robots_policy: "Public Remote Jobs API: Free public API for remote vacancies" },
-          { id: "indeed", name: "Indeed", domain: "in.indeed.com", access_method: "LINK_OUT_ONLY", status: "LINK_OUT_ONLY", latency_ms: 15, robots_policy: "Platform restricts automated data collection. EDITH does not generate mock or placeholder listings." },
-          { id: "naukri", name: "Naukri", domain: "naukri.com", access_method: "LINK_OUT_ONLY", status: "LINK_OUT_ONLY", latency_ms: 15, robots_policy: "Platform restricts automated data collection. EDITH does not generate mock or placeholder listings." }
-        ]
-      };
-    }
+    const res = await fetchWithTimeout(`${API_BASE}/sources/health`, {}, 10000);
+    return res.json();
   },
 
   // --- Datasets & Provenance Lineage (SDD Section 3) ---
