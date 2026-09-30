@@ -303,6 +303,7 @@ export default function DataGrid({
 
                 if (isJobDataset) {
                   const score = data.match_score ?? r.confidence_score ?? 0;
+                  const scoreTheme = getScoreColor(score);
                   const platform = data.platform_source || (r.source_url?.includes('linkedin') ? 'LinkedIn' : r.source_url?.includes('naukri') ? 'Naukri' : r.source_url?.includes('indeed') ? 'Indeed' : 'Careers');
                   const rawSkills = Array.isArray(data.skills) ? data.skills : (data.skills ? String(data.skills).split(',') : []);
                   const skillsList = rawSkills.map((s) => formatSkillName(s));

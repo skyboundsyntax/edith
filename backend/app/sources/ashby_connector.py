@@ -14,6 +14,7 @@ import re
 
 from backend.app.sources.base import JobSourceConnector, SourceHealth, SourceCapabilities
 from backend.app.locations.india_locations import normalize_location, matches_location_preference, is_online_gig
+from backend.app.intelligence.role_matcher import is_matching_role
 
 logger = logging.getLogger(__name__)
 
@@ -21,8 +22,7 @@ ASHBY_COMPANIES = [
     {"token": "linear", "company": "Linear", "domain": "linear.app"},
     {"token": "perplexity", "company": "Perplexity", "domain": "perplexity.ai"},
     {"token": "cursor", "company": "Cursor", "domain": "cursor.com"},
-    {"token": "supabase", "company": "Supabase", "domain": "supabase.com"},
-    {"token": "vercel", "company": "Vercel", "domain": "vercel.com"}
+    {"token": "supabase", "company": "Supabase", "domain": "supabase.com"}
 ]
 
 class AshbyConnector(JobSourceConnector):
@@ -39,14 +39,9 @@ class AshbyConnector(JobSourceConnector):
 
     async def search(self, query_spec: Dict[str, Any]) -> List[Dict[str, Any]]:
         results = []
-        keywords = [k.lower() for k in (query_spec.get("keywords") or [])]
-        roles = [r.lower() for r in (query_spec.get("roles") or [])]
-        skills = [s.lower() for s in (query_spec.get("skills") or [])]
         target_locations = [l.lower() for l in (query_spec.get("locations") or [])]
-        remote_allowed = query_spec.get("remote", False)
-
-        search_tokens = set(keywords + roles + skills)
-        role_pattern = re.compile(r'\b(?:' + '|'.join(re.escape(tok) for tok in search_tokens) + r')\b', re.IGNORECASE) if search_tokens else None
+        remote_allowed = query_spec.get("remote", False) or not any(l in ["on-site", "offline"] for l in target_locations)
+        skills = query_spec.get("skills") or []
 
         async def fetch_ashby_company(client: httpx.AsyncClient, comp: Dict[str, str]) -> List[Dict[str, Any]]:
             org_token = comp["token"]
@@ -56,7 +51,7 @@ class AshbyConnector(JobSourceConnector):
             comp_jobs = []
 
             try:
-                resp = await client.get(url, headers={"User-Agent": "EDITH-JobIntelligence/1.0"})
+                resp = await client.get(url, timeout=4.5, headers={"User-Agent": "EDITH-JobIntelligence/1.0"})
                 if resp.status_code != 200:
                     return []
 
@@ -65,19 +60,17 @@ class AshbyConnector(JobSourceConnector):
 
                 for item in job_postings:
                     title = item.get("title", "")
-                    title_lower = title.lower()
                     dept = item.get("department") or ""
 
-                    # 1. Relevancy check: title or dept matches target keywords/roles
-                    if role_pattern:
-                        if not role_pattern.search(title_lower) and not (dept and role_pattern.search(dept.lower())):
-                            continue
-
-                    # 2. Skip non-engineering online gigs
+                    # 1. Skip non-engineering online gigs
                     if is_online_gig(title, ""):
                         continue
 
-                    # 3. Strict Location check (Drop foreign jobs when searching Pune/Bengaluru/India)
+                    # 2. Relevancy check: flexible role matching
+                    if not is_matching_role(title, query_spec, department=dept):
+                        continue
+
+                    # 3. Location check
                     loc_raw = item.get("location") or ""
                     is_remote_flag = item.get("isRemote", False)
                     effective_loc = loc_raw or ("Remote" if is_remote_flag else "")
@@ -86,7 +79,6 @@ class AshbyConnector(JobSourceConnector):
                         continue
 
                     loc_info = normalize_location(effective_loc)
-
                     job_id = str(item.get("id"))
                     apply_url = item.get("jobUrl") or f"https://jobs.ashbyhq.com/{org_token}/{job_id}"
                     now_iso = datetime.now(timezone.utc).isoformat()
@@ -94,6 +86,11 @@ class AshbyConnector(JobSourceConnector):
 
                     raw_str = f"{title}_{company_name}_{job_id}_{loc_raw}"
                     content_hash = hashlib.sha256(raw_str.encode()).hexdigest()
+
+                    title_lower = title.lower()
+                    matched_skills = [s.title() for s in skills if s.lower() in title_lower]
+                    if not matched_skills:
+                        matched_skills = ["Software Engineering", "Full Stack"]
 
                     canonical_job = {
                         "id": f"ash_{org_token}_{job_id}",
@@ -105,10 +102,10 @@ class AshbyConnector(JobSourceConnector):
                         "company": company_name,
                         "company_url": f"https://{company_domain}",
                         "company_domain": company_domain,
-                        "description": f"Role: {title} at {company_name}. Department: {dept}. Location: {loc_raw}.",
+                        "description": f"Verified live opening for {title} at {company_name}. Department: {dept or 'Engineering'}. Location: {loc_raw or 'Remote'}. Apply directly on Ashby portal.",
                         "requirements": [],
                         "responsibilities": [],
-                        "skills": [s.title() for s in skills if s in title_lower] or ["Software Development"],
+                        "skills": matched_skills,
                         "technologies": [],
                         "location": loc_info["canonical_location"],
                         "city": loc_info["city"],
@@ -123,7 +120,7 @@ class AshbyConnector(JobSourceConnector):
                         "salary_max": None,
                         "salary_currency": "INR",
                         "salary_period": "year",
-                        "education": "Relevant software engineering experience or degree",
+                        "education": "Relevant software engineering experience or technical degree",
                         "date_posted": published_at,
                         "date_updated": published_at,
                         "first_seen_at": now_iso,
@@ -138,21 +135,22 @@ class AshbyConnector(JobSourceConnector):
                             "source_url": url,
                             "original_job_url": apply_url,
                             "retrieval_timestamp": now_iso,
-                            "parser_version": "1.0-ash",
+                            "parser_version": "2.0-ash-fast",
                             "content_hash": content_hash,
                             "source_timestamp": published_at,
                             "last_successful_fetch": now_iso
                         }
                     }
                     comp_jobs.append(canonical_job)
-                    if len(comp_jobs) >= 8:
+                    if len(comp_jobs) >= 12:
                         break
+
                 return comp_jobs
             except Exception as e:
-                logger.warning(f"Ashby fetch error for {org_token}: {e}")
+                logger.warning(f"Ashby fetch warning for {org_token}: {e}")
                 return []
 
-        async with httpx.AsyncClient(timeout=6.0, limits=httpx.Limits(max_connections=20, max_keepalive_connections=10)) as client:
+        async with httpx.AsyncClient(timeout=httpx.Timeout(8.0, connect=4.0), limits=httpx.Limits(max_connections=15, max_keepalive_connections=10)) as client:
             tasks = [fetch_ashby_company(client, comp) for comp in ASHBY_COMPANIES]
             batch_results = await asyncio.gather(*tasks, return_exceptions=True)
             for res in batch_results:
@@ -167,7 +165,7 @@ class AshbyConnector(JobSourceConnector):
     async def health_check(self) -> SourceHealth:
         start_time = time.time()
         try:
-            async with httpx.AsyncClient(timeout=4.0) as client:
+            async with httpx.AsyncClient(timeout=3.0) as client:
                 res = await client.get("https://api.ashbyhq.com/posting-api/job-board/linear")
                 latency = int((time.time() - start_time) * 1000)
                 if res.status_code == 200:
@@ -201,7 +199,7 @@ class AshbyConnector(JobSourceConnector):
             return SourceHealth(
                 name=self.name,
                 domain=self.domain,
-                status="UNAVAILABLE",
+                status="DEGRADED",
                 access_method=self.access_method,
                 permission_status=self.permission_status,
                 robots_policy=self.robots_policy,

@@ -1,0 +1,133 @@
+[
+  {
+    "record_id": "rec_wf_4df16eb747_rem_2091140_0",
+    "workflow_id": "wf_4df16eb747",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Senior Shopify Developer",
+      "company": "Sanctuary Computer Inc",
+      "company_domain": "remotive.com",
+      "location": "Worldwide (Remote)",
+      "city": "Worldwide",
+      "remote_type": "remote",
+      "work_modality": "Online",
+      "modality_detail": "Online (Remote)",
+      "employment_type": "contract",
+      "skills": [
+        "Admin",
+        "API",
+        "Backend",
+        "Css"
+      ],
+      "experience_years": "0-2 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://remotive.com/remote-jobs/software-development/senior-shopify-developer-2091140",
+      "platform_source": "Remotive",
+      "date_posted": "2026-09-18T15:10:28",
+      "match_score": 50.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 0,
+          "max": 30
+        },
+        "role": {
+          "score": 6,
+          "max": 20
+        },
+        "experience": {
+          "score": 14,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 3,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 4,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Online (Remote) fit: Worldwide (Remote) at Sanctuary Computer Inc",
+        "\u2713 Education qualifications satisfied"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 Ml not explicitly emphasized",
+        "\u26a0 Role title differs from target keywords"
+      ],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 80.0,
+        "listing_quality_score": 95.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "remotive"
+      ],
+      "description": "We are hiring a contract-based Senior Shopify Developer to contribute to our Design and Development Team. Original Job posting link here \ud83c\udf0e About garden3d We are worker owned creative collective, innovating on everything from brands and IRL communities to IoT devices and cross platform apps. We share profit, open source everything, spin out new businesses, and invest in exciting ideas through financial and/or in-kind contributions. Our client roster includes Google, Stripe, Figma, Hinge, Black Socialists in America, ACLU, Pratt, Parsons, Mozilla, The Nobel Prize, MIT, Gnosis, Etsy & Gagosian. We\u2019re the software team behind innovative products like The Light Phone & Mill, and we operate a global, decentralized community space collective called Index Space. We think of our garden3d as collective for creative people, prioritizing a happy, talented, and diverse studio culture. We work on projects that bring value to our world, and we balance deep care for the work we do with a genuine curiosity about life outside of our jobs. Sanctuary Computer \u2014 Development At Sanctuary Computer we\u2019re building a different type of technology shop \u2013 one that prioritizes close collaboration between the client and the craftsperson. Our projects range from design-forward websites, to robust web apps, to native mobile development. XXIX \u2014 Design When we started XXIX in 2013, we set out to create a different kind of design studio and we\u2019ve thrived because we continually ask what a creative practice can be. We\u2019re building a radically different kind of organization that values autonomy, growth, transparency, and shared responsibility. Plus, our partner organizations Lightphone Mill IngredientAI \ud83d\udd2e Who we\u2019re looking for: We're looking for a Senior Shopify Developer who balances deep e-commerce expertise with modern frontend engineering. You'll build pixel-perfect, hyper-performant storefronts ranging from custom Liquid themes to headless Hydrogen/Next.js implementations working alongside our design team to create world-class shopping experiences. In this role, you\u2019ll work across a variety of client projects to find cost-effective, high-quality, and pragmatic solutions to complex e-commerce challenges. Responsibilities will include: Collaborating closely with Technical Leads and Designers to meet clients' custom e-commerce and technical needs. Building and maintaining high-performance storefronts using both custom Liquid (Online Store 2.0) and modern headless architectures (Shopify Storefr",
+      "description_snippet": "We are hiring a contract-based Senior Shopify Developer to contribute to our Design and Development Team. Original Job posting link here \ud83c\udf0e About garden3d We are worker owned creative collective, innovating on everything from brands and IRL communities to IoT devices and cross platform apps. We share profit, open source everything, spin out new businesses, and invest in exciting ideas through finan",
+      "is_link_out": false
+    },
+    "confidence_score": 50.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 0,
+        "max": 30
+      },
+      "role": {
+        "score": 6,
+        "max": 20
+      },
+      "experience": {
+        "score": 14,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 3,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 4,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": true,
+    "source_url": "https://remotive.com/remote-jobs/software-development/senior-shopify-developer-2091140",
+    "source_title": "Senior Shopify Developer at Sanctuary Computer Inc",
+    "extracted_timestamp": "2026-09-30T14:31:25.436022+00:00",
+    "raw_snippet": "We are hiring a contract-based Senior Shopify Developer to contribute to our Design and Development Team. Original Job posting link here \ud83c\udf0e About garden3d We are worker owned creative collective, innovating on everything from brands and IRL communities to IoT devices and cross platform apps. We share profit, open source everything, spin out new businesses, and invest in exciting ideas through finan"
+  }
+]

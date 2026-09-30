@@ -366,7 +366,7 @@ def matches_location_preference(job_location: str, preferred_locations: List[str
     # Rule 2: If the job is remote/online
     if is_remote:
         job_loc_str = str(job_location).lower()
-        # Drop foreign remote jobs if user did not request foreign jobs
+        # Drop foreign-restricted remote jobs if user did not request foreign jobs
         if loc_info["is_foreign"] and not user_wants_foreign:
             return False, 0
 
@@ -382,6 +382,12 @@ def matches_location_preference(job_location: str, preferred_locations: List[str
         for p in clean_prefs:
             if p in job_loc_str or (loc_info.get("city") and p in loc_info["city"].lower()):
                 return True, 10
+
+        # If user allows remote work generally, any India-compatible or Worldwide remote vacancy matches
+        if not any(p in ["on-site", "onsite", "offline", "in-person"] for p in clean_prefs):
+            if loc_info["is_india"] or loc_info["is_worldwide"]:
+                return True, 9
+
         return False, 0
 
     # Rule 3: Check if preferred locations specify foreign vs India

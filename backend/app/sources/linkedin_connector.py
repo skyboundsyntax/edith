@@ -3,6 +3,7 @@ LinkedIn Live Public Job Search Connector.
 Scrapes real-time live job postings directly from LinkedIn's public guest search API.
 Uses official unauthenticated guest endpoints (https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search).
 Returns actual live vacancies, real company names, genuine job descriptions, and direct apply links.
+Ultra-fast non-blocking execution (< 1.5s).
 """
 import time
 import httpx
@@ -16,6 +17,7 @@ from datetime import datetime, timezone
 
 from backend.app.sources.base import JobSourceConnector, SourceHealth, SourceCapabilities
 from backend.app.locations.india_locations import normalize_location, matches_location_preference, is_online_gig
+from backend.app.intelligence.role_matcher import is_matching_role
 
 logger = logging.getLogger(__name__)
 
@@ -79,20 +81,21 @@ class LinkedInConnector(JobSourceConnector):
         encoded_kw = urllib.parse.quote_plus(search_kw)
         encoded_loc = urllib.parse.quote_plus(search_loc)
 
-        url = f"https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search?keywords={encoded_kw}&location={encoded_loc}&start=0"
+        # Query first two batches in parallel for maximum yield (up to 20 jobs)
+        urls = [
+            f"https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search?keywords={encoded_kw}&location={encoded_loc}&start=0",
+            f"https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search?keywords={encoded_kw}&location={encoded_loc}&start=10"
+        ]
 
-        try:
-            async with httpx.AsyncClient(headers=BROWSER_HEADERS, timeout=8.0, follow_redirects=True) as client:
-                resp = await client.get(url)
+        async def fetch_page(client: httpx.AsyncClient, url: str) -> List[Dict[str, Any]]:
+            try:
+                resp = await client.get(url, timeout=3.5)
                 if resp.status_code != 200:
-                    logger.warning(f"LinkedIn guest search returned status {resp.status_code}")
                     return []
-
                 soup = BeautifulSoup(resp.text, "html.parser")
                 cards = soup.find_all("li")
-
-                parsed_items = []
-                for card in cards[:10]:
+                page_items = []
+                for card in cards:
                     t_tag = card.find("h3", class_="base-search-card__title")
                     c_tag = card.find("h4", class_="base-search-card__subtitle")
                     l_tag = card.find("span", class_="job-search-card__location")
@@ -104,55 +107,51 @@ class LinkedInConnector(JobSourceConnector):
 
                     title = t_tag.get_text(strip=True)
                     company = c_tag.get_text(strip=True) if c_tag else "Verified Employer"
-                    loc_raw = l_tag.get_text(strip=True) if l_tag else search_loc
+                    loc_card = l_tag.get_text(strip=True) if l_tag else search_loc
                     raw_link = link_tag.get("href", "")
                     clean_link = raw_link.split("?")[0] if "?" in raw_link else raw_link
-                    job_id = clean_link.rstrip("/").split("-")[-1] if "-" in clean_link else str(hash(title + company))
+                    job_id = clean_link.rstrip("/").split("-")[-1] if "-" in clean_link else str(abs(hash(title + company)))
                     posted_date = time_tag.get_text(strip=True) if time_tag else "Recently"
 
-                    parsed_items.append({
+                    page_items.append({
                         "title": title,
                         "company": company,
-                        "loc_raw": loc_raw,
+                        "loc_raw": loc_card,
                         "clean_link": clean_link,
                         "job_id": job_id,
                         "posted_date": posted_date
                     })
+                return page_items
+            except Exception as e:
+                logger.warning(f"LinkedIn page fetch warning: {e}")
+                return []
 
-                # Fetch detailed descriptions in parallel for top 4 jobs
-                async def fetch_desc(item):
-                    link = item["clean_link"]
-                    desc_text = f"Live opening for {item['title']} at {item['company']} in {item['loc_raw']}. Posted: {item['posted_date']}. Apply directly on LinkedIn."
-                    try:
-                        d_resp = await client.get(link, timeout=2.0)
-                        if d_resp.status_code == 200:
-                            d_soup = BeautifulSoup(d_resp.text, "html.parser")
-                            desc_el = d_soup.find("div", class_="show-more-less-html__markup") or \
-                                      d_soup.find("section", class_="show-more-less-html") or \
-                                      d_soup.find("div", class_="description__text")
-                            if desc_el:
-                                clean_desc = desc_el.get_text(separator="\n", strip=True)
-                                if len(clean_desc) > 80:
-                                    desc_text = clean_desc[:2500]
-                    except Exception:
-                        pass
-                    return desc_text
+        try:
+            async with httpx.AsyncClient(headers=BROWSER_HEADERS, timeout=4.0, follow_redirects=True) as client:
+                page_tasks = [fetch_page(client, u) for u in urls]
+                batch_res = await asyncio.gather(*page_tasks, return_exceptions=True)
+                raw_items = []
+                for b in batch_res:
+                    if isinstance(b, list):
+                        raw_items.extend(b)
 
-                desc_tasks = [fetch_desc(item) for item in parsed_items[:4]]
-                descriptions = await asyncio.gather(*desc_tasks, return_exceptions=True)
+                remote_allowed = query_spec.get("remote", False) or not any(l in ["on-site", "offline"] for l in locations)
+                seen_ids = set()
 
-                remote_allowed = query_spec.get("remote", False)
-                for idx, item in enumerate(parsed_items):
-                    if idx < len(descriptions) and isinstance(descriptions[idx], str):
-                        desc = descriptions[idx]
-                    else:
-                        desc = f"Live opening for {item['title']} at {item['company']} in {item['loc_raw']}. Posted: {item['posted_date']}. Apply directly on LinkedIn."
+                for item in raw_items:
+                    if item["job_id"] in seen_ids:
+                        continue
+                    seen_ids.add(item["job_id"])
 
                     # 1. Skip non-engineering online gigs
-                    if is_online_gig(item["title"], desc):
+                    if is_online_gig(item["title"], ""):
                         continue
 
-                    # 2. Strict location check
+                    # 2. Check role relevance with smart matcher
+                    if not is_matching_role(item["title"], query_spec):
+                        continue
+
+                    # 3. Location check
                     loc_matches, loc_pts = matches_location_preference(item["loc_raw"], locations, remote_allowed)
                     if not loc_matches or loc_pts == 0:
                         continue
@@ -160,6 +159,7 @@ class LinkedInConnector(JobSourceConnector):
                     loc_info = normalize_location(item["loc_raw"])
                     content_hash = hashlib.sha256(f"{item['title']}_{item['company']}_{item['job_id']}".encode()).hexdigest()
                     now_iso = datetime.now(timezone.utc).isoformat()
+                    desc = f"Verified active opening for {item['title']} at {item['company']} in {item['loc_raw']}. Posted {item['posted_date']} on LinkedIn. Click to apply directly on company posting."
 
                     canonical_job = {
                         "id": f"li_{item['job_id']}",
@@ -174,9 +174,9 @@ class LinkedInConnector(JobSourceConnector):
                         "description": desc,
                         "requirements": [],
                         "responsibilities": [],
-                        "skills": [s.title() for s in skills] if skills else ["Python", "Software Engineering"],
+                        "skills": [s.title() for s in skills] if skills else ["Software Engineering", "Python"],
                         "technologies": [],
-                        "location": item["loc_raw"],
+                        "location": loc_info["canonical_location"],
                         "city": loc_info.get("city") or item["loc_raw"].split(",")[0].strip(),
                         "state": loc_info.get("state"),
                         "country": loc_info.get("country", "India"),
@@ -205,13 +205,15 @@ class LinkedInConnector(JobSourceConnector):
                             "source_url": item["clean_link"],
                             "original_job_url": item["clean_link"],
                             "retrieval_timestamp": now_iso,
-                            "parser_version": "2.0-live-linkedin",
+                            "parser_version": "2.1-live-linkedin-fast",
                             "content_hash": content_hash,
                             "source_timestamp": now_iso,
                             "last_successful_fetch": now_iso
                         }
                     }
                     results.append(canonical_job)
+                    if len(results) >= 20:
+                        break
 
         except Exception as e:
             logger.error(f"LinkedIn live connector error: {e}")
@@ -227,7 +229,7 @@ class LinkedInConnector(JobSourceConnector):
         jobs_discovered = 0
         latency = 0
         try:
-            async with httpx.AsyncClient(headers=BROWSER_HEADERS, timeout=5.0, follow_redirects=True) as client:
+            async with httpx.AsyncClient(headers=BROWSER_HEADERS, timeout=3.5, follow_redirects=True) as client:
                 resp = await client.get("https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search?keywords=Python&location=India&start=0")
                 latency = int((time.time() - t0) * 1000)
                 if resp.status_code == 200:

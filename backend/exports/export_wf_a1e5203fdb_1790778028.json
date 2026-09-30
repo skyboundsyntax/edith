@@ -1,0 +1,4975 @@
+[
+  {
+    "record_id": "rec_wf_a1e5203fdb_li_4223783014_0",
+    "workflow_id": "wf_a1e5203fdb",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Senior Software Engineer (Backend) - SDE3/4",
+      "company": "Scapia",
+      "company_domain": "linkedin.com",
+      "location": "Bangalore, Karnataka, India",
+      "city": "Bangalore",
+      "remote_type": "on-site",
+      "work_modality": "Offline",
+      "modality_detail": "Offline (On-site)",
+      "employment_type": "full-time",
+      "skills": [
+        "Python",
+        "Fastapi"
+      ],
+      "experience_years": "0-2 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://in.linkedin.com/jobs/view/senior-software-engineer-backend-sde3-4-at-scapia-4223783014",
+      "platform_source": "Linkedin",
+      "date_posted": "2026-09-30T14:20:11.577498+00:00",
+      "match_score": 97.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 30,
+          "max": 30
+        },
+        "role": {
+          "score": 20,
+          "max": 20
+        },
+        "experience": {
+          "score": 14,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 5,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Python",
+        "\u2713 Fastapi",
+        "\u2713 Target role match (Backend Developer)",
+        "\u2713 Offline fit: Bangalore, Karnataka, India at Scapia",
+        "\u2713 Education qualifications satisfied"
+      ],
+      "potential_gaps": [],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 80.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "linkedin"
+      ],
+      "description": "Verified active opening for Senior Software Engineer (Backend) - SDE3/4 at Scapia in Bengaluru, Karnataka, India. Posted 1 year ago on LinkedIn. Click to apply directly on company posting.",
+      "description_snippet": "Verified active opening for Senior Software Engineer (Backend) - SDE3/4 at Scapia in Bengaluru, Karnataka, India. Posted 1 year ago on LinkedIn. Click to apply directly on company posting.",
+      "is_link_out": false
+    },
+    "confidence_score": 97.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 30,
+        "max": 30
+      },
+      "role": {
+        "score": 20,
+        "max": 20
+      },
+      "experience": {
+        "score": 14,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 5,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": true,
+    "source_url": "https://in.linkedin.com/jobs/view/senior-software-engineer-backend-sde3-4-at-scapia-4223783014",
+    "source_title": "Senior Software Engineer (Backend) - SDE3/4 at Scapia",
+    "extracted_timestamp": "2026-09-30T14:20:27.808183+00:00",
+    "raw_snippet": "Verified active opening for Senior Software Engineer (Backend) - SDE3/4 at Scapia in Bengaluru, Karnataka, India. Posted 1 year ago on LinkedIn. Click to apply directly on company posting."
+  },
+  {
+    "record_id": "rec_wf_a1e5203fdb_li_4414873748_1",
+    "workflow_id": "wf_a1e5203fdb",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Senior Software Engineer (Backend)",
+      "company": "Qoala",
+      "company_domain": "linkedin.com",
+      "location": "Bangalore, Karnataka, India",
+      "city": "Bangalore",
+      "remote_type": "on-site",
+      "work_modality": "Offline",
+      "modality_detail": "Offline (On-site)",
+      "employment_type": "full-time",
+      "skills": [
+        "Python",
+        "Fastapi"
+      ],
+      "experience_years": "0-2 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://in.linkedin.com/jobs/view/senior-software-engineer-backend-at-qoala-4414873748",
+      "platform_source": "Linkedin",
+      "date_posted": "2026-09-30T14:20:11.577724+00:00",
+      "match_score": 97.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 30,
+          "max": 30
+        },
+        "role": {
+          "score": 20,
+          "max": 20
+        },
+        "experience": {
+          "score": 14,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 5,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Python",
+        "\u2713 Fastapi",
+        "\u2713 Target role match (Backend Developer)",
+        "\u2713 Offline fit: Bangalore, Karnataka, India at Qoala",
+        "\u2713 Education qualifications satisfied"
+      ],
+      "potential_gaps": [],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 80.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "linkedin"
+      ],
+      "description": "Verified active opening for Senior Software Engineer (Backend) at Qoala in Bangalore Urban, Karnataka, India. Posted 5 months ago on LinkedIn. Click to apply directly on company posting.",
+      "description_snippet": "Verified active opening for Senior Software Engineer (Backend) at Qoala in Bangalore Urban, Karnataka, India. Posted 5 months ago on LinkedIn. Click to apply directly on company posting.",
+      "is_link_out": false
+    },
+    "confidence_score": 97.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 30,
+        "max": 30
+      },
+      "role": {
+        "score": 20,
+        "max": 20
+      },
+      "experience": {
+        "score": 14,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 5,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": true,
+    "source_url": "https://in.linkedin.com/jobs/view/senior-software-engineer-backend-at-qoala-4414873748",
+    "source_title": "Senior Software Engineer (Backend) at Qoala",
+    "extracted_timestamp": "2026-09-30T14:20:27.809899+00:00",
+    "raw_snippet": "Verified active opening for Senior Software Engineer (Backend) at Qoala in Bangalore Urban, Karnataka, India. Posted 5 months ago on LinkedIn. Click to apply directly on company posting."
+  },
+  {
+    "record_id": "rec_wf_a1e5203fdb_li_4424231243_2",
+    "workflow_id": "wf_a1e5203fdb",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Senior Backend Engineer",
+      "company": "Eltropy",
+      "company_domain": "linkedin.com",
+      "location": "Bangalore, Karnataka, India",
+      "city": "Bangalore",
+      "remote_type": "on-site",
+      "work_modality": "Offline",
+      "modality_detail": "Offline (On-site)",
+      "employment_type": "full-time",
+      "skills": [
+        "Python",
+        "Fastapi"
+      ],
+      "experience_years": "0-2 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://in.linkedin.com/jobs/view/senior-backend-engineer-at-eltropy-4424231243",
+      "platform_source": "Linkedin",
+      "date_posted": "2026-09-30T14:20:11.578110+00:00",
+      "match_score": 97.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 30,
+          "max": 30
+        },
+        "role": {
+          "score": 20,
+          "max": 20
+        },
+        "experience": {
+          "score": 14,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 5,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Python",
+        "\u2713 Fastapi",
+        "\u2713 Target role match (Backend Developer)",
+        "\u2713 Offline fit: Bangalore, Karnataka, India at Eltropy",
+        "\u2713 Education qualifications satisfied"
+      ],
+      "potential_gaps": [],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 80.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "linkedin"
+      ],
+      "description": "Verified active opening for Senior Backend Engineer at Eltropy in Bengaluru, Karnataka, India. Posted 1 week ago on LinkedIn. Click to apply directly on company posting.",
+      "description_snippet": "Verified active opening for Senior Backend Engineer at Eltropy in Bengaluru, Karnataka, India. Posted 1 week ago on LinkedIn. Click to apply directly on company posting.",
+      "is_link_out": false
+    },
+    "confidence_score": 97.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 30,
+        "max": 30
+      },
+      "role": {
+        "score": 20,
+        "max": 20
+      },
+      "experience": {
+        "score": 14,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 5,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": true,
+    "source_url": "https://in.linkedin.com/jobs/view/senior-backend-engineer-at-eltropy-4424231243",
+    "source_title": "Senior Backend Engineer at Eltropy",
+    "extracted_timestamp": "2026-09-30T14:20:27.811805+00:00",
+    "raw_snippet": "Verified active opening for Senior Backend Engineer at Eltropy in Bengaluru, Karnataka, India. Posted 1 week ago on LinkedIn. Click to apply directly on company posting."
+  },
+  {
+    "record_id": "rec_wf_a1e5203fdb_li_4470402215_3",
+    "workflow_id": "wf_a1e5203fdb",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "SDE 2 (Backend)",
+      "company": "slice",
+      "company_domain": "linkedin.com",
+      "location": "Bangalore, Karnataka, India",
+      "city": "Bangalore",
+      "remote_type": "on-site",
+      "work_modality": "Offline",
+      "modality_detail": "Offline (On-site)",
+      "employment_type": "full-time",
+      "skills": [
+        "Python",
+        "Fastapi"
+      ],
+      "experience_years": "0-2 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://in.linkedin.com/jobs/view/sde-2-backend-at-slice-4470402215",
+      "platform_source": "Linkedin",
+      "date_posted": "2026-09-30T14:20:11.578829+00:00",
+      "match_score": 97.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 30,
+          "max": 30
+        },
+        "role": {
+          "score": 20,
+          "max": 20
+        },
+        "experience": {
+          "score": 14,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 5,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Python",
+        "\u2713 Fastapi",
+        "\u2713 Target role match (Backend Developer)",
+        "\u2713 Offline fit: Bangalore, Karnataka, India at slice",
+        "\u2713 Education qualifications satisfied"
+      ],
+      "potential_gaps": [],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 80.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "linkedin"
+      ],
+      "description": "Verified active opening for SDE 2 (Backend) at slice in Bengaluru, Karnataka, India. Posted 1 week ago on LinkedIn. Click to apply directly on company posting.",
+      "description_snippet": "Verified active opening for SDE 2 (Backend) at slice in Bengaluru, Karnataka, India. Posted 1 week ago on LinkedIn. Click to apply directly on company posting.",
+      "is_link_out": false
+    },
+    "confidence_score": 97.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 30,
+        "max": 30
+      },
+      "role": {
+        "score": 20,
+        "max": 20
+      },
+      "experience": {
+        "score": 14,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 5,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": true,
+    "source_url": "https://in.linkedin.com/jobs/view/sde-2-backend-at-slice-4470402215",
+    "source_title": "SDE 2 (Backend) at slice",
+    "extracted_timestamp": "2026-09-30T14:20:27.817518+00:00",
+    "raw_snippet": "Verified active opening for SDE 2 (Backend) at slice in Bengaluru, Karnataka, India. Posted 1 week ago on LinkedIn. Click to apply directly on company posting."
+  },
+  {
+    "record_id": "rec_wf_a1e5203fdb_li_4455303752_4",
+    "workflow_id": "wf_a1e5203fdb",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Back-End Software Engineer - Core Java",
+      "company": "Light & Wonder",
+      "company_domain": "linkedin.com",
+      "location": "Bangalore, Karnataka, India",
+      "city": "Bangalore",
+      "remote_type": "on-site",
+      "work_modality": "Offline",
+      "modality_detail": "Offline (On-site)",
+      "employment_type": "full-time",
+      "skills": [
+        "Python",
+        "Fastapi"
+      ],
+      "experience_years": "0-2 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://in.linkedin.com/jobs/view/back-end-software-engineer-core-java-at-light-wonder-4455303752",
+      "platform_source": "Linkedin",
+      "date_posted": "2026-09-30T14:20:11.577237+00:00",
+      "match_score": 83.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 30,
+          "max": 30
+        },
+        "role": {
+          "score": 6,
+          "max": 20
+        },
+        "experience": {
+          "score": 14,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 5,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Python",
+        "\u2713 Fastapi",
+        "\u2713 Offline fit: Bangalore, Karnataka, India at Light & Wonder",
+        "\u2713 Education qualifications satisfied",
+        "\u2713 Full-Time employment type"
+      ],
+      "potential_gaps": [
+        "\u26a0 Role title differs from target keywords"
+      ],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 80.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "linkedin"
+      ],
+      "description": "Verified active opening for Back-End Software Engineer - Core Java at Light & Wonder in Bengaluru, Karnataka, India. Posted 2 weeks ago on LinkedIn. Click to apply directly on company posting.",
+      "description_snippet": "Verified active opening for Back-End Software Engineer - Core Java at Light & Wonder in Bengaluru, Karnataka, India. Posted 2 weeks ago on LinkedIn. Click to apply directly on company posting.",
+      "is_link_out": false
+    },
+    "confidence_score": 83.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 30,
+        "max": 30
+      },
+      "role": {
+        "score": 6,
+        "max": 20
+      },
+      "experience": {
+        "score": 14,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 5,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": true,
+    "source_url": "https://in.linkedin.com/jobs/view/back-end-software-engineer-core-java-at-light-wonder-4455303752",
+    "source_title": "Back-End Software Engineer - Core Java at Light & Wonder",
+    "extracted_timestamp": "2026-09-30T14:20:27.823117+00:00",
+    "raw_snippet": "Verified active opening for Back-End Software Engineer - Core Java at Light & Wonder in Bengaluru, Karnataka, India. Posted 2 weeks ago on LinkedIn. Click to apply directly on company posting."
+  },
+  {
+    "record_id": "rec_wf_a1e5203fdb_li_4435211913_5",
+    "workflow_id": "wf_a1e5203fdb",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Python Developer",
+      "company": "Mopid",
+      "company_domain": "linkedin.com",
+      "location": "Bangalore, Karnataka, India",
+      "city": "Bangalore",
+      "remote_type": "on-site",
+      "work_modality": "Offline",
+      "modality_detail": "Offline (On-site)",
+      "employment_type": "full-time",
+      "skills": [
+        "Python",
+        "Fastapi"
+      ],
+      "experience_years": "0-2 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://in.linkedin.com/jobs/view/python-developer-at-mopid-4435211913",
+      "platform_source": "Linkedin",
+      "date_posted": "2026-09-30T14:20:11.577913+00:00",
+      "match_score": 83.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 30,
+          "max": 30
+        },
+        "role": {
+          "score": 6,
+          "max": 20
+        },
+        "experience": {
+          "score": 14,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 5,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Python",
+        "\u2713 Fastapi",
+        "\u2713 Offline fit: Bangalore, Karnataka, India at Mopid",
+        "\u2713 Education qualifications satisfied",
+        "\u2713 Full-Time employment type"
+      ],
+      "potential_gaps": [
+        "\u26a0 Role title differs from target keywords"
+      ],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 80.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "linkedin"
+      ],
+      "description": "Verified active opening for Python Developer at Mopid in Bengaluru, Karnataka, India. Posted 2 months ago on LinkedIn. Click to apply directly on company posting.",
+      "description_snippet": "Verified active opening for Python Developer at Mopid in Bengaluru, Karnataka, India. Posted 2 months ago on LinkedIn. Click to apply directly on company posting.",
+      "is_link_out": false
+    },
+    "confidence_score": 83.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 30,
+        "max": 30
+      },
+      "role": {
+        "score": 6,
+        "max": 20
+      },
+      "experience": {
+        "score": 14,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 5,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": true,
+    "source_url": "https://in.linkedin.com/jobs/view/python-developer-at-mopid-4435211913",
+    "source_title": "Python Developer at Mopid",
+    "extracted_timestamp": "2026-09-30T14:20:27.827703+00:00",
+    "raw_snippet": "Verified active opening for Python Developer at Mopid in Bengaluru, Karnataka, India. Posted 2 months ago on LinkedIn. Click to apply directly on company posting."
+  },
+  {
+    "record_id": "rec_wf_a1e5203fdb_li_4461487136_6",
+    "workflow_id": "wf_a1e5203fdb",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Java Developer",
+      "company": "Euphoric Thought Technologies Pvt. Ltd.",
+      "company_domain": "linkedin.com",
+      "location": "Bangalore, Karnataka, India",
+      "city": "Bangalore",
+      "remote_type": "on-site",
+      "work_modality": "Offline",
+      "modality_detail": "Offline (On-site)",
+      "employment_type": "full-time",
+      "skills": [
+        "Python",
+        "Fastapi"
+      ],
+      "experience_years": "0-2 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://in.linkedin.com/jobs/view/java-developer-at-euphoric-thought-technologies-pvt-ltd-4461487136",
+      "platform_source": "Linkedin",
+      "date_posted": "2026-09-30T14:20:11.578344+00:00",
+      "match_score": 83.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 30,
+          "max": 30
+        },
+        "role": {
+          "score": 6,
+          "max": 20
+        },
+        "experience": {
+          "score": 14,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 5,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Python",
+        "\u2713 Fastapi",
+        "\u2713 Offline fit: Bangalore, Karnataka, India at Euphoric Thought Technologies Pvt. Ltd.",
+        "\u2713 Education qualifications satisfied",
+        "\u2713 Full-Time employment type"
+      ],
+      "potential_gaps": [
+        "\u26a0 Role title differs from target keywords"
+      ],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 80.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "linkedin"
+      ],
+      "description": "Verified active opening for Java Developer at Euphoric Thought Technologies Pvt. Ltd. in Bengaluru, Karnataka, India. Posted 3 weeks ago on LinkedIn. Click to apply directly on company posting.",
+      "description_snippet": "Verified active opening for Java Developer at Euphoric Thought Technologies Pvt. Ltd. in Bengaluru, Karnataka, India. Posted 3 weeks ago on LinkedIn. Click to apply directly on company posting.",
+      "is_link_out": false
+    },
+    "confidence_score": 83.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 30,
+        "max": 30
+      },
+      "role": {
+        "score": 6,
+        "max": 20
+      },
+      "experience": {
+        "score": 14,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 5,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": true,
+    "source_url": "https://in.linkedin.com/jobs/view/java-developer-at-euphoric-thought-technologies-pvt-ltd-4461487136",
+    "source_title": "Java Developer at Euphoric Thought Technologies Pvt. Ltd.",
+    "extracted_timestamp": "2026-09-30T14:20:27.832354+00:00",
+    "raw_snippet": "Verified active opening for Java Developer at Euphoric Thought Technologies Pvt. Ltd. in Bengaluru, Karnataka, India. Posted 3 weeks ago on LinkedIn. Click to apply directly on company posting."
+  },
+  {
+    "record_id": "rec_wf_a1e5203fdb_li_4473205111_7",
+    "workflow_id": "wf_a1e5203fdb",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Back End Developer",
+      "company": "Hire22.ai",
+      "company_domain": "linkedin.com",
+      "location": "Bangalore, Karnataka, India",
+      "city": "Bangalore",
+      "remote_type": "on-site",
+      "work_modality": "Offline",
+      "modality_detail": "Offline (On-site)",
+      "employment_type": "full-time",
+      "skills": [
+        "Python",
+        "Fastapi"
+      ],
+      "experience_years": "0-2 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://in.linkedin.com/jobs/view/back-end-developer-at-hire22-ai-4473205111",
+      "platform_source": "Linkedin",
+      "date_posted": "2026-09-30T14:20:11.578644+00:00",
+      "match_score": 83.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 30,
+          "max": 30
+        },
+        "role": {
+          "score": 6,
+          "max": 20
+        },
+        "experience": {
+          "score": 14,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 5,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Python",
+        "\u2713 Fastapi",
+        "\u2713 Offline fit: Bangalore, Karnataka, India at Hire22.ai",
+        "\u2713 Education qualifications satisfied",
+        "\u2713 Full-Time employment type"
+      ],
+      "potential_gaps": [
+        "\u26a0 Role title differs from target keywords"
+      ],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 80.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "linkedin"
+      ],
+      "description": "Verified active opening for Back End Developer at Hire22.ai in Bengaluru, Karnataka, India. Posted 1 day ago on LinkedIn. Click to apply directly on company posting.",
+      "description_snippet": "Verified active opening for Back End Developer at Hire22.ai in Bengaluru, Karnataka, India. Posted 1 day ago on LinkedIn. Click to apply directly on company posting.",
+      "is_link_out": false
+    },
+    "confidence_score": 83.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 30,
+        "max": 30
+      },
+      "role": {
+        "score": 6,
+        "max": 20
+      },
+      "experience": {
+        "score": 14,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 5,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": true,
+    "source_url": "https://in.linkedin.com/jobs/view/back-end-developer-at-hire22-ai-4473205111",
+    "source_title": "Back End Developer at Hire22.ai",
+    "extracted_timestamp": "2026-09-30T14:20:27.840286+00:00",
+    "raw_snippet": "Verified active opening for Back End Developer at Hire22.ai in Bengaluru, Karnataka, India. Posted 1 day ago on LinkedIn. Click to apply directly on company posting."
+  },
+  {
+    "record_id": "rec_wf_a1e5203fdb_li_4384583075_8",
+    "workflow_id": "wf_a1e5203fdb",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "SDE III",
+      "company": "SourcingXPress",
+      "company_domain": "linkedin.com",
+      "location": "Bangalore, Karnataka, India",
+      "city": "Bangalore",
+      "remote_type": "on-site",
+      "work_modality": "Offline",
+      "modality_detail": "Offline (On-site)",
+      "employment_type": "full-time",
+      "skills": [
+        "Python",
+        "Fastapi"
+      ],
+      "experience_years": "0-2 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://in.linkedin.com/jobs/view/sde-iii-at-sourcingxpress-4384583075",
+      "platform_source": "Linkedin",
+      "date_posted": "2026-09-30T14:20:11.579039+00:00",
+      "match_score": 83.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 30,
+          "max": 30
+        },
+        "role": {
+          "score": 6,
+          "max": 20
+        },
+        "experience": {
+          "score": 14,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 5,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Python",
+        "\u2713 Fastapi",
+        "\u2713 Offline fit: Bangalore, Karnataka, India at SourcingXPress",
+        "\u2713 Education qualifications satisfied",
+        "\u2713 Full-Time employment type"
+      ],
+      "potential_gaps": [
+        "\u26a0 Role title differs from target keywords"
+      ],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 80.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "linkedin"
+      ],
+      "description": "Verified active opening for SDE III at SourcingXPress in Bengaluru, Karnataka, India. Posted 6 months ago on LinkedIn. Click to apply directly on company posting.",
+      "description_snippet": "Verified active opening for SDE III at SourcingXPress in Bengaluru, Karnataka, India. Posted 6 months ago on LinkedIn. Click to apply directly on company posting.",
+      "is_link_out": false
+    },
+    "confidence_score": 83.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 30,
+        "max": 30
+      },
+      "role": {
+        "score": 6,
+        "max": 20
+      },
+      "experience": {
+        "score": 14,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 5,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": true,
+    "source_url": "https://in.linkedin.com/jobs/view/sde-iii-at-sourcingxpress-4384583075",
+    "source_title": "SDE III at SourcingXPress",
+    "extracted_timestamp": "2026-09-30T14:20:27.844591+00:00",
+    "raw_snippet": "Verified active opening for SDE III at SourcingXPress in Bengaluru, Karnataka, India. Posted 6 months ago on LinkedIn. Click to apply directly on company posting."
+  },
+  {
+    "record_id": "rec_wf_a1e5203fdb_li_4369069660_9",
+    "workflow_id": "wf_a1e5203fdb",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Software Engineer",
+      "company": "SourcingXPress",
+      "company_domain": "linkedin.com",
+      "location": "Bangalore, Karnataka, India",
+      "city": "Bangalore",
+      "remote_type": "on-site",
+      "work_modality": "Offline",
+      "modality_detail": "Offline (On-site)",
+      "employment_type": "full-time",
+      "skills": [
+        "Python",
+        "Fastapi"
+      ],
+      "experience_years": "0-2 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://in.linkedin.com/jobs/view/software-engineer-at-sourcingxpress-4369069660",
+      "platform_source": "Linkedin",
+      "date_posted": "2026-09-30T14:20:11.579262+00:00",
+      "match_score": 83.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 30,
+          "max": 30
+        },
+        "role": {
+          "score": 6,
+          "max": 20
+        },
+        "experience": {
+          "score": 14,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 5,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Python",
+        "\u2713 Fastapi",
+        "\u2713 Offline fit: Bangalore, Karnataka, India at SourcingXPress",
+        "\u2713 Education qualifications satisfied",
+        "\u2713 Full-Time employment type"
+      ],
+      "potential_gaps": [
+        "\u26a0 Role title differs from target keywords"
+      ],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 80.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "linkedin"
+      ],
+      "description": "Verified active opening for Software Engineer at SourcingXPress in Bengaluru, Karnataka, India. Posted 7 months ago on LinkedIn. Click to apply directly on company posting.",
+      "description_snippet": "Verified active opening for Software Engineer at SourcingXPress in Bengaluru, Karnataka, India. Posted 7 months ago on LinkedIn. Click to apply directly on company posting.",
+      "is_link_out": false
+    },
+    "confidence_score": 83.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 30,
+        "max": 30
+      },
+      "role": {
+        "score": 6,
+        "max": 20
+      },
+      "experience": {
+        "score": 14,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 5,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": true,
+    "source_url": "https://in.linkedin.com/jobs/view/software-engineer-at-sourcingxpress-4369069660",
+    "source_title": "Software Engineer at SourcingXPress",
+    "extracted_timestamp": "2026-09-30T14:20:27.848443+00:00",
+    "raw_snippet": "Verified active opening for Software Engineer at SourcingXPress in Bengaluru, Karnataka, India. Posted 7 months ago on LinkedIn. Click to apply directly on company posting."
+  },
+  {
+    "record_id": "rec_wf_a1e5203fdb_gh_gitlab_8722304002_10",
+    "workflow_id": "wf_a1e5203fdb",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Intermediate Backend Engineer - Database Change Management",
+      "company": "GitLab",
+      "company_domain": "gitlab.com",
+      "location": "Bangalore, Karnataka, India",
+      "city": "Bangalore",
+      "remote_type": "on-site",
+      "work_modality": "Offline",
+      "modality_detail": "Offline (On-site)",
+      "employment_type": "full-time",
+      "skills": [
+        "Software Engineering",
+        "Systems Architecture"
+      ],
+      "experience_years": "0-5 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://job-boards.greenhouse.io/gitlab/jobs/8722304002",
+      "platform_source": "Greenhouse",
+      "date_posted": "2026-09-29T10:38:50-04:00",
+      "match_score": 67.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 0,
+          "max": 30
+        },
+        "role": {
+          "score": 20,
+          "max": 20
+        },
+        "experience": {
+          "score": 14,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 5,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Target role match (Backend Developer)",
+        "\u2713 Offline fit: Bangalore, Karnataka, India at GitLab",
+        "\u2713 Education qualifications satisfied",
+        "\u2713 Full-Time employment type",
+        "\u2713 Fresh posting (< 24h old)"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 Fastapi not explicitly emphasized"
+      ],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 98.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "greenhouse",
+        "company-careers"
+      ],
+      "description": "Verified live opening for Intermediate Backend Engineer - Database Change Management at GitLab. Department: Engineering. Location: Bangalore, India. Apply directly on official Greenhouse ATS.",
+      "description_snippet": "Verified live opening for Intermediate Backend Engineer - Database Change Management at GitLab. Department: Engineering. Location: Bangalore, India. Apply directly on official Greenhouse ATS.",
+      "is_link_out": false
+    },
+    "confidence_score": 67.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 0,
+        "max": 30
+      },
+      "role": {
+        "score": 20,
+        "max": 20
+      },
+      "experience": {
+        "score": 14,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 5,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": true,
+    "source_url": "https://job-boards.greenhouse.io/gitlab/jobs/8722304002",
+    "source_title": "Intermediate Backend Engineer - Database Change Management at GitLab",
+    "extracted_timestamp": "2026-09-30T14:20:27.856096+00:00",
+    "raw_snippet": "Verified live opening for Intermediate Backend Engineer - Database Change Management at GitLab. Department: Engineering. Location: Bangalore, India. Apply directly on official Greenhouse ATS."
+  },
+  {
+    "record_id": "rec_wf_a1e5203fdb_gh_gitlab_8775507002_11",
+    "workflow_id": "wf_a1e5203fdb",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Intermediate Backend Engineer, India",
+      "company": "GitLab",
+      "company_domain": "gitlab.com",
+      "location": "Bangalore, Karnataka, India",
+      "city": "Bangalore",
+      "remote_type": "on-site",
+      "work_modality": "Offline",
+      "modality_detail": "Offline (On-site)",
+      "employment_type": "full-time",
+      "skills": [
+        "Software Engineering",
+        "Systems Architecture"
+      ],
+      "experience_years": "0-5 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://job-boards.greenhouse.io/gitlab/jobs/8775507002",
+      "platform_source": "Greenhouse",
+      "date_posted": "2026-09-29T10:38:50-04:00",
+      "match_score": 67.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 0,
+          "max": 30
+        },
+        "role": {
+          "score": 20,
+          "max": 20
+        },
+        "experience": {
+          "score": 14,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 5,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Target role match (Backend Developer)",
+        "\u2713 Offline fit: Bangalore, Karnataka, India at GitLab",
+        "\u2713 Education qualifications satisfied",
+        "\u2713 Full-Time employment type",
+        "\u2713 Fresh posting (< 24h old)"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 Fastapi not explicitly emphasized"
+      ],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 98.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "greenhouse",
+        "company-careers"
+      ],
+      "description": "Verified live opening for Intermediate Backend Engineer, India at GitLab. Department: Engineering. Location: Bangalore, India. Apply directly on official Greenhouse ATS.",
+      "description_snippet": "Verified live opening for Intermediate Backend Engineer, India at GitLab. Department: Engineering. Location: Bangalore, India. Apply directly on official Greenhouse ATS.",
+      "is_link_out": false
+    },
+    "confidence_score": 67.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 0,
+        "max": 30
+      },
+      "role": {
+        "score": 20,
+        "max": 20
+      },
+      "experience": {
+        "score": 14,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 5,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": true,
+    "source_url": "https://job-boards.greenhouse.io/gitlab/jobs/8775507002",
+    "source_title": "Intermediate Backend Engineer, India at GitLab",
+    "extracted_timestamp": "2026-09-30T14:20:27.860627+00:00",
+    "raw_snippet": "Verified live opening for Intermediate Backend Engineer, India at GitLab. Department: Engineering. Location: Bangalore, India. Apply directly on official Greenhouse ATS."
+  },
+  {
+    "record_id": "rec_wf_a1e5203fdb_gh_gitlab_8716143002_12",
+    "workflow_id": "wf_a1e5203fdb",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Senior Backend Engineer, India",
+      "company": "GitLab",
+      "company_domain": "gitlab.com",
+      "location": "Bangalore, Karnataka, India",
+      "city": "Bangalore",
+      "remote_type": "on-site",
+      "work_modality": "Offline",
+      "modality_detail": "Offline (On-site)",
+      "employment_type": "full-time",
+      "skills": [
+        "Software Engineering",
+        "Systems Architecture"
+      ],
+      "experience_years": "0-5 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://job-boards.greenhouse.io/gitlab/jobs/8775136002",
+      "platform_source": "Greenhouse",
+      "date_posted": "2026-09-29T10:38:50-04:00",
+      "match_score": 67.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 0,
+          "max": 30
+        },
+        "role": {
+          "score": 20,
+          "max": 20
+        },
+        "experience": {
+          "score": 14,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 5,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Target role match (Backend Developer)",
+        "\u2713 Offline fit: Bangalore, Karnataka, India at GitLab",
+        "\u2713 Education qualifications satisfied",
+        "\u2713 Full-Time employment type",
+        "\u2713 Fresh posting (< 24h old)"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 Fastapi not explicitly emphasized"
+      ],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 98.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "greenhouse",
+        "company-careers"
+      ],
+      "description": "Verified live opening for Senior Backend Engineer, India at GitLab. Department: Engineering. Location: Bangalore, India. Apply directly on official Greenhouse ATS.",
+      "description_snippet": "Verified live opening for Senior Backend Engineer, India at GitLab. Department: Engineering. Location: Bangalore, India. Apply directly on official Greenhouse ATS.",
+      "is_link_out": false
+    },
+    "confidence_score": 67.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 0,
+        "max": 30
+      },
+      "role": {
+        "score": 20,
+        "max": 20
+      },
+      "experience": {
+        "score": 14,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 5,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": true,
+    "source_url": "https://job-boards.greenhouse.io/gitlab/jobs/8775136002",
+    "source_title": "Senior Backend Engineer, India at GitLab",
+    "extracted_timestamp": "2026-09-30T14:20:27.863166+00:00",
+    "raw_snippet": "Verified live opening for Senior Backend Engineer, India at GitLab. Department: Engineering. Location: Bangalore, India. Apply directly on official Greenhouse ATS."
+  },
+  {
+    "record_id": "rec_wf_a1e5203fdb_gh_hackerrank_7693789_13",
+    "workflow_id": "wf_a1e5203fdb",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Senior Backend Engineer",
+      "company": "HackerRank",
+      "company_domain": "hackerrank.com",
+      "location": "Bangalore (Hybrid)",
+      "city": "Bangalore",
+      "remote_type": "hybrid",
+      "work_modality": "Hybrid",
+      "modality_detail": "Hybrid (Flexible)",
+      "employment_type": "full-time",
+      "skills": [
+        "Software Engineering",
+        "Systems Architecture"
+      ],
+      "experience_years": "0-5 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://job-boards.greenhouse.io/hackerrank/jobs/7693789",
+      "platform_source": "Greenhouse",
+      "date_posted": "2026-08-24T06:10:21-04:00",
+      "match_score": 65.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 0,
+          "max": 30
+        },
+        "role": {
+          "score": 20,
+          "max": 20
+        },
+        "experience": {
+          "score": 14,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 3,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Target role match (Backend Developer)",
+        "\u2713 Offline fit: Bangalore (Hybrid) at HackerRank",
+        "\u2713 Education qualifications satisfied",
+        "\u2713 Full-Time employment type"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 Fastapi not explicitly emphasized"
+      ],
+      "quality_signals": {
+        "freshness_score": 80.0,
+        "source_confidence": 98.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "greenhouse",
+        "company-careers"
+      ],
+      "description": "Verified live opening for Senior Backend Engineer at HackerRank. Department: Engineering. Location: Hybrid in Bangalore, India. Apply directly on official Greenhouse ATS.",
+      "description_snippet": "Verified live opening for Senior Backend Engineer at HackerRank. Department: Engineering. Location: Hybrid in Bangalore, India. Apply directly on official Greenhouse ATS.",
+      "is_link_out": false
+    },
+    "confidence_score": 65.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 0,
+        "max": 30
+      },
+      "role": {
+        "score": 20,
+        "max": 20
+      },
+      "experience": {
+        "score": 14,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 3,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": true,
+    "source_url": "https://job-boards.greenhouse.io/hackerrank/jobs/7693789",
+    "source_title": "Senior Backend Engineer at HackerRank",
+    "extracted_timestamp": "2026-09-30T14:20:27.871524+00:00",
+    "raw_snippet": "Verified live opening for Senior Backend Engineer at HackerRank. Department: Engineering. Location: Hybrid in Bangalore, India. Apply directly on official Greenhouse ATS."
+  },
+  {
+    "record_id": "rec_wf_a1e5203fdb_gh_gitlab_8626772002_14",
+    "workflow_id": "wf_a1e5203fdb",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Director, Engineering, Platform Operations & Productivity",
+      "company": "GitLab",
+      "company_domain": "gitlab.com",
+      "location": "Bangalore, Karnataka, India",
+      "city": "Bangalore",
+      "remote_type": "on-site",
+      "work_modality": "Offline",
+      "modality_detail": "Offline (On-site)",
+      "employment_type": "full-time",
+      "skills": [
+        "Software Engineering",
+        "Systems Architecture"
+      ],
+      "experience_years": "0-5 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://job-boards.greenhouse.io/gitlab/jobs/8626772002",
+      "platform_source": "Greenhouse",
+      "date_posted": "2026-09-29T10:38:50-04:00",
+      "match_score": 53.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 0,
+          "max": 30
+        },
+        "role": {
+          "score": 6,
+          "max": 20
+        },
+        "experience": {
+          "score": 14,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 5,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Offline fit: Bangalore, Karnataka, India at GitLab",
+        "\u2713 Education qualifications satisfied",
+        "\u2713 Full-Time employment type",
+        "\u2713 Fresh posting (< 24h old)"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 Fastapi not explicitly emphasized",
+        "\u26a0 Role title differs from target keywords"
+      ],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 98.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "greenhouse",
+        "company-careers"
+      ],
+      "description": "Verified live opening for Director, Engineering, Platform Operations & Productivity at GitLab. Department: Engineering. Location: Bangalore, India. Apply directly on official Greenhouse ATS.",
+      "description_snippet": "Verified live opening for Director, Engineering, Platform Operations & Productivity at GitLab. Department: Engineering. Location: Bangalore, India. Apply directly on official Greenhouse ATS.",
+      "is_link_out": false
+    },
+    "confidence_score": 53.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 0,
+        "max": 30
+      },
+      "role": {
+        "score": 6,
+        "max": 20
+      },
+      "experience": {
+        "score": 14,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 5,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": true,
+    "source_url": "https://job-boards.greenhouse.io/gitlab/jobs/8626772002",
+    "source_title": "Director, Engineering, Platform Operations & Productivity at GitLab",
+    "extracted_timestamp": "2026-09-30T14:20:27.875827+00:00",
+    "raw_snippet": "Verified live opening for Director, Engineering, Platform Operations & Productivity at GitLab. Department: Engineering. Location: Bangalore, India. Apply directly on official Greenhouse ATS."
+  },
+  {
+    "record_id": "rec_wf_a1e5203fdb_gh_gitlab_8396674002_15",
+    "workflow_id": "wf_a1e5203fdb",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Manager, Solutions Architects - San Francisco ",
+      "company": "GitLab",
+      "company_domain": "gitlab.com",
+      "location": "Remote, US",
+      "city": "Remote",
+      "remote_type": "remote",
+      "work_modality": "Online",
+      "modality_detail": "Online (Remote)",
+      "employment_type": "full-time",
+      "skills": [
+        "Software Engineering",
+        "Systems Architecture"
+      ],
+      "experience_years": "0-5 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://job-boards.greenhouse.io/gitlab/jobs/8396674002",
+      "platform_source": "Greenhouse",
+      "date_posted": "2026-09-29T10:38:50-04:00",
+      "match_score": 53.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 0,
+          "max": 30
+        },
+        "role": {
+          "score": 6,
+          "max": 20
+        },
+        "experience": {
+          "score": 14,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 5,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Online (Remote) fit: Remote, US at GitLab",
+        "\u2713 Education qualifications satisfied",
+        "\u2713 Full-Time employment type",
+        "\u2713 Fresh posting (< 24h old)"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 Fastapi not explicitly emphasized",
+        "\u26a0 Role title differs from target keywords"
+      ],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 98.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "greenhouse",
+        "company-careers"
+      ],
+      "description": "Verified live opening for Manager, Solutions Architects - San Francisco at GitLab. Department: Engineering. Location: Remote, US. Apply directly on official Greenhouse ATS.",
+      "description_snippet": "Verified live opening for Manager, Solutions Architects - San Francisco at GitLab. Department: Engineering. Location: Remote, US. Apply directly on official Greenhouse ATS.",
+      "is_link_out": false
+    },
+    "confidence_score": 53.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 0,
+        "max": 30
+      },
+      "role": {
+        "score": 6,
+        "max": 20
+      },
+      "experience": {
+        "score": 14,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 5,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": true,
+    "source_url": "https://job-boards.greenhouse.io/gitlab/jobs/8396674002",
+    "source_title": "Manager, Solutions Architects - San Francisco  at GitLab",
+    "extracted_timestamp": "2026-09-30T14:20:27.878008+00:00",
+    "raw_snippet": "Verified live opening for Manager, Solutions Architects - San Francisco at GitLab. Department: Engineering. Location: Remote, US. Apply directly on official Greenhouse ATS."
+  },
+  {
+    "record_id": "rec_wf_a1e5203fdb_gh_gitlab_8731996002_16",
+    "workflow_id": "wf_a1e5203fdb",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Senior Solutions Architect",
+      "company": "GitLab",
+      "company_domain": "gitlab.com",
+      "location": "Bangalore, Karnataka, India",
+      "city": "Bangalore",
+      "remote_type": "on-site",
+      "work_modality": "Offline",
+      "modality_detail": "Offline (On-site)",
+      "employment_type": "full-time",
+      "skills": [
+        "Software Engineering",
+        "Systems Architecture"
+      ],
+      "experience_years": "0-5 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://job-boards.greenhouse.io/gitlab/jobs/8731996002",
+      "platform_source": "Greenhouse",
+      "date_posted": "2026-09-29T10:38:50-04:00",
+      "match_score": 53.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 0,
+          "max": 30
+        },
+        "role": {
+          "score": 6,
+          "max": 20
+        },
+        "experience": {
+          "score": 14,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 5,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Offline fit: Bangalore, Karnataka, India at GitLab",
+        "\u2713 Education qualifications satisfied",
+        "\u2713 Full-Time employment type",
+        "\u2713 Fresh posting (< 24h old)"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 Fastapi not explicitly emphasized",
+        "\u26a0 Role title differs from target keywords"
+      ],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 98.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "greenhouse",
+        "company-careers"
+      ],
+      "description": "Verified live opening for Senior Solutions Architect at GitLab. Department: Engineering. Location: Bangalore, India. Apply directly on official Greenhouse ATS.",
+      "description_snippet": "Verified live opening for Senior Solutions Architect at GitLab. Department: Engineering. Location: Bangalore, India. Apply directly on official Greenhouse ATS.",
+      "is_link_out": false
+    },
+    "confidence_score": 53.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 0,
+        "max": 30
+      },
+      "role": {
+        "score": 6,
+        "max": 20
+      },
+      "experience": {
+        "score": 14,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 5,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": true,
+    "source_url": "https://job-boards.greenhouse.io/gitlab/jobs/8731996002",
+    "source_title": "Senior Solutions Architect at GitLab",
+    "extracted_timestamp": "2026-09-30T14:20:27.879732+00:00",
+    "raw_snippet": "Verified live opening for Senior Solutions Architect at GitLab. Department: Engineering. Location: Bangalore, India. Apply directly on official Greenhouse ATS."
+  },
+  {
+    "record_id": "rec_wf_a1e5203fdb_gh_gitlab_8826637002_17",
+    "workflow_id": "wf_a1e5203fdb",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Senior Solutions Architect- Sydney ",
+      "company": "GitLab",
+      "company_domain": "gitlab.com",
+      "location": "Remote",
+      "city": "Remote",
+      "remote_type": "remote",
+      "work_modality": "Online",
+      "modality_detail": "Online (Remote)",
+      "employment_type": "full-time",
+      "skills": [
+        "Software Engineering",
+        "Systems Architecture"
+      ],
+      "experience_years": "0-5 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://job-boards.greenhouse.io/gitlab/jobs/8826637002",
+      "platform_source": "Greenhouse",
+      "date_posted": "2026-09-29T23:01:20-04:00",
+      "match_score": 53.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 0,
+          "max": 30
+        },
+        "role": {
+          "score": 6,
+          "max": 20
+        },
+        "experience": {
+          "score": 14,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 5,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Online (Remote) fit: Remote at GitLab",
+        "\u2713 Education qualifications satisfied",
+        "\u2713 Full-Time employment type",
+        "\u2713 Fresh posting (< 24h old)"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 Fastapi not explicitly emphasized",
+        "\u26a0 Role title differs from target keywords"
+      ],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 98.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "greenhouse",
+        "company-careers"
+      ],
+      "description": "Verified live opening for Senior Solutions Architect- Sydney at GitLab. Department: Engineering. Location: Remote. Apply directly on official Greenhouse ATS.",
+      "description_snippet": "Verified live opening for Senior Solutions Architect- Sydney at GitLab. Department: Engineering. Location: Remote. Apply directly on official Greenhouse ATS.",
+      "is_link_out": false
+    },
+    "confidence_score": 53.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 0,
+        "max": 30
+      },
+      "role": {
+        "score": 6,
+        "max": 20
+      },
+      "experience": {
+        "score": 14,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 5,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": true,
+    "source_url": "https://job-boards.greenhouse.io/gitlab/jobs/8826637002",
+    "source_title": "Senior Solutions Architect- Sydney  at GitLab",
+    "extracted_timestamp": "2026-09-30T14:20:27.887668+00:00",
+    "raw_snippet": "Verified live opening for Senior Solutions Architect- Sydney at GitLab. Department: Engineering. Location: Remote. Apply directly on official Greenhouse ATS."
+  },
+  {
+    "record_id": "rec_wf_a1e5203fdb_gh_gitlab_8773546002_18",
+    "workflow_id": "wf_a1e5203fdb",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Site Reliability Engineer, Infrastructure Platforms \u2014 UK (Intermediate to Senior Staff)",
+      "company": "GitLab",
+      "company_domain": "gitlab.com",
+      "location": "Remote",
+      "city": "Remote",
+      "remote_type": "remote",
+      "work_modality": "Online",
+      "modality_detail": "Online (Remote)",
+      "employment_type": "full-time",
+      "skills": [
+        "Software Engineering",
+        "Systems Architecture"
+      ],
+      "experience_years": "0-5 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://job-boards.greenhouse.io/gitlab/jobs/8773546002",
+      "platform_source": "Greenhouse",
+      "date_posted": "2026-09-29T10:38:50-04:00",
+      "match_score": 53.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 0,
+          "max": 30
+        },
+        "role": {
+          "score": 6,
+          "max": 20
+        },
+        "experience": {
+          "score": 14,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 5,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Online (Remote) fit: Remote at GitLab",
+        "\u2713 Education qualifications satisfied",
+        "\u2713 Full-Time employment type",
+        "\u2713 Fresh posting (< 24h old)"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 Fastapi not explicitly emphasized",
+        "\u26a0 Role title differs from target keywords"
+      ],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 98.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "greenhouse",
+        "company-careers"
+      ],
+      "description": "Verified live opening for Site Reliability Engineer, Infrastructure Platforms \u2014 UK (Intermediate to Senior Staff) at GitLab. Department: Engineering. Location: Remote. Apply directly on official Greenhouse ATS.",
+      "description_snippet": "Verified live opening for Site Reliability Engineer, Infrastructure Platforms \u2014 UK (Intermediate to Senior Staff) at GitLab. Department: Engineering. Location: Remote. Apply directly on official Greenhouse ATS.",
+      "is_link_out": false
+    },
+    "confidence_score": 53.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 0,
+        "max": 30
+      },
+      "role": {
+        "score": 6,
+        "max": 20
+      },
+      "experience": {
+        "score": 14,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 5,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": true,
+    "source_url": "https://job-boards.greenhouse.io/gitlab/jobs/8773546002",
+    "source_title": "Site Reliability Engineer, Infrastructure Platforms \u2014 UK (Intermediate to Senior Staff) at GitLab",
+    "extracted_timestamp": "2026-09-30T14:20:27.893306+00:00",
+    "raw_snippet": "Verified live opening for Site Reliability Engineer, Infrastructure Platforms \u2014 UK (Intermediate to Senior Staff) at GitLab. Department: Engineering. Location: Remote. Apply directly on official Greenhouse ATS."
+  },
+  {
+    "record_id": "rec_wf_a1e5203fdb_gh_gitlab_8611700002_19",
+    "workflow_id": "wf_a1e5203fdb",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Solutions Architect - MENA",
+      "company": "GitLab",
+      "company_domain": "gitlab.com",
+      "location": "Remote, KSA; Remote, UAE",
+      "city": "Remote",
+      "remote_type": "remote",
+      "work_modality": "Online",
+      "modality_detail": "Online (Remote)",
+      "employment_type": "full-time",
+      "skills": [
+        "Software Engineering",
+        "Systems Architecture"
+      ],
+      "experience_years": "0-5 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://job-boards.greenhouse.io/gitlab/jobs/8611700002",
+      "platform_source": "Greenhouse",
+      "date_posted": "2026-09-29T10:38:50-04:00",
+      "match_score": 53.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 0,
+          "max": 30
+        },
+        "role": {
+          "score": 6,
+          "max": 20
+        },
+        "experience": {
+          "score": 14,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 5,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Online (Remote) fit: Remote, KSA; Remote, UAE at GitLab",
+        "\u2713 Education qualifications satisfied",
+        "\u2713 Full-Time employment type",
+        "\u2713 Fresh posting (< 24h old)"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 Fastapi not explicitly emphasized",
+        "\u26a0 Role title differs from target keywords"
+      ],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 98.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "greenhouse",
+        "company-careers"
+      ],
+      "description": "Verified live opening for Solutions Architect - MENA at GitLab. Department: Engineering. Location: Remote, KSA; Remote, UAE. Apply directly on official Greenhouse ATS.",
+      "description_snippet": "Verified live opening for Solutions Architect - MENA at GitLab. Department: Engineering. Location: Remote, KSA; Remote, UAE. Apply directly on official Greenhouse ATS.",
+      "is_link_out": false
+    },
+    "confidence_score": 53.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 0,
+        "max": 30
+      },
+      "role": {
+        "score": 6,
+        "max": 20
+      },
+      "experience": {
+        "score": 14,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 5,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": true,
+    "source_url": "https://job-boards.greenhouse.io/gitlab/jobs/8611700002",
+    "source_title": "Solutions Architect - MENA at GitLab",
+    "extracted_timestamp": "2026-09-30T14:20:27.897583+00:00",
+    "raw_snippet": "Verified live opening for Solutions Architect - MENA at GitLab. Department: Engineering. Location: Remote, KSA; Remote, UAE. Apply directly on official Greenhouse ATS."
+  },
+  {
+    "record_id": "rec_wf_a1e5203fdb_gh_gitlab_8612937002_20",
+    "workflow_id": "wf_a1e5203fdb",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Staff Product Manager,  RevOps & Finance Systems",
+      "company": "GitLab",
+      "company_domain": "gitlab.com",
+      "location": "Remote, US",
+      "city": "Remote",
+      "remote_type": "remote",
+      "work_modality": "Online",
+      "modality_detail": "Online (Remote)",
+      "employment_type": "full-time",
+      "skills": [
+        "Software Engineering",
+        "Systems Architecture"
+      ],
+      "experience_years": "0-5 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://job-boards.greenhouse.io/gitlab/jobs/8612937002",
+      "platform_source": "Greenhouse",
+      "date_posted": "2026-09-29T10:38:50-04:00",
+      "match_score": 53.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 0,
+          "max": 30
+        },
+        "role": {
+          "score": 6,
+          "max": 20
+        },
+        "experience": {
+          "score": 14,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 5,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Online (Remote) fit: Remote, US at GitLab",
+        "\u2713 Education qualifications satisfied",
+        "\u2713 Full-Time employment type",
+        "\u2713 Fresh posting (< 24h old)"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 Fastapi not explicitly emphasized",
+        "\u26a0 Role title differs from target keywords"
+      ],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 98.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "greenhouse",
+        "company-careers"
+      ],
+      "description": "Verified live opening for Staff Product Manager, RevOps & Finance Systems at GitLab. Department: Engineering. Location: Remote, US. Apply directly on official Greenhouse ATS.",
+      "description_snippet": "Verified live opening for Staff Product Manager, RevOps & Finance Systems at GitLab. Department: Engineering. Location: Remote, US. Apply directly on official Greenhouse ATS.",
+      "is_link_out": false
+    },
+    "confidence_score": 53.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 0,
+        "max": 30
+      },
+      "role": {
+        "score": 6,
+        "max": 20
+      },
+      "experience": {
+        "score": 14,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 5,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": true,
+    "source_url": "https://job-boards.greenhouse.io/gitlab/jobs/8612937002",
+    "source_title": "Staff Product Manager,  RevOps & Finance Systems at GitLab",
+    "extracted_timestamp": "2026-09-30T14:20:27.904762+00:00",
+    "raw_snippet": "Verified live opening for Staff Product Manager, RevOps & Finance Systems at GitLab. Department: Engineering. Location: Remote, US. Apply directly on official Greenhouse ATS."
+  },
+  {
+    "record_id": "rec_wf_a1e5203fdb_gh_airbnb_7525479_21",
+    "workflow_id": "wf_a1e5203fdb",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Senior Staff Software Engineer, Payments",
+      "company": "Airbnb",
+      "company_domain": "airbnb.com",
+      "location": "Bangalore (Remote)",
+      "city": "Bangalore",
+      "remote_type": "remote",
+      "work_modality": "Online",
+      "modality_detail": "Online (Remote)",
+      "employment_type": "full-time",
+      "skills": [
+        "Software Engineering",
+        "Systems Architecture"
+      ],
+      "experience_years": "0-5 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://careers.airbnb.com/positions/7525479?gh_jid=7525479",
+      "platform_source": "Greenhouse",
+      "date_posted": "2026-09-29T20:00:54-04:00",
+      "match_score": 53.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 0,
+          "max": 30
+        },
+        "role": {
+          "score": 6,
+          "max": 20
+        },
+        "experience": {
+          "score": 14,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 5,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Online (Remote) fit: Bangalore (Remote) at Airbnb",
+        "\u2713 Education qualifications satisfied",
+        "\u2713 Full-Time employment type",
+        "\u2713 Fresh posting (< 24h old)"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 Fastapi not explicitly emphasized",
+        "\u26a0 Role title differs from target keywords"
+      ],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 98.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "greenhouse",
+        "company-careers"
+      ],
+      "description": "Verified live opening for Senior Staff Software Engineer, Payments at Airbnb. Department: Engineering. Location: Remote - Bangalore, India. Apply directly on official Greenhouse ATS.",
+      "description_snippet": "Verified live opening for Senior Staff Software Engineer, Payments at Airbnb. Department: Engineering. Location: Remote - Bangalore, India. Apply directly on official Greenhouse ATS.",
+      "is_link_out": false
+    },
+    "confidence_score": 53.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 0,
+        "max": 30
+      },
+      "role": {
+        "score": 6,
+        "max": 20
+      },
+      "experience": {
+        "score": 14,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 5,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": true,
+    "source_url": "https://careers.airbnb.com/positions/7525479?gh_jid=7525479",
+    "source_title": "Senior Staff Software Engineer, Payments at Airbnb",
+    "extracted_timestamp": "2026-09-30T14:20:27.910154+00:00",
+    "raw_snippet": "Verified live opening for Senior Staff Software Engineer, Payments at Airbnb. Department: Engineering. Location: Remote - Bangalore, India. Apply directly on official Greenhouse ATS."
+  },
+  {
+    "record_id": "rec_wf_a1e5203fdb_gh_airbnb_8187190_22",
+    "workflow_id": "wf_a1e5203fdb",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Senior Staff Software Engineer, Tech Foundations",
+      "company": "Airbnb",
+      "company_domain": "airbnb.com",
+      "location": "Remote",
+      "city": "Remote",
+      "remote_type": "remote",
+      "work_modality": "Online",
+      "modality_detail": "Online (Remote)",
+      "employment_type": "full-time",
+      "skills": [
+        "Software Engineering",
+        "Systems Architecture"
+      ],
+      "experience_years": "0-5 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://careers.airbnb.com/positions/8187190?gh_jid=8187190",
+      "platform_source": "Greenhouse",
+      "date_posted": "2026-09-29T20:00:54-04:00",
+      "match_score": 53.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 0,
+          "max": 30
+        },
+        "role": {
+          "score": 6,
+          "max": 20
+        },
+        "experience": {
+          "score": 14,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 5,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Online (Remote) fit: Remote at Airbnb",
+        "\u2713 Education qualifications satisfied",
+        "\u2713 Full-Time employment type",
+        "\u2713 Fresh posting (< 24h old)"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 Fastapi not explicitly emphasized",
+        "\u26a0 Role title differs from target keywords"
+      ],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 98.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "greenhouse",
+        "company-careers"
+      ],
+      "description": "Verified live opening for Senior Staff Software Engineer, Tech Foundations at Airbnb. Department: Engineering. Location: Remote. Apply directly on official Greenhouse ATS.",
+      "description_snippet": "Verified live opening for Senior Staff Software Engineer, Tech Foundations at Airbnb. Department: Engineering. Location: Remote. Apply directly on official Greenhouse ATS.",
+      "is_link_out": false
+    },
+    "confidence_score": 53.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 0,
+        "max": 30
+      },
+      "role": {
+        "score": 6,
+        "max": 20
+      },
+      "experience": {
+        "score": 14,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 5,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": true,
+    "source_url": "https://careers.airbnb.com/positions/8187190?gh_jid=8187190",
+    "source_title": "Senior Staff Software Engineer, Tech Foundations at Airbnb",
+    "extracted_timestamp": "2026-09-30T14:20:27.912827+00:00",
+    "raw_snippet": "Verified live opening for Senior Staff Software Engineer, Tech Foundations at Airbnb. Department: Engineering. Location: Remote. Apply directly on official Greenhouse ATS."
+  },
+  {
+    "record_id": "rec_wf_a1e5203fdb_gh_airbnb_8197652_23",
+    "workflow_id": "wf_a1e5203fdb",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Senior Systems Engineer, Tech Foundations",
+      "company": "Airbnb",
+      "company_domain": "airbnb.com",
+      "location": "Remote",
+      "city": "Remote",
+      "remote_type": "remote",
+      "work_modality": "Online",
+      "modality_detail": "Online (Remote)",
+      "employment_type": "full-time",
+      "skills": [
+        "Software Engineering",
+        "Systems Architecture"
+      ],
+      "experience_years": "0-5 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://careers.airbnb.com/positions/8197652?gh_jid=8197652",
+      "platform_source": "Greenhouse",
+      "date_posted": "2026-09-29T20:00:54-04:00",
+      "match_score": 53.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 0,
+          "max": 30
+        },
+        "role": {
+          "score": 6,
+          "max": 20
+        },
+        "experience": {
+          "score": 14,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 5,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Online (Remote) fit: Remote at Airbnb",
+        "\u2713 Education qualifications satisfied",
+        "\u2713 Full-Time employment type",
+        "\u2713 Fresh posting (< 24h old)"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 Fastapi not explicitly emphasized",
+        "\u26a0 Role title differs from target keywords"
+      ],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 98.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "greenhouse",
+        "company-careers"
+      ],
+      "description": "Verified live opening for Senior Systems Engineer, Tech Foundations at Airbnb. Department: Engineering. Location: Remote. Apply directly on official Greenhouse ATS.",
+      "description_snippet": "Verified live opening for Senior Systems Engineer, Tech Foundations at Airbnb. Department: Engineering. Location: Remote. Apply directly on official Greenhouse ATS.",
+      "is_link_out": false
+    },
+    "confidence_score": 53.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 0,
+        "max": 30
+      },
+      "role": {
+        "score": 6,
+        "max": 20
+      },
+      "experience": {
+        "score": 14,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 5,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": true,
+    "source_url": "https://careers.airbnb.com/positions/8197652?gh_jid=8197652",
+    "source_title": "Senior Systems Engineer, Tech Foundations at Airbnb",
+    "extracted_timestamp": "2026-09-30T14:20:27.919350+00:00",
+    "raw_snippet": "Verified live opening for Senior Systems Engineer, Tech Foundations at Airbnb. Department: Engineering. Location: Remote. Apply directly on official Greenhouse ATS."
+  },
+  {
+    "record_id": "rec_wf_a1e5203fdb_gh_rubrik_8166537_24",
+    "workflow_id": "wf_a1e5203fdb",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Software Engineer (CPD) - Winter Intern",
+      "company": "Rubrik",
+      "company_domain": "rubrik.com",
+      "location": "Bangalore, Karnataka, India",
+      "city": "Bangalore",
+      "remote_type": "on-site",
+      "work_modality": "Offline",
+      "modality_detail": "Offline (On-site)",
+      "employment_type": "full-time",
+      "skills": [
+        "Software Engineering",
+        "Systems Architecture"
+      ],
+      "experience_years": "0-2 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://www.rubrik.com/company/careers/departments/job.8166537?gh_jid=8166537",
+      "platform_source": "Greenhouse",
+      "date_posted": "2026-09-28T03:21:47-04:00",
+      "match_score": 52.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 0,
+          "max": 30
+        },
+        "role": {
+          "score": 6,
+          "max": 20
+        },
+        "experience": {
+          "score": 14,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 4,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Offline fit: Bangalore, Karnataka, India at Rubrik",
+        "\u2713 Education qualifications satisfied",
+        "\u2713 Full-Time employment type"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 Fastapi not explicitly emphasized",
+        "\u26a0 Role title differs from target keywords"
+      ],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 98.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "greenhouse",
+        "company-careers"
+      ],
+      "description": "Verified live opening for Software Engineer (CPD) - Winter Intern at Rubrik. Department: Engineering. Location: Bangalore. Apply directly on official Greenhouse ATS.",
+      "description_snippet": "Verified live opening for Software Engineer (CPD) - Winter Intern at Rubrik. Department: Engineering. Location: Bangalore. Apply directly on official Greenhouse ATS.",
+      "is_link_out": false
+    },
+    "confidence_score": 52.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 0,
+        "max": 30
+      },
+      "role": {
+        "score": 6,
+        "max": 20
+      },
+      "experience": {
+        "score": 14,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 4,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": true,
+    "source_url": "https://www.rubrik.com/company/careers/departments/job.8166537?gh_jid=8166537",
+    "source_title": "Software Engineer (CPD) - Winter Intern at Rubrik",
+    "extracted_timestamp": "2026-09-30T14:20:27.923616+00:00",
+    "raw_snippet": "Verified live opening for Software Engineer (CPD) - Winter Intern at Rubrik. Department: Engineering. Location: Bangalore. Apply directly on official Greenhouse ATS."
+  },
+  {
+    "record_id": "rec_wf_a1e5203fdb_gh_elastic_8237463_25",
+    "workflow_id": "wf_a1e5203fdb",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Platform Engineer - Kubernetes",
+      "company": "Elastic",
+      "company_domain": "elastic.co",
+      "location": "Bangalore, Karnataka, India",
+      "city": "Bangalore",
+      "remote_type": "on-site",
+      "work_modality": "Offline",
+      "modality_detail": "Offline (On-site)",
+      "employment_type": "full-time",
+      "skills": [
+        "Software Engineering",
+        "Systems Architecture"
+      ],
+      "experience_years": "0-5 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://jobs.elastic.co/jobs?gh_jid=8237463&gh_jid=8237463",
+      "platform_source": "Greenhouse",
+      "date_posted": "2026-09-29T04:39:57-04:00",
+      "match_score": 52.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 0,
+          "max": 30
+        },
+        "role": {
+          "score": 6,
+          "max": 20
+        },
+        "experience": {
+          "score": 14,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 4,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Offline fit: Bangalore, Karnataka, India at Elastic",
+        "\u2713 Education qualifications satisfied",
+        "\u2713 Full-Time employment type"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 Fastapi not explicitly emphasized",
+        "\u26a0 Role title differs from target keywords"
+      ],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 98.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "greenhouse",
+        "company-careers"
+      ],
+      "description": "Verified live opening for Platform Engineer - Kubernetes at Elastic. Department: Engineering. Location: Bangalore, India. Apply directly on official Greenhouse ATS.",
+      "description_snippet": "Verified live opening for Platform Engineer - Kubernetes at Elastic. Department: Engineering. Location: Bangalore, India. Apply directly on official Greenhouse ATS.",
+      "is_link_out": false
+    },
+    "confidence_score": 52.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 0,
+        "max": 30
+      },
+      "role": {
+        "score": 6,
+        "max": 20
+      },
+      "experience": {
+        "score": 14,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 4,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": true,
+    "source_url": "https://jobs.elastic.co/jobs?gh_jid=8237463&gh_jid=8237463",
+    "source_title": "Platform Engineer - Kubernetes at Elastic",
+    "extracted_timestamp": "2026-09-30T14:20:27.927162+00:00",
+    "raw_snippet": "Verified live opening for Platform Engineer - Kubernetes at Elastic. Department: Engineering. Location: Bangalore, India. Apply directly on official Greenhouse ATS."
+  },
+  {
+    "record_id": "rec_wf_a1e5203fdb_gh_inmobi_6918622_26",
+    "workflow_id": "wf_a1e5203fdb",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Associate Product Manager - MSD Financial Systems and Transformation",
+      "company": "InMobi",
+      "company_domain": "inmobi.com",
+      "location": "Bangalore, Karnataka, India",
+      "city": "Bangalore",
+      "remote_type": "on-site",
+      "work_modality": "Offline",
+      "modality_detail": "Offline (On-site)",
+      "employment_type": "full-time",
+      "skills": [
+        "Software Engineering",
+        "Systems Architecture"
+      ],
+      "experience_years": "0-5 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://job-boards.greenhouse.io/inmobi/jobs/6918622",
+      "platform_source": "Greenhouse",
+      "date_posted": "2026-09-24T04:31:32-04:00",
+      "match_score": 51.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 0,
+          "max": 30
+        },
+        "role": {
+          "score": 6,
+          "max": 20
+        },
+        "experience": {
+          "score": 14,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 3,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Offline fit: Bangalore, Karnataka, India at InMobi",
+        "\u2713 Education qualifications satisfied",
+        "\u2713 Full-Time employment type"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 Fastapi not explicitly emphasized",
+        "\u26a0 Role title differs from target keywords"
+      ],
+      "quality_signals": {
+        "freshness_score": 80.0,
+        "source_confidence": 98.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "greenhouse",
+        "company-careers"
+      ],
+      "description": "Verified live opening for Associate Product Manager - MSD Financial Systems and Transformation at InMobi. Department: Engineering. Location: Bengaluru. Apply directly on official Greenhouse ATS.",
+      "description_snippet": "Verified live opening for Associate Product Manager - MSD Financial Systems and Transformation at InMobi. Department: Engineering. Location: Bengaluru. Apply directly on official Greenhouse ATS.",
+      "is_link_out": false
+    },
+    "confidence_score": 51.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 0,
+        "max": 30
+      },
+      "role": {
+        "score": 6,
+        "max": 20
+      },
+      "experience": {
+        "score": 14,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 3,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": true,
+    "source_url": "https://job-boards.greenhouse.io/inmobi/jobs/6918622",
+    "source_title": "Associate Product Manager - MSD Financial Systems and Transformation at InMobi",
+    "extracted_timestamp": "2026-09-30T14:20:27.929064+00:00",
+    "raw_snippet": "Verified live opening for Associate Product Manager - MSD Financial Systems and Transformation at InMobi. Department: Engineering. Location: Bengaluru. Apply directly on official Greenhouse ATS."
+  },
+  {
+    "record_id": "rec_wf_a1e5203fdb_gh_inmobi_8073988_27",
+    "workflow_id": "wf_a1e5203fdb",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "SDE II - AI",
+      "company": "InMobi",
+      "company_domain": "inmobi.com",
+      "location": "Bangalore, Karnataka, India",
+      "city": "Bangalore",
+      "remote_type": "on-site",
+      "work_modality": "Offline",
+      "modality_detail": "Offline (On-site)",
+      "employment_type": "full-time",
+      "skills": [
+        "Software Engineering",
+        "Systems Architecture"
+      ],
+      "experience_years": "0-5 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://job-boards.greenhouse.io/inmobi/jobs/8073988",
+      "platform_source": "Greenhouse",
+      "date_posted": "2026-09-24T04:31:32-04:00",
+      "match_score": 51.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 0,
+          "max": 30
+        },
+        "role": {
+          "score": 6,
+          "max": 20
+        },
+        "experience": {
+          "score": 14,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 3,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Offline fit: Bangalore, Karnataka, India at InMobi",
+        "\u2713 Education qualifications satisfied",
+        "\u2713 Full-Time employment type"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 Fastapi not explicitly emphasized",
+        "\u26a0 Role title differs from target keywords"
+      ],
+      "quality_signals": {
+        "freshness_score": 80.0,
+        "source_confidence": 98.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "greenhouse",
+        "company-careers"
+      ],
+      "description": "Verified live opening for SDE II - AI at InMobi. Department: Engineering. Location: Bangalore. Apply directly on official Greenhouse ATS.",
+      "description_snippet": "Verified live opening for SDE II - AI at InMobi. Department: Engineering. Location: Bangalore. Apply directly on official Greenhouse ATS.",
+      "is_link_out": false
+    },
+    "confidence_score": 51.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 0,
+        "max": 30
+      },
+      "role": {
+        "score": 6,
+        "max": 20
+      },
+      "experience": {
+        "score": 14,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 3,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": true,
+    "source_url": "https://job-boards.greenhouse.io/inmobi/jobs/8073988",
+    "source_title": "SDE II - AI at InMobi",
+    "extracted_timestamp": "2026-09-30T14:20:27.933783+00:00",
+    "raw_snippet": "Verified live opening for SDE II - AI at InMobi. Department: Engineering. Location: Bangalore. Apply directly on official Greenhouse ATS."
+  },
+  {
+    "record_id": "rec_wf_a1e5203fdb_gh_inmobi_7393433_28",
+    "workflow_id": "wf_a1e5203fdb",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "SDE III - Devops",
+      "company": "InMobi",
+      "company_domain": "inmobi.com",
+      "location": "Bangalore, Karnataka, India",
+      "city": "Bangalore",
+      "remote_type": "on-site",
+      "work_modality": "Offline",
+      "modality_detail": "Offline (On-site)",
+      "employment_type": "full-time",
+      "skills": [
+        "Software Engineering",
+        "Systems Architecture"
+      ],
+      "experience_years": "0-5 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://job-boards.greenhouse.io/inmobi/jobs/7393433",
+      "platform_source": "Greenhouse",
+      "date_posted": "2026-09-24T04:31:32-04:00",
+      "match_score": 51.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 0,
+          "max": 30
+        },
+        "role": {
+          "score": 6,
+          "max": 20
+        },
+        "experience": {
+          "score": 14,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 3,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Offline fit: Bangalore, Karnataka, India at InMobi",
+        "\u2713 Education qualifications satisfied",
+        "\u2713 Full-Time employment type"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 Fastapi not explicitly emphasized",
+        "\u26a0 Role title differs from target keywords"
+      ],
+      "quality_signals": {
+        "freshness_score": 80.0,
+        "source_confidence": 98.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "greenhouse",
+        "company-careers"
+      ],
+      "description": "Verified live opening for SDE III - Devops at InMobi. Department: Engineering. Location: Bangalore. Apply directly on official Greenhouse ATS.",
+      "description_snippet": "Verified live opening for SDE III - Devops at InMobi. Department: Engineering. Location: Bangalore. Apply directly on official Greenhouse ATS.",
+      "is_link_out": false
+    },
+    "confidence_score": 51.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 0,
+        "max": 30
+      },
+      "role": {
+        "score": 6,
+        "max": 20
+      },
+      "experience": {
+        "score": 14,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 3,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": true,
+    "source_url": "https://job-boards.greenhouse.io/inmobi/jobs/7393433",
+    "source_title": "SDE III - Devops at InMobi",
+    "extracted_timestamp": "2026-09-30T14:20:27.939475+00:00",
+    "raw_snippet": "Verified live opening for SDE III - Devops at InMobi. Department: Engineering. Location: Bangalore. Apply directly on official Greenhouse ATS."
+  },
+  {
+    "record_id": "rec_wf_a1e5203fdb_gh_rubrik_7546762_29",
+    "workflow_id": "wf_a1e5203fdb",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Corporate IT Architect",
+      "company": "Rubrik",
+      "company_domain": "rubrik.com",
+      "location": "Bangalore, Karnataka, India",
+      "city": "Bangalore",
+      "remote_type": "on-site",
+      "work_modality": "Offline",
+      "modality_detail": "Offline (On-site)",
+      "employment_type": "full-time",
+      "skills": [
+        "Software Engineering",
+        "Systems Architecture"
+      ],
+      "experience_years": "0-5 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://www.rubrik.com/company/careers/departments/job.7546762?gh_jid=7546762",
+      "platform_source": "Greenhouse",
+      "date_posted": "2026-09-10T04:51:08-04:00",
+      "match_score": 51.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 0,
+          "max": 30
+        },
+        "role": {
+          "score": 6,
+          "max": 20
+        },
+        "experience": {
+          "score": 14,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 3,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Offline fit: Bangalore, Karnataka, India at Rubrik",
+        "\u2713 Education qualifications satisfied",
+        "\u2713 Full-Time employment type"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 Fastapi not explicitly emphasized",
+        "\u26a0 Role title differs from target keywords"
+      ],
+      "quality_signals": {
+        "freshness_score": 80.0,
+        "source_confidence": 98.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "greenhouse",
+        "company-careers"
+      ],
+      "description": "Verified live opening for Corporate IT Architect at Rubrik. Department: Engineering. Location: Bangalore, India. Apply directly on official Greenhouse ATS.",
+      "description_snippet": "Verified live opening for Corporate IT Architect at Rubrik. Department: Engineering. Location: Bangalore, India. Apply directly on official Greenhouse ATS.",
+      "is_link_out": false
+    },
+    "confidence_score": 51.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 0,
+        "max": 30
+      },
+      "role": {
+        "score": 6,
+        "max": 20
+      },
+      "experience": {
+        "score": 14,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 3,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": true,
+    "source_url": "https://www.rubrik.com/company/careers/departments/job.7546762?gh_jid=7546762",
+    "source_title": "Corporate IT Architect at Rubrik",
+    "extracted_timestamp": "2026-09-30T14:20:27.944109+00:00",
+    "raw_snippet": "Verified live opening for Corporate IT Architect at Rubrik. Department: Engineering. Location: Bangalore, India. Apply directly on official Greenhouse ATS."
+  },
+  {
+    "record_id": "rec_wf_a1e5203fdb_gh_rubrik_8161018_30",
+    "workflow_id": "wf_a1e5203fdb",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Engineering Manager Polaris Platform",
+      "company": "Rubrik",
+      "company_domain": "rubrik.com",
+      "location": "Bangalore, Karnataka, India",
+      "city": "Bangalore",
+      "remote_type": "on-site",
+      "work_modality": "Offline",
+      "modality_detail": "Offline (On-site)",
+      "employment_type": "full-time",
+      "skills": [
+        "Software Engineering",
+        "Systems Architecture"
+      ],
+      "experience_years": "0-5 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://www.rubrik.com/company/careers/departments/job.8161018?gh_jid=8161018",
+      "platform_source": "Greenhouse",
+      "date_posted": "2026-09-03T14:19:40-04:00",
+      "match_score": 51.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 0,
+          "max": 30
+        },
+        "role": {
+          "score": 6,
+          "max": 20
+        },
+        "experience": {
+          "score": 14,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 3,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Offline fit: Bangalore, Karnataka, India at Rubrik",
+        "\u2713 Education qualifications satisfied",
+        "\u2713 Full-Time employment type"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 Fastapi not explicitly emphasized",
+        "\u26a0 Role title differs from target keywords"
+      ],
+      "quality_signals": {
+        "freshness_score": 80.0,
+        "source_confidence": 98.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "greenhouse",
+        "company-careers"
+      ],
+      "description": "Verified live opening for Engineering Manager Polaris Platform at Rubrik. Department: Engineering. Location: Bengaluru. Apply directly on official Greenhouse ATS.",
+      "description_snippet": "Verified live opening for Engineering Manager Polaris Platform at Rubrik. Department: Engineering. Location: Bengaluru. Apply directly on official Greenhouse ATS.",
+      "is_link_out": false
+    },
+    "confidence_score": 51.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 0,
+        "max": 30
+      },
+      "role": {
+        "score": 6,
+        "max": 20
+      },
+      "experience": {
+        "score": 14,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 3,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": true,
+    "source_url": "https://www.rubrik.com/company/careers/departments/job.8161018?gh_jid=8161018",
+    "source_title": "Engineering Manager Polaris Platform at Rubrik",
+    "extracted_timestamp": "2026-09-30T14:20:27.946531+00:00",
+    "raw_snippet": "Verified live opening for Engineering Manager Polaris Platform at Rubrik. Department: Engineering. Location: Bengaluru. Apply directly on official Greenhouse ATS."
+  },
+  {
+    "record_id": "rec_wf_a1e5203fdb_gh_rubrik_7956920_31",
+    "workflow_id": "wf_a1e5203fdb",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Senior Software Engineer - CPD (IAM)",
+      "company": "Rubrik",
+      "company_domain": "rubrik.com",
+      "location": "Bangalore, Karnataka, India",
+      "city": "Bangalore",
+      "remote_type": "on-site",
+      "work_modality": "Offline",
+      "modality_detail": "Offline (On-site)",
+      "employment_type": "full-time",
+      "skills": [
+        "Software Engineering",
+        "Systems Architecture"
+      ],
+      "experience_years": "0-5 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://www.rubrik.com/company/careers/departments/job.7956920?gh_jid=7956920",
+      "platform_source": "Greenhouse",
+      "date_posted": "2026-09-03T14:19:36-04:00",
+      "match_score": 51.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 0,
+          "max": 30
+        },
+        "role": {
+          "score": 6,
+          "max": 20
+        },
+        "experience": {
+          "score": 14,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 3,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Offline fit: Bangalore, Karnataka, India at Rubrik",
+        "\u2713 Education qualifications satisfied",
+        "\u2713 Full-Time employment type"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 Fastapi not explicitly emphasized",
+        "\u26a0 Role title differs from target keywords"
+      ],
+      "quality_signals": {
+        "freshness_score": 80.0,
+        "source_confidence": 98.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "greenhouse",
+        "company-careers"
+      ],
+      "description": "Verified live opening for Senior Software Engineer - CPD (IAM) at Rubrik. Department: Engineering. Location: Bengaluru. Apply directly on official Greenhouse ATS.",
+      "description_snippet": "Verified live opening for Senior Software Engineer - CPD (IAM) at Rubrik. Department: Engineering. Location: Bengaluru. Apply directly on official Greenhouse ATS.",
+      "is_link_out": false
+    },
+    "confidence_score": 51.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 0,
+        "max": 30
+      },
+      "role": {
+        "score": 6,
+        "max": 20
+      },
+      "experience": {
+        "score": 14,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 3,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": true,
+    "source_url": "https://www.rubrik.com/company/careers/departments/job.7956920?gh_jid=7956920",
+    "source_title": "Senior Software Engineer - CPD (IAM) at Rubrik",
+    "extracted_timestamp": "2026-09-30T14:20:27.953052+00:00",
+    "raw_snippet": "Verified live opening for Senior Software Engineer - CPD (IAM) at Rubrik. Department: Engineering. Location: Bengaluru. Apply directly on official Greenhouse ATS."
+  },
+  {
+    "record_id": "rec_wf_a1e5203fdb_gh_rubrik_7849713_32",
+    "workflow_id": "wf_a1e5203fdb",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Senior Software Engineer - Enterprise AI",
+      "company": "Rubrik",
+      "company_domain": "rubrik.com",
+      "location": "Bangalore, Karnataka, India",
+      "city": "Bangalore",
+      "remote_type": "on-site",
+      "work_modality": "Offline",
+      "modality_detail": "Offline (On-site)",
+      "employment_type": "full-time",
+      "skills": [
+        "Software Engineering",
+        "Systems Architecture"
+      ],
+      "experience_years": "0-5 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://www.rubrik.com/company/careers/departments/job.7849713?gh_jid=7849713",
+      "platform_source": "Greenhouse",
+      "date_posted": "2026-09-03T14:19:36-04:00",
+      "match_score": 51.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 0,
+          "max": 30
+        },
+        "role": {
+          "score": 6,
+          "max": 20
+        },
+        "experience": {
+          "score": 14,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 3,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Offline fit: Bangalore, Karnataka, India at Rubrik",
+        "\u2713 Education qualifications satisfied",
+        "\u2713 Full-Time employment type"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 Fastapi not explicitly emphasized",
+        "\u26a0 Role title differs from target keywords"
+      ],
+      "quality_signals": {
+        "freshness_score": 80.0,
+        "source_confidence": 98.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "greenhouse",
+        "company-careers"
+      ],
+      "description": "Verified live opening for Senior Software Engineer - Enterprise AI at Rubrik. Department: Engineering. Location: Bangalore. Apply directly on official Greenhouse ATS.",
+      "description_snippet": "Verified live opening for Senior Software Engineer - Enterprise AI at Rubrik. Department: Engineering. Location: Bangalore. Apply directly on official Greenhouse ATS.",
+      "is_link_out": false
+    },
+    "confidence_score": 51.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 0,
+        "max": 30
+      },
+      "role": {
+        "score": 6,
+        "max": 20
+      },
+      "experience": {
+        "score": 14,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 3,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": true,
+    "source_url": "https://www.rubrik.com/company/careers/departments/job.7849713?gh_jid=7849713",
+    "source_title": "Senior Software Engineer - Enterprise AI at Rubrik",
+    "extracted_timestamp": "2026-09-30T14:20:27.958780+00:00",
+    "raw_snippet": "Verified live opening for Senior Software Engineer - Enterprise AI at Rubrik. Department: Engineering. Location: Bangalore. Apply directly on official Greenhouse ATS."
+  },
+  {
+    "record_id": "rec_wf_a1e5203fdb_gh_rubrik_7715043_33",
+    "workflow_id": "wf_a1e5203fdb",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Staff Cloud Security Architect",
+      "company": "Rubrik",
+      "company_domain": "rubrik.com",
+      "location": "Bangalore, Karnataka, India",
+      "city": "Bangalore",
+      "remote_type": "on-site",
+      "work_modality": "Offline",
+      "modality_detail": "Offline (On-site)",
+      "employment_type": "full-time",
+      "skills": [
+        "Software Engineering",
+        "Systems Architecture"
+      ],
+      "experience_years": "0-5 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://www.rubrik.com/company/careers/departments/job.7715043?gh_jid=7715043",
+      "platform_source": "Greenhouse",
+      "date_posted": "2026-09-15T06:43:34-04:00",
+      "match_score": 51.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 0,
+          "max": 30
+        },
+        "role": {
+          "score": 6,
+          "max": 20
+        },
+        "experience": {
+          "score": 14,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 3,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Offline fit: Bangalore, Karnataka, India at Rubrik",
+        "\u2713 Education qualifications satisfied",
+        "\u2713 Full-Time employment type"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 Fastapi not explicitly emphasized",
+        "\u26a0 Role title differs from target keywords"
+      ],
+      "quality_signals": {
+        "freshness_score": 80.0,
+        "source_confidence": 98.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "greenhouse",
+        "company-careers"
+      ],
+      "description": "Verified live opening for Staff Cloud Security Architect at Rubrik. Department: Engineering. Location: Bangalore, India. Apply directly on official Greenhouse ATS.",
+      "description_snippet": "Verified live opening for Staff Cloud Security Architect at Rubrik. Department: Engineering. Location: Bangalore, India. Apply directly on official Greenhouse ATS.",
+      "is_link_out": false
+    },
+    "confidence_score": 51.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 0,
+        "max": 30
+      },
+      "role": {
+        "score": 6,
+        "max": 20
+      },
+      "experience": {
+        "score": 14,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 3,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": true,
+    "source_url": "https://www.rubrik.com/company/careers/departments/job.7715043?gh_jid=7715043",
+    "source_title": "Staff Cloud Security Architect at Rubrik",
+    "extracted_timestamp": "2026-09-30T14:20:27.961900+00:00",
+    "raw_snippet": "Verified live opening for Staff Cloud Security Architect at Rubrik. Department: Engineering. Location: Bangalore, India. Apply directly on official Greenhouse ATS."
+  },
+  {
+    "record_id": "rec_wf_a1e5203fdb_gh_cloudflare_8049820_34",
+    "workflow_id": "wf_a1e5203fdb",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Partner Solutions Architect- Service Providers  Location New York/ New Jersey, Dallas, Denver or Seattle.",
+      "company": "Cloudflare",
+      "company_domain": "cloudflare.com",
+      "location": "Distributed",
+      "city": "Distributed",
+      "remote_type": "remote",
+      "work_modality": "Online",
+      "modality_detail": "Online (Remote)",
+      "employment_type": "full-time",
+      "skills": [
+        "Software Engineering",
+        "Systems Architecture"
+      ],
+      "experience_years": "0-5 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://boards.greenhouse.io/cloudflare/jobs/8049820?gh_jid=8049820",
+      "platform_source": "Greenhouse",
+      "date_posted": "2026-09-15T16:13:13-04:00",
+      "match_score": 51.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 0,
+          "max": 30
+        },
+        "role": {
+          "score": 6,
+          "max": 20
+        },
+        "experience": {
+          "score": 14,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 3,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Online (Remote) fit: Distributed at Cloudflare",
+        "\u2713 Education qualifications satisfied",
+        "\u2713 Full-Time employment type"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 Fastapi not explicitly emphasized",
+        "\u26a0 Role title differs from target keywords"
+      ],
+      "quality_signals": {
+        "freshness_score": 80.0,
+        "source_confidence": 98.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "greenhouse",
+        "company-careers"
+      ],
+      "description": "Verified live opening for Partner Solutions Architect- Service Providers Location New York/ New Jersey, Dallas, Denver or Seattle. at Cloudflare. Department: Engineering. Location: Distributed. Apply directly on official Greenhouse ATS.",
+      "description_snippet": "Verified live opening for Partner Solutions Architect- Service Providers Location New York/ New Jersey, Dallas, Denver or Seattle. at Cloudflare. Department: Engineering. Location: Distributed. Apply directly on official Greenhouse ATS.",
+      "is_link_out": false
+    },
+    "confidence_score": 51.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 0,
+        "max": 30
+      },
+      "role": {
+        "score": 6,
+        "max": 20
+      },
+      "experience": {
+        "score": 14,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 3,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": true,
+    "source_url": "https://boards.greenhouse.io/cloudflare/jobs/8049820?gh_jid=8049820",
+    "source_title": "Partner Solutions Architect- Service Providers  Location New York/ New Jersey, Dallas, Denver or Seattle. at Cloudflare",
+    "extracted_timestamp": "2026-09-30T14:20:27.968189+00:00",
+    "raw_snippet": "Verified live opening for Partner Solutions Architect- Service Providers Location New York/ New Jersey, Dallas, Denver or Seattle. at Cloudflare. Department: Engineering. Location: Distributed. Apply directly on official Greenhouse ATS."
+  },
+  {
+    "record_id": "rec_wf_a1e5203fdb_gh_cloudflare_7053411_35",
+    "workflow_id": "wf_a1e5203fdb",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Staff/Principal Software Engineer - Security Platform",
+      "company": "Cloudflare",
+      "company_domain": "cloudflare.com",
+      "location": "Distributed",
+      "city": "Distributed",
+      "remote_type": "remote",
+      "work_modality": "Online",
+      "modality_detail": "Online (Remote)",
+      "employment_type": "full-time",
+      "skills": [
+        "Software Engineering",
+        "Systems Architecture"
+      ],
+      "experience_years": "0-5 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://boards.greenhouse.io/cloudflare/jobs/7053411?gh_jid=7053411",
+      "platform_source": "Greenhouse",
+      "date_posted": "2026-09-04T10:59:17-04:00",
+      "match_score": 51.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 0,
+          "max": 30
+        },
+        "role": {
+          "score": 6,
+          "max": 20
+        },
+        "experience": {
+          "score": 14,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 3,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Online (Remote) fit: Distributed at Cloudflare",
+        "\u2713 Education qualifications satisfied",
+        "\u2713 Full-Time employment type"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 Fastapi not explicitly emphasized",
+        "\u26a0 Role title differs from target keywords"
+      ],
+      "quality_signals": {
+        "freshness_score": 80.0,
+        "source_confidence": 98.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "greenhouse",
+        "company-careers"
+      ],
+      "description": "Verified live opening for Staff/Principal Software Engineer - Security Platform at Cloudflare. Department: Engineering. Location: Distributed. Apply directly on official Greenhouse ATS.",
+      "description_snippet": "Verified live opening for Staff/Principal Software Engineer - Security Platform at Cloudflare. Department: Engineering. Location: Distributed. Apply directly on official Greenhouse ATS.",
+      "is_link_out": false
+    },
+    "confidence_score": 51.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 0,
+        "max": 30
+      },
+      "role": {
+        "score": 6,
+        "max": 20
+      },
+      "experience": {
+        "score": 14,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 3,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": true,
+    "source_url": "https://boards.greenhouse.io/cloudflare/jobs/7053411?gh_jid=7053411",
+    "source_title": "Staff/Principal Software Engineer - Security Platform at Cloudflare",
+    "extracted_timestamp": "2026-09-30T14:20:27.975369+00:00",
+    "raw_snippet": "Verified live opening for Staff/Principal Software Engineer - Security Platform at Cloudflare. Department: Engineering. Location: Distributed. Apply directly on official Greenhouse ATS."
+  },
+  {
+    "record_id": "rec_wf_a1e5203fdb_gh_elastic_8226083_36",
+    "workflow_id": "wf_a1e5203fdb",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Senior Partner Solutions Architect",
+      "company": "Elastic",
+      "company_domain": "elastic.co",
+      "location": "Bangalore, Karnataka, India",
+      "city": "Bangalore",
+      "remote_type": "on-site",
+      "work_modality": "Offline",
+      "modality_detail": "Offline (On-site)",
+      "employment_type": "full-time",
+      "skills": [
+        "Software Engineering",
+        "Systems Architecture"
+      ],
+      "experience_years": "0-5 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://jobs.elastic.co/jobs?gh_jid=8226083&gh_jid=8226083",
+      "platform_source": "Greenhouse",
+      "date_posted": "2026-09-25T03:59:55-04:00",
+      "match_score": 51.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 0,
+          "max": 30
+        },
+        "role": {
+          "score": 6,
+          "max": 20
+        },
+        "experience": {
+          "score": 14,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 3,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Offline fit: Bangalore, Karnataka, India at Elastic",
+        "\u2713 Education qualifications satisfied",
+        "\u2713 Full-Time employment type"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 Fastapi not explicitly emphasized",
+        "\u26a0 Role title differs from target keywords"
+      ],
+      "quality_signals": {
+        "freshness_score": 80.0,
+        "source_confidence": 98.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "greenhouse",
+        "company-careers"
+      ],
+      "description": "Verified live opening for Senior Partner Solutions Architect at Elastic. Department: Engineering. Location: Bangalore, India. Apply directly on official Greenhouse ATS.",
+      "description_snippet": "Verified live opening for Senior Partner Solutions Architect at Elastic. Department: Engineering. Location: Bangalore, India. Apply directly on official Greenhouse ATS.",
+      "is_link_out": false
+    },
+    "confidence_score": 51.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 0,
+        "max": 30
+      },
+      "role": {
+        "score": 6,
+        "max": 20
+      },
+      "experience": {
+        "score": 14,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 3,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": true,
+    "source_url": "https://jobs.elastic.co/jobs?gh_jid=8226083&gh_jid=8226083",
+    "source_title": "Senior Partner Solutions Architect at Elastic",
+    "extracted_timestamp": "2026-09-30T14:20:27.979217+00:00",
+    "raw_snippet": "Verified live opening for Senior Partner Solutions Architect at Elastic. Department: Engineering. Location: Bangalore, India. Apply directly on official Greenhouse ATS."
+  },
+  {
+    "record_id": "rec_wf_a1e5203fdb_rem_2091140_37",
+    "workflow_id": "wf_a1e5203fdb",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Senior Shopify Developer",
+      "company": "Sanctuary Computer Inc",
+      "company_domain": "remotive.com",
+      "location": "Worldwide (Remote)",
+      "city": "Worldwide",
+      "remote_type": "remote",
+      "work_modality": "Online",
+      "modality_detail": "Online (Remote)",
+      "employment_type": "contract",
+      "skills": [
+        "Admin",
+        "API",
+        "Backend",
+        "Css"
+      ],
+      "experience_years": "0-2 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://remotive.com/remote-jobs/software-development/senior-shopify-developer-2091140",
+      "platform_source": "Remotive",
+      "date_posted": "2026-09-18T15:10:28",
+      "match_score": 50.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 0,
+          "max": 30
+        },
+        "role": {
+          "score": 6,
+          "max": 20
+        },
+        "experience": {
+          "score": 14,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 3,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 4,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Online (Remote) fit: Worldwide (Remote) at Sanctuary Computer Inc",
+        "\u2713 Education qualifications satisfied"
+      ],
+      "potential_gaps": [
+        "\u26a0 Python not explicitly emphasized",
+        "\u26a0 Fastapi not explicitly emphasized",
+        "\u26a0 Role title differs from target keywords"
+      ],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 80.0,
+        "listing_quality_score": 95.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "remotive"
+      ],
+      "description": "We are hiring a contract-based Senior Shopify Developer to contribute to our Design and Development Team. Original Job posting link here \ud83c\udf0e About garden3d We are worker owned creative collective, innovating on everything from brands and IRL communities to IoT devices and cross platform apps. We share profit, open source everything, spin out new businesses, and invest in exciting ideas through financial and/or in-kind contributions. Our client roster includes Google, Stripe, Figma, Hinge, Black Socialists in America, ACLU, Pratt, Parsons, Mozilla, The Nobel Prize, MIT, Gnosis, Etsy & Gagosian. We\u2019re the software team behind innovative products like The Light Phone & Mill, and we operate a global, decentralized community space collective called Index Space. We think of our garden3d as collective for creative people, prioritizing a happy, talented, and diverse studio culture. We work on projects that bring value to our world, and we balance deep care for the work we do with a genuine curiosity about life outside of our jobs. Sanctuary Computer \u2014 Development At Sanctuary Computer we\u2019re building a different type of technology shop \u2013 one that prioritizes close collaboration between the client and the craftsperson. Our projects range from design-forward websites, to robust web apps, to native mobile development. XXIX \u2014 Design When we started XXIX in 2013, we set out to create a different kind of design studio and we\u2019ve thrived because we continually ask what a creative practice can be. We\u2019re building a radically different kind of organization that values autonomy, growth, transparency, and shared responsibility. Plus, our partner organizations Lightphone Mill IngredientAI \ud83d\udd2e Who we\u2019re looking for: We're looking for a Senior Shopify Developer who balances deep e-commerce expertise with modern frontend engineering. You'll build pixel-perfect, hyper-performant storefronts ranging from custom Liquid themes to headless Hydrogen/Next.js implementations working alongside our design team to create world-class shopping experiences. In this role, you\u2019ll work across a variety of client projects to find cost-effective, high-quality, and pragmatic solutions to complex e-commerce challenges. Responsibilities will include: Collaborating closely with Technical Leads and Designers to meet clients' custom e-commerce and technical needs. Building and maintaining high-performance storefronts using both custom Liquid (Online Store 2.0) and modern headless architectures (Shopify Storefr",
+      "description_snippet": "We are hiring a contract-based Senior Shopify Developer to contribute to our Design and Development Team. Original Job posting link here \ud83c\udf0e About garden3d We are worker owned creative collective, innovating on everything from brands and IRL communities to IoT devices and cross platform apps. We share profit, open source everything, spin out new businesses, and invest in exciting ideas through finan",
+      "is_link_out": false
+    },
+    "confidence_score": 50.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 0,
+        "max": 30
+      },
+      "role": {
+        "score": 6,
+        "max": 20
+      },
+      "experience": {
+        "score": 14,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 3,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 4,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": true,
+    "source_url": "https://remotive.com/remote-jobs/software-development/senior-shopify-developer-2091140",
+    "source_title": "Senior Shopify Developer at Sanctuary Computer Inc",
+    "extracted_timestamp": "2026-09-30T14:20:27.986471+00:00",
+    "raw_snippet": "We are hiring a contract-based Senior Shopify Developer to contribute to our Design and Development Team. Original Job posting link here \ud83c\udf0e About garden3d We are worker owned creative collective, innovating on everything from brands and IRL communities to IoT devices and cross platform apps. We share profit, open source everything, spin out new businesses, and invest in exciting ideas through finan"
+  }
+]

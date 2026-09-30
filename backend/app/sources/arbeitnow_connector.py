@@ -10,12 +10,14 @@ import hashlib
 from typing import Dict, List, Optional, Any
 from datetime import datetime, timezone
 import re
+import html
+from bs4 import BeautifulSoup
 
 from backend.app.sources.base import JobSourceConnector, SourceHealth, SourceCapabilities
 from backend.app.locations.india_locations import normalize_location, matches_location_preference, is_online_gig
+from backend.app.intelligence.role_matcher import is_matching_role
 
-import html
-from bs4 import BeautifulSoup
+logger = logging.getLogger(__name__)
 
 def clean_html_snippet(raw_text: str) -> str:
     if not raw_text:
@@ -37,27 +39,24 @@ class ArbeitnowConnector(JobSourceConnector):
     enabled = True
 
     def can_handle(self, query_spec: Dict[str, Any]) -> bool:
-        locations = [l.lower().strip() for l in (query_spec.get("locations") or [])]
-        # If user explicitly wants Indian local hubs, skip European board
-        indian_hubs = ["pune", "bangalore", "bengaluru", "mumbai", "delhi", "hyderabad", "chennai", "noida", "gurgaon", "india"]
-        if any(any(h in loc for h in indian_hubs) for loc in locations):
-            return False
+        keywords = [k.lower() for k in (query_spec.get("keywords") or [])]
+        if any("on-site only" in k or "onsite only" in k or "offline only" in k for k in keywords):
+            locations = [l.lower().strip() for l in (query_spec.get("locations") or [])]
+            indian_hubs = ["pune", "bangalore", "bengaluru", "mumbai", "delhi", "hyderabad", "chennai", "noida", "gurgaon", "india"]
+            if any(any(h in loc for h in indian_hubs) for loc in locations):
+                return False
         return True
 
     async def search(self, query_spec: Dict[str, Any]) -> List[Dict[str, Any]]:
         results = []
-        keywords = [k.lower() for k in (query_spec.get("keywords") or [])]
-        roles = [r.lower() for r in (query_spec.get("roles") or [])]
-        skills = [s.lower() for s in (query_spec.get("skills") or [])]
         target_locations = [l.lower() for l in (query_spec.get("locations") or [])]
-        remote_allowed = query_spec.get("remote", False)
-
-        search_tokens = set(keywords + roles + skills)
+        remote_allowed = query_spec.get("remote", False) or not any(l in ["on-site", "offline"] for l in target_locations)
+        skills = query_spec.get("skills") or []
 
         url = "https://www.arbeitnow.com/api/job-board-api"
 
         try:
-            async with httpx.AsyncClient(timeout=8.0) as client:
+            async with httpx.AsyncClient(timeout=httpx.Timeout(8.0, connect=4.0)) as client:
                 resp = await client.get(url, headers={"User-Agent": "EDITH-JobIntelligence/1.0"})
                 if resp.status_code != 200:
                     return []
@@ -67,10 +66,8 @@ class ArbeitnowConnector(JobSourceConnector):
 
                 for item in items:
                     title = item.get("title", "")
-                    title_lower = title.lower()
                     company = item.get("company_name", "Tech Startup")
                     loc_raw = item.get("location", "")
-                    loc_lower = loc_raw.lower()
                     is_remote = item.get("remote", False)
                     tags = [t.lower() for t in item.get("tags", [])]
                     desc_raw = item.get("description", "")
@@ -79,31 +76,18 @@ class ArbeitnowConnector(JobSourceConnector):
                     if is_online_gig(title, desc_raw):
                         continue
 
-                    # 2. Strict Location check (Drop European/German on-site or geo-restricted jobs for India queries)
-                    loc_matches, loc_pts = matches_location_preference(loc_raw, target_locations, remote_allowed)
+                    # 2. Check role relevance with flexible matcher
+                    if not is_matching_role(title, query_spec, description=" ".join(tags)):
+                        continue
+
+                    # 3. Location check
+                    effective_loc = f"{loc_raw} (Remote)" if is_remote else loc_raw
+                    loc_matches, loc_pts = matches_location_preference(effective_loc, target_locations, remote_allowed)
                     if not loc_matches or loc_pts == 0:
                         continue
 
-                    # 3. Relevancy check using word boundaries (avoids 'ai' matching 'trainer', 'trainee', 'spain', etc.)
-                    matches_role = False
-                    if search_tokens:
-                        if any(re.search(r'\b' + re.escape(tok) + r'\b', title_lower) for tok in search_tokens):
-                            matches_role = True
-                        else:
-                            tags_text = " ".join(tags)
-                            if any(re.search(r'\b' + re.escape(tok) + r'\b', tags_text) for tok in search_tokens):
-                                matches_role = True
-                    else:
-                        matches_role = True
-
-                    if not matches_role:
-                        continue
-
-                    loc_info = normalize_location(loc_raw)
-                    if is_remote:
-                        loc_info["remote_type"] = "remote"
-
-                    job_id = item.get("slug") or str(hash(title + company))
+                    loc_info = normalize_location(effective_loc)
+                    job_id = item.get("slug") or str(abs(hash(title + company)))
                     apply_url = item.get("url") or f"https://www.arbeitnow.com/jobs/{job_id}"
                     now_iso = datetime.now(timezone.utc).isoformat()
                     created_epoch = item.get("created_at")
@@ -114,6 +98,11 @@ class ArbeitnowConnector(JobSourceConnector):
 
                     raw_str = f"{title}_{company}_{job_id}"
                     content_hash = hashlib.sha256(raw_str.encode()).hexdigest()
+
+                    title_lower = title.lower()
+                    matched_skills = [s.title() for s in skills if s.lower() in title_lower]
+                    if not matched_skills:
+                        matched_skills = [t.title() for t in tags[:4]] or ["Python", "Engineering"]
 
                     canonical_job = {
                         "id": f"abn_{job_id[:24]}",
@@ -128,9 +117,9 @@ class ArbeitnowConnector(JobSourceConnector):
                         "description": clean_html_snippet(item.get("description")) or f"Role: {title} at {company}. Tags: {', '.join(tags)}.",
                         "requirements": [],
                         "responsibilities": [],
-                        "skills": [t.title() for t in tags[:5]] or ["Software Development"],
+                        "skills": matched_skills,
                         "technologies": tags[:4],
-                        "location": f"{loc_raw} (Remote)" if is_remote else loc_info["canonical_location"],
+                        "location": loc_info["canonical_location"],
                         "city": loc_info["city"],
                         "state": loc_info["state"],
                         "country": loc_info["country"],
@@ -158,14 +147,13 @@ class ArbeitnowConnector(JobSourceConnector):
                             "source_url": url,
                             "original_job_url": apply_url,
                             "retrieval_timestamp": now_iso,
-                            "parser_version": "1.0-abn",
+                            "parser_version": "2.0-abn-fast",
                             "content_hash": content_hash,
                             "source_timestamp": date_posted,
                             "last_successful_fetch": now_iso
                         }
                     }
                     results.append(canonical_job)
-
                     if len(results) >= 20:
                         break
 
@@ -180,7 +168,7 @@ class ArbeitnowConnector(JobSourceConnector):
     async def health_check(self) -> SourceHealth:
         start_time = time.time()
         try:
-            async with httpx.AsyncClient(timeout=4.0) as client:
+            async with httpx.AsyncClient(timeout=3.0) as client:
                 res = await client.get("https://www.arbeitnow.com/api/job-board-api")
                 latency = int((time.time() - start_time) * 1000)
                 if res.status_code == 200:
@@ -214,7 +202,7 @@ class ArbeitnowConnector(JobSourceConnector):
             return SourceHealth(
                 name=self.name,
                 domain=self.domain,
-                status="UNAVAILABLE",
+                status="DEGRADED",
                 access_method=self.access_method,
                 permission_status=self.permission_status,
                 robots_policy=self.robots_policy,

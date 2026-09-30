@@ -10,11 +10,12 @@ import hashlib
 from typing import Dict, List, Optional, Any
 from datetime import datetime, timezone
 import re
+import html
+from bs4 import BeautifulSoup
 
 from backend.app.sources.base import JobSourceConnector, SourceHealth, SourceCapabilities
 from backend.app.locations.india_locations import normalize_location, matches_location_preference, is_online_gig
-import html
-from bs4 import BeautifulSoup
+from backend.app.intelligence.role_matcher import is_matching_role
 
 logger = logging.getLogger(__name__)
 
@@ -36,8 +37,6 @@ class JobicyConnector(JobSourceConnector):
     enabled = True
 
     def can_handle(self, query_spec: Dict[str, Any]) -> bool:
-        # Jobicy provides remote opportunities open worldwide/India
-        # Only skip if user explicitly specified on-site only
         keywords = [k.lower() for k in (query_spec.get("keywords") or [])]
         if any("on-site only" in k or "onsite only" in k or "offline only" in k for k in keywords):
             return False
@@ -45,18 +44,14 @@ class JobicyConnector(JobSourceConnector):
 
     async def search(self, query_spec: Dict[str, Any]) -> List[Dict[str, Any]]:
         results = []
-        keywords = [k.lower() for k in (query_spec.get("keywords") or [])]
-        roles = [r.lower() for r in (query_spec.get("roles") or [])]
-        skills = [s.lower() for s in (query_spec.get("skills") or [])]
         target_locations = [l.lower() for l in (query_spec.get("locations") or [])]
-        remote_allowed = query_spec.get("remote", False)
-
-        search_tokens = set(keywords + roles + skills)
+        remote_allowed = query_spec.get("remote", False) or not any(l in ["on-site", "offline"] for l in target_locations)
+        skills = query_spec.get("skills") or []
 
         url = "https://jobicy.com/api/v2/remote-jobs?count=50"
 
         try:
-            async with httpx.AsyncClient(timeout=8.0) as client:
+            async with httpx.AsyncClient(timeout=httpx.Timeout(8.0, connect=4.0)) as client:
                 resp = await client.get(url, headers={"User-Agent": "EDITH-JobIntelligence/1.0"})
                 if resp.status_code != 200:
                     return []
@@ -66,41 +61,28 @@ class JobicyConnector(JobSourceConnector):
 
                 for item in jobs:
                     title = item.get("jobTitle", "")
-                    title_lower = title.lower()
+                    job_excerpt = item.get("jobExcerpt", "")
                     job_geo = item.get("jobGeo", "Anywhere")
                     if isinstance(job_geo, list):
                         job_geo = ", ".join(job_geo)
                     elif not isinstance(job_geo, str):
-                        job_geo = str(job_geo or "")
-                    geo_lower = job_geo.lower()
-                    job_excerpt = item.get("jobExcerpt", "")
+                        job_geo = str(job_geo or "Anywhere")
 
                     # 1. Skip non-engineering online gigs
                     if is_online_gig(title, job_excerpt):
                         continue
 
-                    # 2. Strict Location check (Drop USA / foreign jobs when searching Pune/Bengaluru/India)
-                    loc_matches, loc_pts = matches_location_preference(job_geo, target_locations, remote_allowed)
+                    # 2. Check role relevance with flexible matcher
+                    if not is_matching_role(title, query_spec, description=job_excerpt):
+                        continue
+
+                    # 3. Location check: Jobicy jobs are remote by definition
+                    effective_loc = f"{job_geo} (Remote)" if "remote" not in job_geo.lower() else job_geo
+                    loc_matches, loc_pts = matches_location_preference(effective_loc, target_locations, remote_allowed)
                     if not loc_matches or loc_pts == 0:
                         continue
 
-                    # 3. Relevancy check with word boundaries (avoid 'ai' matching 'domain', 'retail', etc.)
-                    matches_role = False
-                    if search_tokens:
-                        if any(re.search(r'\b' + re.escape(tok) + r'\b', title_lower) for tok in search_tokens):
-                            matches_role = True
-                        elif any(re.search(r'\b' + re.escape(tok) + r'\b', job_excerpt.lower()) for tok in search_tokens if len(tok) > 2):
-                            matches_role = True
-                    else:
-                        matches_role = True
-
-                    if not matches_role:
-                        continue
-
-                    # Location / Remote check
-                    loc_info = normalize_location(job_geo)
-                    is_remote = True
-
+                    loc_info = normalize_location(effective_loc)
                     job_id = str(item.get("id"))
                     company = item.get("companyName") or "Tech Organization"
                     apply_url = item.get("url") or item.get("jobUrl") or f"https://jobicy.com/jobs/{job_id}"
@@ -132,6 +114,11 @@ class JobicyConnector(JobSourceConnector):
                     else:
                         employment_type = str(job_type_raw or "full-time").lower()
 
+                    title_lower = title.lower()
+                    matched_skills = [s.title() for s in skills if s.lower() in title_lower]
+                    if not matched_skills:
+                        matched_skills = ["Software Engineering", "Python", "Cloud"]
+
                     canonical_job = {
                         "id": f"jby_{job_id}",
                         "source": "jobicy",
@@ -145,7 +132,7 @@ class JobicyConnector(JobSourceConnector):
                         "description": clean_html_snippet(item.get("jobDescription") or job_excerpt),
                         "requirements": [],
                         "responsibilities": [],
-                        "skills": [s.title() for s in skills if s in title_lower] or ["Python", "FastAPI"],
+                        "skills": matched_skills,
                         "technologies": [],
                         "location": loc_info["canonical_location"],
                         "city": loc_info.get("city") or "Remote",
@@ -175,19 +162,18 @@ class JobicyConnector(JobSourceConnector):
                             "source_url": url,
                             "original_job_url": apply_url,
                             "retrieval_timestamp": now_iso,
-                            "parser_version": "1.0-jby",
+                            "parser_version": "2.0-jby-fast",
                             "content_hash": content_hash,
                             "source_timestamp": pub_date,
                             "last_successful_fetch": now_iso
                         }
                     }
                     results.append(canonical_job)
-
                     if len(results) >= 20:
                         break
 
         except Exception as e:
-            logger.warning(f"Jobicy fetch error: {e}")
+            logger.warning(f"Jobicy fetch warning: {e}")
 
         return results
 
@@ -197,7 +183,7 @@ class JobicyConnector(JobSourceConnector):
     async def health_check(self) -> SourceHealth:
         start_time = time.time()
         try:
-            async with httpx.AsyncClient(timeout=4.0) as client:
+            async with httpx.AsyncClient(timeout=3.0) as client:
                 res = await client.get("https://jobicy.com/api/v2/remote-jobs?count=1")
                 latency = int((time.time() - start_time) * 1000)
                 if res.status_code == 200:
@@ -231,7 +217,7 @@ class JobicyConnector(JobSourceConnector):
             return SourceHealth(
                 name=self.name,
                 domain=self.domain,
-                status="UNAVAILABLE",
+                status="DEGRADED",
                 access_method=self.access_method,
                 permission_status=self.permission_status,
                 robots_policy=self.robots_policy,

@@ -1,0 +1,1171 @@
+[
+  {
+    "record_id": "rec_wf_c0052d00a5_li_4404636465_0",
+    "workflow_id": "wf_c0052d00a5",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Senior Backend Engineer - FastAPI",
+      "company": "LearnTube.ai",
+      "company_domain": "linkedin.com",
+      "location": "Mumbai Metropolitan Region",
+      "city": "Mumbai",
+      "remote_type": "on-site",
+      "work_modality": "Offline",
+      "modality_detail": "Offline (On-site)",
+      "employment_type": "full-time",
+      "skills": [
+        "Python",
+        "ML",
+        "AI"
+      ],
+      "experience_years": "0-2 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://in.linkedin.com/jobs/view/senior-backend-engineer-fastapi-at-learntube-ai-4404636465",
+      "platform_source": "Linkedin",
+      "date_posted": "2026-09-30T13:18:07.935642+00:00",
+      "match_score": 97.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 30,
+          "max": 30
+        },
+        "role": {
+          "score": 20,
+          "max": 20
+        },
+        "experience": {
+          "score": 14,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 5,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Python",
+        "\u2713 Ml",
+        "\u2713 Ai",
+        "\u2713 Target role match (Backend Developer)",
+        "\u2713 Offline fit: Mumbai Metropolitan Region at LearnTube.ai"
+      ],
+      "potential_gaps": [],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 80.0,
+        "listing_quality_score": 95.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "linkedin"
+      ],
+      "description": "Required Core Tech Stack We're looking for engineers with hands-on experience across most of the following technologies: Python Backend Development (3+ years) FastAPI (2+ years of production experience required) PostgreSQL MongoDB Redis Docker Celery or equivalent async task queues REST APIs & Microservices AWS/GCP GitLab CI/CD The selected Sr. Backend engineer will ship the backbone that powers 4 million + learners in 64 countries \u2014owning APIs that crunch 1 billion learning events & the AI that supports it with <200 ms latency. What You'll Do At LearnTube, we\u2019re pushing the boundaries to revolutionize how the world learns. As a Senior Backend Engineer, your roles and responsibilities will include: Shipping Micro-services \u2013 Build FastAPI services that handle \u2248 800 req/s today and will triple within a year (sub-200 ms p95). Power Real-Time Learning \u2013 Drive the quiz-scoring & AI-tutor engines that crunch millions of events daily. Design for Scale & Safety \u2013 Model data (Postgres, Mongo, Redis, SQS) and craft modular, secure back-end components from scratch. Deploy Globally \u2013 Roll out Dockerised services behind NGINX on AWS (EC2, S3, SQS) and GCP (GKE) via Kubernetes. Automate Releases \u2013 GitLab CI/CD + blue-green / canary = multiple safe prod deploys each week. Own Reliability \u2013 Instrument with Prometheus / Grafana, chase 99.9 % uptime, trim infra spend. Expose Gen-AI at Scale \u2013 Publish LLM inference & vector-search endpoints in partnership with the AI team. Ship Fast, Learn Fast \u2013 Work with founders, PMs, and designers in weekly ship rooms; take a feature from Figma to prod in What makes you a great fit? Must-Haves (Applicants without these skills are unlikely to move forward) : 3+ yrs Python back-end experience (FastAPI) Strong with Docker & container orchestration Hands-on with GitLab CI/CD, AWS (EC2, S3, SQS) or GCP (GKE / Compute) in production SQL/NoSQL (Postgres, MongoDB) + You\u2019ve built systems from scratch & have solid system-design fundamentals Nice-to-Haves k8s at scale, Terraform, Experience with AI/ML inference services (LLMs, vector DBs) Observability: Prometheus, Grafana, OpenTelemetry Why LearnTube? Build AI products at global scale \u2013 Your work will power learning experiences for 4M+ learners across 64 countries. Work directly with experienced founders \u2013 Collaborate closely with founders who are deeply involved in product and engineering decisions, giving you ownership and a direct impact on the product roadmap. Learn fast \u2013 Join a high-performi",
+      "description_snippet": "Required Core Tech Stack We're looking for engineers with hands-on experience across most of the following technologies: Python Backend Development (3+ years) FastAPI (2+ years of production experience required) PostgreSQL MongoDB Redis Docker Celery or equivalent async task queues REST APIs & Microservices AWS/GCP GitLab CI/CD The selected Sr. Backend engineer will ship the backbone that powers 4",
+      "is_link_out": false
+    },
+    "confidence_score": 97.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 30,
+        "max": 30
+      },
+      "role": {
+        "score": 20,
+        "max": 20
+      },
+      "experience": {
+        "score": 14,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 5,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://in.linkedin.com/jobs/view/senior-backend-engineer-fastapi-at-learntube-ai-4404636465",
+    "source_title": "Senior Backend Engineer - FastAPI at LearnTube.ai",
+    "extracted_timestamp": "2026-09-30T13:18:08.034129+00:00",
+    "raw_snippet": "Required Core Tech Stack We're looking for engineers with hands-on experience across most of the following technologies: Python Backend Development (3+ years) FastAPI (2+ years of production experience required) PostgreSQL MongoDB Redis Docker Celery or equivalent async task queues REST APIs & Microservices AWS/GCP GitLab CI/CD The selected Sr. Backend engineer will ship the backbone that powers 4"
+  },
+  {
+    "record_id": "rec_wf_c0052d00a5_li_4446993670_1",
+    "workflow_id": "wf_c0052d00a5",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Backend Engineer\u2013 Java",
+      "company": "QuinStreet",
+      "company_domain": "linkedin.com",
+      "location": "Pune Division, Maharashtra, India",
+      "city": "Pune",
+      "remote_type": "on-site",
+      "work_modality": "Offline",
+      "modality_detail": "Offline (On-site)",
+      "employment_type": "full-time",
+      "skills": [
+        "Python",
+        "ML",
+        "AI"
+      ],
+      "experience_years": "0-2 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://in.linkedin.com/jobs/view/backend-engineer%E2%80%93-java-at-quinstreet-4446993670",
+      "platform_source": "Linkedin",
+      "date_posted": "2026-09-30T13:18:07.935686+00:00",
+      "match_score": 97.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 30,
+          "max": 30
+        },
+        "role": {
+          "score": 20,
+          "max": 20
+        },
+        "experience": {
+          "score": 14,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 5,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Python",
+        "\u2713 Ml",
+        "\u2713 Ai",
+        "\u2713 Target role match (Backend Developer)",
+        "\u2713 Offline fit: Pune Division, Maharashtra, India at QuinStreet"
+      ],
+      "potential_gaps": [],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 80.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "linkedin"
+      ],
+      "description": "Live opening for Backend Engineer\u2013 Java at QuinStreet in Pune Division, Maharashtra, India. Posted: 2 weeks ago. Apply directly on LinkedIn.",
+      "description_snippet": "Live opening for Backend Engineer\u2013 Java at QuinStreet in Pune Division, Maharashtra, India. Posted: 2 weeks ago. Apply directly on LinkedIn.",
+      "is_link_out": false
+    },
+    "confidence_score": 97.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 30,
+        "max": 30
+      },
+      "role": {
+        "score": 20,
+        "max": 20
+      },
+      "experience": {
+        "score": 14,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 5,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://in.linkedin.com/jobs/view/backend-engineer%E2%80%93-java-at-quinstreet-4446993670",
+    "source_title": "Backend Engineer\u2013 Java at QuinStreet",
+    "extracted_timestamp": "2026-09-30T13:18:08.037914+00:00",
+    "raw_snippet": "Live opening for Backend Engineer\u2013 Java at QuinStreet in Pune Division, Maharashtra, India. Posted: 2 weeks ago. Apply directly on LinkedIn."
+  },
+  {
+    "record_id": "rec_wf_c0052d00a5_li_4354200026_2",
+    "workflow_id": "wf_c0052d00a5",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "SDE-JAVA - BACKEND - API Integration",
+      "company": "Hiret Consulting",
+      "company_domain": "linkedin.com",
+      "location": "Chennai, Tamil Nadu, India",
+      "city": "Chennai",
+      "remote_type": "on-site",
+      "work_modality": "Offline",
+      "modality_detail": "Offline (On-site)",
+      "employment_type": "full-time",
+      "skills": [
+        "Python",
+        "ML",
+        "AI"
+      ],
+      "experience_years": "0-2 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://in.linkedin.com/jobs/view/sde-java-backend-api-integration-at-hiret-consulting-4354200026",
+      "platform_source": "Linkedin",
+      "date_posted": "2026-09-30T13:18:07.935722+00:00",
+      "match_score": 97.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 30,
+          "max": 30
+        },
+        "role": {
+          "score": 20,
+          "max": 20
+        },
+        "experience": {
+          "score": 14,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 5,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Python",
+        "\u2713 Ml",
+        "\u2713 Ai",
+        "\u2713 Target role match (Backend Developer)",
+        "\u2713 Offline fit: Chennai, Tamil Nadu, India at Hiret Consulting"
+      ],
+      "potential_gaps": [],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 80.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "linkedin"
+      ],
+      "description": "Live opening for SDE-JAVA - BACKEND - API Integration at Hiret Consulting in Chennai, Tamil Nadu, India. Posted: 8 months ago. Apply directly on LinkedIn.",
+      "description_snippet": "Live opening for SDE-JAVA - BACKEND - API Integration at Hiret Consulting in Chennai, Tamil Nadu, India. Posted: 8 months ago. Apply directly on LinkedIn.",
+      "is_link_out": false
+    },
+    "confidence_score": 97.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 30,
+        "max": 30
+      },
+      "role": {
+        "score": 20,
+        "max": 20
+      },
+      "experience": {
+        "score": 14,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 5,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://in.linkedin.com/jobs/view/sde-java-backend-api-integration-at-hiret-consulting-4354200026",
+    "source_title": "SDE-JAVA - BACKEND - API Integration at Hiret Consulting",
+    "extracted_timestamp": "2026-09-30T13:18:08.040842+00:00",
+    "raw_snippet": "Live opening for SDE-JAVA - BACKEND - API Integration at Hiret Consulting in Chennai, Tamil Nadu, India. Posted: 8 months ago. Apply directly on LinkedIn."
+  },
+  {
+    "record_id": "rec_wf_c0052d00a5_li_4470914286_3",
+    "workflow_id": "wf_c0052d00a5",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Senior Software Engineer - Backend",
+      "company": "ixigo",
+      "company_domain": "linkedin.com",
+      "location": "Gurugram, Haryana, India",
+      "city": "Gurgaon",
+      "remote_type": "on-site",
+      "work_modality": "Offline",
+      "modality_detail": "Offline (On-site)",
+      "employment_type": "full-time",
+      "skills": [
+        "Python",
+        "ML",
+        "AI"
+      ],
+      "experience_years": "0-2 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://in.linkedin.com/jobs/view/senior-software-engineer-backend-at-ixigo-4470914286",
+      "platform_source": "Linkedin",
+      "date_posted": "2026-09-30T13:18:07.935835+00:00",
+      "match_score": 97.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 30,
+          "max": 30
+        },
+        "role": {
+          "score": 20,
+          "max": 20
+        },
+        "experience": {
+          "score": 14,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 5,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Python",
+        "\u2713 Ml",
+        "\u2713 Ai",
+        "\u2713 Target role match (Backend Developer)",
+        "\u2713 Offline fit: Gurugram, Haryana, India at ixigo"
+      ],
+      "potential_gaps": [],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 80.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "linkedin"
+      ],
+      "description": "Live opening for Senior Software Engineer - Backend at ixigo in Gurugram, Haryana, India. Posted: 1 week ago. Apply directly on LinkedIn.",
+      "description_snippet": "Live opening for Senior Software Engineer - Backend at ixigo in Gurugram, Haryana, India. Posted: 1 week ago. Apply directly on LinkedIn.",
+      "is_link_out": false
+    },
+    "confidence_score": 97.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 30,
+        "max": 30
+      },
+      "role": {
+        "score": 20,
+        "max": 20
+      },
+      "experience": {
+        "score": 14,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 5,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://in.linkedin.com/jobs/view/senior-software-engineer-backend-at-ixigo-4470914286",
+    "source_title": "Senior Software Engineer - Backend at ixigo",
+    "extracted_timestamp": "2026-09-30T13:18:08.042133+00:00",
+    "raw_snippet": "Live opening for Senior Software Engineer - Backend at ixigo in Gurugram, Haryana, India. Posted: 1 week ago. Apply directly on LinkedIn."
+  },
+  {
+    "record_id": "rec_wf_c0052d00a5_li_4448057508_4",
+    "workflow_id": "wf_c0052d00a5",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Java Spring Boot Backend Developer",
+      "company": "Prasanz",
+      "company_domain": "linkedin.com",
+      "location": "Greater Hyderabad Area",
+      "city": "Hyderabad",
+      "remote_type": "on-site",
+      "work_modality": "Offline",
+      "modality_detail": "Offline (On-site)",
+      "employment_type": "full-time",
+      "skills": [
+        "Python",
+        "ML",
+        "AI"
+      ],
+      "experience_years": "0-2 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://in.linkedin.com/jobs/view/java-spring-boot-backend-developer-at-prasanz-4448057508",
+      "platform_source": "Linkedin",
+      "date_posted": "2026-09-30T13:18:07.935869+00:00",
+      "match_score": 97.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 30,
+          "max": 30
+        },
+        "role": {
+          "score": 20,
+          "max": 20
+        },
+        "experience": {
+          "score": 14,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 5,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Python",
+        "\u2713 Ml",
+        "\u2713 Ai",
+        "\u2713 Target role match (Backend Developer)",
+        "\u2713 Offline fit: Greater Hyderabad Area at Prasanz"
+      ],
+      "potential_gaps": [],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 80.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "linkedin"
+      ],
+      "description": "Live opening for Java Spring Boot Backend Developer at Prasanz in Greater Hyderabad Area. Posted: 1 month ago. Apply directly on LinkedIn.",
+      "description_snippet": "Live opening for Java Spring Boot Backend Developer at Prasanz in Greater Hyderabad Area. Posted: 1 month ago. Apply directly on LinkedIn.",
+      "is_link_out": false
+    },
+    "confidence_score": 97.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 30,
+        "max": 30
+      },
+      "role": {
+        "score": 20,
+        "max": 20
+      },
+      "experience": {
+        "score": 14,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 5,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://in.linkedin.com/jobs/view/java-spring-boot-backend-developer-at-prasanz-4448057508",
+    "source_title": "Java Spring Boot Backend Developer at Prasanz",
+    "extracted_timestamp": "2026-09-30T13:18:08.043260+00:00",
+    "raw_snippet": "Live opening for Java Spring Boot Backend Developer at Prasanz in Greater Hyderabad Area. Posted: 1 month ago. Apply directly on LinkedIn."
+  },
+  {
+    "record_id": "rec_wf_c0052d00a5_li_4455303752_5",
+    "workflow_id": "wf_c0052d00a5",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Back-End Software Engineer - Core Java",
+      "company": "Light & Wonder",
+      "company_domain": "linkedin.com",
+      "location": "Bengaluru, Karnataka, India",
+      "city": "Bangalore",
+      "remote_type": "on-site",
+      "work_modality": "Online",
+      "modality_detail": "Online (Remote)",
+      "employment_type": "full-time",
+      "skills": [
+        "Python",
+        "ML",
+        "AI"
+      ],
+      "experience_years": "0-2 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://in.linkedin.com/jobs/view/back-end-software-engineer-core-java-at-light-wonder-4455303752",
+      "platform_source": "Linkedin",
+      "date_posted": "2026-09-30T13:18:07.933073+00:00",
+      "match_score": 83.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 30,
+          "max": 30
+        },
+        "role": {
+          "score": 6,
+          "max": 20
+        },
+        "experience": {
+          "score": 14,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 5,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Python",
+        "\u2713 Ml",
+        "\u2713 Ai",
+        "\u2713 Offline fit: Bengaluru, Karnataka, India at Light & Wonder",
+        "\u2713 Education qualifications satisfied"
+      ],
+      "potential_gaps": [
+        "\u26a0 Role title differs from target keywords"
+      ],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 80.0,
+        "listing_quality_score": 95.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "linkedin"
+      ],
+      "description": "iGaming: If it\u2019s iGaming, we know a thing or two. At Light & Wonder, It\u2019s all about the games, and our digital team leads the global iGaming market, providing jaw-dropping content and innovative software that powers the world's most successful online gaming providers. Position Summary About Company Light & Wonder is a global leader in game experiences. We create content, hardware and systems that connect iconic titles across any place or channel. By turning games into expansive entertainment, we keep thrilling players with characters and stories they can\u2019t get enough of. Light & Wonder, Inc. is the leading cross-platform global games company. Through our three unique, yet highly complementary business segments, we deliver unforgettable experiences by combining the exceptional talents of our 7,500+ member team, with a deep understanding of our customers and players. We create immersive content that forges lasting connections with players, wherever they choose to engage. At Light & Wonder, it\u2019s all about the games. The Company is committed to the highest standards of integrity, from promoting player responsibility to implementing sustainable practices. To learn more visit www.lnw.com. We are committed to offering very competitive benefits that are aligned with our values and inspire employees to drive innovation and contribute to the organization\u2019s performance. Employees are the most valued resource, and we always look to improve their well-being with a wide range of benefits befitting every individual. Not limited to monetary benefits, we have robust learning and development opportunities that help them to grow professionally. Our Values Dare to be bold: We combine diverse talent to look at the familiar in unfamiliar ways. Celebrate perspectives - We combine diverse talent to look at the familiar in unfamiliar ways Never settle: We relentlessly push forward to create the extraordinary in every detail. Uphold integrity: We promote accountability and respect to raise the bar for ourselves and the industry. Win as a team: We bring out the best in each other to share collective success. Java Software Engineer Job Location: ITPL, Whitefield- Bengaluru Required Experience: 3-5 years Employment Type: Full-time Education: BE/B.Tech in Computer Science, IT, or related field MCA (Computer Science/Application) Job Description We are seeking a talented Java Backend Software Engineer to design and build scalable backend services and APIs. You will work on core platform",
+      "description_snippet": "iGaming: If it\u2019s iGaming, we know a thing or two. At Light & Wonder, It\u2019s all about the games, and our digital team leads the global iGaming market, providing jaw-dropping content and innovative software that powers the world's most successful online gaming providers. Position Summary About Company Light & Wonder is a global leader in game experiences. We create content, hardware and systems that ",
+      "is_link_out": false
+    },
+    "confidence_score": 83.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 30,
+        "max": 30
+      },
+      "role": {
+        "score": 6,
+        "max": 20
+      },
+      "experience": {
+        "score": 14,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 5,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://in.linkedin.com/jobs/view/back-end-software-engineer-core-java-at-light-wonder-4455303752",
+    "source_title": "Back-End Software Engineer - Core Java at Light & Wonder",
+    "extracted_timestamp": "2026-09-30T13:18:08.045435+00:00",
+    "raw_snippet": "iGaming: If it\u2019s iGaming, we know a thing or two. At Light & Wonder, It\u2019s all about the games, and our digital team leads the global iGaming market, providing jaw-dropping content and innovative software that powers the world's most successful online gaming providers. Position Summary About Company Light & Wonder is a global leader in game experiences. We create content, hardware and systems that "
+  },
+  {
+    "record_id": "rec_wf_c0052d00a5_li_4459288225_6",
+    "workflow_id": "wf_c0052d00a5",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "SDE 2 \u2013 Back End Developer",
+      "company": "Sparrow RMS",
+      "company_domain": "linkedin.com",
+      "location": "Gurugram, Haryana, India",
+      "city": "Gurgaon",
+      "remote_type": "on-site",
+      "work_modality": "Offline",
+      "modality_detail": "Offline (On-site)",
+      "employment_type": "full-time",
+      "skills": [
+        "Python",
+        "ML",
+        "AI"
+      ],
+      "experience_years": "0-2 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://in.linkedin.com/jobs/view/sde-2-%E2%80%93-back-end-developer-at-sparrow-rms-4459288225",
+      "platform_source": "Linkedin",
+      "date_posted": "2026-09-30T13:18:07.935494+00:00",
+      "match_score": 83.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 30,
+          "max": 30
+        },
+        "role": {
+          "score": 6,
+          "max": 20
+        },
+        "experience": {
+          "score": 14,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 5,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Python",
+        "\u2713 Ml",
+        "\u2713 Ai",
+        "\u2713 Offline fit: Gurugram, Haryana, India at Sparrow RMS",
+        "\u2713 Education qualifications satisfied"
+      ],
+      "potential_gaps": [
+        "\u26a0 Role title differs from target keywords"
+      ],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 80.0,
+        "listing_quality_score": 95.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "linkedin"
+      ],
+      "description": "Location: Gurgaon, Haryana (On-site) Experience: 3+ years professional experience About the Role We're looking for a Back End Developer to design, build, and maintain robust APIs and backend services using ASP.NET Core and C#, working closely with frontend, product, and DevOps teams to ship secure, scalable solutions. Responsibilities \u00b7 Design, develop, test, and maintain backend services and APIs using ASP.NET Core framework with C#. \u00b7 Develop RESTful APIs, web services to support frontend and mobile applications. \u00b7 Integrate data storage solutions such as SQL Server using Entity Framework Core. \u00b7 Collaborate closely with frontend developers, product owners, and DevOps teams to ensure smooth integration and deployment. \u00b7 Optimize application performance, scalability, and security best practices. \u00b7 Write clean, maintainable, and well-documented code following coding standards and best practices. \u00b7 Participate in code reviews and provide constructive feedback to peers. \u00b7 Troubleshoot, debug, and resolve backend issues efficiently. \u00b7 Stay informed on emerging technologies, frameworks, tools, and best practices to continuously improve development processes. Requirements \u00b7 3+ years professional experience developing backend web applications. \u00b7 Proficiency in C# programming and .NET ecosystem. \u00b7 Solid experience with REST API design and implementation. \u00b7 Expertise in Entity Framework Core or similar ORM technologies. \u00b7 Familiarity with relational and non-relational database systems. \u00b7 Understanding of software design patterns and best practices. \u00b7 Experience with version control systems such as Git. \u00b7 Knowledge of containerization (Docker) and cloud platforms (AWS, Azure) is a plus. \u00b7 Experience in writing automated tests and applying TDD principles. \u00b7 Good problem-solving skills and attention to performance optimization. Preferred Qualifications \u00b7 Knowledge of CI/CD pipelines and infrastructure as code (IaC). \u00b7 Understanding of security concepts like OAuth, JWT, and secure coding practices. \u00b7 Experience in Agile/Scrum development methodologies. \u00b7 Strong communication and collaboration skills. \u00b7 Ability to work independently and in a team. \u00b7 Proactive attitude to learn and adapt in a fast-paced environment. About the Company \u00b7 Work on cutting-edge tech like AI, IoT, and Digital Twin for smart manufacturing. \u00b7 Impact global indus",
+      "description_snippet": "Location: Gurgaon, Haryana (On-site) Experience: 3+ years professional experience About the Role We're looking for a Back End Developer to design, build, and maintain robust APIs and backend services using ASP.NET Core and C#, working closely with frontend, product, and DevOps teams to ship secure, scalable solutions. Responsibilities \u00b7 Design, develop, test, and maintain backend services and APIs",
+      "is_link_out": false
+    },
+    "confidence_score": 83.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 30,
+        "max": 30
+      },
+      "role": {
+        "score": 6,
+        "max": 20
+      },
+      "experience": {
+        "score": 14,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 5,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://in.linkedin.com/jobs/view/sde-2-%E2%80%93-back-end-developer-at-sparrow-rms-4459288225",
+    "source_title": "SDE 2 \u2013 Back End Developer at Sparrow RMS",
+    "extracted_timestamp": "2026-09-30T13:18:08.047236+00:00",
+    "raw_snippet": "Location: Gurgaon, Haryana (On-site) Experience: 3+ years professional experience About the Role We're looking for a Back End Developer to design, build, and maintain robust APIs and backend services using ASP.NET Core and C#, working closely with frontend, product, and DevOps teams to ship secure, scalable solutions. Responsibilities \u00b7 Design, develop, test, and maintain backend services and APIs"
+  },
+  {
+    "record_id": "rec_wf_c0052d00a5_li_4465066154_7",
+    "workflow_id": "wf_c0052d00a5",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Java developer- API connectivity",
+      "company": "BNP Paribas",
+      "company_domain": "linkedin.com",
+      "location": "Chennai, Tamil Nadu, India",
+      "city": "Chennai",
+      "remote_type": "on-site",
+      "work_modality": "Offline",
+      "modality_detail": "Offline (On-site)",
+      "employment_type": "full-time",
+      "skills": [
+        "Python",
+        "ML",
+        "AI"
+      ],
+      "experience_years": "0-2 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://in.linkedin.com/jobs/view/java-developer-api-connectivity-at-bnp-paribas-4465066154",
+      "platform_source": "Linkedin",
+      "date_posted": "2026-09-30T13:18:07.935772+00:00",
+      "match_score": 83.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 30,
+          "max": 30
+        },
+        "role": {
+          "score": 6,
+          "max": 20
+        },
+        "experience": {
+          "score": 14,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 5,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Python",
+        "\u2713 Ml",
+        "\u2713 Ai",
+        "\u2713 Offline fit: Chennai, Tamil Nadu, India at BNP Paribas",
+        "\u2713 Education qualifications satisfied"
+      ],
+      "potential_gaps": [
+        "\u26a0 Role title differs from target keywords"
+      ],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 80.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "linkedin"
+      ],
+      "description": "Live opening for Java developer- API connectivity at BNP Paribas in Chennai, Tamil Nadu, India. Posted: 2 weeks ago. Apply directly on LinkedIn.",
+      "description_snippet": "Live opening for Java developer- API connectivity at BNP Paribas in Chennai, Tamil Nadu, India. Posted: 2 weeks ago. Apply directly on LinkedIn.",
+      "is_link_out": false
+    },
+    "confidence_score": 83.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 30,
+        "max": 30
+      },
+      "role": {
+        "score": 6,
+        "max": 20
+      },
+      "experience": {
+        "score": 14,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 5,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://in.linkedin.com/jobs/view/java-developer-api-connectivity-at-bnp-paribas-4465066154",
+    "source_title": "Java developer- API connectivity at BNP Paribas",
+    "extracted_timestamp": "2026-09-30T13:18:08.048491+00:00",
+    "raw_snippet": "Live opening for Java developer- API connectivity at BNP Paribas in Chennai, Tamil Nadu, India. Posted: 2 weeks ago. Apply directly on LinkedIn."
+  },
+  {
+    "record_id": "rec_wf_c0052d00a5_li_4465647580_8",
+    "workflow_id": "wf_c0052d00a5",
+    "entity_name": "JobOpening",
+    "data": {
+      "job_title": "Software Engineer (Java)",
+      "company": "Comviva",
+      "company_domain": "linkedin.com",
+      "location": "Gurugram, Haryana, India",
+      "city": "Gurgaon",
+      "remote_type": "on-site",
+      "work_modality": "Offline",
+      "modality_detail": "Offline (On-site)",
+      "employment_type": "full-time",
+      "skills": [
+        "Python",
+        "ML",
+        "AI"
+      ],
+      "experience_years": "0-2 yrs",
+      "salary_range": "Not Disclosed",
+      "apply_link": "https://in.linkedin.com/jobs/view/software-engineer-java-at-comviva-4465647580",
+      "platform_source": "Linkedin",
+      "date_posted": "2026-09-30T13:18:07.935804+00:00",
+      "match_score": 83.0,
+      "score_breakdown": {
+        "skills": {
+          "score": 30,
+          "max": 30
+        },
+        "role": {
+          "score": 6,
+          "max": 20
+        },
+        "experience": {
+          "score": 14,
+          "max": 15
+        },
+        "location": {
+          "score": 10,
+          "max": 10
+        },
+        "education": {
+          "score": 5,
+          "max": 5
+        },
+        "employment": {
+          "score": 5,
+          "max": 5
+        },
+        "salary": {
+          "score": 4,
+          "max": 5
+        },
+        "freshness": {
+          "score": 5,
+          "max": 5
+        },
+        "requirements": {
+          "score": 4,
+          "max": 5
+        }
+      },
+      "why_it_matches": [
+        "\u2713 Python",
+        "\u2713 Ml",
+        "\u2713 Ai",
+        "\u2713 Offline fit: Gurugram, Haryana, India at Comviva",
+        "\u2713 Education qualifications satisfied"
+      ],
+      "potential_gaps": [
+        "\u26a0 Role title differs from target keywords"
+      ],
+      "quality_signals": {
+        "freshness_score": 95.0,
+        "source_confidence": 80.0,
+        "listing_quality_score": 85.0,
+        "risk_signals": []
+      },
+      "sources": [
+        "linkedin"
+      ],
+      "description": "Live opening for Software Engineer (Java) at Comviva in Gurugram, Haryana, India. Posted: 2 weeks ago. Apply directly on LinkedIn.",
+      "description_snippet": "Live opening for Software Engineer (Java) at Comviva in Gurugram, Haryana, India. Posted: 2 weeks ago. Apply directly on LinkedIn.",
+      "is_link_out": false
+    },
+    "confidence_score": 83.0,
+    "confidence_breakdown": {
+      "skills": {
+        "score": 30,
+        "max": 30
+      },
+      "role": {
+        "score": 6,
+        "max": 20
+      },
+      "experience": {
+        "score": 14,
+        "max": 15
+      },
+      "location": {
+        "score": 10,
+        "max": 10
+      },
+      "education": {
+        "score": 5,
+        "max": 5
+      },
+      "employment": {
+        "score": 5,
+        "max": 5
+      },
+      "salary": {
+        "score": 4,
+        "max": 5
+      },
+      "freshness": {
+        "score": 5,
+        "max": 5
+      },
+      "requirements": {
+        "score": 4,
+        "max": 5
+      }
+    },
+    "human_review_required": false,
+    "source_url": "https://in.linkedin.com/jobs/view/software-engineer-java-at-comviva-4465647580",
+    "source_title": "Software Engineer (Java) at Comviva",
+    "extracted_timestamp": "2026-09-30T13:18:08.049945+00:00",
+    "raw_snippet": "Live opening for Software Engineer (Java) at Comviva in Gurugram, Haryana, India. Posted: 2 weeks ago. Apply directly on LinkedIn."
+  }
+]

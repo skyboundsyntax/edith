@@ -119,8 +119,9 @@ export const api = {
   },
 
   // --- Source Policy Registry & Health Matrix ---
-  async getSourcesHealth() {
-    const res = await fetchWithTimeout(`${API_BASE}/sources/health`, {}, 10000);
+  async getSourcesHealth(force = false) {
+    const url = force ? `${API_BASE}/sources/health?force=true` : `${API_BASE}/sources/health`;
+    const res = await fetchWithTimeout(url, {}, 15000);
     return res.json();
   },
 

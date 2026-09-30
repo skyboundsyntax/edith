@@ -128,26 +128,29 @@ async def run_job_ingestion_pipeline(
         sources_searched = []
         successful_sources = 0
 
+        sem = asyncio.Semaphore(4)
+
         async def fetch_from_source(connector):
             nonlocal successful_sources
             c_name = connector.name
             t0 = time.time()
-            await emit("source_started", {"source": c_name, "domain": connector.domain, "access_method": connector.access_method})
-            try:
-                jobs = await asyncio.wait_for(connector.search(query_spec), timeout=12.0)
-                duration_ms = int((time.time() - t0) * 1000)
-                await emit("jobs_found", {"source": c_name, "count": len(jobs), "duration_ms": duration_ms})
-                await emit("source_completed", {"source": c_name, "count": len(jobs), "duration_ms": duration_ms, "status": "success"})
-                successful_sources += 1
-                return c_name, jobs, None
-            except Exception as err:
-                duration_ms = int((time.time() - t0) * 1000)
-                err_msg = f"{type(err).__name__}: {err}" if str(err) else type(err).__name__
-                logger.error(f"Source {c_name} failed: {err_msg}")
-                await emit("source_completed", {"source": c_name, "count": 0, "duration_ms": duration_ms, "status": "SOURCE UNAVAILABLE", "error": err_msg})
-                return c_name, [], err_msg
+            async with sem:
+                await emit("source_started", {"source": c_name, "domain": connector.domain, "access_method": connector.access_method})
+                try:
+                    jobs = await asyncio.wait_for(connector.search(query_spec), timeout=12.0)
+                    duration_ms = int((time.time() - t0) * 1000)
+                    await emit("jobs_found", {"source": c_name, "count": len(jobs), "duration_ms": duration_ms})
+                    await emit("source_completed", {"source": c_name, "count": len(jobs), "duration_ms": duration_ms, "status": "success"})
+                    successful_sources += 1
+                    return c_name, jobs, None
+                except Exception as err:
+                    duration_ms = int((time.time() - t0) * 1000)
+                    err_msg = f"{type(err).__name__}: {err}" if str(err) else type(err).__name__
+                    logger.warning(f"Source {c_name} completed with notice: {err_msg}")
+                    await emit("source_completed", {"source": c_name, "count": 0, "duration_ms": duration_ms, "status": "SOURCE UNAVAILABLE", "error": err_msg})
+                    return c_name, [], err_msg
 
-        # Launch all live connectors concurrently
+        # Launch all live connectors with controlled concurrency
         tasks = [fetch_from_source(c) for c in live_connectors]
         results = await asyncio.gather(*tasks, return_exceptions=True)
 
@@ -182,7 +185,7 @@ async def run_job_ingestion_pipeline(
         sal_excluded_count = 0
 
         target_locs = query_spec.get("locations") or []
-        remote_allowed = query_spec.get("remote", False)
+        remote_allowed = query_spec.get("remote", False) or not any(l in ["on-site", "offline", "onsite"] for l in target_locs)
         target_sal_min = query_spec.get("salary_min")
         target_sal_max = query_spec.get("salary_max")
 
@@ -248,7 +251,8 @@ async def run_job_ingestion_pipeline(
                         if target_sal_min is not None and eff_j_max < target_sal_min:
                             sal_excluded_count += 1
                             continue
-                        if target_sal_max is not None and eff_j_min > target_sal_max:
+                        # Allow 25% upside buffer for high compensation
+                        if target_sal_max is not None and eff_j_min > (target_sal_max * 1.25):
                             sal_excluded_count += 1
                             continue
                     except (ValueError, TypeError):

@@ -493,7 +493,7 @@ export default function App() {
         onSelectTab={setActiveTab}
         onOpenSourceHealth={() => setIsSourceHealthOpen(true)}
         onOpenHistory={() => setIsHistoryOpen(true)}
-        sourceCount={8}
+        sourceCount={7}
       />
 
       {/* 3. Main Viewport */}

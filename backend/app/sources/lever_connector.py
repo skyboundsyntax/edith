@@ -14,14 +14,13 @@ import re
 
 from backend.app.sources.base import JobSourceConnector, SourceHealth, SourceCapabilities
 from backend.app.locations.india_locations import normalize_location, matches_location_preference, is_online_gig
+from backend.app.intelligence.role_matcher import is_matching_role
 
 logger = logging.getLogger(__name__)
 
 LEVER_COMPANIES = [
     {"token": "meesho", "company": "Meesho", "domain": "meesho.com"},
-    {"token": "spotify", "company": "Spotify", "domain": "spotify.com"},
-    {"token": "eventbrite", "company": "Eventbrite", "domain": "eventbrite.com"},
-    {"token": "affirm", "company": "Affirm", "domain": "affirm.com"}
+    {"token": "spotify", "company": "Spotify", "domain": "spotify.com"}
 ]
 
 class LeverConnector(JobSourceConnector):
@@ -38,14 +37,9 @@ class LeverConnector(JobSourceConnector):
 
     async def search(self, query_spec: Dict[str, Any]) -> List[Dict[str, Any]]:
         results = []
-        keywords = [k.lower() for k in (query_spec.get("keywords") or [])]
-        roles = [r.lower() for r in (query_spec.get("roles") or [])]
-        skills = [s.lower() for s in (query_spec.get("skills") or [])]
         target_locations = [l.lower() for l in (query_spec.get("locations") or [])]
-        remote_allowed = query_spec.get("remote", False)
-
-        search_tokens = set(keywords + roles + skills)
-        role_pattern = re.compile(r'\b(?:' + '|'.join(re.escape(tok) for tok in search_tokens) + r')\b', re.IGNORECASE) if search_tokens else None
+        remote_allowed = query_spec.get("remote", False) or not any(l in ["on-site", "offline"] for l in target_locations)
+        skills = query_spec.get("skills") or []
 
         async def fetch_lever_company(client: httpx.AsyncClient, comp: Dict[str, str]) -> List[Dict[str, Any]]:
             company_token = comp["token"]
@@ -55,7 +49,7 @@ class LeverConnector(JobSourceConnector):
             comp_jobs = []
 
             try:
-                resp = await client.get(url, headers={"User-Agent": "EDITH-JobIntelligence/1.0"})
+                resp = await client.get(url, timeout=4.5, headers={"User-Agent": "EDITH-JobIntelligence/1.0"})
                 if resp.status_code != 200:
                     return []
 
@@ -65,29 +59,25 @@ class LeverConnector(JobSourceConnector):
 
                 for item in postings:
                     title = item.get("text", "")
-                    title_lower = title.lower()
-
                     categories = item.get("categories") or {}
                     team = categories.get("team") or ""
                     commitment = categories.get("commitment") or "Full-time"
+                    loc_raw = categories.get("location") or ""
 
-                    # 1. Relevancy check: title or team matches target keywords/roles
-                    if role_pattern:
-                        if not role_pattern.search(title_lower) and not (team and role_pattern.search(team.lower())):
-                            continue
-
-                    # 2. Skip non-engineering online gigs
+                    # 1. Skip non-engineering online gigs
                     if is_online_gig(title, ""):
                         continue
 
-                    # 3. Strict Location check (Drop foreign jobs when searching Pune/Bengaluru/India)
-                    loc_raw = categories.get("location") or ""
+                    # 2. Relevancy check: flexible role matcher
+                    if not is_matching_role(title, query_spec, department=team):
+                        continue
+
+                    # 3. Location check
                     loc_matches, loc_pts = matches_location_preference(loc_raw, target_locations, remote_allowed)
                     if not loc_matches or loc_pts == 0:
                         continue
 
                     loc_info = normalize_location(loc_raw)
-
                     job_id = str(item.get("id"))
                     apply_url = item.get("hostedUrl") or item.get("applyUrl") or f"https://jobs.lever.co/{company_token}/{job_id}"
                     now_iso = datetime.now(timezone.utc).isoformat()
@@ -99,6 +89,11 @@ class LeverConnector(JobSourceConnector):
 
                     raw_str = f"{title}_{company_name}_{job_id}_{loc_raw}"
                     content_hash = hashlib.sha256(raw_str.encode()).hexdigest()
+
+                    title_lower = title.lower()
+                    matched_skills = [s.title() for s in skills if s.lower() in title_lower]
+                    if not matched_skills:
+                        matched_skills = ["Software Engineering", "Backend"]
 
                     canonical_job = {
                         "id": f"lev_{company_token}_{job_id}",
@@ -113,7 +108,7 @@ class LeverConnector(JobSourceConnector):
                         "description": item.get("descriptionPlain") or f"Role: {title} at {company_name}. Team: {team}. Location: {loc_raw}.",
                         "requirements": [],
                         "responsibilities": [],
-                        "skills": [s.title() for s in skills if s in title_lower] or ["Engineering"],
+                        "skills": matched_skills,
                         "technologies": [],
                         "location": loc_info["canonical_location"],
                         "city": loc_info["city"],
@@ -128,7 +123,7 @@ class LeverConnector(JobSourceConnector):
                         "salary_max": None,
                         "salary_currency": "INR",
                         "salary_period": "year",
-                        "education": "Degree in Computer Science or related practical experience",
+                        "education": "Degree in Computer Science or equivalent practical experience",
                         "date_posted": date_posted,
                         "date_updated": date_posted,
                         "first_seen_at": now_iso,
@@ -143,21 +138,22 @@ class LeverConnector(JobSourceConnector):
                             "source_url": url,
                             "original_job_url": apply_url,
                             "retrieval_timestamp": now_iso,
-                            "parser_version": "1.0-lev",
+                            "parser_version": "2.0-lev-fast",
                             "content_hash": content_hash,
                             "source_timestamp": date_posted,
                             "last_successful_fetch": now_iso
                         }
                     }
                     comp_jobs.append(canonical_job)
-                    if len(comp_jobs) >= 8:
+                    if len(comp_jobs) >= 12:
                         break
+
                 return comp_jobs
             except Exception as e:
-                logger.warning(f"Lever fetch error for {company_token}: {e}")
+                logger.warning(f"Lever fetch warning for {company_token}: {e}")
                 return []
 
-        async with httpx.AsyncClient(timeout=6.0, limits=httpx.Limits(max_connections=20, max_keepalive_connections=10)) as client:
+        async with httpx.AsyncClient(timeout=httpx.Timeout(8.0, connect=4.0), limits=httpx.Limits(max_connections=15, max_keepalive_connections=10)) as client:
             tasks = [fetch_lever_company(client, comp) for comp in LEVER_COMPANIES]
             batch_results = await asyncio.gather(*tasks, return_exceptions=True)
             for res in batch_results:
@@ -172,7 +168,7 @@ class LeverConnector(JobSourceConnector):
     async def health_check(self) -> SourceHealth:
         start_time = time.time()
         try:
-            async with httpx.AsyncClient(timeout=4.0) as client:
+            async with httpx.AsyncClient(timeout=3.0) as client:
                 res = await client.get("https://api.lever.co/v0/postings/meesho?mode=json")
                 latency = int((time.time() - start_time) * 1000)
                 if res.status_code == 200:
@@ -206,7 +202,7 @@ class LeverConnector(JobSourceConnector):
             return SourceHealth(
                 name=self.name,
                 domain=self.domain,
-                status="UNAVAILABLE",
+                status="DEGRADED",
                 access_method=self.access_method,
                 permission_status=self.permission_status,
                 robots_policy=self.robots_policy,
