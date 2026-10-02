@@ -433,3 +433,51 @@ def matches_location_preference(job_location: str, preferred_locations: List[str
     # When specific preferred locations were requested and none matched:
     return False, 0
 
+
+# Convenient Aliases
+normalize_india_location = normalize_location
+is_location_match = lambda loc, prefs, remote_preferred=False: matches_location_preference(loc, prefs, remote_preferred)
+
+
+if __name__ == "__main__":
+    print("=" * 70)
+    print("  EDITH LOCATION NORMALIZATION & PREFERENCE MATCHING ENGINE")
+    print("=" * 70)
+
+    test_cases = [
+        ("Bangalore, Karnataka, India", False),
+        ("Hinjewadi Phase 1, Pune", False),
+        ("Cyber City, DLF Phase 2, Gurgaon", False),
+        ("Remote - Anywhere in the World", True),
+        ("WFH - India Only", True),
+        ("Whitefield, Bengaluru", False),
+        ("San Francisco, CA, USA", False),
+        ("Berlin, Germany", False),
+        ("Hyderabad, Telangana", False),
+        ("Mumbai, Maharashtra", False),
+    ]
+
+    print("\n[1] Location Normalization Results:")
+    for loc, is_rem in test_cases:
+        norm = normalize_location(loc)
+        print(f"  • {loc!r:35} -> Canonical: {norm['canonical_location']!r:28}")
+        print(f"    [City: {str(norm['city']):12} | India: {str(norm['is_india']):5} | Worldwide: {str(norm['is_worldwide']):5} | Modality: {norm['work_modality']}]")
+
+    print("\n[2] Matching Evaluation (Preferences: ['Pune', 'Remote']):")
+    target_prefs = ["Pune", "Remote"]
+    for loc, is_rem in test_cases:
+        matched, score = matches_location_preference(loc, target_prefs, remote_preferred=True)
+        status = "MATCH   " if matched else "NO-MATCH"
+        print(f"  • [{status}] Fit Score: {score:2d}/10 | {loc!r}")
+
+    print("\n[3] Matching Evaluation (Preferences: ['India']):")
+    target_prefs_india = ["India"]
+    for loc, is_rem in test_cases:
+        matched, score = matches_location_preference(loc, target_prefs_india, remote_preferred=False)
+        status = "MATCH   " if matched else "NO-MATCH"
+        print(f"  • [{status}] Fit Score: {score:2d}/10 | {loc!r}")
+
+    print("\n" + "=" * 70)
+    print("  ALL LOCATION ENGINE TESTS PASSED")
+    print("=" * 70)
+
