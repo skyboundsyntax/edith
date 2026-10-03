@@ -17,7 +17,10 @@ try:
 except (ImportError, ModuleNotFoundError):
     from .base import JobSourceConnector, SourceHealth, SourceCapabilities
     from ..services.firecrawl_service import firecrawl_service
-from ai_engine.jev_extractor import jev_extractor
+try:
+    from backend.ai_engine.jev_extractor import jev_extractor
+except (ImportError, ModuleNotFoundError):
+    from ai_engine.jev_extractor import jev_extractor
 
 logger = logging.getLogger(__name__)
 

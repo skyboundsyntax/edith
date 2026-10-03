@@ -18,7 +18,10 @@ from backend.app.intelligence.match_scorer import score_job_match
 from backend.app.db.database import SessionLocal
 from backend.app.db.models import WorkflowModel, DataRecordModel, JobModel
 from backend.app.locations.india_locations import normalize_location, matches_location_preference, is_online_gig
-from ai_engine.jev_extractor import jev_extractor
+try:
+    from backend.ai_engine.jev_extractor import jev_extractor
+except (ImportError, ModuleNotFoundError):
+    from ai_engine.jev_extractor import jev_extractor
 
 import html
 from bs4 import BeautifulSoup

@@ -13,32 +13,37 @@
 
 ```
 edith/
+├── backend/                 # Backend & AI Engine: FastAPI, LangGraph & Jev Pipeline
+│   ├── ai_engine/           # Data & AI Layer: LangGraph & Deterministic Extraction
+│   │   ├── intent_parser.py # Node 1: Dynamic JobOpening schema extraction from query
+│   │   ├── source_discovery.py # Node 2: Multi-portal live scraping with Firecrawl & APIs
+│   │   ├── jev_extractor.py # Node 3: Jev Deterministic Extraction & 4-pillar Trust Meter
+│   │   ├── vector_deduplication.py # Node 4: TF-IDF & cosine vector similarity
+│   │   ├── workflow_graph.py # LangGraph StateGraph agent pipeline
+│   │   └── state.py         # Strongly typed WorkflowState contract
+│   ├── app/
+│   │   ├── api/             # REST Endpoints (/workflows, /datasets, /exports, /sources, /health)
+│   │   ├── core/            # Configuration, environment loading, settings
+│   │   ├── db/              # SQLAlchemy Database Models (workflows, data_records, jobs)
+│   │   ├── intelligence/    # Query planner, role matcher, match scorer, orchestrator
+│   │   ├── services/        # Firecrawl web scraper service & dataset export engine
+│   │   ├── sources/         # Live connectors (Firecrawl, LinkedIn, Jobicy, Arbeitnow, etc.)
+│   │   └── websocket/       # Bi-directional WebSocket real-time node streaming
+│   ├── exports/             # Generated dataset downloads (CSV & JSON)
+│   ├── scripts/             # Database inspection & maintenance utilities
+│   ├── tests/               # Automated test suites
+│   ├── data_intelligence.db # SQLite Database (persisted extracted job records)
+│   ├── main.py              # Application entrypoint
+│   └── requirements.txt     # Consolidated backend dependencies
 ├── frontend/                # Client Layer: React 19 + Vite Glassmorphic Dashboard
 │   ├── src/
-│   │   ├── components/      # DataGrid, WorkflowGraph, SourceDrawer, Header, MetricsCards
+│   │   ├── components/      # DataGrid, WorkflowGraph, FirecrawlScrapeModal, Header, MetricsCards
 │   │   ├── services/        # API client and WebSocket streaming manager
-│   │   └── index.css        # Rich Vanilla CSS Design System with dark mode & glow effects
+│   │   ├── index.css        # Rich Vanilla CSS Design System with dark mode & glow effects
+│   │   └── App.jsx          # Master Dashboard application
 │   └── package.json
-├── backend/                 # Orchestration Layer: FastAPI Production API Gateway
-│   ├── app/
-│   │   ├── api/             # REST Endpoints (/workflows, /datasets, /export, /health)
-│   │   ├── db/              # SQLAlchemy Database Models (workflows, data_records)
-│   │   ├── services/        # Dataset Export engine (CSV & JSON)
-│   │   └── websocket/       # Bi-directional WebSocket real-time node streaming
-│   └── main.py              # Application entrypoint
-├── ai_engine/               # Data & AI Layer: LangGraph & Deterministic Extraction
-│   ├── intent_parser.py     # Node 1: Dynamic JobOpening schema extraction from query
-│   ├── source_discovery.py  # Node 2: Multi-portal live scraping with Firecrawl & direct APIs
-│   ├── jev_extractor.py     # Node 3: Jev Deterministic Extraction & 4-pillar Trust Meter
-│   ├── vector_deduplication.py # Node 4: TF-IDF & cosine vector similarity deduplication
-│   ├── workflow_graph.py    # LangGraph StateGraph agent pipeline
-│   └── state.py             # Strongly typed WorkflowState contract
 ├── docs/                    # Specifications and Audit Reports
-│   ├── CODEBASE_AUDIT.md    # Comprehensive architectural audit & cleanup log
-│   ├── SETUP_AND_INTEGRATION_GUIDE.md # Execution & Architecture Guide
-│   └── problem_explanation_5wtdx1p941f.pdf # Problem Statement
-├── mocks/                   # Isolated test fixtures (DEVELOPMENT ONLY)
-│   └── sample_jobs.json
+├── start.bat                # One-click dual-stack startup script
 └── .env.example             # Environment configuration template
 ```
 

@@ -6,10 +6,12 @@ import os
 import sys
 from pathlib import Path
 
-# Add root directory to sys.path so backend and ai_engine can import each other seamlessly
+# Add root directory and backend directory to sys.path
 ROOT_DIR = Path(__file__).resolve().parent.parent
-if str(ROOT_DIR) not in sys.path:
-    sys.path.insert(0, str(ROOT_DIR))
+BACKEND_DIR = Path(__file__).resolve().parent
+for _p in [str(ROOT_DIR), str(BACKEND_DIR)]:
+    if _p not in sys.path:
+        sys.path.insert(0, _p)
 
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect, Request
 from fastapi.responses import HTMLResponse

@@ -7,7 +7,7 @@ import logging
 from typing import List, Tuple, Dict, Any
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
-from ai_engine.state import ExtractedRecord
+from .state import ExtractedRecord
 
 logger = logging.getLogger("VectorDeduplication")
 

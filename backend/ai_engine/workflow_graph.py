@@ -11,11 +11,11 @@ from datetime import datetime, timezone
 from typing import Dict, Any, Callable, Optional
 
 from langgraph.graph import StateGraph, END
-from ai_engine.state import WorkflowState, ExtractedRecord
-from ai_engine.intent_parser import IntentParser
-from ai_engine.source_discovery import SourceDiscovery
-from ai_engine.jev_extractor import JevDeterministicExtractor
-from ai_engine.vector_deduplication import VectorDeduplicator
+from .state import WorkflowState, ExtractedRecord
+from .intent_parser import IntentParser
+from .source_discovery import SourceDiscovery
+from .jev_extractor import JevDeterministicExtractor
+from .vector_deduplication import VectorDeduplicator
 
 logger = logging.getLogger("WorkflowGraph")
 

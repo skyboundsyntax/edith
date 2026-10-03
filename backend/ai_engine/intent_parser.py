@@ -6,7 +6,7 @@ Extracts target roles, tech stacks, experience levels, and location criteria.
 import os
 import re
 from typing import Dict, Any, List
-from ai_engine.state import TargetSchemaDefinition, SchemaField
+from .state import TargetSchemaDefinition, SchemaField
 
 class IntentParser:
     def __init__(self, api_key: str = None):

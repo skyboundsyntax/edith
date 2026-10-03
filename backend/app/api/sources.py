@@ -12,7 +12,10 @@ try:
 except (ImportError, ModuleNotFoundError):
     from ..sources.registry import source_registry
     from ..services.firecrawl_service import firecrawl_service
-from ai_engine.jev_extractor import jev_extractor
+try:
+    from backend.ai_engine.jev_extractor import jev_extractor
+except (ImportError, ModuleNotFoundError):
+    from ai_engine.jev_extractor import jev_extractor
 
 router = APIRouter(prefix="/sources", tags=["Sources"])
 

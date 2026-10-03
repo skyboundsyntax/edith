@@ -9,7 +9,7 @@ import uuid
 import hashlib
 from datetime import datetime, timezone
 from typing import Dict, Any, List, Tuple, Optional
-from ai_engine.state import TargetSchemaDefinition, ExtractedRecord, SchemaField
+from .state import TargetSchemaDefinition, ExtractedRecord, SchemaField
 
 DEFAULT_JOB_SCHEMA = TargetSchemaDefinition(
     entity_name="JobOpening",

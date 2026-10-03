@@ -56,6 +56,10 @@ class Settings(BaseSettings):
         else:
             self.GEMINI_API_KEY = self.GEMINI_API_KEY.strip()
 
+        # Guarantee SQLite database path always resolves to backend/data_intelligence.db
+        if "sqlite" in self.DATABASE_URL and "data_intelligence.db" in self.DATABASE_URL:
+            self.DATABASE_URL = f"sqlite:///{BASE_DIR.as_posix()}/data_intelligence.db"
+
     class Config:
         env_file = [str(ROOT_DIR / ".env"), str(BASE_DIR / ".env"), ".env"]
         extra = "allow"

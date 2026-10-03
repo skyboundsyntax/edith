@@ -24,7 +24,10 @@ except (ImportError, ModuleNotFoundError):
     from ..intelligence.query_planner import parse_job_query_to_spec, JobSearchSpecification
     from ..intelligence.orchestrator import run_job_ingestion_pipeline
 
-from ai_engine.workflow_graph import DataIntelligenceWorkflow
+try:
+    from backend.ai_engine.workflow_graph import DataIntelligenceWorkflow
+except (ImportError, ModuleNotFoundError):
+    from ai_engine.workflow_graph import DataIntelligenceWorkflow
 
 router = APIRouter(prefix="/workflows", tags=["Workflows"])
 
