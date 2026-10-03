@@ -212,19 +212,35 @@ class FirecrawlService:
 
         try:
             headers = {"Authorization": f"Bearer {self.api_key.strip()}"}
-            async with httpx.AsyncClient(timeout=4.0) as client:
-                # Fast probe
-                resp = await client.get(f"{self.api_url}/v1/concurrency-check", headers=headers)
+            async with httpx.AsyncClient(timeout=4.5) as client:
+                resp = await client.get(f"{self.api_url}/v1/team/credit-usage", headers=headers)
                 latency = int((time.time() - t0) * 1000)
-                if resp.status_code in [200, 404, 401]:
-                    # 200 or accessible endpoint
-                    is_authed = resp.status_code != 401
+                if resp.status_code == 200:
+                    data = resp.json().get("data", {})
+                    remaining = data.get("remaining_credits", 0)
                     return {
                         "configured": True,
-                        "status": "ONLINE" if is_authed else "INVALID_KEY",
+                        "status": "ONLINE",
                         "latency_ms": latency,
                         "provider": "firecrawl",
-                        "message": "Firecrawl AI Scraper connected successfully." if is_authed else "Firecrawl API Key was rejected."
+                        "remaining_credits": remaining,
+                        "message": f"Firecrawl API active ({remaining} credits remaining)."
+                    }
+                elif resp.status_code == 401:
+                    return {
+                        "configured": True,
+                        "status": "INVALID_KEY",
+                        "latency_ms": latency,
+                        "provider": "firecrawl",
+                        "message": "Firecrawl API key was rejected (401 Unauthorized)."
+                    }
+                else:
+                    return {
+                        "configured": True,
+                        "status": "ONLINE",
+                        "latency_ms": latency,
+                        "provider": "firecrawl",
+                        "message": "Firecrawl API accessible."
                     }
         except Exception as e:
             latency = int((time.time() - t0) * 1000)
@@ -246,3 +262,7 @@ class FirecrawlService:
 
 # Global singleton
 firecrawl_service = FirecrawlService()
+
+def get_firecrawl_service() -> FirecrawlService:
+    """Return the global FirecrawlService instance."""
+    return firecrawl_service
