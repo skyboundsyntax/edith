@@ -69,13 +69,13 @@ export default function Sidebar({
           type="button"
           className="sidebar-status-pill"
           onClick={onOpenSourceHealth}
-          title="Click to view 8 verified ATS connectors"
+          title="Click to view all the verified ATS connectors"
         >
           <div className="status-indicator-dot">
             <span className="ping-ring" />
             <span className="core-dot" />
           </div>
-          <span className="status-pill-text">{sourceCount} Sources Live</span>
+          <span className="status-pill-text">Live Sources</span>
         </button>
 
         <button
