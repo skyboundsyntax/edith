@@ -602,22 +602,22 @@ export default function App() {
             created_at: new Date().toISOString(),
             source: j.source || 'Firecrawl / Web Scraper',
             source_title: j.title || queryDisplay,
-            source_url: j.apply_url || j.source_url || 'https://in.indeed.com',
+            source_url: j.apply_url || j.source_url || '',
             data: {
-              job_title: j.title || `${queryDisplay.toUpperCase()} - Active Opening`,
-              company: j.company || 'Verified Employer',
+              job_title: j.title || queryDisplay,
+              company: j.company || 'Not specified',
               company_url: j.company_url || j.apply_url || '',
-              location: j.location || (query.toLowerCase().includes('pune') ? 'Pune, Maharashtra' : 'Pan-India / Remote'),
+              location: j.location || 'Not specified',
               work_modality: 'offline',
               salary_range: j.salary_range || '₹8.0 - 14.5 LPA',
-              experience_years: j.experience_years || '2-5 Years',
-              skills: Array.isArray(j.skills) && j.skills.length > 0 ? j.skills : ['Grassroots Coaching', 'Tactical Analysis', 'Player Development'],
+              experience_years: j.experience_years || 'Not specified',
+              skills: Array.isArray(j.skills) ? j.skills : [],
               match_score: j.confidence_score || 93.0,
               match_subscores: { skills: 28.0, role: 19.0, experience: 13.5, location: 10.0 },
               semantic_tag: 'Top Strict Match',
-              description: j.description || `Active verified opportunity for ${j.title}. Source: ${j.apply_url}`,
-              requirements: Array.isArray(j.requirements) && j.requirements.length > 0 ? j.requirements : ['Relevant coaching qualification', 'Demonstrated sports background'],
-              apply_link: j.apply_url || j.source_url || 'https://in.indeed.com'
+              description: j.description || '',
+              requirements: Array.isArray(j.requirements) ? j.requirements : [],
+              apply_link: j.apply_url || j.source_url || ''
             }
           }));
         } else if (modeAtLaunch === 'general' && scrapeRes && Array.isArray(scrapeRes.documents)) {

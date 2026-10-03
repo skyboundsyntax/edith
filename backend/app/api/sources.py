@@ -5,6 +5,7 @@ Displays real-time status of all registered job connectors (Online vs Link-Out).
 from fastapi import APIRouter, HTTPException
 from typing import List, Dict, Any, Optional, Literal
 from pydantic import BaseModel
+import hashlib
 
 try:
     from backend.app.sources.registry import source_registry
@@ -24,6 +25,10 @@ try:
     from backend.ai_engine.jev_extractor import jev_extractor
 except (ImportError, ModuleNotFoundError):
     from ai_engine.jev_extractor import jev_extractor
+try:
+    from backend.ai_engine.source_discovery import SourceDiscovery
+except (ImportError, ModuleNotFoundError):
+    from ai_engine.source_discovery import SourceDiscovery
 
 router = APIRouter(prefix="/sources", tags=["Sources"])
 
@@ -37,6 +42,43 @@ class FirecrawlSearchRequest(BaseModel):
     query: str
     limit: Optional[int] = 5
     mode: Literal["job", "data"] = "job"
+
+
+def _to_live_job(source_document: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+    """Normalize a verified public-job-API result for the Firecrawl search UI."""
+    metadata = source_document.get("metadata") or {}
+    source_name = str(source_document.get("source") or "").strip()
+    # SourceDiscovery's final directory link is a search shortcut, not an
+    # individual posting.  Never render it as one.
+    if source_name == "LinkedIn Directory":
+        return None
+    title = str(metadata.get("job_title") or "").strip()
+    apply_url = str(metadata.get("apply_link") or source_document.get("url") or "").strip()
+    if not title or not apply_url:
+        return None
+
+    company = str(metadata.get("company") or "").strip()
+    record_key = f"{title}|{company}|{apply_url}".encode("utf-8")
+    record_id = hashlib.sha256(record_key).hexdigest()[:16]
+    return {
+        "id": f"live_{record_id}",
+        "title": title,
+        "company": company or "Not specified",
+        "location": metadata.get("location") or "Not specified",
+        "experience_years": metadata.get("experience_years"),
+        "skills": metadata.get("skills") or [],
+        "requirements": metadata.get("requirements") or [],
+        "salary_range": metadata.get("salary_range") or "Not disclosed",
+        "apply_url": apply_url,
+        "source_url": str(source_document.get("url") or apply_url),
+        "source": str(metadata.get("platform") or source_name or "Public job API"),
+        "platform_source": str(metadata.get("platform") or source_name or "Public job API"),
+        "description": str(source_document.get("content") or ""),
+        "confidence_score": 86.0,
+        "confidence_breakdown": {},
+        "human_review_required": False,
+        "raw_snippet": str(source_document.get("content") or "")[:500],
+    }
 
 @router.get("/health")
 async def get_sources_health(force: bool = False) -> Dict[str, Any]:
@@ -117,17 +159,8 @@ async def search_firecrawl(req: FirecrawlSearchRequest) -> Dict[str, Any]:
         raise HTTPException(status_code=400, detail="Search query is required")
 
     requested_limit = max(1, min(req.limit or 5, 20))
-    # Ask for a few extra documents in job mode because advice/news results are
-    # discarded by the job-document gate below.
-    search_query = req.query.strip()
-    if req.mode == "job" and not any(term in search_query.lower() for term in ("job", "career", "vacanc", "opening", "hiring")):
-        search_query = f"{search_query} job openings"
-    docs = await firecrawl_service.search(
-        search_query,
-        limit=min(requested_limit * 3, 20) if req.mode == "job" else requested_limit,
-    )
-
     if req.mode == "data":
+        docs = await firecrawl_service.search(req.query.strip(), limit=requested_limit)
         return {
             "status": "success",
             "query": req.query,
@@ -138,19 +171,47 @@ async def search_firecrawl(req: FirecrawlSearchRequest) -> Dict[str, Any]:
             "jobs": [],
         }
 
-    job_docs = filter_job_listing_documents(docs)
-    all_jobs = []
-    for d in job_docs[:requested_limit]:
-        extracted = jev_extractor.extract_from_firecrawl(d, query=req.query)
-        all_jobs.extend(extracted)
+    # Live public job APIs are the primary source for the job feed.  They work
+    # without a Firecrawl key and return posting-shaped records, not articles.
+    public_documents = []
+    try:
+        public_documents = await SourceDiscovery().search(
+            req.query.strip(),
+            max_results=requested_limit,
+        )
+    except Exception:
+        # Connector-specific failures are logged in SourceDiscovery; proceed to
+        # the validated Firecrawl fallback below.
+        public_documents = []
+
+    all_jobs = [
+        job
+        for job in (_to_live_job(document) for document in public_documents)
+        if job is not None
+    ][:requested_limit]
+
+    docs = []
+    job_docs = []
+    if not all_jobs:
+        # Firecrawl remains a secondary job source.  Search extra documents
+        # because editorial hits are discarded before Jev extraction.
+        search_query = req.query.strip()
+        if not any(term in search_query.lower() for term in ("job", "career", "vacanc", "opening", "hiring")):
+            search_query = f"{search_query} job openings"
+        docs = await firecrawl_service.search(search_query, limit=min(requested_limit * 3, 20))
+        job_docs = filter_job_listing_documents(docs)
+        for document in job_docs[:requested_limit]:
+            all_jobs.extend(jev_extractor.extract_from_firecrawl(document, query=req.query))
+        all_jobs = all_jobs[:requested_limit]
 
     return {
         "status": "success",
         "query": req.query,
         "mode": "job",
-        "provider": "firecrawl",
+        "provider": "public job APIs" if public_documents else "firecrawl",
         "raw_documents_found": len(docs),
         "non_job_documents_filtered": len(docs) - len(job_docs),
+        "public_job_documents_found": len(public_documents),
         "jev_extracted_jobs": len(all_jobs),
         "jobs": all_jobs
     }
