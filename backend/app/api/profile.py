@@ -8,8 +8,12 @@ from typing import List, Optional, Dict, Any
 from sqlalchemy.orm import Session
 from datetime import datetime, timezone
 
-from backend.app.db.database import get_db
-from backend.app.db.models import UserProfileModel
+try:
+    from backend.app.db.database import get_db
+    from backend.app.db.models import UserProfileModel
+except (ImportError, ModuleNotFoundError):
+    from ..db.database import get_db
+    from ..db.models import UserProfileModel
 
 router = APIRouter(prefix="/profile", tags=["Profile"])
 

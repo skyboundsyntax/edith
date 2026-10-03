@@ -11,8 +11,12 @@ from typing import Dict, List, Optional, Any
 from datetime import datetime, timezone
 import re
 
-from backend.app.sources.base import JobSourceConnector, SourceHealth, SourceCapabilities
-from backend.app.services.firecrawl_service import firecrawl_service
+try:
+    from backend.app.sources.base import JobSourceConnector, SourceHealth, SourceCapabilities
+    from backend.app.services.firecrawl_service import firecrawl_service
+except (ImportError, ModuleNotFoundError):
+    from .base import JobSourceConnector, SourceHealth, SourceCapabilities
+    from ..services.firecrawl_service import firecrawl_service
 from ai_engine.jev_extractor import jev_extractor
 
 logger = logging.getLogger(__name__)

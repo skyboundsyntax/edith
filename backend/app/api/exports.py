@@ -6,9 +6,14 @@ from fastapi import APIRouter, Depends, HTTPException, Query, Response
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
-from backend.app.db.database import get_db
-from backend.app.db.models import DataRecordModel
-from backend.app.services.export_service import export_service
+try:
+    from backend.app.db.database import get_db
+    from backend.app.db.models import DataRecordModel
+    from backend.app.services.export_service import export_service
+except (ImportError, ModuleNotFoundError):
+    from ..db.database import get_db
+    from ..db.models import DataRecordModel
+    from ..services.export_service import export_service
 
 router = APIRouter(prefix="/export", tags=["Export"])
 

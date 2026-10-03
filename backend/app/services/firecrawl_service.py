@@ -12,7 +12,10 @@ from typing import Dict, Any, List, Optional
 import httpx
 from bs4 import BeautifulSoup
 
-from backend.app.core.config import settings
+try:
+    from backend.app.core.config import settings
+except (ImportError, ModuleNotFoundError):
+    from ..core.config import settings
 
 logger = logging.getLogger("FirecrawlService")
 

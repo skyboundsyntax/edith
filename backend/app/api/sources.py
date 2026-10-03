@@ -6,8 +6,12 @@ from fastapi import APIRouter, HTTPException
 from typing import List, Dict, Any, Optional
 from pydantic import BaseModel
 
-from backend.app.sources.registry import source_registry
-from backend.app.services.firecrawl_service import firecrawl_service
+try:
+    from backend.app.sources.registry import source_registry
+    from backend.app.services.firecrawl_service import firecrawl_service
+except (ImportError, ModuleNotFoundError):
+    from ..sources.registry import source_registry
+    from ..services.firecrawl_service import firecrawl_service
 from ai_engine.jev_extractor import jev_extractor
 
 router = APIRouter(prefix="/sources", tags=["Sources"])

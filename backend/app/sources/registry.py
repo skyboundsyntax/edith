@@ -18,18 +18,32 @@ import logging
 from typing import Dict, List, Optional, Any
 from datetime import datetime, timezone
 
-from backend.app.sources.base import JobSourceConnector, SourceHealth
-from backend.app.sources.greenhouse_connector import GreenhouseConnector
-from backend.app.sources.lever_connector import LeverConnector
-from backend.app.sources.ashby_connector import AshbyConnector
-from backend.app.sources.jobicy_connector import JobicyConnector
-from backend.app.sources.arbeitnow_connector import ArbeitnowConnector
-from backend.app.sources.linkedin_connector import LinkedInConnector
-from backend.app.sources.remotive_connector import RemotiveConnector
-from backend.app.sources.remoteok_connector import RemoteOKConnector
-from backend.app.sources.himalayas_connector import HimalayasConnector
-from backend.app.sources.linkout_connector import LinkOutPlatformConnector
-from backend.app.sources.firecrawl_connector import FirecrawlConnector
+try:
+    from backend.app.sources.base import JobSourceConnector, SourceHealth
+    from backend.app.sources.greenhouse_connector import GreenhouseConnector
+    from backend.app.sources.lever_connector import LeverConnector
+    from backend.app.sources.ashby_connector import AshbyConnector
+    from backend.app.sources.jobicy_connector import JobicyConnector
+    from backend.app.sources.arbeitnow_connector import ArbeitnowConnector
+    from backend.app.sources.linkedin_connector import LinkedInConnector
+    from backend.app.sources.remotive_connector import RemotiveConnector
+    from backend.app.sources.remoteok_connector import RemoteOKConnector
+    from backend.app.sources.himalayas_connector import HimalayasConnector
+    from backend.app.sources.linkout_connector import LinkOutPlatformConnector
+    from backend.app.sources.firecrawl_connector import FirecrawlConnector
+except (ImportError, ModuleNotFoundError):
+    from .base import JobSourceConnector, SourceHealth
+    from .greenhouse_connector import GreenhouseConnector
+    from .lever_connector import LeverConnector
+    from .ashby_connector import AshbyConnector
+    from .jobicy_connector import JobicyConnector
+    from .arbeitnow_connector import ArbeitnowConnector
+    from .linkedin_connector import LinkedInConnector
+    from .remotive_connector import RemotiveConnector
+    from .remoteok_connector import RemoteOKConnector
+    from .himalayas_connector import HimalayasConnector
+    from .linkout_connector import LinkOutPlatformConnector
+    from .firecrawl_connector import FirecrawlConnector
 
 logger = logging.getLogger(__name__)
 

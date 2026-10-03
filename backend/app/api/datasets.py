@@ -2,13 +2,18 @@
 Dataset Querying and Provenance Traceability Endpoints (SDD Section 3).
 """
 from typing import List, Optional
-from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi import APIRouter, Depends, HTTPException
+
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 from sqlalchemy import or_
 
-from backend.app.db.database import get_db
-from backend.app.db.models import DataRecordModel
+try:
+    from backend.app.db.database import get_db
+    from backend.app.db.models import DataRecordModel
+except (ImportError, ModuleNotFoundError):
+    from ..db.database import get_db
+    from ..db.models import DataRecordModel
 
 router = APIRouter(prefix="/datasets", tags=["Datasets"])
 

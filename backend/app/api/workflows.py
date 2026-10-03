@@ -9,14 +9,22 @@ from fastapi import APIRouter, Depends, HTTPException, BackgroundTasks
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
-from backend.app.db.database import get_db, SessionLocal
-from backend.app.db.models import WorkflowModel, DataRecordModel
-from backend.app.websocket.ws_manager import ws_manager
-from backend.app.services.export_service import export_service
-from ai_engine.workflow_graph import DataIntelligenceWorkflow
+try:
+    from backend.app.db.database import get_db, SessionLocal
+    from backend.app.db.models import WorkflowModel, DataRecordModel
+    from backend.app.websocket.ws_manager import ws_manager
+    from backend.app.services.export_service import export_service
+    from backend.app.intelligence.query_planner import parse_job_query_to_spec, JobSearchSpecification
+    from backend.app.intelligence.orchestrator import run_job_ingestion_pipeline
+except (ImportError, ModuleNotFoundError):
+    from ..db.database import get_db, SessionLocal
+    from ..db.models import WorkflowModel, DataRecordModel
+    from ..websocket.ws_manager import ws_manager
+    from ..services.export_service import export_service
+    from ..intelligence.query_planner import parse_job_query_to_spec, JobSearchSpecification
+    from ..intelligence.orchestrator import run_job_ingestion_pipeline
 
-from backend.app.intelligence.query_planner import parse_job_query_to_spec, JobSearchSpecification
-from backend.app.intelligence.orchestrator import run_job_ingestion_pipeline
+from ai_engine.workflow_graph import DataIntelligenceWorkflow
 
 router = APIRouter(prefix="/workflows", tags=["Workflows"])
 

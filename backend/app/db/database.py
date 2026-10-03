@@ -3,7 +3,10 @@ Database Engine and Session Setup.
 """
 from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base, sessionmaker
-from backend.app.core.config import settings
+try:
+    from backend.app.core.config import settings
+except (ImportError, ModuleNotFoundError):
+    from ..core.config import settings
 
 engine = create_engine(
     settings.DATABASE_URL,
