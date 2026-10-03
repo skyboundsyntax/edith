@@ -305,12 +305,17 @@ def parse_job_query_to_spec(natural_language_prompt: str) -> JobSearchSpecificat
     # 8. Synthesize Dynamic Intent Parsing & Advanced Semantic Reasoning (Domain-Agnostic)
     p_low = prompt_lower
     domain_type = "TALENT_JOBS"
+    domain_cat = "Software Systems & Cloud Engineering"
+    isolated_role = detected_roles[0] if detected_roles else "Software Engineer"
+    comp_label = "Competitive Market Compensation"
+    exp_label = f"{int(exp_min or 0)}-{int(exp_max or 2)} Yrs Experience" if (exp_min is not None or exp_max is not None) else "0-2 Years / Entry-Level Accepted"
+    modality_label = "Online (Remote)" if remote_pref else ("Hybrid Work" if "hybrid" in p_low else ("Offline (On-site)" if detected_locations else "Flexible / Open"))
 
     # A. Check for Market Intelligence / Startup queries
     if any(k in p_low for k in ["startup", "startups", "seed", "seed-stage", "funded", "funding", "investor", "investors", "venture", "series a", "series b", "valuation", "unicorn"]):
         domain_type = "MARKET_DATA"
         domain_cat = "Market Intelligence & Venture Deals"
-        primary_role = "Seed-stage AI Startups" if "ai" in p_low else ("Funded Startups" if "startup" in p_low else isolated_role.title() or "Market Entity")
+        primary_role = "Seed-stage AI Startups" if "ai" in p_low else ("Funded Startups" if "startup" in p_low else (isolated_role.title() if isolated_role else "Market Entity"))
         comp_label = "Capital / Valuation (e.g. ₹10-25 Cr / $1.5-3.5M Seed Round)"
         exp_label = "Stage: Seed / Pre-Series A / Angel"
         modality_label = "Pan-India Venture Ecosystem" if "india" in p_low else "Global Market Entity"
@@ -345,7 +350,7 @@ def parse_job_query_to_spec(natural_language_prompt: str) -> JobSearchSpecificat
         domain_type = "TALENT_JOBS"
         domain_cat = "Creative Writing & Content Marketing"
         primary_role = "Copywriter" if "copywrit" in p_low else "Content Writer"
-        comp_label = comp_label if salary_min else "Gig / Campaign Compensation (e.g. ₹15,000 / day)"
+        comp_label = f"Target CTC: ₹{int(salary_min):,}+" if salary_min else "Gig / Campaign Compensation (e.g. ₹15,000 / day)"
         exp_label = "Portfolio & Commercial Samples Accepted"
         modality_label = "Online (Remote)" if remote_pref else "Remote / Flexible"
 
@@ -354,7 +359,7 @@ def parse_job_query_to_spec(natural_language_prompt: str) -> JobSearchSpecificat
         domain_type = "TALENT_JOBS"
         domain_cat = "Corporate Operations & Front Desk Administration"
         primary_role = "Receptionist" if "receptionist" in p_low else "Front Desk Executive"
-        comp_label = comp_label if salary_min else "Competitive Regional Package"
+        comp_label = f"Target CTC: ₹{int(salary_min):,}+" if salary_min else "Competitive Regional Package"
         exp_label = "Front Desk / Communication Experience"
         modality_label = "Offline (On-site)" if detected_locations else "On-site Corporate Hub"
 
@@ -363,6 +368,8 @@ def parse_job_query_to_spec(natural_language_prompt: str) -> JobSearchSpecificat
         domain_type = "TALENT_JOBS"
         domain_cat = "Software Systems & Cloud Engineering"
         primary_role = detected_roles[0] if detected_roles else "Software Engineer"
+        exp_label = f"{int(exp_min or 0)}-{int(exp_max or 2)} Yrs Experience" if (exp_min is not None or exp_max is not None) else "Entry-Level / Fresher to 2 Years"
+        comp_label = f"Target CTC: ₹{int(salary_min):,}+" if salary_min else "Competitive Engineering CTC"
         modality_label = "Online (Remote)" if remote_pref else ("Hybrid Work" if "hybrid" in p_low else ("Offline (On-site)" if detected_locations else "Flexible / Open"))
 
     # G. General Intelligence / Research

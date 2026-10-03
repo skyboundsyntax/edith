@@ -11,6 +11,7 @@ from typing import Dict, List, Optional, Any
 from datetime import datetime, timezone
 import re
 import html
+import urllib.parse
 from bs4 import BeautifulSoup
 
 from backend.app.sources.base import JobSourceConnector, SourceHealth, SourceCapabilities
@@ -53,7 +54,25 @@ class ArbeitnowConnector(JobSourceConnector):
         remote_allowed = query_spec.get("remote", False) or not any(l in ["on-site", "offline"] for l in target_locations)
         skills = query_spec.get("skills") or []
 
-        url = "https://www.arbeitnow.com/api/job-board-api"
+        roles = query_spec.get("roles") or []
+        skills = query_spec.get("skills") or []
+        keywords = query_spec.get("keywords") or []
+        raw_prompt = (query_spec.get("raw_prompt") or "").strip()
+
+        search_kw = ""
+        if skills:
+            search_kw = skills[0]
+        elif roles:
+            search_kw = roles[0].split()[0]
+        elif keywords:
+            search_kw = keywords[0]
+        elif raw_prompt:
+            search_kw = raw_prompt.split()[0]
+
+        if search_kw:
+            url = f"https://www.arbeitnow.com/api/job-board-api?search={urllib.parse.quote_plus(search_kw)}"
+        else:
+            url = "https://www.arbeitnow.com/api/job-board-api"
 
         try:
             async with httpx.AsyncClient(timeout=httpx.Timeout(8.0, connect=4.0)) as client:
@@ -81,7 +100,7 @@ class ArbeitnowConnector(JobSourceConnector):
                         continue
 
                     # 3. Location check
-                    effective_loc = f"{loc_raw} (Remote)" if is_remote else loc_raw
+                    effective_loc = "Remote" if is_remote else loc_raw
                     loc_matches, loc_pts = matches_location_preference(effective_loc, target_locations, remote_allowed)
                     if not loc_matches or loc_pts == 0:
                         continue

@@ -11,6 +11,7 @@ from typing import Dict, List, Optional, Any
 from datetime import datetime, timezone
 import re
 import html
+import urllib.parse
 from bs4 import BeautifulSoup
 
 from backend.app.sources.base import JobSourceConnector, SourceHealth, SourceCapabilities
@@ -47,8 +48,24 @@ class RemoteOKConnector(JobSourceConnector):
         target_locations = [l.lower() for l in (query_spec.get("locations") or [])]
         remote_allowed = query_spec.get("remote", False) or not any(l in ["on-site", "offline"] for l in target_locations)
         skills = query_spec.get("skills") or []
+        roles = query_spec.get("roles") or []
+        keywords = query_spec.get("keywords") or []
+        raw_prompt = (query_spec.get("raw_prompt") or "").strip()
 
-        url = "https://remoteok.com/api"
+        search_kw = ""
+        if skills:
+            search_kw = skills[0].lower()
+        elif roles:
+            search_kw = roles[0].split()[0].lower()
+        elif keywords:
+            search_kw = keywords[0].lower()
+        elif raw_prompt:
+            search_kw = raw_prompt.split()[0].lower()
+
+        if search_kw:
+            url = f"https://remoteok.com/api?tag={urllib.parse.quote_plus(search_kw)}"
+        else:
+            url = "https://remoteok.com/api"
 
         try:
             async with httpx.AsyncClient(timeout=httpx.Timeout(8.0, connect=4.0), headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"}) as client:

@@ -382,6 +382,21 @@ async def run_job_ingestion_pipeline(
 
         # Step 6: Persist into Database
         workflow = db.query(WorkflowModel).filter(WorkflowModel.id == workflow_id).first()
+        if not workflow:
+            workflow = WorkflowModel(
+                id=workflow_id,
+                prompt=query_spec.get("raw_prompt") or "Autonomous Job Search",
+                status="running",
+                confidence_threshold=confidence_threshold,
+                total_extracted=total_discovered,
+                total_deduplicated=len(scored_jobs),
+                duplicates_pruned=duplicates_pruned,
+                human_review_count=human_review_count,
+                sources_searched=sources_searched
+            )
+            db.add(workflow)
+            db.commit()
+
         if workflow:
             workflow.status = "completed"
             workflow.total_extracted = total_discovered
