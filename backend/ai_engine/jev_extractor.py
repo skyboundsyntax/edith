@@ -240,8 +240,9 @@ class JevDeterministicExtractor:
                     else:
                         job_title = job_title or first_line[:60]
 
-            job_title = job_title or f"Software Developer ({query.title()})"
-            company = company or "Verified Enterprise"
+            clean_q = re.sub(r'\b(jobs?|openings?|roles?|in|at|near|for|online|remote|across|india)\b', '', query, flags=re.IGNORECASE).strip()
+            job_title = job_title or (clean_q.title() if clean_q else "Job Opening")
+            company = company or "Verified Employer"
             location = location or "India / Remote"
             
             if not platform:
@@ -258,20 +259,41 @@ class JevDeterministicExtractor:
                 else:
                     platform = "Career Board"
 
-            # 2. Dynamic Skills Detection from Scraped Text
+            # 2. Dynamic Skills Detection from Scraped Text and Query Domain
             detected_skills = []
             for s in KNOWN_TECH_SKILLS:
                 if re.search(r'\b' + re.escape(s) + r'\b', text, re.IGNORECASE):
                     detected_skills.append(s)
 
-            # Deduplicate nested terms like 'REST' and 'REST APIs'
+            query_low = query.lower()
+            text_low = text.lower()
+            domain_skills_map = {
+                "game": ["Game Development", "Unity", "Unreal Engine", "C#", "C++", "3D Animation"],
+                "copywrit": ["Copywriting", "Content Writing", "SEO", "Creative Writing", "Editing"],
+                "content": ["Content Writing", "SEO", "Research", "Copywriting", "Editing"],
+                "project manager": ["Project Management", "Agile", "Scrum", "JIRA", "Budgeting"],
+                "project": ["Project Management", "Agile", "Scrum", "JIRA", "Planning"],
+                "reception": ["Front Desk", "Customer Service", "Office Administration", "Scheduling", "Communication"],
+                "front desk": ["Front Desk", "Visitor Management", "Communication", "MS Office"],
+                "data entry": ["Data Entry", "MS Excel", "Typing", "Accuracy", "Back Office"],
+                "account": ["Accounting", "Tally", "Financial Reporting", "Taxation", "Excel"],
+                "sales": ["B2B Sales", "Lead Generation", "Negotiation", "Client Relations"],
+                "marketing": ["Digital Marketing", "SEO", "Social Media", "Campaigns"],
+                "teach": ["Classroom Management", "Curriculum", "Teaching", "Communication"]
+            }
+            for d_key, d_skills in domain_skills_map.items():
+                if d_key in query_low or d_key in text_low or d_key in (job_title or "").lower():
+                    detected_skills.extend(d_skills[:3])
+
+            # Deduplicate nested terms
             cleaned_skills = []
             for s in detected_skills:
                 if not any(s.lower() != other.lower() and s.lower() in other.lower() for other in detected_skills):
                     cleaned_skills.append(s)
 
             if not cleaned_skills:
-                cleaned_skills = ["Software Engineering", "Problem Solving", "System Design"]
+                clean_q_toks = [t.title() for t in clean_q.split() if len(t) > 2]
+                cleaned_skills = clean_q_toks if clean_q_toks else ["Communication", "Problem Solving", "Professional Competency"]
 
             # 3. Dynamic Experience Detection
             exp_match = re.search(

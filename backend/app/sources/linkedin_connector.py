@@ -58,7 +58,8 @@ class LinkedInConnector(JobSourceConnector):
         elif keywords:
             kw_parts.extend(keywords[:2])
         else:
-            kw_parts.append("Software Engineer")
+            raw_p = (query_spec.get("raw_prompt") or "").strip()
+            kw_parts.append(raw_p or "Job Opening")
 
         search_kw = " ".join(kw_parts)
         raw_loc = locations[0] if locations else ("Remote" if query_spec.get("remote") else "India")
@@ -75,8 +76,18 @@ class LinkedInConnector(JobSourceConnector):
             search_loc = "Gurugram, Haryana, India"
         elif "delhi" in loc_low or "noida" in loc_low:
             search_loc = "Delhi NCR, India"
+        elif "orissa" in loc_low or "odisha" in loc_low or "bhubaneswar" in loc_low:
+            search_loc = "Odisha, India"
+        elif "kolkata" in loc_low:
+            search_loc = "Kolkata, West Bengal, India"
+        elif "chennai" in loc_low:
+            search_loc = "Chennai, Tamil Nadu, India"
+        elif "ahmedabad" in loc_low:
+            search_loc = "Ahmedabad, Gujarat, India"
+        elif "remote" in loc_low or "online" in loc_low:
+            search_loc = "Remote"
         else:
-            search_loc = raw_loc
+            search_loc = f"{raw_loc}, India" if "india" not in loc_low and not query_spec.get("remote") else raw_loc
 
         encoded_kw = urllib.parse.quote_plus(search_kw)
         encoded_loc = urllib.parse.quote_plus(search_loc)
@@ -143,8 +154,8 @@ class LinkedInConnector(JobSourceConnector):
                         continue
                     seen_ids.add(item["job_id"])
 
-                    # 1. Skip non-engineering online gigs
-                    if is_online_gig(item["title"], ""):
+                    # 1. Skip scam online gigs (respect user intent)
+                    if is_online_gig(item["title"], "", query_spec):
                         continue
 
                     # 2. Check role relevance with smart matcher
@@ -174,7 +185,7 @@ class LinkedInConnector(JobSourceConnector):
                         "description": desc,
                         "requirements": [],
                         "responsibilities": [],
-                        "skills": [s.title() for s in skills] if skills else ["Software Engineering", "Python"],
+                        "skills": [s.title() for s in skills] if skills else ([r.title() for r in roles] if roles else ["Professional Qualifications"]),
                         "technologies": [],
                         "location": loc_info["canonical_location"],
                         "city": loc_info.get("city") or item["loc_raw"].split(",")[0].strip(),

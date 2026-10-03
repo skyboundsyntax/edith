@@ -80,8 +80,8 @@ def score_job_match(job: Dict[str, Any], query_spec: Dict[str, Any], weights: Op
                 why_it_matches.append(f"✓ Target role match ({r.title()})")
                 break
             # Match significant words with word boundaries
-            stopwords = {"and", "for", "the", "role", "level", "engineer", "developer"} if len(r.split()) > 1 else {"and", "for"}
-            role_words = [w_tok for w_tok in re.findall(r'\b\w+\b', r) if len(w_tok) >= 2 and w_tok not in stopwords]
+            stopwords = {"and", "for", "the", "role", "level", "jobs", "job", "in", "at", "with", "a", "an"}
+            role_words = [w_tok for w_tok in re.findall(r'\b\w+\b', r) if len(w_tok) >= 3 and w_tok not in stopwords]
             if role_words and any(re.search(r'\b' + re.escape(w_tok) + r'\b', title) for w_tok in role_words):
                 role_matched = True
                 why_it_matches.append(f"✓ Target role match ({r.title()})")
@@ -93,14 +93,14 @@ def score_job_match(job: Dict[str, Any], query_spec: Dict[str, Any], weights: Op
         role_score = round(0.8 * w["role"])
     breakdown["role"] = {"score": role_score, "max": w["role"]}
 
-    # Online Gig / Non-tech check
+    # Online Gig check for software engineering queries
     all_query_terms = " ".join(
         [r.lower() for r in (query_spec.get("roles") or [])] +
         [s.lower() for s in (query_spec.get("skills") or [])] +
         [k.lower() for k in (query_spec.get("keywords") or [])]
     )
     is_tech_search = any(re.search(r'\b' + kw + r'\b', all_query_terms) for kw in ["software", "engineer", "developer", "ai", "ml", "python", "data", "frontend", "backend", "fullstack"])
-    if is_tech_search and is_online_gig(title, description):
+    if is_tech_search and is_online_gig(title, description, query_spec):
         potential_gaps.append("⚠ Flagged as non-engineering / online rating gig")
         breakdown["role"] = {"score": 0, "max": w["role"]}
         breakdown["skills"] = {"score": min(breakdown["skills"]["score"], 5), "max": w["skills"]}

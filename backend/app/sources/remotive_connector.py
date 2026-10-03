@@ -66,8 +66,8 @@ class RemotiveConnector(JobSourceConnector):
                     clean_desc = BeautifulSoup(raw_desc, "html.parser").get_text(separator="\n", strip=True) if raw_desc else ""
                     candidate_loc = item.get("candidate_required_location") or "Worldwide"
 
-                    # 1. Skip non-engineering online gigs
-                    if is_online_gig(title, clean_desc):
+                    # 1. Skip scam online gigs (respect user intent)
+                    if is_online_gig(title, clean_desc, query_spec):
                         continue
 
                     # 2. Check role relevance with flexible matcher
@@ -91,7 +91,7 @@ class RemotiveConnector(JobSourceConnector):
                     title_lower = title.lower()
                     matched_skills = [s.title() for s in skills if s.lower() in title_lower]
                     if not matched_skills:
-                        matched_skills = [s.title() for s in item.get("tags", [])][:4] or ["Python", "Engineering"]
+                        matched_skills = [s.title() for s in item.get("tags", [])][:4] or ([s.title() for s in skills[:3]] if skills else [title.split()[0].title()])
 
                     canonical_job = {
                         "id": f"rem_{job_id}",

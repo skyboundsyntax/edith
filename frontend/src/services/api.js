@@ -125,7 +125,7 @@ export const api = {
     return res.json();
   },
 
-  async scrapeUrlWithFirecrawl(url, query = 'Software Engineer') {
+  async scrapeUrlWithFirecrawl(url, query = '') {
     const res = await fetchWithTimeout(`${API_BASE}/sources/scrape`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

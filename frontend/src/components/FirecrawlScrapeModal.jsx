@@ -4,7 +4,7 @@ import { api } from '../services/api';
 
 export default function FirecrawlScrapeModal({ isOpen, onClose, onJobExtracted }) {
   const [url, setUrl] = useState('');
-  const [query, setQuery] = useState('Software Engineer');
+  const [query, setQuery] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [result, setResult] = useState(null);
@@ -20,7 +20,7 @@ export default function FirecrawlScrapeModal({ isOpen, onClose, onJobExtracted }
     setResult(null);
 
     try {
-      const data = await api.scrapeUrlWithFirecrawl(url.trim(), query);
+      const data = await api.scrapeUrlWithFirecrawl(url.trim(), query.trim());
       setResult(data);
       if (data.records && data.records.length > 0 && onJobExtracted) {
         onJobExtracted(data.records[0]);
@@ -88,6 +88,20 @@ export default function FirecrawlScrapeModal({ isOpen, onClose, onJobExtracted }
                     <span>{isLoading ? 'Scraping...' : 'Scrape & Audit'}</span>
                   </button>
                 </div>
+              </div>
+
+              <div>
+                <label style={{ fontSize: '0.78rem', fontWeight: 600, color: 'var(--text-secondary)', display: 'block', marginBottom: '0.35rem' }}>
+                  Target Role / Query Context (Optional):
+                </label>
+                <input
+                  type="text"
+                  className="prompt-input"
+                  placeholder="e.g. Game Developer, Copywriter, Receptionist, Project Manager..."
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  style={{ width: '100%', padding: '0.55rem 0.85rem', fontSize: '0.82rem' }}
+                />
               </div>
 
               {/* Sample Presets */}

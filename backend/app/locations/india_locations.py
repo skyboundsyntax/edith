@@ -95,6 +95,12 @@ INDIAN_TECH_HUBS = {
         "state": "Tamil Nadu",
         "country": "India",
         "aliases": ["coimbatore", "saravanampatti", "peelamedu"]
+    },
+    "odisha": {
+        "canonical": "Odisha / Orissa",
+        "state": "Odisha",
+        "country": "India",
+        "aliases": ["odisha", "orissa", "bhubaneswar", "cuttack", "rourkela", "puri", "sambalpur"]
     }
 }
 
@@ -193,11 +199,19 @@ FOREIGN_COMPILED = re.compile(r'\b(?:' + '|'.join(re.escape(a) for a in sorted_f
 _LOCATION_CACHE: Dict[str, Dict[str, Any]] = {}
 
 
-def is_online_gig(title: str, description: str = "") -> bool:
+def is_online_gig(title: str, description: str = "", query_spec: Optional[Dict[str, Any]] = None) -> bool:
     """
-    Detects low-quality microtasks, crowdwork, content rating, online language training,
-    or non-engineering online tasks that should not masquerade as tech/developer jobs.
+    Detects low-quality microtasks or scam surveys.
+    Never flags jobs if the user explicitly searched for writing, education, administration, or customer support.
     """
+    if query_spec:
+        roles = [r.lower() for r in (query_spec.get("roles") or [])]
+        keywords = [k.lower() for k in (query_spec.get("keywords") or [])]
+        query_all = " ".join(roles + keywords)
+        # Never filter out roles the user specifically requested
+        if any(w in query_all for w in ["data entry", "tutor", "teacher", "transcription", "content", "writer", "writing", "copywriting", "copywriter", "receptionist", "assistant", "call center"]):
+            return False
+
     if title and GIG_TITLE_COMPILED.search(title):
         return True
     if description and GIG_DESC_COMPILED.search(description):

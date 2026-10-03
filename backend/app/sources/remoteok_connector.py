@@ -70,8 +70,8 @@ class RemoteOKConnector(JobSourceConnector):
                     loc_raw = item.get("location") or "Worldwide (Remote)"
                     desc_raw = item.get("description", "")
 
-                    # 1. Skip non-engineering online gigs
-                    if is_online_gig(title, desc_raw):
+                    # 1. Skip scam online gigs (respect user intent)
+                    if is_online_gig(title, desc_raw, query_spec):
                         continue
 
                     # 2. Check role relevance with flexible matcher
@@ -113,7 +113,8 @@ class RemoteOKConnector(JobSourceConnector):
                     title_lower = title.lower()
                     matched_skills = [s.title() for s in skills if s.lower() in title_lower]
                     if not matched_skills:
-                        matched_skills = [t.title() for t in tags[:4] if t not in ["dev", "engineer", "remote"]] or ["Software Engineering"]
+                        tag_skills = [t.title() for t in tags[:4] if t.lower() not in ["dev", "engineer", "remote", "job", "jobs"]]
+                        matched_skills = tag_skills or ([s.title() for s in skills[:3]] if skills else [title.split()[0].title()])
 
                     clean_desc = clean_html_snippet(desc_raw)
                     canonical_job = {

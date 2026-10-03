@@ -17,7 +17,10 @@ logger = logging.getLogger("SourceDiscovery")
 
 KNOWN_LOCATIONS = [
     "bangalore", "bengaluru", "hyderabad", "pune", "mumbai", "delhi", "noida", 
-    "gurgaon", "gurugram", "chennai", "kolkata", "ahmedabad", "india", "remote", 
+    "gurgaon", "gurugram", "chennai", "kolkata", "ahmedabad", "india", "remote",
+    "odisha", "orissa", "bhubaneswar", "cuttack", "chandigarh", "jaipur", "lucknow",
+    "indore", "kochi", "nagpur", "surat", "vadodara", "visakhapatnam", "vizag",
+    "patna", "bhopal", "mysore", "dehradun", "online",
     "usa", "united states", "san francisco", "new york", "london", "uk", "germany", 
     "berlin", "canada", "toronto", "singapore", "australia", "europe"
 ]
@@ -26,7 +29,8 @@ JOB_KEYWORDS = [
     "job", "jobs", "opening", "openings", "vacancy", "vacancies", "career", "careers", 
     "hiring", "naukri", "indeed", "linkedin", "internship", "internships", "recruitment", 
     "developer", "engineer", "frontend", "backend", "full-stack", "fullstack", "devops", 
-    "data scientist", "data engineer", "analyst", "product manager", "sde"
+    "data scientist", "data engineer", "analyst", "product manager", "sde", "copywriter",
+    "copywriting", "receptionist", "assistant", "manager", "writer", "designer", "sales", "executive"
 ]
 
 BROWSER_HEADERS = {
@@ -71,7 +75,7 @@ class SourceDiscovery:
         ]
         keywords = " ".join(cleaned_words).strip()
         if not keywords:
-            keywords = "Software Engineer"
+            keywords = query.strip() or "Job Opening"
             
         return keywords, location
 
@@ -138,7 +142,7 @@ class SourceDiscovery:
                 if resp.status_code == 200:
                     jobs = resp.json().get("jobs", [])
                     for j in jobs[:max_results]:
-                        title = j.get("jobTitle", "Software Engineer")
+                        title = j.get("jobTitle") or keywords.title() or "Job Opening"
                         company = j.get("companyName", "Tech Innovator")
                         location = j.get("jobGeo", "Remote")
                         job_url = j.get("url", "")
@@ -170,7 +174,7 @@ class SourceDiscovery:
 
     async def _scrape_arbeitnow_live(self, keywords: str, max_results: int = 3) -> List[Dict[str, Any]]:
         """
-        Scrapes real-time global tech openings from Arbeitnow API.
+        Scrapes real-time global openings from Arbeitnow API.
         """
         results = []
         try:
@@ -180,7 +184,7 @@ class SourceDiscovery:
                 if resp.status_code == 200:
                     jobs = resp.json().get("data", [])
                     for j in jobs[:max_results]:
-                        title = j.get("title", "Software Developer")
+                        title = j.get("title") or keywords.title() or "Job Opening"
                         company = j.get("company_name", "Tech Organization")
                         location = j.get("location", "Global / Remote")
                         job_url = j.get("url", "")
@@ -191,7 +195,7 @@ class SourceDiscovery:
                             "url": job_url,
                             "title": f"{title} - {company}",
                             "content": clean_desc[:400],
-                            "source": "Arbeitnow Tech",
+                            "source": "Arbeitnow",
                             "metadata": {
                                 "job_title": title,
                                 "company": company,
@@ -210,7 +214,8 @@ class SourceDiscovery:
         Executes live multi-portal scraping based on the search query.
         Prioritizes real-time live scrapers across LinkedIn, Jobicy, and Arbeitnow.
         """
-        is_job_query = any(w in query.lower() for w in JOB_KEYWORDS)
+        # In EDITH, all user discovery prompts are treated as candidate job queries
+        is_job_query = True
         
         if is_job_query:
             keywords, location = self._extract_job_search_params(query)

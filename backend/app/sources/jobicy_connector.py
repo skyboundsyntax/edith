@@ -68,8 +68,8 @@ class JobicyConnector(JobSourceConnector):
                     elif not isinstance(job_geo, str):
                         job_geo = str(job_geo or "Anywhere")
 
-                    # 1. Skip non-engineering online gigs
-                    if is_online_gig(title, job_excerpt):
+                    # 1. Skip scam online gigs (respect user intent)
+                    if is_online_gig(title, job_excerpt, query_spec):
                         continue
 
                     # 2. Check role relevance with flexible matcher
@@ -115,9 +115,9 @@ class JobicyConnector(JobSourceConnector):
                         employment_type = str(job_type_raw or "full-time").lower()
 
                     title_lower = title.lower()
-                    matched_skills = [s.title() for s in skills if s.lower() in title_lower]
+                    matched_skills = [s.title() for s in skills if s.lower() in title_lower or s.lower() in job_excerpt.lower()]
                     if not matched_skills:
-                        matched_skills = ["Software Engineering", "Python", "Cloud"]
+                        matched_skills = [s.title() for s in skills[:3]] if skills else [title.split()[0].title(), "Communication"]
 
                     canonical_job = {
                         "id": f"jby_{job_id}",

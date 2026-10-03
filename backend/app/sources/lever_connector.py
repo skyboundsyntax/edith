@@ -64,8 +64,8 @@ class LeverConnector(JobSourceConnector):
                     commitment = categories.get("commitment") or "Full-time"
                     loc_raw = categories.get("location") or ""
 
-                    # 1. Skip non-engineering online gigs
-                    if is_online_gig(title, ""):
+                    # 1. Skip scam online gigs (respect user intent)
+                    if is_online_gig(title, "", query_spec):
                         continue
 
                     # 2. Relevancy check: flexible role matcher
@@ -93,7 +93,7 @@ class LeverConnector(JobSourceConnector):
                     title_lower = title.lower()
                     matched_skills = [s.title() for s in skills if s.lower() in title_lower]
                     if not matched_skills:
-                        matched_skills = ["Software Engineering", "Backend"]
+                        matched_skills = [s.title() for s in skills[:3]] if skills else [title.split()[0].title(), "Teamwork"]
 
                     canonical_job = {
                         "id": f"lev_{company_token}_{job_id}",

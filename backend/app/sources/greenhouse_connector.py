@@ -70,11 +70,11 @@ class GreenhouseConnector(JobSourceConnector):
                     departments = item.get("departments", [])
                     dept_name = departments[0].get("name", "") if departments else ""
 
-                    # 1. Skip non-engineering online gigs
-                    if is_online_gig(title, ""):
+                    # 1. Skip scam online gigs (respect user intent)
+                    if is_online_gig(title, "", query_spec):
                         continue
 
-                    # 2. Relevancy check: flexible matching across roles, skills, engineering domains
+                    # 2. Relevancy check: flexible matching across roles, skills, domains
                     if not is_matching_role(title, query_spec, department=dept_name):
                         continue
 
@@ -96,7 +96,7 @@ class GreenhouseConnector(JobSourceConnector):
                     title_lower = title.lower()
                     matched_skills = [s.title() for s in skills if s.lower() in title_lower]
                     if not matched_skills:
-                        matched_skills = ["Software Engineering", "Systems Architecture"]
+                        matched_skills = [s.title() for s in skills[:3]] if skills else [title.split()[0].title(), "Problem Solving"]
 
                     canonical_job = {
                         "id": f"gh_{board_token}_{job_id}",

@@ -21,7 +21,7 @@ router = APIRouter(prefix="/sources", tags=["Sources"])
 
 class ScrapeUrlRequest(BaseModel):
     url: str
-    query: Optional[str] = "Software Engineer"
+    query: Optional[str] = None
     extract_with_jev: bool = True
 
 class FirecrawlSearchRequest(BaseModel):

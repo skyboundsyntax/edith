@@ -62,8 +62,8 @@ class AshbyConnector(JobSourceConnector):
                     title = item.get("title", "")
                     dept = item.get("department") or ""
 
-                    # 1. Skip non-engineering online gigs
-                    if is_online_gig(title, ""):
+                    # 1. Skip scam online gigs (respect user intent)
+                    if is_online_gig(title, "", query_spec):
                         continue
 
                     # 2. Relevancy check: flexible role matching
@@ -90,7 +90,7 @@ class AshbyConnector(JobSourceConnector):
                     title_lower = title.lower()
                     matched_skills = [s.title() for s in skills if s.lower() in title_lower]
                     if not matched_skills:
-                        matched_skills = ["Software Engineering", "Full Stack"]
+                        matched_skills = [s.title() for s in skills[:3]] if skills else [title.split()[0].title(), "Execution"]
 
                     canonical_job = {
                         "id": f"ash_{org_token}_{job_id}",
@@ -120,7 +120,7 @@ class AshbyConnector(JobSourceConnector):
                         "salary_max": None,
                         "salary_currency": "INR",
                         "salary_period": "year",
-                        "education": "Relevant software engineering experience or technical degree",
+                        "education": query_spec.get("education_level") or "Relevant industry experience or degree",
                         "date_posted": published_at,
                         "date_updated": published_at,
                         "first_seen_at": now_iso,

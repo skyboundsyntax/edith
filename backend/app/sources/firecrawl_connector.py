@@ -48,10 +48,19 @@ class FirecrawlConnector(JobSourceConnector):
         locations = query_spec.get("locations") or []
         keywords = query_spec.get("keywords") or []
 
-        # Construct high-intent job search query
-        role_term = roles[0] if roles else ("Software Engineer" if not skills else skills[0])
-        loc_term = locations[0] if locations else ("Remote" if query_spec.get("remote") else "India")
-        search_query = f"{role_term} jobs in {loc_term}"
+        # Construct high-intent search query preserving whatever the user requested
+        raw_prompt = (query_spec.get("raw_prompt") or "").strip()
+        role_term = roles[0] if roles else (keywords[0] if keywords else (raw_prompt or "Job Openings"))
+        loc_term = locations[0] if locations else ("Remote" if query_spec.get("remote") else "")
+
+        # Build natural web search query
+        query_parts = [role_term]
+        if query_spec.get("remote") and "remote" not in role_term.lower() and "online" not in role_term.lower():
+            query_parts.append("remote online")
+        if loc_term and loc_term.lower() not in role_term.lower() and loc_term.lower() not in ["remote", "online"]:
+            query_parts.append(f"in {loc_term}")
+
+        search_query = f"{' '.join(query_parts)} jobs".strip()
 
         try:
             # 1. Scrape web openings via Firecrawl search if configured
@@ -69,15 +78,15 @@ class FirecrawlConnector(JobSourceConnector):
                             "source_url": doc.get("url"),
                             "apply_url": j_url,
                             "title": j.get("title") or role_term.title(),
-                            "company": j.get("company") or "Tech Enterprise",
+                            "company": j.get("company") or "Verified Employer",
                             "company_url": "",
                             "company_domain": urllib.parse.urlparse(j_url).netloc if j_url else "career-portal.com",
-                            "location": j.get("location") or loc_term.title(),
-                            "city": loc_term.title() if loc_term.lower() != "remote" else None,
+                            "location": j.get("location") or (loc_term.title() if loc_term else "Online / Remote"),
+                            "city": loc_term.title() if loc_term and loc_term.lower() not in ["remote", "online"] else None,
                             "state": None,
-                            "country": "India" if "india" in loc_term.lower() else "Global",
-                            "remote_type": "remote" if "remote" in loc_term.lower() else "on-site",
-                            "employment_type": "full-time",
+                            "country": "India" if ("india" in loc_term.lower() or "orissa" in loc_term.lower() or "pune" in loc_term.lower()) else "Global",
+                            "remote_type": "remote" if (query_spec.get("remote") or "remote" in loc_term.lower()) else "on-site",
+                            "employment_type": query_spec.get("employment_types", ["full-time"])[0].lower(),
                             "description": j.get("description") or doc.get("content", "")[:600],
                             "requirements": j.get("skills", []),
                             "responsibilities": [],

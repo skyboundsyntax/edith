@@ -67,8 +67,8 @@ class HimalayasConnector(JobSourceConnector):
                     loc_raw = ", ".join(loc_restrictions) if loc_restrictions else "Worldwide (Remote)"
                     desc_raw = item.get("description", "") or item.get("excerpt", "")
 
-                    # 1. Skip non-engineering online gigs
-                    if is_online_gig(title, desc_raw):
+                    # 1. Skip scam online gigs (respect user intent)
+                    if is_online_gig(title, desc_raw, query_spec):
                         continue
 
                     # 2. Check role relevance with flexible matcher
@@ -106,7 +106,8 @@ class HimalayasConnector(JobSourceConnector):
                     title_lower = title.lower()
                     matched_skills = [s.title() for s in skills if s.lower() in title_lower]
                     if not matched_skills:
-                        matched_skills = [c.title() for c in categories[:4] if c not in ["software engineering", "engineering"]] or ["Software Engineering"]
+                        cat_skills = [c.title() for c in categories[:4] if c.lower() not in ["engineering", "jobs", "job", "remote"]]
+                        matched_skills = cat_skills or ([s.title() for s in skills[:3]] if skills else [title.split()[0].title()])
 
                     clean_desc = clean_html_snippet(desc_raw)
                     canonical_job = {
@@ -137,7 +138,7 @@ class HimalayasConnector(JobSourceConnector):
                         "salary_max": salary_max,
                         "salary_currency": item.get("currency") or "USD",
                         "salary_period": item.get("salaryPeriod") or "year",
-                        "education": "Relevant software engineering experience",
+                        "education": query_spec.get("education_level") or "Relevant professional experience",
                         "date_posted": pub_date,
                         "date_updated": pub_date,
                         "first_seen_at": now_iso,

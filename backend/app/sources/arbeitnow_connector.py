@@ -72,8 +72,8 @@ class ArbeitnowConnector(JobSourceConnector):
                     tags = [t.lower() for t in item.get("tags", [])]
                     desc_raw = item.get("description", "")
 
-                    # 1. Skip non-engineering online gigs
-                    if is_online_gig(title, desc_raw):
+                    # 1. Skip scam online gigs (respect user intent)
+                    if is_online_gig(title, desc_raw, query_spec):
                         continue
 
                     # 2. Check role relevance with flexible matcher
@@ -102,7 +102,7 @@ class ArbeitnowConnector(JobSourceConnector):
                     title_lower = title.lower()
                     matched_skills = [s.title() for s in skills if s.lower() in title_lower]
                     if not matched_skills:
-                        matched_skills = [t.title() for t in tags[:4]] or ["Python", "Engineering"]
+                        matched_skills = [t.title() for t in tags[:4] if t.lower() not in ["jobs", "job", "remote"]] or ([s.title() for s in skills[:3]] if skills else [title.split()[0].title()])
 
                     canonical_job = {
                         "id": f"abn_{job_id[:24]}",
