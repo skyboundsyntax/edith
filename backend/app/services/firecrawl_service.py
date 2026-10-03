@@ -215,7 +215,7 @@ class FirecrawlService:
 
         try:
             headers = {"Authorization": f"Bearer {self.api_key.strip()}"}
-            async with httpx.AsyncClient(timeout=4.5) as client:
+            async with httpx.AsyncClient(timeout=8.0) as client:
                 resp = await client.get(f"{self.api_url}/v1/team/credit-usage", headers=headers)
                 latency = int((time.time() - t0) * 1000)
                 if resp.status_code == 200:

@@ -101,3 +101,15 @@ async def search_firecrawl(req: FirecrawlSearchRequest) -> Dict[str, Any]:
         "jev_extracted_jobs": len(all_jobs),
         "jobs": all_jobs
     }
+
+@router.get("/firecrawl/status")
+async def get_firecrawl_status() -> Dict[str, Any]:
+    """
+    Returns Firecrawl API connectivity and credit usage status.
+    """
+    status_info = await firecrawl_service.health_check()
+    return {
+        "status": "success",
+        "firecrawl": status_info
+    }
+
