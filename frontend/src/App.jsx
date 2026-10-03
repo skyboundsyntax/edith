@@ -13,8 +13,9 @@ import DataGrid from './components/DataGrid';
 import SourceDrawer from './components/SourceDrawer';
 import WorkflowHistoryModal from './components/WorkflowHistoryModal';
 import SourceHealthModal from './components/SourceHealthModal';
+import FirecrawlScrapeModal from './components/FirecrawlScrapeModal';
 import { api } from './services/api';
-import { Award, ShieldCheck, Activity, Play, Sliders, LayoutGrid, List, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Award, ShieldCheck, Activity, Play, Sliders, LayoutGrid, List, CheckCircle2, AlertCircle, Globe, Sparkles } from 'lucide-react';
 import { sanitizeSearchQuery } from './utils/urlValidator';
 import { extractSalaryQuery, matchesSalaryBracket } from './utils/currencyFormatter';
 import {
@@ -129,6 +130,7 @@ export default function App() {
   const [inspectRecordId, setInspectRecordId] = useState(null);
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
   const [isSourceHealthOpen, setIsSourceHealthOpen] = useState(false);
+  const [isFirecrawlModalOpen, setIsFirecrawlModalOpen] = useState(false);
   const [isLoadingInitial, setIsLoadingInitial] = useState(true);
 
   const socketRef = useRef(null);
@@ -596,6 +598,35 @@ export default function App() {
                         (Flag job listings below {confidenceThreshold}% for unverified CTC, stale posting, or suspect recruiter)
                       </span>
                     </div>
+
+                    {/* Direct Firecrawl URL Scraper Trigger */}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
+                      <span className="badge" style={{ background: 'rgba(249, 115, 22, 0.12)', color: '#fb923c', border: '1px solid rgba(249, 115, 22, 0.3)', fontSize: '0.7rem', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                        <span className="pulse-dot" style={{ background: '#f97316' }} />
+                        Firecrawl Scraper: Online
+                      </span>
+                      <button
+                        type="button"
+                        className="btn btn-secondary"
+                        onClick={() => setIsFirecrawlModalOpen(true)}
+                        style={{
+                          padding: '0.32rem 0.75rem',
+                          fontSize: '0.75rem',
+                          borderRadius: '8px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '0.35rem',
+                          border: '1px solid rgba(249, 115, 22, 0.4)',
+                          color: '#fb923c',
+                          background: 'rgba(249, 115, 22, 0.08)',
+                          cursor: 'pointer'
+                        }}
+                        title="Scrape and extract any individual web job posting URL with Firecrawl"
+                      >
+                        <Globe size={13} />
+                        <span>Direct URL Scraper</span>
+                      </button>
+                    </div>
                   </div>
                 </form>
               </section>
@@ -830,6 +861,42 @@ export default function App() {
       <SourceHealthModal
         isOpen={isSourceHealthOpen}
         onClose={() => setIsSourceHealthOpen(false)}
+      />
+
+      <FirecrawlScrapeModal
+        isOpen={isFirecrawlModalOpen}
+        onClose={() => setIsFirecrawlModalOpen(false)}
+        onJobExtracted={(job) => {
+          showToast(`Successfully extracted "${job.title || 'Job'}" via Firecrawl & Jev!`, 'success');
+          if (job && activeWorkflow) {
+            setRecords((prev) => [
+              {
+                id: job.id || `fc_${Date.now()}`,
+                workflow_id: activeWorkflow.id,
+                entity_name: 'JobOpening',
+                data: {
+                  job_title: job.title,
+                  company: job.company,
+                  location: job.location,
+                  salary_range: job.salary_range || 'Competitive Market CTC',
+                  skills: job.skills || [],
+                  work_modality: 'Online',
+                  modality_detail: 'Online (Remote)',
+                  platform_source: 'Firecrawl Web Scraper',
+                  apply_url: job.apply_url || job.source_url
+                },
+                confidence_score: job.confidence_score || 88.5,
+                confidence_breakdown: job.confidence_breakdown || {},
+                human_review_required: job.human_review_required || false,
+                source_url: job.source_url || job.apply_url,
+                source_title: job.title,
+                extracted_timestamp: new Date().toISOString(),
+                raw_snippet: job.raw_snippet || ''
+              },
+              ...prev
+            ]);
+          }
+        }}
       />
 
       {/* Non-blocking Resilience Toast Dock */}

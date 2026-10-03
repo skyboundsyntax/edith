@@ -88,7 +88,7 @@ class SourcePolicyRegistry:
 
     def get_live_connectors(self) -> List[JobSourceConnector]:
         """Returns connectors with automated real-time fetching capabilities."""
-        return [c for c in self.connectors.values() if c.access_method in ["PUBLIC_API", "PUBLIC_FEED", "PUBLIC_CAREER_PAGE"] and c.enabled]
+        return [c for c in self.connectors.values() if c.access_method in ["PUBLIC_API", "PUBLIC_FEED", "PUBLIC_CAREER_PAGE", "WEB_SCRAPER"] and c.enabled]
 
     def get_linkout_connectors(self) -> List[JobSourceConnector]:
         """Returns platforms treated as link-out only (never produce fake jobs)."""

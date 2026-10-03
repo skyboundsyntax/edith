@@ -138,7 +138,7 @@ async def run_job_ingestion_pipeline(
             async with sem:
                 await emit("source_started", {"source": c_name, "domain": connector.domain, "access_method": connector.access_method})
                 try:
-                    jobs = await asyncio.wait_for(connector.search(query_spec), timeout=12.0)
+                    jobs = await asyncio.wait_for(connector.search(query_spec), timeout=18.0)
                     duration_ms = int((time.time() - t0) * 1000)
                     await emit("jobs_found", {"source": c_name, "count": len(jobs), "duration_ms": duration_ms})
                     await emit("source_completed", {"source": c_name, "count": len(jobs), "duration_ms": duration_ms, "status": "success"})

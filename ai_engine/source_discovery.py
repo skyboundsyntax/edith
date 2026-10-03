@@ -224,8 +224,18 @@ class SourceDiscovery:
             results = []
             results.extend(linkedin_results)
             results.extend(jobicy_results)
-            
-            if len(results) < 3:
+
+            # Firecrawl live web search & scraping
+            try:
+                from backend.app.services.firecrawl_service import firecrawl_service
+                if firecrawl_service.is_configured:
+                    fc_query = f"{keywords} jobs in {location}"
+                    fc_docs = await firecrawl_service.search(fc_query, limit=4)
+                    results.extend(fc_docs)
+            except Exception as e:
+                logger.warning(f"Firecrawl search in SourceDiscovery notice: {e}")
+
+            if len(results) < 4:
                 arbeit_results = await self._scrape_arbeitnow_live(keywords, max_results=3)
                 results.extend(arbeit_results)
                 
