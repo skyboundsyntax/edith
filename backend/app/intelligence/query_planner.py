@@ -363,7 +363,16 @@ def parse_job_query_to_spec(natural_language_prompt: str) -> JobSearchSpecificat
         exp_label = "Front Desk / Communication Experience"
         modality_label = "Offline (On-site)" if detected_locations else "On-site Corporate Hub"
 
-    # F. Check for Software Systems & Tech Engineering
+    # F. Check for Game Development & Interactive Entertainment
+    elif any(k in p_low for k in ["game developer", "game dev", "game designer", "unity developer", "unreal developer"]):
+        domain_type = "TALENT_JOBS"
+        domain_cat = "Game Development & Interactive Entertainment"
+        primary_role = detected_roles[0] if detected_roles else "Game Developer"
+        comp_label = f"Target CTC: ₹{int(salary_min):,}+" if salary_min else "Competitive Game Development Compensation"
+        exp_label = "Game Development Experience"
+        modality_label = "Online (Remote)" if remote_pref else ("Hybrid Work" if "hybrid" in p_low else ("Offline (On-site)" if detected_locations else "Flexible / Open"))
+
+    # G. Check for Software Systems & Tech Engineering
     elif any(k in p_low for k in ["python", "java", "react", "frontend", "backend", "full stack", "fullstack", "devops", "cloud", "engineer", "developer", "software", "ai", "machine learning"]):
         domain_type = "TALENT_JOBS"
         domain_cat = "Software Systems & Cloud Engineering"
@@ -372,7 +381,16 @@ def parse_job_query_to_spec(natural_language_prompt: str) -> JobSearchSpecificat
         comp_label = f"Target CTC: ₹{int(salary_min):,}+" if salary_min else "Competitive Engineering CTC"
         modality_label = "Online (Remote)" if remote_pref else ("Hybrid Work" if "hybrid" in p_low else ("Offline (On-site)" if detected_locations else "Flexible / Open"))
 
-    # G. General Intelligence / Research
+    # H. Unclassified job titles are still job searches when the user says so.
+    elif re.search(r"\b(?:jobs?|careers?|vacanc(?:y|ies)|openings?|positions?|roles?|hiring)\b", p_low):
+        domain_type = "TALENT_JOBS"
+        domain_cat = "Professional Jobs & Careers"
+        primary_role = detected_roles[0] if detected_roles else "Job Opening"
+        comp_label = f"Target CTC: ₹{int(salary_min):,}+" if salary_min else "Competitive Market Compensation"
+        exp_label = f"{int(exp_min or 0)}-{int(exp_max)} Yrs Experience" if exp_max is not None else "Experience as specified by employer"
+        modality_label = "Online (Remote)" if remote_pref else ("Hybrid Work" if "hybrid" in p_low else ("Offline (On-site)" if detected_locations else "Flexible / Open"))
+
+    # I. General Intelligence / Research
     else:
         domain_type = "GENERAL_INTELLIGENCE"
         domain_cat = "Autonomous Web & Market Intelligence"
@@ -528,5 +546,4 @@ def parse_job_query_to_spec(natural_language_prompt: str) -> JobSearchSpecificat
         intent_parsing=intent_dict,
         semantic_reasoning=reasoning_dict
     )
-
 

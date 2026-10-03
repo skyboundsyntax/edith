@@ -15,6 +15,7 @@ import re
 from backend.app.sources.registry import source_registry
 from backend.app.intelligence.deduplicator import deduplicate_jobs
 from backend.app.intelligence.match_scorer import score_job_match
+from backend.app.intelligence.role_matcher import is_matching_role
 from backend.app.db.database import SessionLocal
 from backend.app.db.models import WorkflowModel, DataRecordModel, JobModel
 from backend.app.locations.india_locations import normalize_location, matches_location_preference, is_online_gig
@@ -218,12 +219,13 @@ async def run_job_ingestion_pipeline(
         # Step 4: Validation & Liveness & Localization Filtering
         validated_jobs = []
         expired_count = 0
+        role_excluded_count = 0
         geo_excluded_count = 0
         gig_excluded_count = 0
         sal_excluded_count = 0
 
         target_locs = query_spec.get("locations") or []
-        remote_allowed = query_spec.get("remote", False) or not any(l in ["on-site", "offline", "onsite"] for l in target_locs)
+        remote_allowed = bool(query_spec.get("remote", False))
         target_sal_min = query_spec.get("salary_min")
         target_sal_max = query_spec.get("salary_max")
 
@@ -242,6 +244,10 @@ async def run_job_ingestion_pipeline(
 
             title = job.get("title") or ""
             desc = job.get("description") or ""
+
+            if not is_matching_role(title, query_spec, description=desc):
+                role_excluded_count += 1
+                continue
 
             # Online non-tech gig filter
             if is_tech_search and is_online_gig(title, desc):
@@ -301,6 +307,8 @@ async def run_job_ingestion_pipeline(
         msg_parts = [f"{len(validated_jobs)} active listings verified"]
         if expired_count > 0:
             msg_parts.append(f"{expired_count} closed postings flagged")
+        if role_excluded_count > 0:
+            msg_parts.append(f"{role_excluded_count} unrelated job titles filtered")
         if geo_excluded_count > 0:
             msg_parts.append(f"{geo_excluded_count} foreign/mismatched locations filtered")
         if gig_excluded_count > 0:

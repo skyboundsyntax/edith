@@ -9,6 +9,9 @@ import hashlib
 
 try:
     from backend.app.sources.registry import source_registry
+    from backend.app.intelligence.query_planner import parse_job_query_to_spec
+    from backend.app.intelligence.role_matcher import is_matching_role
+    from backend.app.locations.india_locations import matches_location_preference
     from backend.app.services.firecrawl_service import (
         firecrawl_service,
         filter_job_listing_documents,
@@ -16,6 +19,9 @@ try:
     )
 except (ImportError, ModuleNotFoundError):
     from ..sources.registry import source_registry
+    from ..intelligence.query_planner import parse_job_query_to_spec
+    from ..intelligence.role_matcher import is_matching_role
+    from ..locations.india_locations import matches_location_preference
     from ..services.firecrawl_service import (
         firecrawl_service,
         filter_job_listing_documents,
@@ -64,7 +70,11 @@ def _to_live_job(source_document: Dict[str, Any]) -> Optional[Dict[str, Any]]:
         "id": f"live_{record_id}",
         "title": title,
         "company": company or "Not specified",
-        "location": metadata.get("location") or "Not specified",
+        "location": metadata.get("location") or ", ".join(
+            str(value).strip()
+            for value in (metadata.get("city"), metadata.get("state"), metadata.get("country"))
+            if value
+        ) or "Not specified",
         "experience_years": metadata.get("experience_years"),
         "skills": metadata.get("skills") or [],
         "requirements": metadata.get("requirements") or [],
@@ -79,6 +89,32 @@ def _to_live_job(source_document: Dict[str, Any]) -> Optional[Dict[str, Any]]:
         "human_review_required": False,
         "raw_snippet": str(source_document.get("content") or "")[:500],
     }
+
+
+def _matches_job_search_preferences(job: Dict[str, Any], query_spec: Dict[str, Any]) -> bool:
+    """Keep live results aligned with the role and location shown by the query."""
+    if not is_matching_role(
+        job.get("title") or job.get("job_title") or "",
+        query_spec,
+        description=job.get("description", ""),
+    ):
+        return False
+
+    preferred_locations = query_spec.get("locations") or []
+    if preferred_locations:
+        location = job.get("location") or job.get("city") or ""
+        if not location:
+            return False
+        location_matches, _ = matches_location_preference(
+            str(location),
+            preferred_locations,
+            bool(query_spec.get("remote")),
+        )
+        if not location_matches:
+            return False
+
+    return True
+
 
 @router.get("/health")
 async def get_sources_health(force: bool = False) -> Dict[str, Any]:
@@ -171,13 +207,17 @@ async def search_firecrawl(req: FirecrawlSearchRequest) -> Dict[str, Any]:
             "jobs": [],
         }
 
+    query_spec = parse_job_query_to_spec(req.query.strip()).model_dump()
+
     # Live public job APIs are the primary source for the job feed.  They work
     # without a Firecrawl key and return posting-shaped records, not articles.
     public_documents = []
     try:
         public_documents = await SourceDiscovery().search(
             req.query.strip(),
-            max_results=requested_limit,
+            # Apply role/location filters after discovery, so fetch a broader
+            # candidate pool before reducing it to the requested result count.
+            max_results=min(requested_limit * 4, 20),
         )
     except Exception:
         # Connector-specific failures are logged in SourceDiscovery; proceed to
@@ -187,7 +227,7 @@ async def search_firecrawl(req: FirecrawlSearchRequest) -> Dict[str, Any]:
     all_jobs = [
         job
         for job in (_to_live_job(document) for document in public_documents)
-        if job is not None
+        if job is not None and _matches_job_search_preferences(job, query_spec)
     ][:requested_limit]
 
     docs = []
@@ -201,7 +241,11 @@ async def search_firecrawl(req: FirecrawlSearchRequest) -> Dict[str, Any]:
         docs = await firecrawl_service.search(search_query, limit=min(requested_limit * 3, 20))
         job_docs = filter_job_listing_documents(docs)
         for document in job_docs[:requested_limit]:
-            all_jobs.extend(jev_extractor.extract_from_firecrawl(document, query=req.query))
+            extracted_jobs = jev_extractor.extract_from_firecrawl(document, query=req.query)
+            all_jobs.extend(
+                job for job in extracted_jobs
+                if _matches_job_search_preferences(job, query_spec)
+            )
         all_jobs = all_jobs[:requested_limit]
 
     return {
@@ -226,4 +270,3 @@ async def get_firecrawl_status() -> Dict[str, Any]:
         "status": "success",
         "firecrawl": status_info
     }
-

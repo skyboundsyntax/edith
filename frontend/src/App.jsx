@@ -489,7 +489,11 @@ export default function App() {
 
     // Auto-sync location filter based on prompt content:
     const qLower = query.toLowerCase();
-    if (qLower.includes('pune') || qLower.includes('hinjewadi') || qLower.includes('kharadi') || qLower.includes('baner')) {
+    if (/\b(remote|online|wfh|work from home|anywhere|virtual)\b/.test(qLower)) {
+      // The backend applies the requested city and remote preferences; avoid
+      // applying a city-only dashboard filter to the mixed preferred results.
+      setActiveLocationFilter('ALL');
+    } else if (qLower.includes('pune') || qLower.includes('hinjewadi') || qLower.includes('kharadi') || qLower.includes('baner')) {
       setActiveLocationFilter('PUNE');
     } else if (qLower.includes('bangalore') || qLower.includes('bengaluru')) {
       setActiveLocationFilter('BLR');
@@ -593,33 +597,45 @@ export default function App() {
     // Call real Firecrawl scraping API
     const runScrapeAndLoad = async () => {
       let liveScrapedJobs = [];
+      let searchError = null;
       try {
         const scrapeRes = await api.searchFirecrawl(query, 5, modeAtLaunch);
         if (modeAtLaunch === 'job' && scrapeRes && Array.isArray(scrapeRes.jobs) && scrapeRes.jobs.length > 0) {
-          liveScrapedJobs = scrapeRes.jobs.map((j, idx) => ({
-            id: j.id || `live_scraped_${idx}_${Date.now()}`,
-            confidence_score: j.confidence_score || 93.0,
-            created_at: new Date().toISOString(),
-            source: j.source || 'Firecrawl / Web Scraper',
-            source_title: j.title || queryDisplay,
-            source_url: j.apply_url || j.source_url || '',
-            data: {
-              job_title: j.title || queryDisplay,
-              company: j.company || 'Not specified',
-              company_url: j.company_url || j.apply_url || '',
-              location: j.location || 'Not specified',
-              work_modality: 'offline',
-              salary_range: j.salary_range || '₹8.0 - 14.5 LPA',
-              experience_years: j.experience_years || 'Not specified',
-              skills: Array.isArray(j.skills) ? j.skills : [],
-              match_score: j.confidence_score || 93.0,
-              match_subscores: { skills: 28.0, role: 19.0, experience: 13.5, location: 10.0 },
-              semantic_tag: 'Top Strict Match',
-              description: j.description || '',
-              requirements: Array.isArray(j.requirements) ? j.requirements : [],
-              apply_link: j.apply_url || j.source_url || ''
-            }
-          }));
+          liveScrapedJobs = scrapeRes.jobs.map((j, idx) => {
+            const location = j.location || 'Not specified';
+            const remoteType = String(
+              j.remote_type || (/\b(remote|online|virtual|wfh|anywhere)\b/i.test(location) ? 'remote' : 'on-site')
+            ).toLowerCase();
+
+            return {
+              id: j.id || `live_scraped_${idx}_${Date.now()}`,
+              confidence_score: j.confidence_score || 93.0,
+              created_at: new Date().toISOString(),
+              source: j.source || 'Firecrawl / Web Scraper',
+              source_title: j.title || queryDisplay,
+              source_url: j.apply_url || j.source_url || '',
+              data: {
+                job_title: j.title || queryDisplay,
+                company: j.company || 'Not specified',
+                company_url: j.company_url || j.apply_url || '',
+                location,
+                remote_type: remoteType,
+                work_modality: j.work_modality || (
+                  remoteType === 'remote' ? 'online' :
+                    remoteType === 'hybrid' ? 'hybrid' : 'offline'
+                ),
+                salary_range: j.salary_range || 'Not disclosed',
+                experience_years: j.experience_years || 'Not specified',
+                skills: Array.isArray(j.skills) ? j.skills : [],
+                match_score: j.confidence_score || 93.0,
+                match_subscores: { skills: 28.0, role: 19.0, experience: 13.5, location: 10.0 },
+                semantic_tag: 'Top Strict Match',
+                description: j.description || '',
+                requirements: Array.isArray(j.requirements) ? j.requirements : [],
+                apply_link: j.apply_url || j.source_url || ''
+              }
+            };
+          });
         } else if (modeAtLaunch === 'general' && scrapeRes && Array.isArray(scrapeRes.documents)) {
           // General data scraping keeps source documents as data records.  It
           // deliberately does not turn an article into a fake job opening.
@@ -641,7 +657,8 @@ export default function App() {
           }));
         }
       } catch (err) {
-        console.warn('Firecrawl API scrape notice (using resilient fallback):', err);
+        console.warn('Job search request failed:', err);
+        searchError = err;
       }
 
       const t3 = getHHMMSS(3);
@@ -682,18 +699,24 @@ export default function App() {
 
       setRecords(finalRecords);
       setMetrics({
-        total_extracted: finalRecords.length + 5,
+        total_extracted: finalRecords.length,
         total_deduplicated: finalRecords.length,
-        duplicates_pruned: 5,
+        duplicates_pruned: 0,
         human_review_count: 0
       });
       setIsRunning(false);
-      showToast(
-        modeAtLaunch === 'job'
-          ? `Job scraping complete! ${finalRecords.length} verified job postings loaded.`
-          : `Data scraping complete! ${finalRecords.length} source documents loaded.`,
-        'success'
-      );
+      if (searchError) {
+        showToast(`Search failed: ${searchError.message || 'The job search service is unavailable.'}`, 'error');
+      } else if (modeAtLaunch === 'job' && finalRecords.length === 0) {
+        showToast('Search completed, but no jobs matched your role and location. Try broadening your query.', 'info');
+      } else {
+        showToast(
+          modeAtLaunch === 'job'
+            ? `Job scraping complete! ${finalRecords.length} verified job postings loaded.`
+            : `Data scraping complete! ${finalRecords.length} source documents loaded.`,
+          'success'
+        );
+      }
 
       // The persisted workflow endpoint is a job-ingestion pipeline.  Do not
       // send general web documents through it, where they could be modeled as

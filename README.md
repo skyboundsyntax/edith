@@ -60,6 +60,9 @@ edith/
 
 ## 🚀 Quickstart
 
+### Windows: One-click launch
+Double-click `start.bat` from the project folder. It checks the Python backend, installs frontend dependencies from the lockfile if needed, starts both services, and opens the dashboard after both are responding.
+
 ### 1. Launch FastAPI Backend
 ```powershell
 py -3 -m uvicorn backend.main:app --port 8000
