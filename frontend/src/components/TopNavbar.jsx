@@ -64,7 +64,7 @@ export default function TopNavbar({
           }}
         >
           <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: '#10b981', display: 'inline-block' }} />
-          <span>Live Sources</span>
+          <span>Live Connectors</span>
         </button>
 
         {/* Quick Export CTA */}

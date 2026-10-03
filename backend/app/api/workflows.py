@@ -60,10 +60,12 @@ def plan_requirements(req: PlanRequirementsRequest):
     Allows user to preview and edit requirements before launching search.
     """
     spec = parse_job_query_to_spec(req.prompt)
+    spec_dict = spec.model_dump()
     return {
         "status": "success",
         "prompt": req.prompt,
-        "spec": spec.model_dump()
+        "spec": spec_dict,
+        "specification": spec_dict
     }
 
 async def run_workflow_background(workflow_id: str, prompt: str, confidence_threshold: float, query_spec: Optional[dict] = None):
@@ -194,6 +196,7 @@ def list_workflows(limit: int = 20, db: Session = Depends(get_db)):
             prompt=w.prompt,
             status=w.status,
             target_schema=w.target_schema,
+            parsed_spec=w.parsed_spec,
             confidence_threshold=w.confidence_threshold,
             total_extracted=w.total_extracted,
             total_deduplicated=w.total_deduplicated,
@@ -218,6 +221,7 @@ def get_workflow(workflow_id: str, db: Session = Depends(get_db)):
             "prompt": wf.prompt,
             "status": wf.status,
             "target_schema": wf.target_schema,
+            "parsed_spec": wf.parsed_spec,
             "confidence_threshold": wf.confidence_threshold,
             "total_extracted": wf.total_extracted,
             "total_deduplicated": wf.total_deduplicated,

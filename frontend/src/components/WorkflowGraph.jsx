@@ -4,14 +4,14 @@ import { BrainCircuit, Search, Cpu, GitMerge, Terminal } from 'lucide-react';
 const EDITH_NODES = [
   {
     id: 'query_planning',
-    title: 'Stage 1: AI Query Planner',
-    desc: 'Structured Search Specification',
+    title: 'Stage 1: Intent & Semantic Reasoning',
+    desc: 'Structured Intent & Routing Plan',
     icon: BrainCircuit
   },
   {
     id: 'source_connectors',
     title: 'Stage 2: Parallel Connectors',
-    desc: 'Greenhouse • Lever • Ashby • Remote Feeds',
+    desc: 'LinkedIn • Firecrawl • Ashby • Lever',
     icon: Search
   },
   {

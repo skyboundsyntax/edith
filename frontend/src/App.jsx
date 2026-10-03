@@ -9,6 +9,7 @@ import SkillDemandWidget from './components/SkillDemandWidget';
 import FloatingCommandBar from './components/FloatingCommandBar';
 import MetricsCards from './components/MetricsCards';
 import WorkflowGraph from './components/WorkflowGraph';
+import IntentReasoningPanel from './components/IntentReasoningPanel';
 import DataGrid from './components/DataGrid';
 import SourceDrawer from './components/SourceDrawer';
 import WorkflowHistoryModal from './components/WorkflowHistoryModal';
@@ -120,6 +121,7 @@ export default function App() {
 
   // Workflow & State Data
   const [activeWorkflow, setActiveWorkflow] = useState(null);
+  const [liveSpec, setLiveSpec] = useState(null);
   const [workflows, setWorkflows] = useState([]);
   const [records, setRecords] = useState([]);
   const [currentNode, setCurrentNode] = useState('initialized');
@@ -140,6 +142,12 @@ export default function App() {
       const details = await api.getWorkflowDetails(workflowId);
       if (details?.workflow) {
         setActiveWorkflow(details.workflow);
+        if (details.workflow.parsed_spec) {
+          setLiveSpec(details.workflow.parsed_spec);
+        }
+        if (details.workflow.prompt) {
+          setPrompt(details.workflow.prompt);
+        }
         setExecutionLogs(details.workflow.execution_logs || []);
         setCurrentNode('human_review_evaluation');
         setMetrics({
@@ -185,6 +193,11 @@ export default function App() {
           if (data.length > 0) {
             const best = data.find((w) => (w.total_deduplicated || 0) > 0) || data[0];
             await selectWorkflow(best.id);
+          } else {
+            api.planRequirements(prompt).then((res) => {
+              const spec = res?.specification || res?.spec;
+              if (spec && !ignore) setLiveSpec(spec);
+            }).catch(() => {});
           }
           setIsLoadingInitial(false);
         }
@@ -278,9 +291,20 @@ export default function App() {
       message: `Analyzing query and dispatching multi-source ATS connectors...`
     }]);
 
+    // Fast-path client side intent & semantic reasoning parsing
+    api.planRequirements(query)
+      .then((res) => {
+        const spec = res?.specification || res?.spec;
+        if (spec) setLiveSpec(spec);
+      })
+      .catch((err) => console.warn('Fast intent planning notification:', err));
+
     try {
       const newWf = await api.createWorkflow(query, confidenceThreshold, null);
       setActiveWorkflow(newWf);
+      if (newWf?.parsed_spec) {
+        setLiveSpec(newWf.parsed_spec);
+      }
 
       // Connect to WebSocket for live pipeline telemetry
       if (socketRef.current) {
@@ -631,6 +655,13 @@ export default function App() {
                 </form>
               </section>
 
+              {/* 2b. EDITH AI Intent Parsing & Advanced Semantic Reasoning Surface */}
+              <IntentReasoningPanel
+                spec={activeWorkflow?.parsed_spec || liveSpec}
+                prompt={prompt}
+                isRunning={isRunning}
+              />
+
               {/* 3. LangGraph Pipeline State Machine Visualizer */}
               <div style={{ marginTop: '1rem' }}>
                 <WorkflowGraph
@@ -830,6 +861,11 @@ export default function App() {
         {activeTab === 'analytics' && (
           <div style={{ padding: '1rem 2.25rem 4rem 2.25rem', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
             <MetricsCards metrics={metrics} activeWorkflow={activeWorkflow} records={records} />
+            <IntentReasoningPanel
+              spec={activeWorkflow?.parsed_spec || liveSpec}
+              prompt={prompt}
+              isRunning={isRunning}
+            />
             <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) 360px', gap: '1.5rem' }}>
               <WorkflowGraph
                 currentNode={currentNode}
