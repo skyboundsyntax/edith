@@ -1,9 +1,8 @@
 """
 Dataset Querying and Provenance Traceability Endpoints (SDD Section 3).
 """
-from typing import List, Optional
+from typing import List, Dict, Any, Optional
 from fastapi import APIRouter, Depends, HTTPException
-
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 from sqlalchemy import or_
