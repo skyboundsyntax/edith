@@ -60,6 +60,18 @@ edith/
 
 ## 🚀 Quickstart
 
+### Firecrawl API key
+EDITH uses Firecrawl for web search and for scraping pages that need JavaScript rendering. Add a Firecrawl API key to the project-root `.env` file before starting the backend:
+
+```dotenv
+FIRECRAWL_API_KEY=your_firecrawl_api_key
+FIRECRAWL_API_URL=https://api.firecrawl.dev
+```
+
+Get an API key from your Firecrawl account, then copy `.env.example` to `.env` and replace the placeholder value. Keep `.env` private and never commit your key.
+
+The Firecrawl Search API is unavailable without a valid key. EDITH can still try its public job-board sources, and direct-URL scraping has a local fallback, but results may be limited when Firecrawl is not configured.
+
 ### Windows: One-click launch
 Double-click `start.bat` from the project folder. It checks the Python backend, installs frontend dependencies from the lockfile if needed, starts both services, and opens the dashboard after both are responding.
 
