@@ -614,8 +614,19 @@ export default function DataGrid({
                               {/* Description Snippet */}
                               {(data.description_snippet || data.description) && (
                                 <div style={{ fontSize: '0.785rem', color: 'var(--text-secondary)', background: 'rgba(0,0,0,0.2)', padding: '0.75rem', borderRadius: '6px' }}>
-                                  <span style={{ fontWeight: 600, color: '#cbd5e1' }}>Posting Snippet: </span>
-                                  {sanitizeJobDescription(data.description_snippet || data.description).slice(0, 350)}...
+                                  <span style={{ fontWeight: 600, color: '#cbd5e1' }}>Job Overview: </span>
+                                  {sanitizeJobDescription(data.description_snippet || data.description).slice(0, 450)}
+                                </div>
+                              )}
+
+                              {Array.isArray(data.requirements) && data.requirements.length > 0 && (
+                                <div style={{ fontSize: '0.785rem', color: 'var(--text-secondary)', background: 'rgba(0,0,0,0.25)', padding: '0.75rem', borderRadius: '6px' }}>
+                                  <span style={{ fontWeight: 600, color: 'var(--accent-amber)', display: 'block', marginBottom: '4px' }}>Key Requirements:</span>
+                                  <ul style={{ margin: 0, paddingLeft: '18px' }}>
+                                    {data.requirements.slice(0, 4).map((req, rIdx) => (
+                                      <li key={rIdx} style={{ fontSize: '0.785rem', color: '#cbd5e1', lineHeight: 1.4 }}>{req}</li>
+                                    ))}
+                                  </ul>
                                 </div>
                               )}
 
@@ -641,7 +652,7 @@ export default function DataGrid({
                                     style={{ fontSize: '0.75rem', padding: '0.35rem 0.85rem' }}
                                   >
                                     <ExternalLink size={13} />
-                                    <span>{isLinkOut ? `Search on ${platform}` : 'Apply Directly'}</span>
+                                    <span>Apply Now</span>
                                   </a>
                                 </div>
                               </div>

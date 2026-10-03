@@ -433,6 +433,15 @@ async def run_job_ingestion_pipeline(
                     work_modality = "Offline"
                     modality_detail = "Offline (On-site)"
 
+                exp_val = j.get("experience_years")
+                if not exp_val or exp_val == "0-2 yrs":
+                    if j.get("experience_max") is not None:
+                        exp_val = f"{int(j.get('experience_min', 0))}-{int(j.get('experience_max'))} yrs"
+                    elif j.get("experience_min") is not None and j.get("experience_min") > 0:
+                        exp_val = f"{int(j.get('experience_min'))}+ yrs"
+                    else:
+                        exp_val = "Open / Not Disclosed"
+
                 data_record = DataRecordModel(
                     id=f"rec_{db_job_id}",
                     workflow_id=workflow_id,
@@ -448,7 +457,8 @@ async def run_job_ingestion_pipeline(
                         "modality_detail": modality_detail,
                         "employment_type": j.get("employment_type"),
                         "skills": [normalize_skill_name(s) for s in (j.get("skills") if isinstance(j.get("skills"), list) else [j.get("skills")] if j.get("skills") else []) if s],
-                        "experience_years": f"{j.get('experience_min', 0)}-{j.get('experience_max', 2)} yrs" if j.get("experience_max") is not None else "0-2 yrs",
+                        "requirements": j.get("requirements", []),
+                        "experience_years": exp_val,
                         "salary_range": format_to_inr_range(j.get("salary_min"), j.get("salary_max"), j.get("salary_currency", "INR")),
                         "apply_link": j.get("apply_url"),
                         "platform_source": j.get("source", "Careers").title(),

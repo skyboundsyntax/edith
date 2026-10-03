@@ -18,6 +18,12 @@ from datetime import datetime, timezone
 from backend.app.sources.base import JobSourceConnector, SourceHealth, SourceCapabilities
 from backend.app.locations.india_locations import normalize_location, matches_location_preference, is_online_gig
 from backend.app.intelligence.role_matcher import is_matching_role
+from backend.ai_engine.jev_extractor import (
+    clean_job_title,
+    clean_company_name,
+    extract_job_sections,
+    extract_experience_years
+)
 
 logger = logging.getLogger(__name__)
 
@@ -137,8 +143,43 @@ class LinkedInConnector(JobSourceConnector):
                 logger.warning(f"LinkedIn page fetch warning: {e}")
                 return []
 
+        async def fetch_job_details(client: httpx.AsyncClient, job_id: str) -> Dict[str, Any]:
+            url = f"https://www.linkedin.com/jobs-guest/jobs/api/jobPosting/{job_id}"
+            try:
+                resp = await client.get(url, timeout=3.5)
+                if resp.status_code == 200:
+                    soup = BeautifulSoup(resp.text, "html.parser")
+                    desc_container = soup.find("div", class_="show-more-less-html__markup")
+                    description_text = desc_container.get_text(separator="\n", strip=True) if desc_container else ""
+                    
+                    reqs = []
+                    if desc_container:
+                        for li in desc_container.find_all("li"):
+                            txt = li.get_text(strip=True)
+                            if 15 < len(txt) < 300:
+                                reqs.append(txt)
+                                if len(reqs) >= 7:
+                                    break
+                    
+                    seniority = ""
+                    for ci in soup.find_all("li", class_="description__job-criteria-item"):
+                        h = ci.find("h3", class_="description__job-criteria-subheader")
+                        v = ci.find("span", class_="description__job-criteria-text")
+                        if h and v and "seniority" in h.get_text().lower():
+                            seniority = v.get_text(strip=True)
+                            break
+
+                    return {
+                        "description": description_text,
+                        "requirements": reqs,
+                        "seniority": seniority
+                    }
+            except Exception as e:
+                logger.debug(f"LinkedIn detail fetch warning for {job_id}: {e}")
+            return {}
+
         try:
-            async with httpx.AsyncClient(headers=BROWSER_HEADERS, timeout=4.0, follow_redirects=True) as client:
+            async with httpx.AsyncClient(headers=BROWSER_HEADERS, timeout=5.0, follow_redirects=True) as client:
                 page_tasks = [fetch_page(client, u) for u in urls]
                 batch_res = await asyncio.gather(*page_tasks, return_exceptions=True)
                 raw_items = []
@@ -148,6 +189,7 @@ class LinkedInConnector(JobSourceConnector):
 
                 remote_allowed = query_spec.get("remote", False) or not any(l in ["on-site", "offline"] for l in locations)
                 seen_ids = set()
+                candidate_items = []
 
                 for item in raw_items:
                     if item["job_id"] in seen_ids:
@@ -167,10 +209,36 @@ class LinkedInConnector(JobSourceConnector):
                     if not loc_matches or loc_pts == 0:
                         continue
 
+                    candidate_items.append(item)
+                    if len(candidate_items) >= 15:
+                        break
+
+                # Fetch real job descriptions and requirements in parallel
+                detail_tasks = [fetch_job_details(client, it["job_id"]) for it in candidate_items]
+                detail_results = await asyncio.gather(*detail_tasks, return_exceptions=True)
+
+                for idx, item in enumerate(candidate_items):
+                    clean_t = clean_job_title(item["title"], search_kw)
+                    clean_c = clean_company_name(item["company"], item["title"])
+
+                    details = detail_results[idx] if idx < len(detail_results) and isinstance(detail_results[idx], dict) else {}
+                    raw_desc = details.get("description", "")
+                    direct_reqs = details.get("requirements", [])
+                    seniority = details.get("seniority", "")
+
+                    if raw_desc:
+                        sections = extract_job_sections(raw_desc, clean_t)
+                        final_desc = sections["description"]
+                        final_reqs = direct_reqs or sections["requirements"]
+                        final_exp = sections["experience_years"] or (seniority if seniority and "not applicable" not in seniority.lower() else None)
+                    else:
+                        final_desc = f"Verified active opening for {clean_t} at {clean_c} in {item['loc_raw']}. Posted {item['posted_date']} on LinkedIn. Click Apply Now to review complete job scope and apply directly."
+                        final_reqs = []
+                        final_exp = extract_experience_years("", clean_t)
+
                     loc_info = normalize_location(item["loc_raw"])
-                    content_hash = hashlib.sha256(f"{item['title']}_{item['company']}_{item['job_id']}".encode()).hexdigest()
+                    content_hash = hashlib.sha256(f"{clean_t}_{clean_c}_{item['job_id']}".encode()).hexdigest()
                     now_iso = datetime.now(timezone.utc).isoformat()
-                    desc = f"Verified active opening for {item['title']} at {item['company']} in {item['loc_raw']}. Posted {item['posted_date']} on LinkedIn. Click to apply directly on company posting."
 
                     canonical_job = {
                         "id": f"li_{item['job_id']}",
@@ -178,12 +246,13 @@ class LinkedInConnector(JobSourceConnector):
                         "source_job_id": item["job_id"],
                         "source_url": item["clean_link"],
                         "apply_url": item["clean_link"],
-                        "title": item["title"],
-                        "company": item["company"],
-                        "company_url": f"https://www.linkedin.com/company/{urllib.parse.quote(item['company'].lower())}",
+                        "title": clean_t,
+                        "company": clean_c,
+                        "company_url": f"https://www.linkedin.com/company/{urllib.parse.quote(clean_c.lower())}",
                         "company_domain": "linkedin.com",
-                        "description": desc,
-                        "requirements": [],
+                        "description": final_desc,
+                        "requirements": final_reqs,
+                        "experience_years": final_exp,
                         "responsibilities": [],
                         "skills": [s.title() for s in skills] if skills else ([r.title() for r in roles] if roles else ["Professional Qualifications"]),
                         "technologies": [],

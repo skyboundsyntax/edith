@@ -235,7 +235,7 @@ export default function JobCardList({
                       title={`Apply directly on ${platform}`}
                       aria-label={`Apply for ${titleDisplay} on ${platform}`}
                     >
-                      <span>Apply</span>
+                      <span>Apply Now</span>
                       <ExternalLink size={12} />
                     </a>
 
@@ -341,7 +341,23 @@ export default function JobCardList({
                   {(data.description_snippet || data.description) && (
                     <div className="drawer-desc-snippet">
                       <span style={{ fontWeight: 600, color: '#e2e8f0' }}>Job Overview: </span>
-                      {sanitizeJobDescription(data.description_snippet || data.description).slice(0, 350)}...
+                      {sanitizeJobDescription(data.description_snippet || data.description).slice(0, 450)}
+                    </div>
+                  )}
+
+                  {/* Requirements list if present */}
+                  {Array.isArray(data.requirements) && data.requirements.length > 0 && (
+                    <div className="drawer-requirements-box" style={{ marginTop: '10px', padding: '10px 14px', background: 'rgba(0,0,0,0.25)', borderRadius: '6px', border: '1px solid rgba(255,255,255,0.06)' }}>
+                      <span style={{ fontWeight: 600, color: 'var(--accent-amber)', fontSize: '0.8rem', display: 'block', marginBottom: '6px' }}>
+                        Key Requirements & Eligibility:
+                      </span>
+                      <ul style={{ margin: 0, paddingLeft: '18px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                        {data.requirements.slice(0, 5).map((req, rIdx) => (
+                          <li key={rIdx} style={{ fontSize: '0.82rem', color: '#cbd5e1', lineHeight: 1.4 }}>
+                            {req}
+                          </li>
+                        ))}
+                      </ul>
                     </div>
                   )}
 
@@ -359,24 +375,13 @@ export default function JobCardList({
 
                     <div className="drawer-apply-actions">
                       <a
-                        href={companySiteUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="btn-company-site"
-                        title={`Visit ${companyDisplay} official site`}
-                      >
-                        <Globe size={13} />
-                        <span>Company Site</span>
-                      </a>
-
-                      <a
                         href={applyUrl}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="btn-direct-apply-main"
-                        title={`Apply directly on ${platform}`}
+                        title={`Apply directly for ${titleDisplay} at ${companyDisplay}`}
                       >
-                        <span>Apply on {platform}</span>
+                        <span>Apply Now</span>
                         <ExternalLink size={14} />
                       </a>
                     </div>

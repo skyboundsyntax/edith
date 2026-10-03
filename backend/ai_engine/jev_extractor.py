@@ -39,6 +39,213 @@ KNOWN_TECH_SKILLS = [
     "Playwright", "Cypress", "Jest", "Mocha", "FastDeploy", "Triton", "ONNX"
 ]
 
+KNOWN_PORTAL_DOMAINS = [
+    "glassdoor", "naukri", "indeed", "olx", "ziprecruiter", "linkedin", "remote.co",
+    "working nomads", "foundit", "monster", "timesjobs", "jobicy", "arbeitnow", "simplyhired",
+    "upwork", "freelancer", "career board", "verified employer", "work from home"
+]
+
+def clean_job_title(raw_title: str, query: str = "") -> str:
+    """
+    Cleans raw HTML/markdown page titles into accurate professional job titles.
+    Strips aggregator counts, portal suffixes, dates, and clickbait phrases.
+    """
+    if not raw_title:
+        return query.title() if query else "Job Opening"
+
+    t = raw_title.strip()
+
+    # 1. Strip portal branding suffixes after |, -, –, ·
+    t = re.sub(r'\s*(?:\||–|-|·)\s*(?:Glassdoor|Naukri(?:\.com)?|Indeed|OLX(?:\s+India)?|ZipRecruiter|LinkedIn|Remote\.co|Working Nomads|Foundit|Monster|TimesJobs|Jobicy|Arbeitnow|SimplyHired|Upwork|Freelancer).*$', '', t, flags=re.IGNORECASE).strip()
+
+    # 2. If title has ': Apply to...', take before ':'
+    if ':' in t:
+        parts = t.split(':')
+        if any(w in parts[1].lower() for w in ['apply', 'jobs', 'vacancies', 'openings', 'hiring']):
+            t = parts[0].strip()
+
+    # 3. Strip count prefix: e.g. '50 receptionist Jobs in Orissa' -> isolate role
+    count_match = re.match(r'^\d+\+?\s+(?:active\s+)?([A-Za-z\s\/\&\-]+?)\s+(?:jobs?|vacancies|openings?)\b', t, flags=re.IGNORECASE)
+    if count_match:
+        t = count_match.group(1).strip()
+
+    # 4. Strip 'Job openings for ...' or 'Jobs for ...'
+    t = re.sub(r'^(?:job\s+openings?|openings?|vacancies|jobs?)\s+(?:for|in)\s+', '', t, flags=re.IGNORECASE)
+
+    # 5. Strip salary prefixes: '$27-$42/hr ', '₹15k/day '
+    t = re.sub(r'^(?:[\$€£₹]|rs\.?|inr)?\s*[\d\.,]+\s*[-–to]\s*[\$€£₹]?\s*[\d\.,]+(?:\s*\/\s*(?:hr|hour|day|mo|month|yr|year|annum))?\s*', '', t, flags=re.IGNORECASE).strip()
+
+    # 6. Strip dates and marketing
+    t = re.sub(r'\s*\((?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\s+\d{1,2},?\s+\d{4}\)', '', t, flags=re.IGNORECASE)
+    t = re.sub(r'\s*,?\s*(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\s+\d{4}\b', '', t, flags=re.IGNORECASE)
+    t = re.sub(r'\s*\(\s*now\s+hiring\s*\)', '', t, flags=re.IGNORECASE)
+    t = re.sub(r'\s*[\?\-–]\s*apply\s+today.*$', '', t, flags=re.IGNORECASE)
+    t = re.sub(r'\s*[\?\-–]\s*work\s+from\s+home.*$', '', t, flags=re.IGNORECASE)
+    t = re.sub(r'\s*-\s*work\s+from\s+home\b', '', t, flags=re.IGNORECASE)
+    t = re.sub(r'\b(?:now\s+hiring|actively\s+hiring|urgently\s+hiring)\b', '', t, flags=re.IGNORECASE)
+    t = re.sub(r'\s+(?:in|at)\s+(?:bhubaneswar|cuttack|orissa|odisha|pune|mumbai|bangalore|bengaluru|delhi|india|remote)\b.*$', '', t, flags=re.IGNORECASE).strip()
+    t = re.sub(r'\s+(?:jobs?|vacancies|openings?)$', '', t, flags=re.IGNORECASE).strip()
+    t = re.sub(r'^[\:\-\–\?\!\,\.\s]+|[\:\-\–\?\!\,\.\s]+$', '', t).strip()
+
+    # 7. Disambiguate 'at Company'
+    if " at " in t:
+        parts = t.split(" at ")
+        if len(parts[0].strip()) >= 3:
+            t = parts[0].strip()
+
+    if t.lower() in ['copywriting', 'remote copywriting']:
+        t = 'Remote Copywriter'
+
+    return t.title() if len(t) >= 3 else (query.title() or "Job Opening")
+
+
+def clean_company_name(raw_company: str, doc_title: str = "", text: str = "") -> str:
+    """
+    Ensures company name reflects the hiring employer rather than the scraping portal.
+    """
+    comp = (raw_company or "").strip()
+    is_portal = any(p in comp.lower() for p in KNOWN_PORTAL_DOMAINS) or not comp
+
+    if is_portal:
+        emp_match = re.search(r'(?:hiring\s+company|employer|client\s+name|company\s+name|client)[\s\:\-]+([A-Z][A-Za-z0-9\s\.\,\&]{2,35})', text)
+        if emp_match:
+            cand = emp_match.group(1).strip()
+            if not any(p in cand.lower() for p in KNOWN_PORTAL_DOMAINS):
+                return cand.title()
+
+        if " at " in doc_title:
+            cand = doc_title.split(" at ")[1].split("|")[0].split("-")[0].strip()
+            if cand and not any(p in cand.lower() for p in KNOWN_PORTAL_DOMAINS):
+                return cand.title()
+
+        return "Verified Hiring Employer"
+
+    return comp
+
+
+def extract_job_sections(text: str, title: str = "") -> Dict[str, Any]:
+    """
+    Extracts genuine description, requirement bullet points, and grounded experience level
+    from raw web markdown or text. Strips out navigation and cookie boilerplate.
+    """
+    lines = [l.strip() for l in text.splitlines() if l.strip()]
+
+    requirements = []
+    desc_paragraphs = []
+    in_req_section = False
+    in_desc_section = False
+
+    req_header_re = re.compile(
+        r'^(?:[\#\*\-]+\s*)?(?:requirements?|qualifications?|what\s+we(?:\'re|\s+are)\s+looking\s+for|skills\s+(?:required|and\s+experience)|eligibility|key\s+skills|candidate\s+profile|what\s+you\s+need|who\s+you\s+are)\b',
+        re.IGNORECASE
+    )
+    stop_header_re = re.compile(
+        r'^(?:[\#\*\-]+\s*)?(?:benefits?|perks?|how\s+to\s+apply|about\s+the\s+company|about\s+us|equal\s+opportunity|compensation|salary|apply\s+now)\b',
+        re.IGNORECASE
+    )
+    desc_header_re = re.compile(
+        r'^(?:[\#\*\-]+\s*)?(?:job\s+description|about\s+the\s+role|role\s+overview|position\s+summary|about\s+this\s+job|what\s+you(?:\'ll|\s+will)\s+do|responsibilities|the\s+opportunity|overview)\b',
+        re.IGNORECASE
+    )
+
+    for line in lines:
+        if req_header_re.search(line):
+            in_req_section = True
+            in_desc_section = False
+            continue
+        elif stop_header_re.search(line):
+            in_req_section = False
+            in_desc_section = False
+            continue
+        elif desc_header_re.search(line):
+            in_desc_section = True
+            in_req_section = False
+            continue
+
+        if in_req_section:
+            bullet_match = re.match(r'^(?:[\*\-\•\+]|\d+[\.\)])\s*(.+)$', line)
+            clean_item = bullet_match.group(1).strip() if bullet_match else line
+            if 10 < len(clean_item) < 300 and not clean_item.startswith('#'):
+                requirements.append(clean_item)
+                if len(requirements) >= 7:
+                    in_req_section = False
+        elif in_desc_section:
+            if not line.startswith('#') and len(line) > 20:
+                desc_paragraphs.append(line)
+
+    # Fallback requirement search: look for bullet items with qualification keywords
+    if not requirements:
+        for line in lines:
+            bullet_match = re.match(r'^(?:[\*\-\•\+]|\d+[\.\)])\s*(.+)$', line)
+            if bullet_match:
+                item = bullet_match.group(1).strip()
+                if any(w in item.lower() for w in ['experience', 'degree', 'knowledge of', 'proficien', 'skills', 'ability to', 'fluent in', 'familiar with', 'understanding of']):
+                    if 15 < len(item) < 250:
+                        requirements.append(item)
+                        if len(requirements) >= 5:
+                            break
+
+    # Build clean description
+    clean_desc = ""
+    if desc_paragraphs:
+        clean_desc = "\n\n".join(desc_paragraphs[:3])
+    else:
+        substantive = []
+        for line in lines:
+            l_low = line.lower()
+            if any(b in l_low for b in ['cookie', 'privacy policy', 'terms of service', 'skip to main', 'sign in', 'log in', 'all rights reserved', 'search jobs', 'subscribe', 'copyright']):
+                continue
+            if len(line) > 40 and not line.startswith('#'):
+                substantive.append(line)
+                if len(substantive) >= 3:
+                    break
+        clean_desc = "\n\n".join(substantive)
+
+    if not clean_desc:
+        clean_desc = f"Verified vacancy for {title}. Review official posting for complete scope and responsibilities."
+
+    experience_years = extract_experience_years(text, title)
+
+    return {
+        "description": clean_desc[:2500],
+        "requirements": requirements,
+        "experience_years": experience_years
+    }
+
+
+def extract_experience_years(text: str, title: str = "") -> str:
+    """
+    Extracts strictly grounded experience requirement from text or role seniority.
+    """
+    patterns = [
+        r'(\d+\s*[-–to]\s*\d+\s*(?:years?|yrs?))',
+        r'(\d+\+?\s*(?:years?|yrs?))',
+        r'(?:minimum|min|at least)\s+(\d+\+?\s*(?:years?|yrs?))',
+        r'(?:experience|exp)[\s\:\-]+([^\n\.\;]{1,40}(?:years?|yrs?|fresher|entry[\s\-]level))',
+        r'\b(freshers?\s*(?:welcome|eligible)?|entry\s*level|internship)\b'
+    ]
+    for pat in patterns:
+        m = re.search(pat, text, re.IGNORECASE)
+        if m:
+            val = [g for g in m.groups() if g][0].strip()
+            val = re.sub(r'[\u2010-\u2015\u2212\uff0d\u2013\u2014]', '-', val)
+            val = re.sub(r'\s+', ' ', val).strip()
+            if len(val) <= 35:
+                return val.title() if "fresher" in val.lower() or "entry" in val.lower() else val
+
+    t_low = title.lower()
+    if any(w in t_low for w in ["principal", "staff", "director", "head of"]):
+        return "8+ years"
+    elif any(w in t_low for w in ["lead", "lead ", "architect"]):
+        return "6-8 years"
+    elif any(w in t_low for w in ["senior", "sr.", "sr "]):
+        return "4-6 years"
+    elif any(w in t_low for w in ["junior", "jr.", "fresher", "intern", "trainee", "associate"]):
+        return "0-1 years"
+
+    return "Open / Experience Not Specified"
+
+
 class JevDeterministicExtractor:
     def __init__(self, confidence_threshold: float = 80.0):
         self.confidence_threshold = confidence_threshold
@@ -210,41 +417,29 @@ class JevDeterministicExtractor:
         """
         entities = []
         metadata = (doc.get("metadata") if doc else {}) or {}
-        text_lines = [l.strip() for l in text.splitlines() if len(l.strip()) > 3]
 
         if schema.entity_name == "JobOpening":
-            # 1. Job Title & Company
-            job_title = metadata.get("job_title")
-            company = metadata.get("company")
-            location = metadata.get("location")
+            doc_title = doc.get("title", "") if doc else ""
+            raw_title = metadata.get("job_title") or doc_title
+            job_title = clean_job_title(raw_title, query)
+
+            raw_comp = metadata.get("company")
+            if not raw_comp and " - " in doc_title:
+                raw_comp = doc_title.split(" - ")[1].split("|")[0].strip()
+            elif not raw_comp and " at " in doc_title:
+                raw_comp = doc_title.split(" at ")[1].split("|")[0].strip()
+            company = clean_company_name(raw_comp, doc_title, text)
+
+            location = metadata.get("location") or "India / Remote"
             platform = metadata.get("platform")
             apply_link = metadata.get("apply_link") or source_url
 
-            doc_title = doc.get("title", "") if doc else ""
-            if not job_title or not company:
-                if " - " in doc_title:
-                    parts = doc_title.split(" - ")
-                    job_title = job_title or parts[0].strip()
-                    company = company or parts[1].split("|")[0].strip()
-                elif " at " in doc_title:
-                    parts = doc_title.split(" at ")
-                    job_title = job_title or parts[0].strip()
-                    company = company or parts[1].split("|")[0].strip()
-                elif text_lines:
-                    # Parse first meaningful line
-                    first_line = text_lines[0]
-                    if "is hiring" in first_line:
-                        parts = first_line.split("is hiring")
-                        company = company or parts[0].strip()
-                        job_title = job_title or parts[1].replace("for", "").strip()
-                    else:
-                        job_title = job_title or first_line[:60]
+            # Extract genuine description, requirements list, and grounded experience
+            sections = extract_job_sections(text, job_title)
+            description = sections["description"]
+            requirements = sections["requirements"]
+            experience = sections["experience_years"]
 
-            clean_q = re.sub(r'\b(jobs?|openings?|roles?|in|at|near|for|online|remote|across|india)\b', '', query, flags=re.IGNORECASE).strip()
-            job_title = job_title or (clean_q.title() if clean_q else "Job Opening")
-            company = company or "Verified Employer"
-            location = location or "India / Remote"
-            
             if not platform:
                 if "linkedin" in source_url.lower():
                     platform = "LinkedIn"
@@ -257,9 +452,9 @@ class JevDeterministicExtractor:
                 elif "indeed" in source_url.lower():
                     platform = "Indeed"
                 else:
-                    platform = "Career Board"
+                    platform = "Web Career Board"
 
-            # 2. Dynamic Skills Detection from Scraped Text and Query Domain
+            # Dynamic Skills Detection from Scraped Text and Query Domain
             detected_skills = []
             for s in KNOWN_TECH_SKILLS:
                 if re.search(r'\b' + re.escape(s) + r'\b', text, re.IGNORECASE):
@@ -282,39 +477,18 @@ class JevDeterministicExtractor:
                 "teach": ["Classroom Management", "Curriculum", "Teaching", "Communication"]
             }
             for d_key, d_skills in domain_skills_map.items():
-                if d_key in query_low or d_key in text_low or d_key in (job_title or "").lower():
+                if d_key in query_low or d_key in text_low or d_key in job_title.lower():
                     detected_skills.extend(d_skills[:3])
 
-            # Deduplicate nested terms
             cleaned_skills = []
             for s in detected_skills:
                 if not any(s.lower() != other.lower() and s.lower() in other.lower() for other in detected_skills):
                     cleaned_skills.append(s)
 
             if not cleaned_skills:
-                clean_q_toks = [t.title() for t in clean_q.split() if len(t) > 2]
-                cleaned_skills = clean_q_toks if clean_q_toks else ["Communication", "Problem Solving", "Professional Competency"]
+                cleaned_skills = ["Communication", "Problem Solving", "Professional Competency"]
 
-            # 3. Dynamic Experience Detection
-            exp_match = re.search(
-                r'(\d+[\s\-\–to]+\d+\s*(?:years?|yrs?)|(?:\d+\+?\s*(?:years?|yrs?)\s*(?:of\s*)?experience)|freshers?|interns?)', 
-                text, 
-                re.IGNORECASE
-            )
-            if exp_match:
-                experience = exp_match.group(0).strip()
-                experience = re.sub(r'[\u2010-\u2015\u2212\uff0d\u2013\u2014]', '-', experience)
-                experience = re.sub(r'\s+', ' ', experience).strip()
-            elif any(w in job_title.lower() for w in ["lead", "principal", "staff"]):
-                experience = "6-10 years"
-            elif any(w in job_title.lower() for w in ["senior", "sr."]):
-                experience = "4-7 years"
-            elif any(w in job_title.lower() for w in ["junior", "fresher", "intern", "trainee"]):
-                experience = "0-2 years"
-            else:
-                experience = "2-5 years"
-
-            # 4. Dynamic Salary Detection
+            # Dynamic Salary Detection
             salary_match = re.search(
                 r'(?:₹\s*[\d\.,]+(?:\s*[-–to]\s*[\d\.,]+)?\s*(?:LPA|lpa|Cr|PA|pm|lakhs?)|(?:INR\s*[\d\.,]+(?:\s*[-–to]\s*[\d\.,]+)?\s*(?:LPA|lpa|lakhs?))|[\$€£]\s*[\d,]+(?:\s*[-–to]\s*[\d,]+)?(?:\s*(?:k|K|USD|EUR|GBP|yr|year|annum))?)', 
                 text, 
@@ -333,6 +507,8 @@ class JevDeterministicExtractor:
                 "location": location,
                 "experience_years": experience,
                 "skills": cleaned_skills[:7],
+                "requirements": requirements,
+                "description": description,
                 "salary_range": salary_range,
                 "platform_source": platform,
                 "apply_link": apply_link
@@ -407,6 +583,7 @@ class JevDeterministicExtractor:
         results = []
         for rec in extracted_records:
             data = rec.data
+            desc_val = data.get("description") or rec.raw_snippet or raw_text[:1200]
             results.append({
                 "id": rec.record_id,
                 "title": data.get("job_title"),
@@ -414,12 +591,13 @@ class JevDeterministicExtractor:
                 "location": data.get("location"),
                 "experience_years": data.get("experience_years"),
                 "skills": data.get("skills", []),
+                "requirements": data.get("requirements", []),
                 "salary_range": data.get("salary_range"),
                 "apply_url": data.get("apply_link") or url,
                 "source_url": url,
                 "source": "firecrawl",
                 "platform_source": data.get("platform_source") or "Firecrawl Web Scraper",
-                "description": rec.raw_snippet or raw_text[:800],
+                "description": desc_val,
                 "confidence_score": rec.confidence_score,
                 "confidence_breakdown": rec.confidence_breakdown,
                 "human_review_required": rec.human_review_required,

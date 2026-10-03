@@ -231,7 +231,7 @@ export default function HeroJobCard({
               <span className="dossier-geo-bullet">•</span>
               <span className="dossier-exp-tag">
                 <Briefcase size={12} style={{ display: 'inline', verticalAlign: '-1px', marginRight: '4px', flexShrink: 0 }} />
-                {experienceYears} Exp
+                {experienceYears.toLowerCase().includes('yr') || experienceYears.toLowerCase().includes('year') || experienceYears.toLowerCase().includes('fresher') ? experienceYears : `${experienceYears} Exp`}
               </span>
             </>
           )}
@@ -292,39 +292,41 @@ export default function HeroJobCard({
         </div>
       )}
 
-      {/* 6. Executive Narrative Excerpt */}
+      {/* 6. Executive Narrative Excerpt & Requirements */}
       <div className="dossier-narrative-box">
         <div className="narrative-headline">ROLE SUMMARY & SCOPE</div>
         <p className="narrative-body wrap-resilient" dir="auto">{snippet}</p>
+
+        {Array.isArray(data.requirements) && data.requirements.length > 0 && (
+          <div className="dossier-requirements-list" style={{ marginTop: '14px', borderTop: '1px solid rgba(255, 255, 255, 0.08)', paddingTop: '12px' }}>
+            <div className="narrative-headline" style={{ color: 'var(--accent-amber)', fontSize: '0.75rem', marginBottom: '8px' }}>
+              KEY REQUIREMENTS & QUALIFICATIONS
+            </div>
+            <ul style={{ margin: 0, paddingLeft: '18px', display: 'flex', flexDirection: 'column', gap: '6px' }}>
+              {data.requirements.slice(0, 5).map((req, rIdx) => (
+                <li key={rIdx} style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: 1.45 }}>
+                  {req}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
 
       {/* 7. Unmissable High-Voltage Apply Command Dock */}
       <footer className="dossier-action-dock">
         <div className="dossier-primary-actions">
-          {/* Primary High-Voltage Apply Button */}
+          {/* Primary Apply Now Button */}
           <a
             href={applyUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="dossier-hero-apply-btn"
-            title={`Open official job application for ${roleTitle} on ${platform}`}
-            aria-label={`Apply for ${roleTitle} on ${platform}`}
+            title={`Apply now for ${roleTitle} at ${company}`}
+            aria-label={`Apply now for ${roleTitle}`}
           >
             <Zap size={20} />
-            <span className="apply-btn-label">APPLY NOW ON {platform.toUpperCase()} ↗</span>
-          </a>
-
-          {/* Secondary Official Website Link */}
-          <a
-            href={companyWebsiteUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="dossier-secondary-site-btn"
-            title={`Visit ${company} official career website`}
-            aria-label={`Visit ${company} official career website`}
-          >
-            <Globe size={16} />
-            <span>Visit Company Site</span>
+            <span className="apply-btn-label">Apply Now ↗</span>
           </a>
         </div>
 
