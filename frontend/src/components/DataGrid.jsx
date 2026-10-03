@@ -473,7 +473,7 @@ export default function DataGrid({
                             <button
                               className="btn btn-secondary"
                               style={{ padding: '0.3rem 0.5rem', fontSize: '0.75rem' }}
-                              onClick={() => onInspectProvenance(r.id)}
+                              onClick={() => onInspectProvenance?.(r.id)}
                               title="Inspect Jev Anti-Ghost Proof"
                             >
                               <ShieldCheck size={14} color="var(--accent-emerald)" />
@@ -639,7 +639,7 @@ export default function DataGrid({
                                   <button
                                     className="btn btn-secondary"
                                     style={{ fontSize: '0.75rem', padding: '0.35rem 0.75rem' }}
-                                    onClick={() => onInspectProvenance(r.id)}
+                                    onClick={() => onInspectProvenance?.(r.id)}
                                   >
                                     <ShieldCheck size={14} color="var(--accent-emerald)" />
                                     <span>Full Anti-Ghost Provenance</span>
@@ -708,14 +708,16 @@ export default function DataGrid({
 
                     {/* Lineage Audit Action */}
                     <td style={{ textAlign: 'right' }}>
-                      <button
-                        className="btn btn-secondary"
-                        style={{ padding: '0.35rem 0.75rem', fontSize: '0.785rem' }}
-                        onClick={() => onInspectProvenance(r.id)}
-                      >
-                        <ShieldCheck size={14} color="var(--accent-emerald)" />
-                        <span>Inspect</span>
-                      </button>
+                      {onInspectProvenance && (
+                        <button
+                          className="btn btn-secondary"
+                          style={{ padding: '0.35rem 0.75rem', fontSize: '0.785rem' }}
+                          onClick={() => onInspectProvenance(r.id)}
+                        >
+                          <ShieldCheck size={14} color="var(--accent-emerald)" />
+                          <span>Inspect</span>
+                        </button>
+                      )}
                     </td>
                   </tr>
                 );

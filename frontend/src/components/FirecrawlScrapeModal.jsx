@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { X, Globe, Sparkles, ShieldCheck, CheckCircle2, AlertTriangle, ExternalLink, ArrowRight, Clock, FileText } from 'lucide-react';
 import { api } from '../services/api';
 
-export default function FirecrawlScrapeModal({ isOpen, onClose, onJobExtracted }) {
+export default function FirecrawlScrapeModal({ isOpen, onClose, onJobExtracted, mode = 'job' }) {
   const [url, setUrl] = useState('');
   const [query, setQuery] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -20,7 +20,7 @@ export default function FirecrawlScrapeModal({ isOpen, onClose, onJobExtracted }
     setResult(null);
 
     try {
-      const data = await api.scrapeUrlWithFirecrawl(url.trim(), query.trim());
+      const data = await api.scrapeUrlWithFirecrawl(url.trim(), query.trim(), mode);
       setResult(data);
       if (data.records && data.records.length > 0 && onJobExtracted) {
         onJobExtracted(data.records[0]);
@@ -33,9 +33,9 @@ export default function FirecrawlScrapeModal({ isOpen, onClose, onJobExtracted }
   };
 
   const sampleUrls = [
-    { label: 'Sample HN Job', url: 'https://news.ycombinator.com' },
-    { label: 'Example Domain Test', url: 'https://example.com' },
-    { label: 'Indeed Search Query', url: 'https://in.indeed.com/q-python-jobs.html' }
+    { label: 'LinkedIn Job Search', url: 'https://www.linkedin.com/jobs/search?keywords=python' },
+    { label: 'Indeed Job Search', url: 'https://in.indeed.com/jobs?q=python' },
+    { label: 'Jobicy Openings', url: 'https://jobicy.com/jobs' }
   ];
 
   return (
@@ -66,13 +66,15 @@ export default function FirecrawlScrapeModal({ isOpen, onClose, onJobExtracted }
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
               <div>
                 <label style={{ fontSize: '0.78rem', fontWeight: 600, color: 'var(--text-secondary)', display: 'block', marginBottom: '0.35rem' }}>
-                  Target Career Page / Job Posting URL:
+                  {mode === 'job' ? 'Target Career Page / Job Posting URL:' : 'Target Public Data Source URL:'}
                 </label>
                 <div style={{ display: 'flex', gap: '0.5rem' }}>
                   <input
                     type="url"
                     className="prompt-input"
-                    placeholder="https://company.com/careers/senior-python-engineer or job portal URL..."
+                    placeholder={mode === 'job'
+                      ? 'https://company.com/careers/senior-python-engineer or job portal URL...'
+                      : 'https://example.com/public-report or data-source URL...'}
                     value={url}
                     onChange={(e) => setUrl(e.target.value)}
                     required

@@ -3,15 +3,23 @@ Source Management and Health Endpoints.
 Displays real-time status of all registered job connectors (Online vs Link-Out).
 """
 from fastapi import APIRouter, HTTPException
-from typing import List, Dict, Any, Optional
+from typing import List, Dict, Any, Optional, Literal
 from pydantic import BaseModel
 
 try:
     from backend.app.sources.registry import source_registry
-    from backend.app.services.firecrawl_service import firecrawl_service
+    from backend.app.services.firecrawl_service import (
+        firecrawl_service,
+        filter_job_listing_documents,
+        is_job_listing_document,
+    )
 except (ImportError, ModuleNotFoundError):
     from ..sources.registry import source_registry
-    from ..services.firecrawl_service import firecrawl_service
+    from ..services.firecrawl_service import (
+        firecrawl_service,
+        filter_job_listing_documents,
+        is_job_listing_document,
+    )
 try:
     from backend.ai_engine.jev_extractor import jev_extractor
 except (ImportError, ModuleNotFoundError):
@@ -23,10 +31,12 @@ class ScrapeUrlRequest(BaseModel):
     url: str
     query: Optional[str] = None
     extract_with_jev: bool = True
+    mode: Literal["job", "data"] = "job"
 
 class FirecrawlSearchRequest(BaseModel):
     query: str
     limit: Optional[int] = 5
+    mode: Literal["job", "data"] = "job"
 
 @router.get("/health")
 async def get_sources_health(force: bool = False) -> Dict[str, Any]:
@@ -60,18 +70,30 @@ async def scrape_url(req: ScrapeUrlRequest) -> Dict[str, Any]:
 
     scrape_res = await firecrawl_service.scrape_url(req.url.strip())
     
+    is_job_document = scrape_res.get("success") and is_job_listing_document(scrape_res)
     extracted_records = []
-    if req.extract_with_jev and scrape_res.get("success"):
+    if req.mode == "job" and req.extract_with_jev and is_job_document:
         extracted_records = jev_extractor.extract_from_firecrawl(scrape_res, query=req.query or "")
 
     return {
         "status": "success",
+        "mode": req.mode,
         "url": req.url,
         "title": scrape_res.get("title"),
         "provider": scrape_res.get("provider"),
         "latency_ms": scrape_res.get("latency_ms", 0),
         "markdown_length": len(scrape_res.get("markdown", "")),
         "raw_snippet": (scrape_res.get("text") or scrape_res.get("markdown") or "")[:450],
+        "job_document_accepted": is_job_document,
+        "message": (
+            "Job listing validated and extracted."
+            if req.mode == "job" and is_job_document
+            else (
+                "The page was scraped as a data source."
+                if req.mode == "data"
+                else "The page was scraped, but it is not a job listing and was not added to the job feed."
+            )
+        ),
         "extracted_count": len(extracted_records),
         "records": extracted_records,
         "jev_audit": {
@@ -86,21 +108,49 @@ async def scrape_url(req: ScrapeUrlRequest) -> Dict[str, Any]:
 async def search_firecrawl(req: FirecrawlSearchRequest) -> Dict[str, Any]:
     """
     Searches web career boards using Firecrawl and extracts live vacancies via Jev.
+
+    Job mode accepts only documents that identify as actual vacancies.  Firecrawl
+    can still be used for general data scraping with ``mode=data``, but that
+    mode is intentionally not allowed to populate the job-results feed.
     """
     if not req.query or not req.query.strip():
         raise HTTPException(status_code=400, detail="Search query is required")
 
-    docs = await firecrawl_service.search(req.query.strip(), limit=req.limit or 5)
+    requested_limit = max(1, min(req.limit or 5, 20))
+    # Ask for a few extra documents in job mode because advice/news results are
+    # discarded by the job-document gate below.
+    search_query = req.query.strip()
+    if req.mode == "job" and not any(term in search_query.lower() for term in ("job", "career", "vacanc", "opening", "hiring")):
+        search_query = f"{search_query} job openings"
+    docs = await firecrawl_service.search(
+        search_query,
+        limit=min(requested_limit * 3, 20) if req.mode == "job" else requested_limit,
+    )
+
+    if req.mode == "data":
+        return {
+            "status": "success",
+            "query": req.query,
+            "mode": "data",
+            "provider": "firecrawl",
+            "raw_documents_found": len(docs),
+            "documents": docs[:requested_limit],
+            "jobs": [],
+        }
+
+    job_docs = filter_job_listing_documents(docs)
     all_jobs = []
-    for d in docs:
+    for d in job_docs[:requested_limit]:
         extracted = jev_extractor.extract_from_firecrawl(d, query=req.query)
         all_jobs.extend(extracted)
 
     return {
         "status": "success",
         "query": req.query,
+        "mode": "job",
         "provider": "firecrawl",
         "raw_documents_found": len(docs),
+        "non_job_documents_filtered": len(docs) - len(job_docs),
         "jev_extracted_jobs": len(all_jobs),
         "jobs": all_jobs
     }

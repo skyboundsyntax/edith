@@ -125,20 +125,20 @@ export const api = {
     return res.json();
   },
 
-  async scrapeUrlWithFirecrawl(url, query = '') {
+  async scrapeUrlWithFirecrawl(url, query = '', mode = 'job') {
     const res = await fetchWithTimeout(`${API_BASE}/sources/scrape`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ url, query, extract_with_jev: true })
+      body: JSON.stringify({ url, query, mode, extract_with_jev: true })
     }, 30000);
     return res.json();
   },
 
-  async searchFirecrawl(query, limit = 5) {
+  async searchFirecrawl(query, limit = 5, mode = 'job') {
     const res = await fetchWithTimeout(`${API_BASE}/sources/firecrawl/search`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ query, limit })
+      body: JSON.stringify({ query, limit, mode })
     }, 30000);
     return res.json();
   },

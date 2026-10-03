@@ -232,11 +232,13 @@ class SourceDiscovery:
 
             # Firecrawl live web search & scraping
             try:
-                from backend.app.services.firecrawl_service import firecrawl_service
+                from backend.app.services.firecrawl_service import firecrawl_service, filter_job_listing_documents
                 if firecrawl_service.is_configured:
                     fc_query = f"{keywords} jobs in {location}"
                     fc_docs = await firecrawl_service.search(fc_query, limit=4)
-                    results.extend(fc_docs)
+                    # Firecrawl search is broad; never let a careers article
+                    # enter this job-only discovery pipeline as a vacancy.
+                    results.extend(filter_job_listing_documents(fc_docs))
             except Exception as e:
                 logger.warning(f"Firecrawl search in SourceDiscovery notice: {e}")
 

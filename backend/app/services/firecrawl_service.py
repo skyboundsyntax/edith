@@ -9,6 +9,7 @@ import html
 import time
 import logging
 from typing import Dict, Any, List, Optional
+from urllib.parse import urlparse
 import httpx
 from bs4 import BeautifulSoup
 
@@ -27,6 +28,98 @@ BROWSER_HEADERS = {
     "Sec-Ch-Ua-Mobile": "?0",
     "Sec-Ch-Ua-Platform": '"Windows"',
 }
+
+# Firecrawl search is a general-purpose web search.  Do not assume that a
+# result for a query containing "jobs" is itself a vacancy: search engines
+# commonly return career-advice articles, salary reports, and news stories.
+# These rules deliberately validate the *source document* before it reaches
+# the job extractor, which otherwise has enough free text to manufacture a
+# convincing-looking job record from an article.
+JOB_HOST_SUFFIXES = (
+    "linkedin.com", "indeed.com", "naukri.com", "greenhouse.io", "lever.co",
+    "ashbyhq.com", "workdayjobs.com", "myworkdayjobs.com", "smartrecruiters.com",
+    "workable.com", "jobicy.com", "arbeitnow.com", "remotive.com", "remoteok.com",
+    "himalayas.app", "wellfound.com", "ziprecruiter.com", "glassdoor.com",
+)
+JOB_PATH_RE = re.compile(
+    r"/(?:jobs?|job-?search|careers?|positions?|vacanc(?:y|ies)|openings?)(?:/|$|[?#])",
+    re.IGNORECASE,
+)
+EDITORIAL_PATH_RE = re.compile(
+    r"/(?:blog|blogs|news|article|articles|insights|resources|guides?|reports?)(?:/|$|[?#])",
+    re.IGNORECASE,
+)
+EDITORIAL_TITLE_RE = re.compile(
+    r"\b(?:blog|news|article|career advice|salary guide|how to|tips for|report|insights?)\b",
+    re.IGNORECASE,
+)
+JOB_CONTEXT_SIGNALS = (
+    "apply now", "apply for", "job description", "job id", "job type",
+    "employment type", "employment status", "qualifications", "requirements",
+    "responsibilities", "what you will do", "what you'll do", "open position",
+    "open role", "current openings", "available positions", "we are hiring",
+)
+
+
+def is_job_listing_document(document: Dict[str, Any]) -> bool:
+    """Return whether a search document is a job listing, not editorial content.
+
+    A positive check is required instead of only a blocklist.  This keeps an
+    article that happens to mention an opening from being shown as an
+    application-ready vacancy in the job feed.
+    """
+    url = str(document.get("url") or "").strip()
+    title = str(document.get("title") or "").strip()
+    metadata = document.get("metadata") or {}
+    body = " ".join(
+        str(value or "")
+        for value in (
+            title,
+            document.get("markdown"),
+            document.get("text"),
+            document.get("content"),
+            metadata.get("description"),
+            metadata.get("type"),
+        )
+    ).lower()
+    parsed = urlparse(url)
+    hostname = (parsed.hostname or "").lower()
+    path = (parsed.path or "").lower()
+
+    has_job_path = bool(JOB_PATH_RE.search(path))
+    is_trusted_job_host = any(
+        hostname == suffix or hostname.endswith(f".{suffix}")
+        for suffix in JOB_HOST_SUFFIXES
+    )
+    is_editorial = bool(EDITORIAL_PATH_RE.search(path) or EDITORIAL_TITLE_RE.search(title))
+
+    # An editorial URL/title is never a job result.  Do this before accepting
+    # a job-shaped path so a URL such as /jobs/blog/hiring-trends cannot leak
+    # through merely because it contains the word "jobs".
+    if is_editorial:
+        return False
+
+    if has_job_path:
+        return True
+
+    signal_count = sum(signal in body for signal in JOB_CONTEXT_SIGNALS)
+    has_career_path = "/career" in path or "/position" in path
+    has_listing_title = bool(
+        re.search(r"\b(?:job|jobs|opening|openings|vacancy|vacancies|position|positions)\b", title, re.I)
+    )
+
+    # ATS and job-board results that have a non-standard URL are allowed only
+    # when their page exposes at least one concrete vacancy signal.
+    if is_trusted_job_host and (has_career_path or has_listing_title):
+        return signal_count >= 1
+
+    # Company careers pages normally carry multiple structured job fields.
+    return has_career_path and signal_count >= 2
+
+
+def filter_job_listing_documents(documents: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """Keep only documents that passed the job-listing validation gate."""
+    return [document for document in documents if is_job_listing_document(document)]
 
 class FirecrawlService:
     def __init__(self, api_key: Optional[str] = None, api_url: Optional[str] = None):

@@ -13,10 +13,10 @@ import re
 
 try:
     from backend.app.sources.base import JobSourceConnector, SourceHealth, SourceCapabilities
-    from backend.app.services.firecrawl_service import firecrawl_service
+    from backend.app.services.firecrawl_service import firecrawl_service, filter_job_listing_documents
 except (ImportError, ModuleNotFoundError):
     from .base import JobSourceConnector, SourceHealth, SourceCapabilities
-    from ..services.firecrawl_service import firecrawl_service
+    from ..services.firecrawl_service import firecrawl_service, filter_job_listing_documents
 try:
     from backend.ai_engine.jev_extractor import jev_extractor
 except (ImportError, ModuleNotFoundError):
@@ -70,7 +70,10 @@ class FirecrawlConnector(JobSourceConnector):
             # 1. Scrape web openings via Firecrawl search if configured
             if firecrawl_service.is_configured:
                 scraped_docs = await firecrawl_service.search(search_query, limit=6)
-                for doc in scraped_docs:
+                # A web-search hit is not automatically a job posting.  Gate
+                # documents before Jev sees them so editorial pages cannot be
+                # represented as application-ready vacancies.
+                for doc in filter_job_listing_documents(scraped_docs):
                     extracted_jobs = jev_extractor.extract_from_firecrawl(doc, query=search_query)
                     for j in extracted_jobs:
                         j_url = j.get("apply_url") or doc.get("url") or ""

@@ -482,6 +482,10 @@ export default function App() {
     const rawQuery = promptText || prompt;
     if (!rawQuery || !rawQuery.trim() || isRunning) return;
     const query = rawQuery.trim();
+    // Capture the selected mode for the whole run.  A user can change tabs
+    // while a request is in flight, but its results must not cross into the
+    // other feed.
+    const modeAtLaunch = platformMode;
 
     // Auto-sync location filter based on prompt content:
     const qLower = query.toLowerCase();
@@ -531,7 +535,7 @@ export default function App() {
       return `${hh}:${mm}:${ss}`;
     };
 
-    const isFootball = qLower.includes('football') || (qLower.includes('coach') && !qLower.includes('agile'));
+    const isFootball = modeAtLaunch === 'job' && (qLower.includes('football') || (qLower.includes('coach') && !qLower.includes('agile')));
     const queryDisplay = isFootball ? 'football coach' : (query.length > 35 ? query.slice(0, 32) + '...' : query);
 
     // Step 1: Immediate [HH:MM:SS] Initializing LangGraph Query Planner...
@@ -563,7 +567,9 @@ export default function App() {
           timestamp: new Date().toISOString(),
           timeStr: t1,
           node: 'source_discovery',
-          message: `[${t1}] Executing Firecrawl autonomous web scraper & live multi-source crawlers...`
+          message: modeAtLaunch === 'job'
+            ? `[${t1}] Searching live job boards and career pages...`
+            : `[${t1}] Collecting live web documents for structured data extraction...`
         }
       ]);
     }, 400);
@@ -588,8 +594,8 @@ export default function App() {
     const runScrapeAndLoad = async () => {
       let liveScrapedJobs = [];
       try {
-        const scrapeRes = await api.searchFirecrawl(query, 5);
-        if (scrapeRes && Array.isArray(scrapeRes.jobs) && scrapeRes.jobs.length > 0) {
+        const scrapeRes = await api.searchFirecrawl(query, 5, modeAtLaunch);
+        if (modeAtLaunch === 'job' && scrapeRes && Array.isArray(scrapeRes.jobs) && scrapeRes.jobs.length > 0) {
           liveScrapedJobs = scrapeRes.jobs.map((j, idx) => ({
             id: j.id || `live_scraped_${idx}_${Date.now()}`,
             confidence_score: j.confidence_score || 93.0,
@@ -614,6 +620,25 @@ export default function App() {
               apply_link: j.apply_url || j.source_url || 'https://in.indeed.com'
             }
           }));
+        } else if (modeAtLaunch === 'general' && scrapeRes && Array.isArray(scrapeRes.documents)) {
+          // General data scraping keeps source documents as data records.  It
+          // deliberately does not turn an article into a fake job opening.
+          liveScrapedJobs = scrapeRes.documents.map((document, idx) => ({
+            id: `web_document_${idx}_${Date.now()}`,
+            entity_name: 'WebDocument',
+            confidence_score: 100,
+            created_at: new Date().toISOString(),
+            source: document.source || 'Firecrawl Web Scraper',
+            source_title: document.title || 'Untitled web document',
+            source_url: document.url || '',
+            data: {
+              title: document.title || 'Untitled web document',
+              source: document.source || 'Firecrawl Web Scraper',
+              url: document.url || '',
+              excerpt: document.content || document.markdown || '',
+              ...(document.metadata?.publishedTime ? { published_at: document.metadata.publishedTime } : {})
+            }
+          }));
         }
       } catch (err) {
         console.warn('Firecrawl API scrape notice (using resilient fallback):', err);
@@ -632,11 +657,16 @@ export default function App() {
       ]);
 
       let finalRecords = [];
-      if (isFootball) {
+      if (modeAtLaunch === 'job' && isFootball) {
         // Merge real live scraped jobs at the top with verified academy openings
         finalRecords = [...liveScrapedJobs, ...FOOTBALL_COACH_DATASET];
+      } else if (modeAtLaunch === 'job') {
+        // Do not substitute unrelated demo roles when a job search has no
+        // validated vacancy results.  An empty state is more truthful and
+        // keeps the job feed scoped to the user's query.
+        finalRecords = liveScrapedJobs;
       } else {
-        finalRecords = liveScrapedJobs.length > 0 ? liveScrapedJobs : FOOTBALL_COACH_DATASET;
+        finalRecords = liveScrapedJobs;
       }
 
       const t4 = getHHMMSS(4);
@@ -646,7 +676,7 @@ export default function App() {
           timestamp: new Date().toISOString(),
           timeStr: t4,
           node: 'completed',
-          message: `[${t4}] Scraping completed. ${finalRecords.length} verified real-time records loaded.`
+          message: `[${t4}] ${modeAtLaunch === 'job' ? 'Job scraping' : 'Data scraping'} completed. ${finalRecords.length} verified real-time records loaded.`
         }
       ]);
 
@@ -658,18 +688,28 @@ export default function App() {
         human_review_count: 0
       });
       setIsRunning(false);
-      showToast(`Scraping complete! ${finalRecords.length} verified direct application postings loaded.`, 'success');
+      showToast(
+        modeAtLaunch === 'job'
+          ? `Job scraping complete! ${finalRecords.length} verified job postings loaded.`
+          : `Data scraping complete! ${finalRecords.length} source documents loaded.`,
+        'success'
+      );
 
-      try {
-        const newWf = await api.createWorkflow(query, confidenceThreshold, null);
-        if (newWf) {
-          setActiveWorkflow(newWf);
-          if (newWf?.parsed_spec) {
-            setLiveSpec(newWf.parsed_spec);
+      // The persisted workflow endpoint is a job-ingestion pipeline.  Do not
+      // send general web documents through it, where they could be modeled as
+      // job records again.
+      if (modeAtLaunch === 'job') {
+        try {
+          const newWf = await api.createWorkflow(query, confidenceThreshold, null);
+          if (newWf) {
+            setActiveWorkflow(newWf);
+            if (newWf?.parsed_spec) {
+              setLiveSpec(newWf.parsed_spec);
+            }
           }
+        } catch (err) {
+          console.warn('Backend workflow persist error:', err);
         }
-      } catch (err) {
-        console.warn('Backend workflow persist error:', err);
       }
     };
 
@@ -701,8 +741,10 @@ export default function App() {
 
     const pLower = (prompt || '').toLowerCase();
     const sLower = (cleanSearch || '').toLowerCase();
-    const isFootballQuery = pLower.includes('football') || sLower.includes('football') || 
-      (pLower.includes('coach') && !pLower.includes('agile')) || (sLower.includes('coach') && !sLower.includes('agile'));
+    const isFootballQuery = platformMode === 'job' && (
+      pLower.includes('football') || sLower.includes('football') ||
+      (pLower.includes('coach') && !pLower.includes('agile')) || (sLower.includes('coach') && !sLower.includes('agile'))
+    );
 
     if (isFootballQuery) {
       if (!result || result.length === 0) {
@@ -711,20 +753,22 @@ export default function App() {
     }
 
     // 1. Strict Geographic / Modality filter
-    if (activeLocationFilter === 'PUNE') {
-      result = result.filter(isJobInPune);
-    } else if (activeLocationFilter === 'BLR') {
-      result = result.filter(isJobInBengaluru);
-    } else if (activeLocationFilter === 'MUM') {
-      result = result.filter(isJobInMumbai);
-    } else if (activeLocationFilter === 'DEL') {
-      result = result.filter(isJobInDelhiNCR);
-    } else if (activeLocationFilter === 'HYD') {
-      result = result.filter(isJobInHyderabad);
-    } else if (activeLocationFilter === 'REMOTE') {
-      result = result.filter(isJobOnlineRemote);
-    } else if (activeLocationFilter === 'OFFLINE') {
-      result = result.filter(isJobOfflineOnSite);
+    if (platformMode === 'job') {
+      if (activeLocationFilter === 'PUNE') {
+        result = result.filter(isJobInPune);
+      } else if (activeLocationFilter === 'BLR') {
+        result = result.filter(isJobInBengaluru);
+      } else if (activeLocationFilter === 'MUM') {
+        result = result.filter(isJobInMumbai);
+      } else if (activeLocationFilter === 'DEL') {
+        result = result.filter(isJobInDelhiNCR);
+      } else if (activeLocationFilter === 'HYD') {
+        result = result.filter(isJobInHyderabad);
+      } else if (activeLocationFilter === 'REMOTE') {
+        result = result.filter(isJobOnlineRemote);
+      } else if (activeLocationFilter === 'OFFLINE') {
+        result = result.filter(isJobOfflineOnSite);
+      }
     }
 
     // 2. Strict Salary bracket filter
@@ -742,7 +786,7 @@ export default function App() {
       else if (activeSalaryBracket === '40+') { effectiveMinLpa = 40; effectiveMaxLpa = null; }
     }
 
-    if (effectiveMinLpa !== null || effectiveMaxLpa !== null) {
+    if (platformMode === 'job' && (effectiveMinLpa !== null || effectiveMaxLpa !== null)) {
       result = result.filter((r) => {
         const d = r.data || {};
         const sal = d.salary_range || d.salary || '';
@@ -763,17 +807,19 @@ export default function App() {
       } else {
         result = result.filter((r) => {
           const d = r.data || {};
-          const title = String(d.job_title || '').toLowerCase();
+          const title = String(d.job_title || d.title || '').toLowerCase();
           const comp = String(d.company || '').toLowerCase();
           const loc = String(d.location || '').toLowerCase();
           const skills = Array.isArray(d.skills) ? d.skills.join(' ').toLowerCase() : String(d.skills || '').toLowerCase();
           const modality = String(d.work_modality || '').toLowerCase();
+          const genericData = Object.values(d).join(' ').toLowerCase();
 
           return title.includes(term) ||
             comp.includes(term) ||
             loc.includes(term) ||
             skills.includes(term) ||
-            modality.includes(term);
+            modality.includes(term) ||
+            genericData.includes(term);
         });
       }
     }
@@ -822,7 +868,7 @@ export default function App() {
     }
 
     return result;
-  }, [records, activeLocationFilter, cleanSearch, detectedQueryBracket, activeSalaryBracket, prompt]);
+  }, [records, activeLocationFilter, cleanSearch, detectedQueryBracket, activeSalaryBracket, prompt, platformMode]);
 
   // Hero Job Selection & Paging
   const [showSecondaryStream, setShowSecondaryStream] = useState(false);
@@ -924,6 +970,7 @@ export default function App() {
                         className={`mode-toggle-pill ${platformMode === 'job' ? 'active' : ''}`}
                         onClick={() => {
                           setPlatformMode('job');
+                          setDashboardViewMode('cards');
                           setPrompt('Gather job postings for Football Coaches across sports academies');
                         }}
                         style={{
@@ -951,6 +998,9 @@ export default function App() {
                         className={`mode-toggle-pill ${platformMode === 'general' ? 'active' : ''}`}
                         onClick={() => {
                           setPlatformMode('general');
+                          // Data sources are rendered in the dynamic grid,
+                          // not in a job-opportunity card.
+                          setDashboardViewMode('table');
                           setPrompt('Identify top-funded Seed-stage AI Startups in India');
                         }}
                         style={{
@@ -1014,7 +1064,9 @@ export default function App() {
                     <button
                       type="button"
                       className="btn btn-secondary"
-                      onClick={() => handleLaunchWorkflow(prompt || 'Gather job postings for Football Coaches across sports academies')}
+                      onClick={() => handleLaunchWorkflow(prompt || (platformMode === 'job'
+                        ? 'Gather job postings for Football Coaches across sports academies'
+                        : 'Identify top-funded Seed-stage AI Startups in India'))}
                       disabled={isRunning}
                       style={{
                         padding: '0.65rem 1.25rem',
@@ -1023,15 +1075,15 @@ export default function App() {
                         alignItems: 'center',
                         gap: '0.45rem',
                         fontWeight: 700,
-                        background: 'rgba(56, 189, 248, 0.12)',
-                        color: '#38bdf8',
-                        border: '1px solid rgba(56, 189, 248, 0.35)',
+                        background: platformMode === 'job' ? 'rgba(56, 189, 248, 0.12)' : 'rgba(245, 158, 11, 0.12)',
+                        color: platformMode === 'job' ? '#38bdf8' : '#fbbf24',
+                        border: `1px solid ${platformMode === 'job' ? 'rgba(56, 189, 248, 0.35)' : 'rgba(245, 158, 11, 0.35)'}`,
                         cursor: 'pointer'
                       }}
-                      title="Execute multi-source crawler across web endpoints"
+                      title={platformMode === 'job' ? 'Search validated job boards and career pages' : 'Collect public web documents as data sources'}
                     >
-                      <Activity size={15} color="#38bdf8" />
-                      <span>Scrape Real Jobs</span>
+                      <Activity size={15} color={platformMode === 'job' ? '#38bdf8' : '#fbbf24'} />
+                      <span>{platformMode === 'job' ? 'Scrape Real Jobs' : 'Scrape Data Sources'}</span>
                     </button>
                   </div>
 
@@ -1128,16 +1180,18 @@ export default function App() {
               </div>
 
               {/* 4. Tactile Geographic & Modality Location Filter Bar */}
-              <LocationFilterBar
-                activeFilter={activeLocationFilter}
-                onSelectFilter={setActiveLocationFilter}
-                records={records}
-                onScrapePune={handleScrapeLive}
-                isRunning={isRunning}
-              />
+              {platformMode === 'job' && (
+                <LocationFilterBar
+                  activeFilter={activeLocationFilter}
+                  onSelectFilter={setActiveLocationFilter}
+                  records={records}
+                  onScrapePune={handleScrapeLive}
+                  isRunning={isRunning}
+                />
+              )}
 
               {/* 4b. Strict Salary Bracket Filter Bar (Shown when relevant to compensation) */}
-              {(activeWorkflow?.parsed_spec?.intent_parsing?.domain_type === 'TALENT_JOBS' || (!activeWorkflow?.parsed_spec && !prompt.toLowerCase().includes('startup') && !prompt.toLowerCase().includes('sponsor'))) && (
+              {platformMode === 'job' && (activeWorkflow?.parsed_spec?.intent_parsing?.domain_type === 'TALENT_JOBS' || (!activeWorkflow?.parsed_spec && !prompt.toLowerCase().includes('startup') && !prompt.toLowerCase().includes('sponsor'))) && (
                 <SalaryBracketFilterBar
                   activeBracket={activeSalaryBracket}
                   onSelectBracket={setActiveSalaryBracket}
@@ -1163,20 +1217,23 @@ export default function App() {
                   <h3 style={{ margin: 0, fontSize: '1.25rem', fontWeight: 700, color: '#ffffff', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                     <Butterfly size={19} color="var(--accent-amber)" />
                     <span>
-                      {activeWorkflow?.parsed_spec?.intent_parsing?.domain_type === 'MARKET_DATA' || prompt.toLowerCase().includes('startup')
+                      {platformMode === 'general'
+                        ? 'Real-Time Scraped Data Sources'
+                        : activeWorkflow?.parsed_spec?.intent_parsing?.domain_type === 'MARKET_DATA' || prompt.toLowerCase().includes('startup')
                         ? 'Real-Time Verified Startups & Market Entities'
                         : activeWorkflow?.parsed_spec?.intent_parsing?.domain_type === 'SPONSORSHIPS' || prompt.toLowerCase().includes('sponsor')
                         ? 'Real-Time Verified Sponsorship Opportunities'
                         : 'Real-Time Scraped & Verified Openings'}
                     </span>
                     <span style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-muted)' }}>
-                      ({filteredRecords.length} Verified Records{activeLocationFilter !== 'ALL' ? ` in ${activeLocationFilter}` : ''})
+                      ({filteredRecords.length} Verified {platformMode === 'job' ? 'Records' : 'Sources'}{platformMode === 'job' && activeLocationFilter !== 'ALL' ? ` in ${activeLocationFilter}` : ''})
                     </span>
                   </h3>
                 </div>
 
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <button
+                  {platformMode === 'job' && (
+                    <button
                     type="button"
                     className={`btn ${dashboardViewMode === 'cards' ? 'btn-primary' : 'btn-secondary'}`}
                     style={{ fontSize: '0.785rem', padding: '0.4rem 0.85rem', display: 'flex', alignItems: 'center', gap: '0.35rem' }}
@@ -1185,7 +1242,8 @@ export default function App() {
                   >
                     <LayoutGrid size={14} />
                     <span>Cards View</span>
-                  </button>
+                    </button>
+                  )}
                   <button
                     type="button"
                     className={`btn ${dashboardViewMode === 'table' ? 'btn-primary' : 'btn-secondary'}`}
@@ -1259,8 +1317,8 @@ export default function App() {
                 /* Table Grid View */
                 <DataGrid
                   records={filteredRecords}
-                  schema={activeWorkflow?.target_schema}
-                  onInspectProvenance={(id) => setInspectRecordId(id)}
+                  schema={platformMode === 'general' ? { entity_name: 'WebDocument' } : activeWorkflow?.target_schema}
+                  onInspectProvenance={platformMode === 'job' ? (id) => setInspectRecordId(id) : undefined}
                   onExport={handleExport}
                   isExporting={isExporting}
                 />
@@ -1317,8 +1375,8 @@ export default function App() {
           <div style={{ padding: '1rem 2.25rem 4rem 2.25rem' }}>
             <DataGrid
               records={filteredRecords}
-              schema={activeWorkflow?.target_schema}
-              onInspectProvenance={(id) => setInspectRecordId(id)}
+              schema={platformMode === 'general' ? { entity_name: 'WebDocument' } : activeWorkflow?.target_schema}
+              onInspectProvenance={platformMode === 'job' ? (id) => setInspectRecordId(id) : undefined}
               onExport={handleExport}
               isExporting={isExporting}
             />
@@ -1379,6 +1437,7 @@ export default function App() {
       <FirecrawlScrapeModal
         isOpen={isFirecrawlModalOpen}
         onClose={() => setIsFirecrawlModalOpen(false)}
+        mode={platformMode}
         onJobExtracted={(job) => {
           showToast(`Successfully extracted "${job.title || 'Job'}" via Firecrawl & Jev!`, 'success');
           if (job && activeWorkflow) {
