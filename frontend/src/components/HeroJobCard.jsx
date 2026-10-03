@@ -11,7 +11,8 @@ import {
   Briefcase,
   Zap,
   TrendingUp,
-  Award
+  Award,
+  AlertCircle
 } from 'lucide-react';
 import { ModalityBadge, StatMonolith, Butterfly } from './ui';
 import { sanitizeJobDescription, formatSkillName } from '../utils/textSanitizer';
@@ -211,10 +212,22 @@ export default function HeroJobCard({
           <span className="origin-platform">{platform.toUpperCase()}</span>
         </div>
 
-        <div className="dossier-status-pill">
-          <CheckCircle2 size={12} color="var(--accent-emerald)" />
-          <span>Active Opening</span>
-        </div>
+        {data.semantic_tag === 'Filtered / Irrelevant' || score < 40 ? (
+          <div className="dossier-status-pill filtered" style={{ background: 'rgba(239, 68, 68, 0.2)', border: '1px solid rgba(239, 68, 68, 0.45)', color: '#fca5a5' }}>
+            <AlertCircle size={12} color="#f87171" />
+            <span>Filtered / Irrelevant (&lt;40% Fit)</span>
+          </div>
+        ) : score >= 94 ? (
+          <div className="dossier-status-pill top-match" style={{ background: 'rgba(16, 185, 129, 0.22)', border: '1px solid rgba(16, 185, 129, 0.55)', color: '#6ee7b7' }}>
+            <CheckCircle2 size={12} color="#10b981" />
+            <span>Top Strict Match ({score}%)</span>
+          </div>
+        ) : (
+          <div className="dossier-status-pill">
+            <CheckCircle2 size={12} color="var(--accent-emerald)" />
+            <span>Active Opening</span>
+          </div>
+        )}
       </div>
 
       {/* 3. Hero Role Title & Company Identity with RTL and wrapping protection */}
@@ -258,8 +271,8 @@ export default function HeroJobCard({
           label="EDITH MATCH SCORE"
           value={score}
           unit="/100 PTS"
-          subtext={score >= 85 ? 'High Compatibility Match' : 'Verified Role Compatibility'}
-          theme="emerald"
+          subtext={score < 40 ? (data.semantic_reason || 'Filtered: Low Relevance (<40%)') : score >= 85 ? 'High Compatibility Match' : 'Verified Role Compatibility'}
+          theme={score < 40 ? 'rose' : score >= 85 ? 'emerald' : 'amber'}
           className="score-monolith"
         />
 

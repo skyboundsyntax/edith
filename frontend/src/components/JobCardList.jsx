@@ -210,6 +210,11 @@ export default function JobCardList({
                       <span className="card-dot-sep">•</span>
                       <span className="card-timestamp">{formatDate(r.created_at || data.date_posted)}</span>
                     </div>
+                    {data.semantic_reason && (
+                      <div style={{ marginTop: '0.25rem', fontSize: '0.72rem', color: '#f87171', fontStyle: 'italic', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+                        <span>🚫 {data.semantic_reason}</span>
+                      </div>
+                    )}
                   </div>
 
                   <div className="card-actions-group">
@@ -220,10 +225,50 @@ export default function JobCardList({
                     </div>
 
                     {/* Fit Score Badge */}
-                    <div className={`fit-pill-badge ${score >= 80 ? 'high' : score >= 65 ? 'mid' : 'fair'}`}>
-                      <Butterfly size={13} />
-                      <span>{score}% Fit</span>
-                    </div>
+                    {data.semantic_tag === 'Filtered / Irrelevant' || score < 40 ? (
+                      <div
+                        className="fit-pill-badge filtered-irrelevant"
+                        style={{
+                          background: 'rgba(239, 68, 68, 0.18)',
+                          color: '#fca5a5',
+                          border: '1px solid rgba(239, 68, 68, 0.45)',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '0.35rem',
+                          padding: '0.28rem 0.65rem',
+                          borderRadius: '999px',
+                          fontSize: '0.75rem',
+                          fontWeight: 700
+                        }}
+                        title={data.semantic_reason || 'Filtered / Irrelevant (<40% Fit) - Conflicting Sport Discipline'}
+                      >
+                        <span>⚠️ Filtered / Irrelevant ({score}%)</span>
+                      </div>
+                    ) : score >= 94 ? (
+                      <div
+                        className="fit-pill-badge top-strict"
+                        style={{
+                          background: 'rgba(16, 185, 129, 0.2)',
+                          color: '#6ee7b7',
+                          border: '1px solid rgba(16, 185, 129, 0.5)',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: '0.35rem',
+                          padding: '0.28rem 0.65rem',
+                          borderRadius: '999px',
+                          fontSize: '0.75rem',
+                          fontWeight: 700
+                        }}
+                      >
+                        <Butterfly size={13} color="#10b981" />
+                        <span>🏆 {score}% Match</span>
+                      </div>
+                    ) : (
+                      <div className={`fit-pill-badge ${score >= 80 ? 'high' : score >= 65 ? 'mid' : 'fair'}`}>
+                        <Butterfly size={13} />
+                        <span>{score}% Fit</span>
+                      </div>
+                    )}
 
                     {/* Direct Apply CTA Button */}
                     <a

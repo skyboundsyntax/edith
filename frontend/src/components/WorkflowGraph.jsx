@@ -88,28 +88,40 @@ export default function WorkflowGraph({
         </div>
         {safeLogs.length === 0 ? (
           <div className="log-line">
-            <span className="log-time">{new Date().toLocaleTimeString()}</span>
-            <span className="log-node">[telemetry]</span>
-            <span className="log-msg" style={{ color: 'var(--text-muted)' }}>
-              Live agent stream active. Listening for real-time LangGraph execution events...
+            <span className="log-time" style={{ color: 'var(--text-muted)' }}>--:--:--</span>
+            <span className="log-node" style={{ color: 'var(--text-muted)' }}>[standby]</span>
+            <span className="log-msg" style={{ color: 'var(--text-muted)', fontStyle: 'italic' }}>
+              --:--:-- Awaiting prompt execution...
             </span>
           </div>
         ) : (
-          safeLogs.slice(-8).map((log, i) => {
+          safeLogs.slice(-10).map((log, i) => {
             if (!log) return null;
             let timeStr = '--:--:--';
-            try {
-              timeStr = log?.timestamp ? new Date(log.timestamp).toLocaleTimeString() : new Date().toLocaleTimeString();
-            } catch {
-              timeStr = new Date().toLocaleTimeString();
+            let msgStr = typeof log === 'object' && log?.message ? log.message : (typeof log === 'string' ? log : JSON.stringify(log));
+            let nodeStr = typeof log === 'object' && log?.node ? log.node : 'pipeline';
+
+            // Check if msgStr already contains [HH:MM:SS] prefix
+            const timeMatch = msgStr.match(/^\[(\d{2}:\d{2}:\d{2})\]\s*(.*)$/);
+            if (timeMatch) {
+              timeStr = timeMatch[1];
+              msgStr = timeMatch[2];
+            } else if (log?.timeStr) {
+              timeStr = log.timeStr;
+            } else if (log?.timestamp) {
+              try {
+                timeStr = new Date(log.timestamp).toTimeString().split(' ')[0];
+              } catch {
+                timeStr = new Date().toTimeString().split(' ')[0];
+              }
             }
-            const nodeStr = typeof log === 'object' && log?.node ? log.node : 'pipeline';
-            const msgStr = typeof log === 'object' && log?.message ? log.message : (typeof log === 'string' ? log : JSON.stringify(log));
 
             return (
               <div key={i} className="log-line">
-                <span className="log-time">{timeStr}</span>
-                <span className="log-node">[{nodeStr}]</span>
+                <span className="log-time" style={{ color: 'var(--text-cyan)', fontFamily: 'var(--font-mono)' }}>[{timeStr}]</span>
+                {nodeStr && nodeStr !== 'pipeline' && (
+                  <span className="log-node">[{nodeStr}]</span>
+                )}
                 <span className="log-msg">{msgStr}</span>
               </div>
             );
