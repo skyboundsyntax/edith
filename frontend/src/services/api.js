@@ -125,6 +125,24 @@ export const api = {
     return res.json();
   },
 
+  async scrapeUrlWithFirecrawl(url, query = 'Software Engineer') {
+    const res = await fetchWithTimeout(`${API_BASE}/sources/scrape`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ url, query, extract_with_jev: true })
+    }, 30000);
+    return res.json();
+  },
+
+  async searchFirecrawl(query, limit = 5) {
+    const res = await fetchWithTimeout(`${API_BASE}/sources/firecrawl/search`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query, limit })
+    }, 30000);
+    return res.json();
+  },
+
   // --- Datasets & Provenance Lineage (SDD Section 3) ---
   async getDatasets(params = {}) {
     const query = new URLSearchParams();

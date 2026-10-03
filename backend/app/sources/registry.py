@@ -29,12 +29,14 @@ from backend.app.sources.remotive_connector import RemotiveConnector
 from backend.app.sources.remoteok_connector import RemoteOKConnector
 from backend.app.sources.himalayas_connector import HimalayasConnector
 from backend.app.sources.linkout_connector import LinkOutPlatformConnector
+from backend.app.sources.firecrawl_connector import FirecrawlConnector
 
 logger = logging.getLogger(__name__)
 
 class SourcePolicyRegistry:
     def __init__(self):
         self.connectors: Dict[str, JobSourceConnector] = {
+            "firecrawl": FirecrawlConnector(),
             "linkedin": LinkedInConnector(),
             "greenhouse": GreenhouseConnector(),
             "lever": LeverConnector(),

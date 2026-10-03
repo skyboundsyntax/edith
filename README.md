@@ -28,8 +28,8 @@ edith/
 │   └── main.py              # Application entrypoint
 ├── ai_engine/               # Data & AI Layer: LangGraph & Deterministic Extraction
 │   ├── intent_parser.py     # Node 1: Dynamic JobOpening schema extraction from query
-│   ├── source_discovery.py  # Node 2: Multi-portal live scraping (LinkedIn, Jobicy, Arbeitnow)
-│   ├── jev_extractor.py     # Node 3: Real entity extraction & 4-pillar Trust Meter
+│   ├── source_discovery.py  # Node 2: Multi-portal live scraping with Firecrawl & direct APIs
+│   ├── jev_extractor.py     # Node 3: Jev Deterministic Extraction & 4-pillar Trust Meter
 │   ├── vector_deduplication.py # Node 4: TF-IDF & cosine vector similarity deduplication
 │   ├── workflow_graph.py    # LangGraph StateGraph agent pipeline
 │   └── state.py             # Strongly typed WorkflowState contract
@@ -46,8 +46,8 @@ edith/
 
 ## 🔄 Core LangGraph Agent Pipeline
 1. **Node 1: Intent Parser:** Converts the natural-language prompt into a typed `JobOpening` schema with role, skills, location, and compensation parameters.
-2. **Node 2: Source Discovery:** Scrapes live job openings across LinkedIn Guest Search API, Jobicy Remote, and Arbeitnow, fetching actual webpage descriptions.
-3. **Node 3: Data Extraction & Trust Meter:** Extracts structured entities and calculates an honest 0–100% Trust Meter based on token grounding (35%), completeness (30%), apply URL integrity (20%), and information density (15%).
+2. **Node 2: Source Discovery & Firecrawl Scraping:** Scrapes live job openings across Firecrawl (JS-rendered web scraping), LinkedIn Guest Search API, Jobicy Remote, and Arbeitnow, retrieving high-fidelity markdown and content.
+3. **Node 3: Jev Deterministic Extraction & Anti-Ghost Trust Meter:** Extracts structured entities using Jev and calculates an honest 0–100% Trust Meter based on token grounding (35%), completeness (30%), apply URL integrity (20%), and information density (15%).
 4. **Node 4: Semantic Deduplication:** Identifies and merges cross-board duplicate listings using SHA-256 entity hashing and TF-IDF cosine similarity.
 5. **Node 5: Human Review Evaluation:** Automatically flags listings scoring below the threshold for review.
 

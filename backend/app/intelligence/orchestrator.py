@@ -18,6 +18,7 @@ from backend.app.intelligence.match_scorer import score_job_match
 from backend.app.db.database import SessionLocal
 from backend.app.db.models import WorkflowModel, DataRecordModel, JobModel
 from backend.app.locations.india_locations import normalize_location, matches_location_preference, is_online_gig
+from ai_engine.jev_extractor import jev_extractor
 
 import html
 from bs4 import BeautifulSoup
@@ -279,11 +280,12 @@ async def run_job_ingestion_pipeline(
             "message": ". ".join(msg_parts) + "."
         })
 
-        # Step 5: Deterministic Match Scoring & Explainability
+        # Step 5: Deterministic Match Scoring, Jev Trust Meter & Anti-Ghost Audit
         scored_jobs = []
         human_review_count = 0
 
         for job in validated_jobs:
+            clean_desc = clean_html_text(job.get("description"))
             score_res = score_job_match(job, query_spec)
             match_score = score_res["match_score"]
             job["match_score"] = match_score
@@ -292,15 +294,47 @@ async def run_job_ingestion_pipeline(
             job["potential_gaps"] = score_res["potential_gaps"]
             job["quality_signals"] = score_res["quality_signals"]
 
-            needs_review = match_score < confidence_threshold or bool(score_res["quality_signals"].get("risk_signals"))
+            # Mathematical Jev Deterministic Extraction & Anti-Ghost Audit
+            prev_prov = job.get("provenance") or {}
+            prev_eval = prev_prov.get("confidence_evaluation") or {}
+            if prev_eval.get("breakdown") and prev_eval.get("overall_score"):
+                jev_conf = prev_eval["overall_score"]
+                jev_breakdown = prev_eval["breakdown"]
+                jev_needs_review = prev_eval.get("human_review_required", False)
+            else:
+                jev_conf, jev_breakdown, jev_needs_review = jev_extractor.audit_job_record(
+                    job,
+                    source_text=clean_desc
+                )
+
+            job["jev_confidence"] = jev_conf
+            job["jev_breakdown"] = jev_breakdown
+
+            # Determine human review flag based on both match confidence and Jev anti-ghost audit
+            needs_review = match_score < confidence_threshold or jev_needs_review or bool(score_res["quality_signals"].get("risk_signals"))
             job["human_review_required"] = needs_review
             if needs_review:
                 human_review_count += 1
 
+            # Bind complete provenance metadata
+            job["provenance"] = {
+                **prev_prov,
+                "source_url": job.get("source_url") or job.get("apply_url", ""),
+                "scraper": prev_prov.get("scraper") or ("firecrawl" if job.get("source") == "firecrawl" else "portal_connector"),
+                "extractor": "jev_deterministic_engine",
+                "raw_snippet": clean_desc[:450],
+                "confidence_evaluation": {
+                    "overall_score": jev_conf,
+                    "breakdown": jev_breakdown,
+                    "human_review_required": needs_review,
+                    "evaluator": "TypeSafe Jev Deterministic Engine"
+                }
+            }
+
             scored_jobs.append(job)
 
-        # Sort jobs by match score descending
-        scored_jobs.sort(key=lambda j: j.get("match_score", 0), reverse=True)
+        # Sort jobs by combined match score and Jev confidence
+        scored_jobs.sort(key=lambda j: (j.get("match_score", 0) * 0.6) + (j.get("jev_confidence", 80) * 0.4), reverse=True)
 
         await emit("scoring_completed", {
             "count": len(scored_jobs),
@@ -424,15 +458,18 @@ async def run_job_ingestion_pipeline(
                         "sources": j.get("sources"),
                         "description": clean_desc,
                         "description_snippet": clean_desc[:400],
-                        "is_link_out": False
+                        "is_link_out": False,
+                        "jev_confidence": j.get("jev_confidence", 85.0),
+                        "jev_breakdown": j.get("jev_breakdown", {}),
+                        "scraper_provider": j.get("provenance", {}).get("scraper", "portal_connector")
                     },
-                    confidence_score=j.get("match_score", 0.0),
-                    confidence_breakdown=j.get("score_breakdown", {}),
+                    confidence_score=j.get("jev_confidence", j.get("match_score", 0.0)),
+                    confidence_breakdown=j.get("jev_breakdown", j.get("score_breakdown", {})),
                     human_review_required=needs_review,
                     source_url=j.get("source_url", ""),
                     source_title=f"{j.get('title')} at {j.get('company')}",
                     extracted_timestamp=datetime.now(timezone.utc).isoformat(),
-                    raw_snippet=clean_desc[:400],
+                    raw_snippet=clean_desc[:450],
                     deduplication_hash=j.get("raw_content_hash", "")
                 )
                 db.merge(data_record)

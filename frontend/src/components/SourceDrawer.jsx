@@ -137,6 +137,14 @@ export default function SourceDrawer({ recordId, onClose, onRecordUpdated }) {
               <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginTop: '0.35rem' }}>
                 Captured Timestamp: {provenance.source?.captured_timestamp || 'N/A'} • Source Title: {provenance.source?.title || 'Web Intelligence'}
               </div>
+              <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.5rem', flexWrap: 'wrap' }}>
+                <span className="badge" style={{ background: 'rgba(249, 115, 22, 0.15)', color: '#fb923c', border: '1px solid rgba(249, 115, 22, 0.35)', fontSize: '0.7rem' }}>
+                  Scraper: {provenance.payload?.scraper_provider || 'Firecrawl / Web Scraper'}
+                </span>
+                <span className="badge" style={{ background: 'rgba(16, 185, 129, 0.15)', color: '#34d399', border: '1px solid rgba(16, 185, 129, 0.35)', fontSize: '0.7rem' }}>
+                  Extractor: TypeSafe Jev Deterministic Engine
+                </span>
+              </div>
             </div>
 
             {/* Jev's Job Trust Meter & Anti-Ghost Evaluation */}

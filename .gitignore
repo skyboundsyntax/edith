@@ -1,0 +1,80 @@
+# ==============================================================================
+# EDITH - Autonomous AI Job Intelligence Platform
+# Root .gitignore
+# ==============================================================================
+
+# --- Sensitive Environment & Secret Files ---
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.cert
+*.pfx
+*.p12
+credentials.json
+service-account*.json
+
+# --- Database Files (SQLite & Migrations) ---
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+*.db-wal
+*.db-shm
+data_intelligence.db
+backend/data_intelligence.db
+
+# --- Generated Export Datasets ---
+backend/exports/*.csv
+backend/exports/*.json
+!backend/exports/.gitkeep
+exports/
+
+# --- Python Bytecode & Cache ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+*.pyo
+.pytest_cache/
+.coverage
+htmlcov/
+*.egg-info/
+dist/
+build/
+
+# --- Virtual Environments ---
+.venv/
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# --- Node / Frontend Artifacts ---
+node_modules/
+frontend/node_modules/
+frontend/dist/
+frontend/dist-ssr/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.local
+
+# --- Operating System & IDE Files ---
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# --- Agent & Temporary Scratch Files ---
+.agent/
+scratch_inspect_db.py
+scratch/
+*.tmp

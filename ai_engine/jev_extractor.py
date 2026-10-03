@@ -8,8 +8,23 @@ import re
 import uuid
 import hashlib
 from datetime import datetime, timezone
-from typing import Dict, Any, List, Tuple
-from ai_engine.state import TargetSchemaDefinition, ExtractedRecord
+from typing import Dict, Any, List, Tuple, Optional
+from ai_engine.state import TargetSchemaDefinition, ExtractedRecord, SchemaField
+
+DEFAULT_JOB_SCHEMA = TargetSchemaDefinition(
+    entity_name="JobOpening",
+    description="Deterministic Job Intelligence schema",
+    fields=[
+        SchemaField(name="job_title", type="string", description="Official job title", required=True),
+        SchemaField(name="company", type="string", description="Company name", required=True),
+        SchemaField(name="location", type="string", description="Job location", required=True),
+        SchemaField(name="experience_years", type="string", description="Experience level", required=False),
+        SchemaField(name="skills", type="list", description="Technical skills", required=False),
+        SchemaField(name="salary_range", type="string", description="Compensation", required=False),
+        SchemaField(name="platform_source", type="string", description="Platform source", required=True),
+        SchemaField(name="apply_link", type="string", description="Apply URL", required=True)
+    ]
+)
 
 KNOWN_TECH_SKILLS = [
     "Python", "Django", "FastAPI", "Flask", "React", "Next.js", "Vue", "Angular",
@@ -303,3 +318,94 @@ class JevDeterministicExtractor:
             entities.append(job_entity)
 
         return entities
+
+    def audit_job_record(
+        self,
+        job: Dict[str, Any],
+        source_text: Optional[str] = None,
+        schema: Optional[TargetSchemaDefinition] = None
+    ) -> Tuple[float, Dict[str, float], bool]:
+        """
+        Audits an existing or scraped job listing against raw source text using Jev's 4-part Trust formula.
+        Returns:
+            (overall_confidence, breakdown, human_review_required)
+        """
+        target_schema = schema or DEFAULT_JOB_SCHEMA
+        extracted_data = {
+            "job_title": job.get("title") or job.get("job_title", ""),
+            "company": job.get("company", ""),
+            "location": job.get("location", ""),
+            "experience_years": str(job.get("experience_years") or job.get("experience_min") or ""),
+            "skills": job.get("skills") if isinstance(job.get("skills"), list) else [],
+            "salary_range": str(job.get("salary_range") or ""),
+            "platform_source": job.get("source") or job.get("platform_source", "Web"),
+            "apply_link": job.get("apply_url") or job.get("apply_link") or job.get("source_url", "")
+        }
+
+        raw_text = source_text
+        if not raw_text:
+            raw_text = f"{extracted_data['job_title']} {extracted_data['company']} {extracted_data['location']} {job.get('description', '')} {job.get('raw_snippet', '')}"
+
+        return self.calculate_confidence(extracted_data, target_schema, raw_text)
+
+    def extract_from_firecrawl(
+        self,
+        firecrawl_doc: Dict[str, Any],
+        query: str = ""
+    ) -> List[Dict[str, Any]]:
+        """
+        Extracts structured job entities from a Firecrawl-scraped document (markdown / html).
+        Calculates Jev Trust Meter confidence scores and binds provenance metadata.
+        """
+        raw_markdown = firecrawl_doc.get("markdown", "")
+        raw_text = firecrawl_doc.get("text", "") or raw_markdown
+        url = firecrawl_doc.get("url", "")
+        title = firecrawl_doc.get("title", "")
+        metadata = firecrawl_doc.get("metadata", {})
+
+        doc = {
+            "url": url,
+            "title": title,
+            "text": raw_text,
+            "content": raw_markdown,
+            "metadata": {
+                "job_title": metadata.get("title"),
+                "apply_link": url,
+                "platform": "Firecrawl Web Scraper",
+                **metadata
+            }
+        }
+
+        extracted_records = self.extract_from_document(
+            doc=doc,
+            schema=DEFAULT_JOB_SCHEMA,
+            query=query
+        )
+
+        results = []
+        for rec in extracted_records:
+            data = rec.data
+            results.append({
+                "id": rec.record_id,
+                "title": data.get("job_title"),
+                "company": data.get("company"),
+                "location": data.get("location"),
+                "experience_years": data.get("experience_years"),
+                "skills": data.get("skills", []),
+                "salary_range": data.get("salary_range"),
+                "apply_url": data.get("apply_link") or url,
+                "source_url": url,
+                "source": "firecrawl",
+                "platform_source": data.get("platform_source") or "Firecrawl Web Scraper",
+                "description": rec.raw_snippet or raw_text[:800],
+                "confidence_score": rec.confidence_score,
+                "confidence_breakdown": rec.confidence_breakdown,
+                "human_review_required": rec.human_review_required,
+                "raw_snippet": rec.raw_snippet,
+                "deduplication_hash": rec.deduplication_hash
+            })
+        return results
+
+# Global extractor singleton
+jev_extractor = JevDeterministicExtractor()
+

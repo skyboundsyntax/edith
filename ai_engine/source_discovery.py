@@ -282,7 +282,7 @@ class SourceDiscovery:
 
     async def fetch_document_content(self, source: Union[str, Dict[str, Any]]) -> Dict[str, Any]:
         """
-        Fetches webpage text and sanitizes HTML into readable markdown/text.
+        Fetches webpage text and sanitizes HTML into readable markdown/text using Firecrawl.
         Preserves all structured metadata from the scraping phase.
         """
         if isinstance(source, dict):
@@ -298,6 +298,27 @@ class SourceDiscovery:
 
         timestamp = datetime.now(timezone.utc).isoformat()
         
+        # 1. Primary: Use Firecrawl for clean markdown & JS-rendered DOM extraction
+        try:
+            from backend.app.services.firecrawl_service import firecrawl_service
+            fc_res = await firecrawl_service.scrape_url(url)
+            if fc_res.get("success") and fc_res.get("text"):
+                page_title = title or fc_res.get("title") or url
+                clean_text = fc_res.get("markdown") or fc_res.get("text")
+                return {
+                    "url": url,
+                    "title": page_title,
+                    "text": clean_text if len(clean_text) > 80 else (seed_content or clean_text),
+                    "markdown": fc_res.get("markdown", ""),
+                    "metadata": {**initial_metadata, **(fc_res.get("metadata") or {})},
+                    "status": "success",
+                    "provider": fc_res.get("provider", "firecrawl"),
+                    "timestamp": timestamp
+                }
+        except Exception as e:
+            logger.warning(f"Firecrawl scrape notice for {url}: {e}. Trying direct fetch.")
+
+        # 2. Resilient Direct HTTP fallback
         try:
             async with httpx.AsyncClient(headers=BROWSER_HEADERS, timeout=10.0, follow_redirects=True) as client:
                 resp = await client.get(url)
@@ -325,6 +346,7 @@ class SourceDiscovery:
                         "text": clean_text if len(clean_text) > 80 else (seed_content or clean_text),
                         "metadata": initial_metadata,
                         "status": "success",
+                        "provider": "direct_http",
                         "timestamp": timestamp
                     }
         except Exception as e:
@@ -337,6 +359,7 @@ class SourceDiscovery:
             "text": seed_content or f"Verified career listing from {url}. Actively hiring.",
             "metadata": initial_metadata,
             "status": "partial",
+            "provider": "snippet_fallback",
             "timestamp": timestamp
         }
 
