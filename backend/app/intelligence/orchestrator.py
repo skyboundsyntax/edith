@@ -101,12 +101,44 @@ async def run_job_ingestion_pipeline(
     """
     start_time = time.time()
     db = SessionLocal()
+    accumulated_logs: List[Dict[str, Any]] = []
 
     async def emit(event_type: str, data: Dict[str, Any]):
+        iso_now = datetime.now(timezone.utc).isoformat()
+        node_stage = "intent_parsing"
+        if event_type in ["source_started", "jobs_found", "source_completed"]:
+            node_stage = "source_discovery"
+        elif event_type in ["normalization_completed", "validation_completed"]:
+            node_stage = "extraction_mapping"
+        elif event_type in ["deduplication_completed", "scoring_completed", "pipeline_completed"]:
+            node_stage = "deduplication_scoring"
+
+        log_msg = data.get("message")
+        if not log_msg:
+            if event_type == "source_started":
+                log_msg = f"Connecting to {data.get('source')} ({data.get('domain')})..."
+            elif event_type == "jobs_found":
+                log_msg = f"{data.get('source')}: Discovered {data.get('count')} candidate records in {data.get('duration_ms')}ms."
+            elif event_type == "source_completed":
+                log_msg = f"{data.get('source')}: Ingestion phase completed with status: {data.get('status', 'OK')}."
+            elif event_type == "pipeline_started":
+                log_msg = data.get("message", "Initiating autonomous data intelligence pipeline...")
+            else:
+                log_msg = str(data)
+
+        log_entry = {
+            "timestamp": iso_now,
+            "node": node_stage,
+            "message": log_msg
+        }
+        accumulated_logs.append(log_entry)
+
         payload = {
             "workflow_id": workflow_id,
             "event": event_type,
-            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "node": node_stage,
+            "timestamp": iso_now,
+            "message": log_msg,
             **data
         }
         if event_callback:
@@ -118,9 +150,11 @@ async def run_job_ingestion_pipeline(
                 logger.warning(f"WebSocket emit error: {e}")
 
     try:
-        # Step 1: Initialize
+        # Step 1: Dynamic Intent Parsing
+        domain_type = query_spec.get("intent_parsing", {}).get("domain_type", "TALENT_JOBS")
+        primary_entity = query_spec.get("intent_parsing", {}).get("primary_role", "Target Entity")
         await emit("pipeline_started", {
-            "message": "Initiating autonomous multi-source job intelligence pipeline...",
+            "message": f"Stage 1 [Intent Parsing]: Domain resolved as {domain_type}. Dynamic schema mapped for '{primary_entity}'.",
             "query_spec": query_spec
         })
 
@@ -169,7 +203,7 @@ async def run_job_ingestion_pipeline(
         total_discovered = len(all_raw_jobs)
         await emit("normalization_completed", {
             "count": total_discovered,
-            "message": f"{total_discovered} jobs collected across {len(sources_searched)} source providers."
+            "message": f"Stage 3 [Extraction & Schema Mapping]: Normalizing {total_discovered} raw records across {len(sources_searched)} source providers."
         })
 
         # Step 3: Deduplication
@@ -178,7 +212,7 @@ async def run_job_ingestion_pipeline(
             "total_before": total_discovered,
             "total_after": len(canonical_jobs),
             "removed": duplicates_pruned,
-            "message": f"Deduplication pruned {duplicates_pruned} cross-platform duplicate postings."
+            "message": f"Stage 4 [Deduplication & Trust Scoring]: Deduplication pruned {duplicates_pruned} duplicates. Ingesting {len(canonical_jobs)} unique entities."
         })
 
         # Step 4: Validation & Liveness & Localization Filtering
@@ -343,7 +377,7 @@ async def run_job_ingestion_pipeline(
             "count": len(scored_jobs),
             "top_score": scored_jobs[0]["match_score"] if scored_jobs else 0,
             "human_review_count": human_review_count,
-            "message": f"Calculated 100-point explainable match scores for all {len(scored_jobs)} listings."
+            "message": f"Stage 4 [Deduplication & Trust Scoring]: Calculated explainable semantic fit and Jev trust scores for all {len(scored_jobs)} entities."
         })
 
         # Step 6: Persist into Database
@@ -355,6 +389,7 @@ async def run_job_ingestion_pipeline(
             workflow.duplicates_pruned = duplicates_pruned
             workflow.human_review_count = human_review_count
             workflow.sources_searched = sources_searched
+            workflow.execution_logs = accumulated_logs
             workflow.completed_at = datetime.now(timezone.utc)
 
             # Persist canonical JobModel records
@@ -495,8 +530,12 @@ async def run_job_ingestion_pipeline(
             "duplicates_removed": duplicates_pruned,
             "sources_searched": sources_searched,
             "duration_ms": total_duration,
-            "message": f"Pipeline completed in {total_duration}ms. {len(scored_jobs)} genuine jobs ready for review."
+            "message": f"Stage 4 [Deduplication & Trust Scoring]: Ingestion cycle completed in {total_duration}ms. {len(scored_jobs)} verified records ready."
         })
+
+        if workflow:
+            workflow.execution_logs = accumulated_logs
+            db.commit()
 
         return {
             "status": "completed",
@@ -511,6 +550,7 @@ async def run_job_ingestion_pipeline(
         logger.error(f"Ingestion pipeline critical error: {e}", exc_info=True)
         if workflow:
             workflow.status = "failed"
+            workflow.execution_logs = accumulated_logs + [{"timestamp": datetime.now(timezone.utc).isoformat(), "node": "error", "message": f"Critical pipeline failure: {e}"}]
             db.commit()
         await emit("pipeline_failed", {"error": str(e)})
         raise

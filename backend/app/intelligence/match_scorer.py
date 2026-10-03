@@ -46,13 +46,82 @@ def score_job_match(job: Dict[str, Any], query_spec: Dict[str, Any], weights: Op
     job_tech = [t.lower() for t in (job.get("technologies") or [])]
     combined_job_text = f"{title} {description} {' '.join(job_skills)} {' '.join(job_tech)}"
 
+    # 0. Semantic Domain & Intent Disambiguation Gate
+    query_roles = [r.lower() for r in (query_spec.get("roles") or [])]
+    query_keywords = [k.lower() for k in (query_spec.get("keywords") or [])]
+    raw_prompt = (query_spec.get("raw_prompt") or " ".join(query_roles + query_keywords)).lower()
+
+    SPORTS_CLUSTERS = {
+        "football": ["football", "soccer", "fifa", "futsal"],
+        "tennis": ["tennis", "racquet", "wimbledon", "atp", "wta"],
+        "fencing": ["fencing", "epee", "foil", "sabre"],
+        "track": ["track and field", "track & field", "track coach", "athletics coach", "sprint", "decathlon"],
+        "cricket": ["cricket", "ipl"],
+        "badminton": ["badminton", "shuttlecock"],
+        "basketball": ["basketball", "nba"],
+        "swimming": ["swimming", "aquatics"],
+        "golf": ["golf", "pga"],
+        "hockey": ["hockey", "field hockey", "ice hockey"],
+        "baseball": ["baseball", "softball"],
+        "volleyball": ["volleyball"],
+        "rugby": ["rugby"],
+        "boxing": ["boxing", "kickboxing"],
+        "wrestling": ["wrestling", "judo", "bjj", "mma"]
+    }
+
+    GENERIC_ROLE_TERMS = {
+        "coach", "trainer", "instructor", "developer", "engineer", "manager",
+        "specialist", "assistant", "director", "intern", "executive", "lead",
+        "officer", "analyst", "consultant", "coordinator", "worker", "associate",
+        "head", "expert", "job", "opening", "vacancy", "role", "position"
+    }
+
+    # Detect if query targeted a specific sport/discipline
+    query_target_sport = None
+    for sport_key, aliases in SPORTS_CLUSTERS.items():
+        if any(re.search(r'\b' + re.escape(a) + r'\b', raw_prompt) for a in aliases):
+            query_target_sport = sport_key
+            break
+
+    # Detect if candidate item belongs to a conflicting sport
+    conflicting_sport = None
+    candidate_has_target_sport = False
+    if query_target_sport:
+        target_aliases = SPORTS_CLUSTERS[query_target_sport]
+        candidate_has_target_sport = any(re.search(r'\b' + re.escape(a) + r'\b', combined_job_text) for a in target_aliases)
+        for sport_key, aliases in SPORTS_CLUSTERS.items():
+            if sport_key != query_target_sport:
+                if any(re.search(r'\b' + re.escape(a) + r'\b', title) for a in aliases):
+                    conflicting_sport = sport_key
+                    break
+
+    # Extract non-generic qualifiers from query (e.g. 'football' from 'football coach')
+    query_tokens = [w for w in re.findall(r'\b[a-z]{3,}\b', raw_prompt) if w not in {"and", "for", "the", "with", "all", "across", "jobs", "job", "find", "search"}]
+    query_qualifiers = [t for t in query_tokens if t not in GENERIC_ROLE_TERMS]
+
+    candidate_tokens = set(re.findall(r'\b[a-z]{3,}\b', combined_job_text))
+    qualifier_matches = [q for q in query_qualifiers if q in candidate_tokens]
+
+    # Critical intent failure detection
+    has_critical_intent_mismatch = False
+    mismatch_reason = ""
+    if query_target_sport and conflicting_sport:
+        has_critical_intent_mismatch = True
+        mismatch_reason = f"Discipline mismatch: Query requested {query_target_sport.title()}, but listing is for {conflicting_sport.title()}."
+    elif query_target_sport and not candidate_has_target_sport:
+        has_critical_intent_mismatch = True
+        mismatch_reason = f"Missing core discipline: No mention of {query_target_sport.title()} in listing."
+    elif query_qualifiers and len(qualifier_matches) == 0:
+        # Candidate matched zero qualifiers (e.g. only matched generic 'coach' or 'developer')
+        has_critical_intent_mismatch = True
+        mismatch_reason = f"Query intent mismatch: Missing required qualifiers ({', '.join(query_qualifiers[:3])})."
+
     # 1. Skills Match (30 pts)
     target_skills = [s.lower() for s in (query_spec.get("skills") or [])]
     if target_skills:
         matched_skills = []
         missing_skills = []
         for s in target_skills:
-            # Word boundary matching is critical for short tokens like 'ai', 'ml', 'go', 'r', 'c'
             pattern = r'\b' + re.escape(s) + r'\b'
             if re.search(pattern, combined_job_text):
                 matched_skills.append(s)
@@ -65,14 +134,21 @@ def score_job_match(job: Dict[str, Any], query_spec: Dict[str, Any], weights: Op
         for s in missing_skills[:2]:
             potential_gaps.append(f"⚠ {s.title()} not explicitly emphasized")
     else:
-        skills_score = round(0.85 * w["skills"])
-        why_it_matches.append("✓ Technical skill profile aligns")
+        if has_critical_intent_mismatch:
+            skills_score = 0
+        else:
+            skills_score = round(0.85 * w["skills"])
+            why_it_matches.append("✓ Domain profile aligns")
     breakdown["skills"] = {"score": skills_score, "max": w["skills"]}
 
     # 2. Role / Title Match (20 pts)
     target_roles = [r.lower() for r in (query_spec.get("roles") or [])]
     role_matched = False
-    if target_roles:
+
+    if has_critical_intent_mismatch:
+        role_score = 0
+        potential_gaps.append(f"⚠ {mismatch_reason}")
+    elif target_roles:
         for r in target_roles:
             r_pattern = r'\b' + re.escape(r) + r'\b'
             if re.search(r_pattern, title):
@@ -82,10 +158,18 @@ def score_job_match(job: Dict[str, Any], query_spec: Dict[str, Any], weights: Op
             # Match significant words with word boundaries
             stopwords = {"and", "for", "the", "role", "level", "jobs", "job", "in", "at", "with", "a", "an"}
             role_words = [w_tok for w_tok in re.findall(r'\b\w+\b', r) if len(w_tok) >= 3 and w_tok not in stopwords]
-            if role_words and any(re.search(r'\b' + re.escape(w_tok) + r'\b', title) for w_tok in role_words):
+            # Must match at least one qualifier or all non-generic words
+            non_generic_role_words = [w_tok for w_tok in role_words if w_tok not in GENERIC_ROLE_TERMS]
+            if non_generic_role_words:
+                if any(re.search(r'\b' + re.escape(w_tok) + r'\b', title) for w_tok in non_generic_role_words):
+                    role_matched = True
+                    why_it_matches.append(f"✓ Target role match ({r.title()})")
+                    break
+            elif role_words and any(re.search(r'\b' + re.escape(w_tok) + r'\b', title) for w_tok in role_words):
                 role_matched = True
                 why_it_matches.append(f"✓ Target role match ({r.title()})")
                 break
+
         role_score = w["role"] if role_matched else round(0.3 * w["role"])
         if not role_matched:
             potential_gaps.append("⚠ Role title differs from target keywords")
@@ -230,6 +314,8 @@ def score_job_match(job: Dict[str, Any], query_spec: Dict[str, Any], weights: Op
     breakdown["requirements"] = {"score": req_pts, "max": w["requirements"]}
 
     total_score = sum(b["score"] for b in breakdown.values())
+    if has_critical_intent_mismatch:
+        total_score = min(28.0, total_score * 0.4)
     total_score = max(0, min(100, total_score))
 
     # Job Quality & Risk Signals (Separate from Match Score)

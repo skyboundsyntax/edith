@@ -60,7 +60,11 @@ class FirecrawlConnector(JobSourceConnector):
         if loc_term and loc_term.lower() not in role_term.lower() and loc_term.lower() not in ["remote", "online"]:
             query_parts.append(f"in {loc_term}")
 
-        search_query = f"{' '.join(query_parts)} jobs".strip()
+        domain_type = query_spec.get("intent_parsing", {}).get("domain_type", "TALENT_JOBS")
+        if domain_type == "TALENT_JOBS":
+            search_query = f"{' '.join(query_parts)} jobs".strip()
+        else:
+            search_query = raw_prompt or ' '.join(query_parts)
 
         try:
             # 1. Scrape web openings via Firecrawl search if configured

@@ -88,18 +88,17 @@ class ErrorBoundary extends React.Component {
 }
 
 const PRESET_PROMPTS = [
-  'Python Backend & AI Engineer Jobs across India (₹12-25 LPA)',
-  'Active Python Backend & FastAPI Roles (Remote / Bangalore, ₹12-25 LPA)',
-  'React 19 & Full Stack Openings across LinkedIn & ATS boards (₹10-22 LPA)',
-  'Generative AI, PyTorch & LLM Systems Engineer Jobs (₹35-70 LPA / Remote)',
-  'Fresher & SDE-1 Engineering Jobs across India (₹6-12 LPA)',
-  'DevOps, Kubernetes & Cloud Architecture Vacancies (₹18-35 LPA)'
+  'Identify top-funded Seed-stage AI Startups in India',
+  'Extract active sponsorship opportunities for tech events',
+  'Gather job postings for Football Coaches across sports academies',
+  'Find Python Backend & AI Engineer jobs in Bangalore (₹18-35 LPA)',
+  'Extract high-yield B2B SaaS affiliate & partnership programs'
 ];
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('dashboard');
   const [dashboardViewMode, setDashboardViewMode] = useState('cards');
-  const [prompt, setPrompt] = useState('Find Python, AI/ML, Full Stack & Backend Engineer jobs in India, ₹12-30 LPA');
+  const [prompt, setPrompt] = useState('Identify top-funded Seed-stage AI Startups in India');
   const [searchTerm, setSearchTerm] = useState('');
   const [activeLocationFilter, setActiveLocationFilter] = useState('ALL');
   const [activeSalaryBracket, setActiveSalaryBracket] = useState('ALL');
@@ -148,8 +147,18 @@ export default function App() {
         if (details.workflow.prompt) {
           setPrompt(details.workflow.prompt);
         }
-        setExecutionLogs(details.workflow.execution_logs || []);
-        setCurrentNode('human_review_evaluation');
+        const savedLogs = details.workflow.execution_logs;
+        if (savedLogs && savedLogs.length > 0) {
+          setExecutionLogs(savedLogs);
+        } else {
+          setExecutionLogs([
+            { timestamp: details.workflow.created_at || new Date().toISOString(), node: 'intent_parsing', message: `Stage 1 [Intent Parsing]: Domain analyzed and schema planned for '${details.workflow.prompt}'` },
+            { timestamp: details.workflow.created_at || new Date().toISOString(), node: 'source_discovery', message: `Stage 2 [Source Discovery]: Discovered ${details.workflow.total_extracted || 0} candidate records across multi-source web index.` },
+            { timestamp: details.workflow.completed_at || new Date().toISOString(), node: 'extraction_mapping', message: `Stage 3 [Extraction & Schema Mapping]: Canonical schema normalized & validated.` },
+            { timestamp: details.workflow.completed_at || new Date().toISOString(), node: 'deduplication_scoring', message: `Stage 4 [Deduplication & Trust Scoring]: Deduplicated ${details.workflow.total_deduplicated || 0} verified records. Trust scoring completed.` }
+          ]);
+        }
+        setCurrentNode('deduplication_scoring');
         setMetrics({
           total_extracted: details.workflow.total_extracted,
           total_deduplicated: details.workflow.total_deduplicated,
@@ -284,11 +293,11 @@ export default function App() {
 
     setPrompt(query);
     setIsRunning(true);
-    setCurrentNode('query_planning');
+    setCurrentNode('intent_parsing');
     setExecutionLogs([{
       timestamp: new Date().toISOString(),
-      node: 'query_planning',
-      message: `Analyzing query and dispatching multi-source ATS connectors...`
+      node: 'intent_parsing',
+      message: `Stage 1 [Intent Parsing]: Analyzing prompt '${query}' and dispatching autonomous pipeline...`
     }]);
 
     // Fast-path client side intent & semantic reasoning parsing
@@ -317,16 +326,16 @@ export default function App() {
         newWf.id,
         (event) => {
           const evType = event.event || event.type;
-          let nodeKey = 'query_planning';
+          let nodeKey = event.node || 'intent_parsing';
 
           if (evType === 'source_started' || evType === 'jobs_found' || evType === 'source_completed') {
-            nodeKey = 'source_connectors';
-          } else if (evType === 'normalization_completed') {
-            nodeKey = 'normalization';
-          } else if (evType === 'deduplication_completed') {
-            nodeKey = 'deduplication';
-          } else if (evType === 'validation_completed' || evType === 'scoring_completed') {
-            nodeKey = 'match_scoring';
+            nodeKey = 'source_discovery';
+          } else if (evType === 'normalization_completed' || evType === 'validation_completed') {
+            nodeKey = 'extraction_mapping';
+          } else if (evType === 'deduplication_completed' || evType === 'scoring_completed' || evType === 'pipeline_completed') {
+            nodeKey = 'deduplication_scoring';
+          } else if (evType === 'pipeline_started') {
+            nodeKey = 'intent_parsing';
           }
 
           setCurrentNode(nodeKey);
@@ -565,7 +574,7 @@ export default function App() {
                     <input
                       type="text"
                       className="prompt-input"
-                      placeholder="Enter target role, tech stack, or location (e.g. 'Python & AI Engineer jobs in Pune, minimum ₹8 LPA')..."
+                      placeholder="Enter data query (e.g. 'Identify top-funded Seed-stage AI Startups in India' or 'Football Coach in sports academies')..."
                       value={prompt}
                       onChange={(e) => setPrompt(e.target.value)}
                       disabled={isRunning}
@@ -577,13 +586,13 @@ export default function App() {
                       style={{ padding: '0.65rem 1.35rem', borderRadius: '10px', display: 'flex', alignItems: 'center', gap: '0.45rem', fontWeight: 700 }}
                     >
                       <Play size={15} fill="white" />
-                      <span>{isRunning ? 'Scraping Portals...' : 'Scrape Real Jobs'}</span>
+                      <span>{isRunning ? 'Extracting Data...' : 'Run Extraction'}</span>
                     </button>
                   </div>
 
                   {/* Prompt Presets */}
                   <div className="prompt-presets" style={{ marginTop: '0.85rem' }}>
-                    <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-muted)' }}>QUICK CAREER TEMPLATES:</span>
+                    <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-muted)' }}>DYNAMIC QUERY TEMPLATES:</span>
                     {PRESET_PROMPTS.map((p, i) => (
                       <button
                         key={i}
@@ -680,19 +689,21 @@ export default function App() {
                 isRunning={isRunning}
               />
 
-              {/* 4b. Strict Salary Bracket Filter Bar */}
-              <SalaryBracketFilterBar
-                activeBracket={activeSalaryBracket}
-                onSelectBracket={setActiveSalaryBracket}
-                detectedQueryBracket={detectedQueryBracket}
-                onClearQueryBracket={() => {
-                  if (detectedQueryBracket.hasSalaryFilter) {
-                    setSearchTerm(detectedQueryBracket.remainingQuery);
-                  }
-                }}
-              />
+              {/* 4b. Strict Salary Bracket Filter Bar (Shown when relevant to compensation) */}
+              {(activeWorkflow?.parsed_spec?.intent_parsing?.domain_type === 'TALENT_JOBS' || (!activeWorkflow?.parsed_spec && !prompt.toLowerCase().includes('startup') && !prompt.toLowerCase().includes('sponsor'))) && (
+                <SalaryBracketFilterBar
+                  activeBracket={activeSalaryBracket}
+                  onSelectBracket={setActiveSalaryBracket}
+                  detectedQueryBracket={detectedQueryBracket}
+                  onClearQueryBracket={() => {
+                    if (detectedQueryBracket.hasSalaryFilter) {
+                      setSearchTerm(detectedQueryBracket.remainingQuery);
+                    }
+                  }}
+                />
+              )}
 
-              {/* 5. Verified Openings Header with View Mode Switcher */}
+              {/* 5. Verified Entities Header with View Mode Switcher */}
               <div style={{
                 display: 'flex',
                 alignItems: 'center',
@@ -704,9 +715,15 @@ export default function App() {
                 <div>
                   <h3 style={{ margin: 0, fontSize: '1.25rem', fontWeight: 700, color: '#ffffff', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                     <Butterfly size={19} color="var(--accent-amber)" />
-                    <span>Real-Time Scraped Openings</span>
+                    <span>
+                      {activeWorkflow?.parsed_spec?.intent_parsing?.domain_type === 'MARKET_DATA' || prompt.toLowerCase().includes('startup')
+                        ? 'Real-Time Verified Startups & Market Entities'
+                        : activeWorkflow?.parsed_spec?.intent_parsing?.domain_type === 'SPONSORSHIPS' || prompt.toLowerCase().includes('sponsor')
+                        ? 'Real-Time Verified Sponsorship Opportunities'
+                        : 'Real-Time Scraped & Verified Openings'}
+                    </span>
                     <span style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-muted)' }}>
-                      ({filteredRecords.length} Active Positions{activeLocationFilter !== 'ALL' ? ` in ${activeLocationFilter}` : ''}{activeSalaryBracket !== 'ALL' && !detectedQueryBracket.hasSalaryFilter ? ` • ₹${activeSalaryBracket} LPA` : detectedQueryBracket.hasSalaryFilter ? ` • Query ₹${detectedQueryBracket.minLpa}${detectedQueryBracket.maxLpa ? `-${detectedQueryBracket.maxLpa}` : '+'} LPA` : ''})
+                      ({filteredRecords.length} Verified Records{activeLocationFilter !== 'ALL' ? ` in ${activeLocationFilter}` : ''})
                     </span>
                   </h3>
                 </div>
@@ -812,7 +829,11 @@ export default function App() {
 
             {/* Right Column: Salary Intelligence Widget & Skill Demand Trend & Trust Badge */}
             <aside className="edith-right-column">
-              <SalaryIntelligenceWidget records={records} />
+              <SalaryIntelligenceWidget
+                records={records}
+                spec={activeWorkflow?.parsed_spec || liveSpec}
+                prompt={prompt}
+              />
               <SkillDemandWidget records={records} />
 
               {/* Jev's Anti-Ghost Trust Badge Card */}
@@ -860,7 +881,12 @@ export default function App() {
         {/* Analytics & Pipeline View */}
         {activeTab === 'analytics' && (
           <div style={{ padding: '1rem 2.25rem 4rem 2.25rem', display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-            <MetricsCards metrics={metrics} activeWorkflow={activeWorkflow} records={records} />
+            <MetricsCards
+              metrics={metrics}
+              activeWorkflow={activeWorkflow}
+              records={records}
+              domain={activeWorkflow?.parsed_spec?.intent_parsing?.domain_type || liveSpec?.intent_parsing?.domain_type}
+            />
             <IntentReasoningPanel
               spec={activeWorkflow?.parsed_spec || liveSpec}
               prompt={prompt}
@@ -872,7 +898,11 @@ export default function App() {
                 status={isRunning ? 'running' : activeWorkflow?.status || 'idle'}
                 logs={executionLogs}
               />
-              <SalaryIntelligenceWidget records={records} />
+              <SalaryIntelligenceWidget
+                records={records}
+                spec={activeWorkflow?.parsed_spec || liveSpec}
+                prompt={prompt}
+              />
             </div>
           </div>
         )}

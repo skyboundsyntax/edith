@@ -1,36 +1,34 @@
 import React from 'react';
-import { BrainCircuit, Search, Cpu, GitMerge, Terminal } from 'lucide-react';
+import { BrainCircuit, Search, Cpu, GitMerge, Terminal, Activity } from 'lucide-react';
 
 const EDITH_NODES = [
   {
-    id: 'query_planning',
-    title: 'Stage 1: Intent & Semantic Reasoning',
-    desc: 'Structured Intent & Routing Plan',
-    icon: BrainCircuit
+    id: 'intent_parsing',
+    title: 'Stage 1: Intent Parsing',
+    desc: 'Semantic Intent & Schema Planning',
+    icon: BrainCircuit,
+    aliases: ['query_planning', 'intent_parser']
   },
   {
-    id: 'source_connectors',
-    title: 'Stage 2: Parallel Connectors',
-    desc: 'LinkedIn • Firecrawl • Ashby • Lever',
-    icon: Search
+    id: 'source_discovery',
+    title: 'Stage 2: Source Discovery & Scraping',
+    desc: 'Autonomous Web & API Ingestion',
+    icon: Search,
+    aliases: ['source_connectors']
   },
   {
-    id: 'normalization',
-    title: 'Stage 3: Normalization',
-    desc: 'Canonical Schema Mapping',
-    icon: Cpu
+    id: 'extraction_mapping',
+    title: 'Stage 3: Extraction & Schema Mapping',
+    desc: 'Target Entity Extraction & Normalization',
+    icon: Cpu,
+    aliases: ['normalization', 'data_extraction']
   },
   {
-    id: 'deduplication',
-    title: 'Stage 4: Deduplication',
-    desc: 'Domain & Cosine Similarity',
-    icon: GitMerge
-  },
-  {
-    id: 'match_scoring',
-    title: 'Stage 5: Match Scorer',
-    desc: 'Explainable 100-pt Fit & Gaps',
-    icon: Cpu
+    id: 'deduplication_scoring',
+    title: 'Stage 4: Deduplication & Trust Scoring',
+    desc: 'Exact/Cosine Deduplication & Semantic Trust Scoring',
+    icon: GitMerge,
+    aliases: ['deduplication', 'match_scoring', 'human_review_evaluation', 'vector_deduplication']
   }
 ];
 
@@ -39,21 +37,23 @@ export default function WorkflowGraph({
   status = 'pending',
   logs = []
 }) {
-  const getNodeState = (nodeId, index) => {
+  const getNodeState = (node, index) => {
     if (status === 'completed') return 'completed';
-    if (currentNode === nodeId) return 'active';
+    if (currentNode === node.id || (node.aliases && node.aliases.includes(currentNode))) return 'active';
     
-    const currentIndex = EDITH_NODES.findIndex((n) => n.id === currentNode);
+    const currentIndex = EDITH_NODES.findIndex((n) => n.id === currentNode || (n.aliases && n.aliases.includes(currentNode)));
     if (currentIndex > index) return 'completed';
     return 'idle';
   };
+
+  const safeLogs = Array.isArray(logs) ? logs : [];
 
   return (
     <div className="glass-panel workflow-graph-section">
       <div className="graph-header">
         <h2>
           <BrainCircuit size={20} color="var(--accent-amber)" />
-          <span>Autonomous Job Intelligence & Ingestion Pipeline</span>
+          <span>Autonomous Data Intelligence & Extraction Pipeline</span>
         </h2>
         <div className="status-badge" style={{ textTransform: 'capitalize' }}>
           <span className="pulse-dot"></span>
@@ -61,11 +61,11 @@ export default function WorkflowGraph({
         </div>
       </div>
 
-      {/* Visual Node Flow Track */}
+      {/* Visual Dynamic Node Flow Track */}
       <div className="node-flow-track">
         <div className="flow-connector-line"></div>
         {EDITH_NODES.map((node, idx) => {
-          const state = getNodeState(node.id, idx);
+          const state = getNodeState(node, idx);
           const Icon = node.icon;
 
           return (
@@ -86,13 +86,16 @@ export default function WorkflowGraph({
           <Terminal size={14} />
           <span style={{ fontSize: '0.725rem', letterSpacing: '0.05em' }}>LIVE AGENT TELEMETRY & STATE LOG</span>
         </div>
-        {!logs || logs.length === 0 ? (
+        {safeLogs.length === 0 ? (
           <div className="log-line">
-            <span className="log-time">--:--:--</span>
-            <span className="log-msg" style={{ color: 'var(--text-muted)' }}>Awaiting prompt execution to launch LangGraph cycle...</span>
+            <span className="log-time">{new Date().toLocaleTimeString()}</span>
+            <span className="log-node">[telemetry]</span>
+            <span className="log-msg" style={{ color: 'var(--text-muted)' }}>
+              Live agent stream active. Listening for real-time LangGraph execution events...
+            </span>
           </div>
         ) : (
-          (Array.isArray(logs) ? logs : []).slice(-6).map((log, i) => {
+          safeLogs.slice(-8).map((log, i) => {
             if (!log) return null;
             let timeStr = '--:--:--';
             try {
@@ -100,7 +103,7 @@ export default function WorkflowGraph({
             } catch {
               timeStr = new Date().toLocaleTimeString();
             }
-            const nodeStr = typeof log === 'object' && log?.node ? log.node : 'agent';
+            const nodeStr = typeof log === 'object' && log?.node ? log.node : 'pipeline';
             const msgStr = typeof log === 'object' && log?.message ? log.message : (typeof log === 'string' ? log : JSON.stringify(log));
 
             return (
